@@ -198,10 +198,20 @@ Client asks to DNS Server an Entry Point Ip for the system, and the server sends
 ## Communication Protocol
 System is designed to be compatible with Memcached communication protocol (https://github.com/memcached/memcached/blob/master/doc/protocol.txt) for get and set operation.
 Optionally a client could define the consistency level of a single value.
-(https://github.com/memcached/memcached/wiki/Commands) 
+(https://github.com/memcached/memcached/wiki/Commands)
 ## Deployment
 Application will run almost always on virtual machines, target is to deploy it to Amazon Web Services EC2 instances.
 Application will run on VMs, so OS will be Linux to improve performance.
+
+## Hardware Requirements
+Application is multi thread, a Multi Core CPU is suggested but not needed. Load on CPU is light.
+Otherwise ram is the key of the hardware requirements. Size is more important than speed, moreover it's suggested to use machines with the same amount of RAM.
+
+There's no limit to Ram size, but it's needed at least 256 Mb per machine.
+
+*If the system is composed by machine with a different amount of RAM system is able to reach equilibrium after an adaptation initial phase. At the beginning, with higher probability than other machines, system with less available ram tends to duplicate itself more often than others, damaging system performance. After that the system, with fixed request rate, will setup to a stable configuration.*
+
+
 ## Programming Language
 Application is based on Ram sharing, as a service, so it needs to easily access and manage in memory values.
 Java (Hazelcast implementation) Memory management is demanded to JVM and Garbage Collector, in his 32 bit version supports a maximum of 2 GB of memory for each process. In 64 bit version this limit is not valid, but performance with a lot of used ram are poor.
@@ -213,6 +223,8 @@ Python is an interpreted language based on C. Performance are not comparable wit
 Almost all latence of the distributed application depends on network delay, not execution time, so programming language execution speed is not relevant for system behaviour.
 
 Moreover Python is compatible with a lot of third party libraries.
+
+Due to linux standard Python interpreter, used version is 2.7
 
 ## External Libraries
 We are thinking about using ZMQ library with Python to manage communication between nodes.
