@@ -1,6 +1,19 @@
 # Cell Cycle Specification
 A proposal for Elastic Distributed Shared Memory in the Cloud Application
 
+![picture alt](https://github.com/AQuadroTeam/CellsCycle/blob/master/cellCycleexample.png)
+
+
+# Target
+Cells Cycle is a P2P architecture for a distributed shared memory in the cloud, elastic. 
+Informations are stored like KeyValue objects, values are raw data.
+
+* Memory - System is able to store KeyValue objects, in this case volatile memory like DRAM
+* Distributed - System is composed by different machines where software is executing, all cooperating
+* Shared - All machines have their own ram. Memory available to all machines is used to offer memory storage service.
+* Elastic - System is able to scale up and scale down, using the numbers of active machines. 
+
+
 # Needs
 
 ## Not functional
@@ -28,16 +41,6 @@ https://github.com/hazelcast/hazelcast
 
 
 
-
-# Target
-Cells Cycle is a P2P architecture for a distributed shared memory in the cloud, elastic. 
-Informations are stored like KeyValue objects, values are raw data.
-
-* Memory - System is able to store KeyValue objects, in this case volatile memory like DRAM
-* Distributed - System is composed by different machines where software is executing, all cooperating
-* Shared - All machines have their own ram. Memory available to all machines is used to offer memory storage service.
-* Elastic - System is able to scale up and scale down, using the numbers of active machines. 
-
 # Overview
 Nodes of the system are structured as a circle, a cycle. Every element is linked before and after with another node. Nodes are numbered clockwise through float ids.
 Each node splits his ram to manage his data (he’s the Master of this data) and backup data of previous node (he’s the Slave of this data).
@@ -61,7 +64,7 @@ Values have an expiration time, after that the value can be deleted from the sys
 
 Every node could be an entry point for the memory provider service.
  
-![picture alt](https://github.com/AQuadroTeam/CellsCycle/blob/master/cellCycleexample.png)
+
  
 # Cycle Operations
 ## Adding a node (cell duplication)
