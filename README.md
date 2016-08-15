@@ -1,7 +1,9 @@
 # Cell Cycle Specification
 *A proposal for Elastic Distributed Shared Memory in the Cloud Application*
 
-![picture alt](https://github.com/AQuadroTeam/CellsCycle/blob/master/doc/cellCycleexample.png)
+![picture alt](https://github.com/AQuadroTeam/CellsCycle/blob/master/doc/icon.png)
+
+
 
 
 # Target
@@ -12,6 +14,7 @@ Informations are stored like KeyValue objects, values are raw data.
 * Distributed - System is composed by different machines where software is executing, all cooperating
 * Shared - All machines have their own ram. Memory available to all machines is used to offer memory storage service.
 * Elastic - System is able to scale up and scale down, using the numbers of active machines. 
+
 
 
 # Needs
@@ -49,6 +52,10 @@ So, each node is a Master, while it’s the slave of the previous node.
 Values have an expiration time, after that the value can be deleted from the system (if it wasn’t updated, in that case the expiration date is incremented).
 
 Every node could be an entry point for the memory provider service.
+
+
+![picture alt](https://github.com/AQuadroTeam/CellsCycle/blob/master/doc/cellCycleexample.png)
+
 
 # Name Space of keys
 To split name space of the keys, every node chooses a contiguous set of keys. Every node continues the name space set of the previous one.
