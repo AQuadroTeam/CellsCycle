@@ -1,15 +1,14 @@
 #! /usr/bin/env python
-FILE_PATH = "./config.txt"
 
 class SettingsManager:
 
     def __init__(self):
          self.configDict = {}
-         self.filePath = FILE_PATH
 
 
-    def readConfigurationFile(self):
-         with open(FILE_PATH, 'r') as f:
+    def readConfigurationFile(self, filePath):
+        self.filePath = filePath
+        with open(filePath, 'r') as f:
              for line in f:
                  splitLine = line.split()
                  self.configDict[splitLine[0]] = splitLine[1:]
