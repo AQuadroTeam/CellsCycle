@@ -1,2 +1,2 @@
-Bellezza Molto_Bello
-Altezza Quanto_Il_Monte_Bianco
+LogFile logFile.txt
+Verbose True

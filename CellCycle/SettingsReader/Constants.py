@@ -1,0 +1,3 @@
+
+LOGFILE = "LogFile"
+VERBOSE = "Verbose"

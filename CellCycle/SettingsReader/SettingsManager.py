@@ -1,20 +1,22 @@
 #! /usr/bin/env python
+from SettingsObject import SettingsObject
 
 class SettingsManager:
 
     def __init__(self):
          self.configDict = {}
 
-
-    def readConfigurationFile(self, filePath):
+    def readConfigurationFromFile(self, filePath):
         self.filePath = filePath
+        # this dict will initialize SettingObject
+        dict = {}
+
         with open(filePath, 'r') as f:
              for line in f:
                  splitLine = line.split()
-                 self.configDict[splitLine[0]] = splitLine[1:]
+                 dict[splitLine[0]] = splitLine[1:]
 
              f.close()
 
-    def printAllSettings(self):
-        for (key,value) in self.configDict.iteritems() :
-            print key,value
+        # create new SettingsObject
+        return SettingsObject(dict)
