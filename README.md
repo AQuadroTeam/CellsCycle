@@ -61,6 +61,8 @@ Values have an expiration time, after that the value can be deleted from the sys
 
 Every node could be an entry point for the memory provider service.
  
+![picture alt](https://github.com/AQuadroTeam/CellsCycle/blob/master/cellCycleexample.png)
+ 
 # Cycle Operations
 ## Adding a node (cell duplication)
 When a node runs off available ram, he can create a new Slave after him. 
