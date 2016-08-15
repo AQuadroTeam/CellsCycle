@@ -1,7 +1,13 @@
+import Constants
 
 class SettingsObject:
+
     def __init__(self, dict):
         self.configDict = dict
+
+
+    def isVerbose(self):
+        return True if self.configDict[Constants.VERBOSE][0] == "True" else False
 
     def __str__(self):
         string = "Configuration:\n"
