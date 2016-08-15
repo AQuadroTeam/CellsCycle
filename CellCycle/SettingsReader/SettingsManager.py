@@ -3,8 +3,7 @@ from SettingsObject import SettingsObject
 
 class SettingsManager:
 
-    def __init__(self):
-         self.configDict = {}
+    
 
     def readConfigurationFromFile(self, filePath):
         self.filePath = filePath
@@ -17,6 +16,6 @@ class SettingsManager:
                  dict[splitLine[0]] = splitLine[1:]
 
              f.close()
-
+        self.settings = SettingsObject(dict)
         # create new SettingsObject
-        return SettingsObject(dict)
+        return self.settings
