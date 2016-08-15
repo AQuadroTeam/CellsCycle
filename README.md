@@ -195,6 +195,9 @@ If a key is not in the system, it is created, otherwise is updated.
 Clients need ip of at least one node of the system to send requests. Service is registered at a Local Authoritative DNS Server, that periodically receives the complete list of nodes.
 Client asks to DNS Server an Entry Point Ip for the system, and the server sends a random ip of the system with low lease time (to prevent obsolescence of data).
 # Implementation
+## Configuration
+See [our Wiki](https://github.com/AQuadroTeam/CellsCycle/wiki/Settings) for settings info 
+
 ## Communication Protocol
 System is designed to be compatible with Memcached communication protocol (https://github.com/memcached/memcached/blob/master/doc/protocol.txt) for get and set operation.
 Optionally a client could define the consistency level of a single value.
