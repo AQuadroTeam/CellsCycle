@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 FILE_PATH = "./config.txt"
 
-class SettingsReader:
+class SettingsManager:
 
     def __init__(self):
          self.configDict = {}
@@ -13,6 +13,8 @@ class SettingsReader:
              for line in f:
                  splitLine = line.split()
                  self.configDict[splitLine[0]] = splitLine[1:]
+
+             f.close()
 
     def printAllSettings(self):
         for (key,value) in self.configDict.iteritems() :

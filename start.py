@@ -1,7 +1,7 @@
 #! /usr/bin/env python
-from CellCycle.SettingsReader.SettingsReader import SettingsReader
+from CellCycle.SettingsReader.SettingsManager import SettingsManager
 
 
-settings = SettingsReader()
+settings = SettingsManager()
 settings.readConfigurationFile()
 settings.printAllSettings()
