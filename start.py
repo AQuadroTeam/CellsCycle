@@ -1,6 +1,7 @@
 #! /usr/bin/env python
-from CellCycle.SettingsReader.SettingsManager import SettingsManager
+from CellCycle.Settings.SettingsManager import SettingsManager
 from CellCycle.Logger.Logger import LoggerHelper
+
 
 SETTINGSFILEPATH = "./config.txt"
 
