@@ -1,1 +1,2 @@
-Bellezza Molto_Bello
+LogFile logFile.txt
+Verbose True
