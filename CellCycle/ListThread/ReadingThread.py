@@ -2,7 +2,9 @@
 
 from ListThread import ListThread
 import time
-from ..Settings.SettingsManager import SettingsManager, SettingsObject
+from ..Settings.SettingsManager import SettingsManager
+
+FILE_PATH = "./my_list.txt"
 
 
 class ReadingThread (ListThread):
@@ -18,10 +20,17 @@ class ReadingThread (ListThread):
         print "Exiting " + self.threadId
 
     def readList(self, threadName, counter):
-        time.sleep(counter)
-        print "I am : ", threadName, time.ctime(time.time())
-        self.settingsObject = self.settingsManager.readConfigurationFromFile("./my_list.txt")
-        print self.settingsObject.configDict
+
+        while True:
+            time.sleep(counter)
+            print "I am : ", threadName, time.ctime(time.time())
+            self.settingsManager.readConfigurationFromFile(FILE_PATH)
+            # if self.threadId in self.settingsManager.settings.configDict :
+            self.settingsManager.settings.configDict[self.threadId] = [str(time.ctime(time.time()))]
+            self.settingsManager.writeFileFromConfiguration(FILE_PATH)
+            # else :
+            #     self.settingsManager.writeFileFromConfiguration(FILE_PATH)
+
 
 if __name__ == '__main__':
     # Create new threads

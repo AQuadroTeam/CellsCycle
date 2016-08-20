@@ -7,7 +7,7 @@ import time
 class ListThread (threading.Thread):
     def __init__(self, threadId, slave, slaveOfSlave, masterMemory, slaveMemory):
         threading.Thread.__init__(self)
-        self.threadId = threadId
+        self.threadId = str(threadId)
         self.slave = slave
         self.slaveOfSlave = slaveOfSlave
         self.masterM = masterMemory
