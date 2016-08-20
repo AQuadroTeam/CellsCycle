@@ -4,7 +4,7 @@ import threading
 import time
 
 
-class ListThread:
+class ListThread (threading.Thread):
     def __init__(self, threadId, slave, slaveOfSlave, masterMemory, slaveMemory):
         threading.Thread.__init__(self)
         self.threadId = threadId
@@ -18,7 +18,7 @@ class ListThread:
         self.printInfo(self.threadId, 2)
         print "Exiting " + self.threadId
 
-    def printInfo(threadName, counter):
+    def printInfo(self, threadName, counter):
         time.sleep(counter)
         print "I am : ", threadName, time.ctime(time.time())
 

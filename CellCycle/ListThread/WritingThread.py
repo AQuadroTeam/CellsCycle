@@ -16,7 +16,7 @@ class WritingThread (ListThread):
         print "Exiting " + self.threadId
 
 
-    def writeList(threadName, counter):
+    def writeList(self, threadName, counter):
         time.sleep(counter)
         print "I am : ", threadName, time.ctime(time.time())
 

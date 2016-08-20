@@ -2,22 +2,26 @@
 
 from ListThread import ListThread
 import time
+from ..Settings.SettingsManager import SettingsManager, SettingsObject
 
 
 class ReadingThread (ListThread):
 
     def __init__(self, threadId, slave, slaveOfSlave, masterMemory, slaveMemory):
         ListThread.__init__(self, threadId, slave, slaveOfSlave, masterMemory, slaveMemory)
-        self.list = None
+        self.settingsManager = SettingsManager()
+        self.settingsObject = None
 
     def run(self):
         print "Starting " + self.threadId
         self.readList(self.threadId, 2)
         print "Exiting " + self.threadId
 
-    def readList(threadName, counter):
+    def readList(self, threadName, counter):
         time.sleep(counter)
         print "I am : ", threadName, time.ctime(time.time())
+        self.settingsObject = self.settingsManager.readConfigurationFromFile("./my_list.txt")
+        print self.settingsObject.configDict
 
 if __name__ == '__main__':
     # Create new threads
