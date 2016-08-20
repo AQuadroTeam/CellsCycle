@@ -20,13 +20,13 @@ class WritingThread (ListThread):
         time.sleep(counter)
         print "I am : ", threadName, time.ctime(time.time())
 
+if __name__ == '__main__':
+    # Create new threads
+    thread1 = ListThread(1, 2, -1, [0,127],[0,127])
+    thread2 = ListThread(2, 1, -1, [0,127],[0,127])
 
-# Create new threads
-thread1 = ListThread(1, 2, -1, [0,127],[0,127])
-thread2 = ListThread(2, 1, -1, [0,127],[0,127])
+    # Start new Threads
+    thread1.start()
+    thread2.start()
 
-# Start new Threads
-thread1.start()
-thread2.start()
-
-print "Exiting Main Thread"
+    print "Exiting Main Thread"
