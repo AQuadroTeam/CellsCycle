@@ -1,41 +1,50 @@
-import socket
 import time
+import zmq
 
 BACKLOG = 5
+MAX_BUFF = 1024
+FILE_PATH = "./my_list.txt"
 
-class ListCommunication :
+
+class ListCommunication:
 
     def __init__(self):
-        self.port = 9999
-        # get local machine name
-        self.host = socket.gethostname()
         # create a socket object
-        self.communicationSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        context = zmq.Context()
+        self.communicationSocket = context.socket(zmq.REP)
 
     def initServerSocket(self):
         # bind to the port
-        self.communicationSocket.bind((self.host, self.port))
+        self.communicationSocket.bind("tcp://*:5555")
 
-        # queue up to BACKLOG requests
-        self.communicationSocket.listen(BACKLOG)
-
-    def startServerAccept(self):
-        while True:
-            # establish a connection
-            clientSocket,addr = self.communicationSocket.accept()
-
-            print("Got a connection from %s" % str(addr))
-            currentTime = time.ctime(time.time()) + "\r\n"
-            clientSocket.send(currentTime.encode('ascii'))
-            clientSocket.close()
+    def recv(self):
+        #  Wait for next request
+        message = self.communicationSocket.recv()
+        print("Received request")
+        return message
 
     def startClientConnection(self):
         # connection to hostname on the port.
-        self.communicationSocket.connect((self.host, self.port))
+        self.communicationSocket.connect("tcp://localhost:5555")
 
-    def startClientReceive(self):
-        # Receive no more than 1024 bytes
-        tm = self.communicationSocket.recv(1024)
-        self.communicationSocket.close()
+    def send(self,data):
+        #  Send something to another node
+        self.communicationSocket.send(data)
+        print 'Message sent to another node'
 
-        print("The time got from the server is %s" % tm.decode('ascii'))
+'''
+context = zmq.Context()
+socket = context.socket(zmq.REP)
+socket.bind("tcp://*:5555")
+
+while True:
+    #  Wait for next request from client
+    message = socket.recv()
+    print("Received request: %s" % message)
+
+    #  Do some 'work'
+    time.sleep(1)
+
+    #  Send reply back to client
+    socket.send(b"World")
+'''

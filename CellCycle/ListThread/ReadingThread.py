@@ -3,6 +3,7 @@
 from ListThread import ListThread
 import time
 from ..Settings.SettingsManager import SettingsManager
+from ListCommunication import ListCommunication
 
 FILE_PATH = "./my_list.txt"
 
@@ -20,9 +21,12 @@ class ReadingThread (ListThread):
         print "Exiting " + self.threadId
 
     def readList(self, threadName, counter):
+        listCommunication = ListCommunication()
+        listCommunication.startClientConnection()
 
         while True:
             time.sleep(counter)
+            listCommunication.startClientReceive()
             print "I am : ", threadName, time.ctime(time.time())
             self.settingsManager.readConfigurationFromFile(FILE_PATH)
             # if self.threadId in self.settingsManager.settings.configDict :
@@ -30,7 +34,7 @@ class ReadingThread (ListThread):
             self.settingsManager.writeFileFromConfiguration(FILE_PATH)
             # else :
             #     self.settingsManager.writeFileFromConfiguration(FILE_PATH)
-
+            listCommunication.startClientSend()
 
 
 if __name__ == '__main__':
