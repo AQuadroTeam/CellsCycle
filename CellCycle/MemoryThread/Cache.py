@@ -1,7 +1,7 @@
 import array
 
 class CacheSlubLRU:
-    @profile
+    
     def __init__(self, totalSize, slabSize):
 
         self.slabSize = slabSize
@@ -27,7 +27,7 @@ class CacheSlubLRU:
 
         print "done"
 class Slab:
-    @profile
+
     def __init__(self, slabIndex,slabSize, slabNumber, totalSize):
 
         self.availableSpace = int(slabSize)  #in bytes
