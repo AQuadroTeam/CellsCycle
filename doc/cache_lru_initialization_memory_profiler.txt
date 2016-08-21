@@ -1,0 +1,124 @@
+slabArray 10000000056
+unused 87632
+lru 87632
+singleslab72
+
+
+2 giga
+Line #    Mem usage    Increment   Line Contents
+================================================
+     4   13.113 MiB    0.000 MiB       @profile
+     5                                 def __init__(self, totalSize, slabSize):
+     6
+     7   13.113 MiB    0.000 MiB           self.slabSize = slabSize
+     8   13.113 MiB    0.000 MiB           self.totalSize = totalSize
+     9
+    10
+    11 1920.852 MiB 1907.738 MiB           self.slabArray = array.array('c','0'*self.totalSize) #empty char array
+    12
+    13 1920.852 MiB    0.000 MiB           self.unused = []
+    14 1920.852 MiB    0.000 MiB           self.partial = []
+    15 1920.852 MiB    0.000 MiB           self.complete = []
+    16
+    17 1920.852 MiB    0.000 MiB           self.lru = [] #list of slabs, ordered by last use
+    18
+    19 1920.852 MiB    0.000 MiB           self.cache = {} #dictionary of key-slab
+    20
+    21 1920.852 MiB    0.000 MiB           self.slabNumber = int(self.totalSize / self.slabSize)
+    22
+    23 1922.207 MiB    1.355 MiB           for slabIndex in range(self.slabNumber):
+    24 1922.207 MiB    0.000 MiB               slab = Slab(slabIndex,self.slabSize, self.slabNumber, self.totalSize)
+    25 1922.207 MiB    0.000 MiB               self.lru.append(slab)
+    26 1922.207 MiB    0.000 MiB               self.unused.append(slab)
+
+
+4 giga
+
+Line #    Mem usage    Increment   Line Contents
+================================================
+     4   13.254 MiB    0.000 MiB       @profile
+     5                                 def __init__(self, totalSize, slabSize):
+     6
+     7   13.254 MiB    0.000 MiB           self.slabSize = slabSize
+     8   13.254 MiB    0.000 MiB           self.totalSize = totalSize
+     9
+    10
+    11 3828.340 MiB 3815.086 MiB           self.slabArray = array.array('c','0'*self.totalSize) #empty char array
+    12
+    13 3828.340 MiB    0.000 MiB           self.unused = []
+    14 3828.340 MiB    0.000 MiB           self.partial = []
+    15 3828.340 MiB    0.000 MiB           self.complete = []
+    16
+    17 3828.340 MiB    0.000 MiB           self.lru = [] #list of slabs, ordered by last use
+    18
+    19 3828.340 MiB    0.000 MiB           self.cache = {} #dictionary of key-slab
+    20
+    21 3828.340 MiB    0.000 MiB           self.slabNumber = int(self.totalSize / self.slabSize)
+    22
+    23 3831.223 MiB    2.883 MiB           for slabIndex in range(self.slabNumber):
+    24 3831.223 MiB    0.000 MiB               slab = Slab(slabIndex,self.slabSize, self.slabNumber, self.totalSize)
+    25 3831.223 MiB    0.000 MiB               self.lru.append(slab)
+    26 3831.223 MiB    0.000 MiB               self.unused.append(slab)
+    27
+    28 3831.223 MiB    0.000 MiB           print "done"
+
+8 giga
+Line #    Mem usage    Increment   Line Contents
+================================================
+     4   13.145 MiB    0.000 MiB       @profile
+     5                                 def __init__(self, totalSize, slabSize):
+     6
+     7   13.145 MiB    0.000 MiB           self.slabSize = slabSize
+     8   13.145 MiB    0.000 MiB           self.totalSize = totalSize
+     9
+    10
+    11 7632.309 MiB 7619.164 MiB           self.slabArray = array.array('c','0'*self.totalSize) #empty char array
+    12
+    13 7632.559 MiB    0.250 MiB           self.unused = []
+    14 7632.559 MiB    0.000 MiB           self.partial = []
+    15 7632.559 MiB    0.000 MiB           self.complete = []
+    16
+    17 7632.559 MiB    0.000 MiB           self.lru = [] #list of slabs, ordered by last use
+    18
+    19 7632.559 MiB    0.000 MiB           self.cache = {} #dictionary of key-slab
+    20
+    21 7632.559 MiB    0.000 MiB           self.slabNumber = int(self.totalSize / self.slabSize)
+    22
+    23 7638.938 MiB    6.379 MiB           for slabIndex in range(self.slabNumber):
+    24 7638.938 MiB    0.000 MiB               slab = Slab(slabIndex,self.slabSize, self.slabNumber, self.totalSize)
+    25 7638.938 MiB    0.000 MiB               self.lru.append(slab)
+    26 7638.938 MiB    0.000 MiB               self.unused.append(slab)
+    27
+    28 7639.184 MiB    0.246 MiB           print "done"
+
+12 giga
+
+Line #    Mem usage    Increment   Line Contents
+================================================
+     4   13.070 MiB    0.000 MiB       @profile
+     5                                 def __init__(self, totalSize, slabSize):
+     6
+     7   13.070 MiB    0.000 MiB           self.slabSize = slabSize
+     8   13.070 MiB    0.000 MiB           self.totalSize = totalSize
+     9
+    10
+    11 11446.750 MiB 11433.680 MiB           self.slabArray = array.array('c','0'*self.totalSize) #empty char array
+    12
+    13 11447.008 MiB    0.258 MiB           self.unused = []
+    14 11447.008 MiB    0.000 MiB           self.partial = []
+    15 11447.008 MiB    0.000 MiB           self.complete = []
+    16
+    17 11447.008 MiB    0.000 MiB           self.lru = [] #list of slabs, ordered by last use
+    18
+    19 11447.008 MiB    0.000 MiB           self.cache = {} #dictionary of key-slab
+    20
+    21 11447.199 MiB    0.191 MiB           self.slabNumber = int(self.totalSize / self.slabSize)
+    22
+    23 11456.477 MiB    9.277 MiB           for slabIndex in range(self.slabNumber):
+    24 11456.477 MiB    0.000 MiB               slab = Slab(slabIndex,self.slabSize, self.slabNumber, self.totalSize)
+    25 11456.477 MiB    0.000 MiB               self.lru.append(slab)
+    26 11456.477 MiB    0.000 MiB               self.unused.append(slab)
+    27
+    28 11456.863 MiB    0.387 MiB           print "done"
+
+se vado oltre, carica su swap. ho un portatile non una petroliera di ram
