@@ -26,7 +26,8 @@ class ReadingThread (ListThread):
 
         while True:
             time.sleep(counter)
-            listCommunication.startClientReceive()
+            message = listCommunication.recv()
+            listCommunication.storeData(message,FILE_PATH)
             print "I am : ", threadName, time.ctime(time.time())
             self.settingsManager.readConfigurationFromFile(FILE_PATH)
             # if self.threadId in self.settingsManager.settings.configDict :
@@ -34,7 +35,7 @@ class ReadingThread (ListThread):
             self.settingsManager.writeFileFromConfiguration(FILE_PATH)
             # else :
             #     self.settingsManager.writeFileFromConfiguration(FILE_PATH)
-            listCommunication.startClientSend()
+            listCommunication.sendFromFile(FILE_PATH)
 
 
 if __name__ == '__main__':

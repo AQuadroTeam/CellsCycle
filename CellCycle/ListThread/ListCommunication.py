@@ -3,7 +3,6 @@ import zmq
 
 BACKLOG = 5
 MAX_BUFF = 1024
-FILE_PATH = "./my_list.txt"
 
 
 class ListCommunication:
@@ -31,6 +30,17 @@ class ListCommunication:
         #  Send something to another node
         self.communicationSocket.send(data)
         print 'Message sent to another node'
+
+    def storeData(self, data, filePath):
+        with open(filePath,'w') as f:
+             f.write(data)
+             f.close()
+
+    def sendFromFile(self, filePath):
+        with open(filePath,'w') as f:
+            data= f.read()
+            self.send(data)
+            f.close()
 
 '''
 context = zmq.Context()
