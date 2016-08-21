@@ -8,6 +8,7 @@ class Node :
 class LinkedList :
 	def __init__( self ) :
 		self.head = None
+		self.tail = None
 
 	def push( self, data ) :
 		node = Node( data )
@@ -17,6 +18,8 @@ class LinkedList :
 			node.next = self.head
 			node.next.prev = node
 			self.head = node
+
+		self.tail = node
 
 	def search( self, k ) :
 		p = self.head
@@ -29,10 +32,13 @@ class LinkedList :
 				return p
 		return None
 
-	def pop( self, p ) :
-		tmp = p.prev
-		p.prev.next = p.next
-		p.prev = tmp
+	def pop( self, p=None ) :
+		if p==None:
+			self.pop(self.tail)
+		else:
+			tmp = p.prev
+			p.prev.next = p.next
+			p.prev = tmp
 
 	def __str__( self ) :
 		s = ""
