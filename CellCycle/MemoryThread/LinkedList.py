@@ -40,6 +40,9 @@ class LinkedList :
 			p.prev.next = p.next
 			p.prev = tmp
 
+	def isEmpty(self):
+		return True if self.head == self.tail else False
+
 	def __str__( self ) :
 		s = ""
 		p = self.head
