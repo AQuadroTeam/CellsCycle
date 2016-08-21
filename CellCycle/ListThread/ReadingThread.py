@@ -32,6 +32,7 @@ class ReadingThread (ListThread):
             #     self.settingsManager.writeFileFromConfiguration(FILE_PATH)
 
 
+
 if __name__ == '__main__':
     # Create new threads
     thread1 = ListThread(1, 2, -1, [0,127],[0,127])
