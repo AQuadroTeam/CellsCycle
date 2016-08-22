@@ -3,13 +3,13 @@ from sys import getsizeof
 from LinkedList import LinkedList
 class CacheSlubLRU:
 
-    def __init__(self, totalSize, slabSize):
+    def __init__(self, totalSize, slabSize, logger):
         # to create slabArray:
         #before self.slabArray = C_Array('c', '0'*self.totalSize)
         #now self.slabArray.fromString('0'*slabSize)
         # to create '0'*totalSize string, system will use double of ram. with incremental appending, ram is not overloaded during initialization
 
-
+        self.logger = logger
         self.slabSize = slabSize
         self.totalSize = totalSize
 
@@ -37,9 +37,10 @@ class CacheSlubLRU:
             self.lru.append(slab)
             self.unused.append(slab)
 
+
+
     def getSlab(self, size):
         for slab in self.partial:
-
             if slab.availableSpace >= size:
                 return slab
 

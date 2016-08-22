@@ -6,7 +6,7 @@ def startMemoryThread(settings, logger):
     logger.debug(settings)
 
     logger.debug("Initializing object pool...")
-    cache = CacheSlubLRU(100 , 10) #set as 10 mega, 1 mega per slab
+    cache = CacheSlubLRU(100 , 10, logger) #set as 10 mega, 1 mega per slab
     logger.debug("Initializing object pool... done")
 
     for slab in cache.lru:
