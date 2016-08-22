@@ -33,7 +33,7 @@ class CacheSlubLRU:
 
 
         for slabIndex in range(self.slabNumber):
-            slab = Slab(self.slabArray, slabIndex,self.slabSize, self.slabNumber, self.totalSize)
+            slab = Slab(self, slabIndex,self.slabSize, self.slabNumber, self.totalSize)
             self.lru.append(slab)
             self.unused.append(slab)
 
@@ -50,29 +50,30 @@ class CacheSlubLRU:
             slab = self.lru[len(self.lru)-1]
             if (slab.state == 1):#partial
                 self.partial.remove(slab)
-                slab.clearSlab()
-                self.unused.append(slab)
-                return slab
             if (slab.state == 2):#complete
                 self.complete.remove(slab)
             if (slab.state == 0):#unused
                 self.unused.remove(slab)
+            slab.clearSlab()
+            self.unused.append(slab)
             self.updateLRUn(slab,3)
+            return slab
 
         else:
             #return an unused slab
-            slab = self.unused.pop()
+            slab = self.unused[-1]
             self.updateLRUn(slab,3)
             return slab
 
     def set(self, key, value):
-        valueSize = getsizeof(value)
+        valueSize = len(value)
 
         slab = self.cache.get(key)
 
         if slab== None:#insert new element
             slab = self.getSlab(valueSize)
             slab.setValue(key, value)
+            self.cache[key] = slab
             self.updateLRU(slab)
         else:#update existent value
             if False: #change
@@ -80,11 +81,11 @@ class CacheSlubLRU:
                 self.updateLRU(slab)
 
             else:
-                cache[key] = None
+                self.cache[key] = None
                 self.set(key,value)
 
     def get(self, key):
-        slab = self.cache.get[key]
+        slab = self.cache.get(key)
         self.updateLRU(slab)
         return slab.getValue(key)
 
@@ -104,9 +105,10 @@ class CacheSlubLRU:
 
 class Slab:
 
-    def __init__(self, slabArray, slabIndex,slabSize, slabNumber, totalSize):
+    def __init__(self, cache, slabIndex,slabSize, slabNumber, totalSize):
         self.slabSize = slabSize
-        self.slabArray = slabArray
+        self.cache = cache
+        self.slabArray = cache.slabArray
         self.availableSpace = int(slabSize)  #in bytes
         self.state = 0 #0 unused, 1 partial, 2 complete
         self.value = {} #elements like ("1234", "4", "10") that means, value of key 1234 begins at 4 and ends at 10
@@ -118,32 +120,48 @@ class Slab:
         self.availableSpace = self.slabSize
         self.value.clear()
         self.state = 0
+        print self.availableSpace, self.slabSize
 
     def getValue(self, key):
         begin, end = self.value[key]
         value = ""
-        for index in range(begin,end):
-            value.append(self.array[index])
+        for index in range(begin,end+1):
+            value += self.slabArray[index]
+
         return value
 
     def setValue(self, key, value):
-        size = getsizeof(value)
-        self.availableSpace -= size
+        size = len(value)
 
-        begin = self.end - self.availableSpace
+
+
+        begin = self.end - self.availableSpace +1
+        print self.end, self.availableSpace
         end = self.end - self.availableSpace + size
+
+        self.availableSpace -= size
 
         self.value[key] = begin, end
 
-        for index in range(begin, end):
+        for index in range(begin, end+1):
             print begin, end, index
             print self.slabArray
+            print value[index-begin]
             self.slabArray[index] = value[index-begin]
 
-        if slab.state == 0:
-            slab.state = 1
-        if slab.availableSpace<=1000:
-            slab.state = 2
+        if self.state == 0:
+            for x in self.cache.unused:
+                print x
+            self.state = 1
+            self.cache.unused.remove(self)
+            self.cache.partial.append(self)
+
+        if self.availableSpace<=1000:
+            self.state = 2
+            self.cache.partial.remove(self)
+            self.cache.complete.append(self)
+
+        return self.state
 
     def __str__(self):
         return "slabSize: " +   str(self.slabSize) + "\n"\
