@@ -32,7 +32,7 @@ class ReadingThread(ListThread):
             self.settingsManager.settings = SettingsManager.SettingsObject({})
             self.settingsManager.settings.configDict[self.threadId] = [str(time.ctime(time.time()))]
 
-            print "This is the dictionary in this moment :"
+            print "This is the dictionary at this moment :"
             print self.settingsManager.settings.configDict
 
             self.settingsManager.writeFileFromConfiguration(FILE_PATH)
@@ -47,24 +47,36 @@ class ReadingThread(ListThread):
             print 'awake!'
             message = listCommunication.recv()
 
-            if len(message) == 0:
-                listCommunication.storeData(self.prevId + ' ' + DEAD, FILE_PATH)
-            else:
+            if len(message) != 0:
                 listCommunication.storeData(message, FILE_PATH)
 
-            print "I've just received this message"
-            print message
+                print "I've just received this message"
+                print message
 
-            print "I am : ", threadName, time.ctime(time.time())
-            self.settingsManager.readConfigurationFromFile(FILE_PATH)
-            # if self.threadId in self.settingsManager.settings.configDict :
-            self.settingsManager.settings.configDict[self.threadId] = [str(time.ctime(time.time()))]
-            print "This is the dictionary in this moment :"
-            print self.settingsManager.settings.configDict
-            self.settingsManager.writeFileFromConfiguration(FILE_PATH)
-            # else :
-            #     self.settingsManager.writeFileFromConfiguration(FILE_PATH)
-            listCommunication.sendFromFile(FILE_PATH)
+                print "I am : ", threadName, time.ctime(time.time())
+                self.settingsManager.readConfigurationFromFile(FILE_PATH)
+                # if self.threadId in self.settingsManager.settings.configDict :
+                self.settingsManager.settings.configDict[self.threadId] = [str(time.ctime(time.time()))]
+                print "This is the dictionary at this moment :"
+                print self.settingsManager.settings.configDict
+                self.settingsManager.writeFileFromConfiguration(FILE_PATH)
+                # else :
+                #     self.settingsManager.writeFileFromConfiguration(FILE_PATH)
+                listCommunication.sendFromFile(FILE_PATH)
+
+                # hard-coded check if is still alive
+                if self.threadId == 1:
+                    counter = 10
+            else:
+                self.settingsManager.settings.configDict[self.prevId] = [DEAD]
+                self.settingsManager.settings.configDict[self.threadId] = [str(time.ctime(time.time()))]
+
+                print "This is the dictionary at this moment :"
+                print self.settingsManager.settings.configDict
+                self.settingsManager.writeFileFromConfiguration(FILE_PATH)
+                # else :
+                #     self.settingsManager.writeFileFromConfiguration(FILE_PATH)
+                listCommunication.sendFromFile(FILE_PATH)
 
 
 if __name__ == '__main__':
