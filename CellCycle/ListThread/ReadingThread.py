@@ -10,8 +10,8 @@ FILE_PATH = "./my_list.txt"
 
 class ReadingThread (ListThread):
 
-    def __init__(self, threadId, slave, slaveOfSlave, masterMemory, slaveMemory):
-        ListThread.__init__(self, threadId, slave, slaveOfSlave, masterMemory, slaveMemory)
+    def __init__(self, threadId, prevId, slave, slaveOfSlave, masterMemory, slaveMemory):
+        ListThread.__init__(self, threadId, prevId, slave, slaveOfSlave, masterMemory, slaveMemory)
         self.settingsManager = SettingsManager()
         self.settingsObject = None
 
@@ -23,6 +23,13 @@ class ReadingThread (ListThread):
     def readList(self, threadName, counter):
         listCommunication = ListCommunication()
         listCommunication.startClientConnection()
+
+        if self.threadId > self.prevId:
+            self.settingsManager.readConfigurationFromFile(FILE_PATH)
+            # if self.threadId in self.settingsManager.settings.configDict :
+            self.settingsManager.settings.configDict[self.threadId] = [str(time.ctime(time.time()))]
+            self.settingsManager.writeFileFromConfiguration(FILE_PATH)
+            listCommunication.sendFromFile(FILE_PATH)
 
         while True:
             time.sleep(counter)

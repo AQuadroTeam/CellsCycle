@@ -5,9 +5,10 @@ import time
 
 
 class ListThread (threading.Thread):
-    def __init__(self, threadId, slave, slaveOfSlave, masterMemory, slaveMemory):
+    def __init__(self, threadId, prevId, slave, slaveOfSlave, masterMemory, slaveMemory):
         threading.Thread.__init__(self)
         self.threadId = str(threadId)
+        self.prevId = str(prevId)
         self.slave = slave
         self.slaveOfSlave = slaveOfSlave
         self.masterM = masterMemory
@@ -24,8 +25,8 @@ class ListThread (threading.Thread):
 
 if __name__ == '__main__':
     # Create new threads
-    thread1 = ListThread(1, 2, -1, [0, 127], [0, 127])
-    thread2 = ListThread(2, 1, -1, [0, 127], [0, 127])
+    thread1 = ListThread(1, 3, 2, -1, [0, 127], [0, 127])
+    thread2 = ListThread(2, 3, 1, -1, [0, 127], [0, 127])
 
     # Start new Threads
     thread1.start()
