@@ -3,18 +3,24 @@ import zmq
 
 BACKLOG = 5
 MAX_BUFF = 1024
-
+MAX_RCVTIMEO = 5
 
 class ListCommunication:
 
     def __init__(self):
         # create a socket object
-        context = zmq.Context()
-        self.communicationSocket = context.socket(zmq.REP)
+        self.context = zmq.Context()
+
 
     def initServerSocket(self):
+        self.communicationSocket = self.context.socket(zmq.REP)
+        self.communicationSocket.RCVTIMEO = MAX_RCVTIMEO
         # bind to the port
         self.communicationSocket.bind("tcp://*:5555")
+
+    def initClientSocket(self):
+        self.communicationSocket = self.context.socket(zmq.REQ)
+        self.communicationSocket.RCVTIMEO = MAX_RCVTIMEO
 
     def recv(self):
         #  Wait for next request
@@ -32,12 +38,12 @@ class ListCommunication:
         print 'Message sent to another node'
 
     def storeData(self, data, filePath):
-        with open(filePath,'w') as f:
+        with open(filePath,'w+') as f:
              f.write(data)
              f.close()
 
     def sendFromFile(self, filePath):
-        with open(filePath,'w') as f:
+        with open(filePath,'r') as f:
             data= f.read()
             self.send(data)
             f.close()
