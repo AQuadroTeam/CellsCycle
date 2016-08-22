@@ -16,12 +16,12 @@ def startMemoryThread(settings, logger):
     for slab in cache.lru:
         print slab
 
-    cache.set("2", "ciaone")
+    cache.set("2", "cia")
     print cache.debug()
     for slab in cache.lru:
         print slab
 
-
+    print "a" + 2
     cache.set("3", "ciaone2")
     print cache.debug()
     for slab in cache.lru:

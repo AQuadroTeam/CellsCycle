@@ -10,6 +10,9 @@ class CacheSlubLRU:
         # to create '0'*totalSize string, system will use double of ram. with incremental appending, ram is not overloaded during initialization
 
         self.logger = logger
+
+        self.logger.debug("Cache: Initializing cache with totalSize:" + str(totalSize) + ", slabSize:" + str(slabSize))
+
         self.slabSize = slabSize
         self.totalSize = totalSize
 
@@ -37,9 +40,10 @@ class CacheSlubLRU:
             self.lru.append(slab)
             self.unused.append(slab)
 
-
+        self.logger.debug("Cache: End of Initialization Cache, Success!")
 
     def getSlab(self, size):
+
         for slab in self.partial:
             if slab.availableSpace >= size:
                 return slab
@@ -68,15 +72,17 @@ class CacheSlubLRU:
 
     def set(self, key, value):
         valueSize = len(value)
-
+        self.logger.debug("Cache: set of "+ str(key) + ", value:"+ str(value) + ",size:" + str(valueSize))
         slab = self.cache.get(key)
 
         if slab== None:#insert new element
+            self.logger.debug("Cache: set of "+ str(key) + ", it is been added")
             slab = self.getSlab(valueSize)
             slab.setValue(key, value)
             self.cache[key] = slab
             self.updateLRU(slab)
         else:#update existent value
+            self.logger.debug("Cache: set of "+ str(key) + ", it is been updated")
             if False: #change
                 slab.setValue(key, value)
                 self.updateLRU(slab)
@@ -86,6 +92,7 @@ class CacheSlubLRU:
                 self.set(key,value)
 
     def get(self, key):
+        self.logger.debug("Cache: get of "+ str(key))
         slab = self.cache.get(key)
         self.updateLRU(slab)
         return slab.getValue(key)
