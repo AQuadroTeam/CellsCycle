@@ -39,6 +39,7 @@ class LinkedList :
 			tmp = p.prev
 			p.prev.next = p.next
 			p.prev = tmp
+			return p.data
 
 	def isEmpty(self):
 		return True if self.head == self.tail else False
