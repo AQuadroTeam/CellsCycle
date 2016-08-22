@@ -4,6 +4,7 @@ from ListThread import ListThread
 import time
 from CellCycle.Settings import SettingsManager
 from ListCommunication import ListCommunication
+from zmq import Again
 
 FILE_PATH = "./my_list.txt"
 DEAD = 'DEAD'
@@ -45,9 +46,9 @@ class ReadingThread(ListThread):
             print 'sleeping...'
             time.sleep(counter)
             print 'awake!'
-            message = listCommunication.recv()
+            try :
+                message = listCommunication.recv()
 
-            if len(message) != 0:
                 listCommunication.storeData(message, FILE_PATH)
 
                 print "I've just received this message"
@@ -65,9 +66,11 @@ class ReadingThread(ListThread):
                 listCommunication.sendFromFile(FILE_PATH)
 
                 # hard-coded check if is still alive
-                if self.threadId == 1:
+                if self.threadId == '1':
                     counter = 10
-            else:
+            except Again:
+                print "Message not ready"
+
                 self.settingsManager.settings.configDict[self.prevId] = [DEAD]
                 self.settingsManager.settings.configDict[self.threadId] = [str(time.ctime(time.time()))]
 
@@ -76,7 +79,7 @@ class ReadingThread(ListThread):
                 self.settingsManager.writeFileFromConfiguration(FILE_PATH)
                 # else :
                 #     self.settingsManager.writeFileFromConfiguration(FILE_PATH)
-                listCommunication.sendFromFile(FILE_PATH)
+                # Send file to another node listCommunication.sendFromFile(FILE_PATH)
 
 
 if __name__ == '__main__':
