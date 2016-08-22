@@ -1,30 +1,41 @@
 from array import array as C_Array
 from sys import getsizeof
-from LynkedList import LynkedList
+from LinkedList import LinkedList
 class CacheSlubLRU:
 
     def __init__(self, totalSize, slabSize):
+        # to create slabArray:
+        #before self.slabArray = C_Array('c', '0'*self.totalSize)
+        #now self.slabArray.fromString('0'*slabSize)
+        # to create '0'*totalSize string, system will use double of ram. with incremental appending, ram is not overloaded during initialization
+
 
         self.slabSize = slabSize
         self.totalSize = totalSize
 
+        self.slabNumber = int(self.totalSize / self.slabSize)
 
-        self.slabArray = C_Array('c','0'*self.totalSize) #empty char array
+        self.slabArray = C_Array('c')
+        i=0
+        ar = self.slabArray
+        while i < self.slabNumber:
+            ar.fromstring("0"*slabSize)
+            i += 1
 
-        self.unused = LynkedList()
-        self.partial = LynkedList()
-        self.complete = LynkedList()
+        self.unused = LinkedList()
+        self.partial = LinkedList()
+        self.complete = LinkedList()
 
         self.lru = [] #list of slabs, ordered by last use
 
         self.cache = {} #dictionary of key-slab
 
-        self.slabNumber = int(self.totalSize / self.slabSize)
+
 
         for slabIndex in range(self.slabNumber):
             slab = Slab(self.slabArray, slabIndex,self.slabSize, self.slabNumber, self.totalSize)
             self.lru.append(slab)
-            self.unused.append(slab)
+            self.unused.push(slab)
 
     def getSlab(self, size):
         for slab in self.partial:
@@ -61,7 +72,7 @@ class CacheSlubLRU:
             slab.setValue(key, value)
             self.updateLRU(slab)
         else:#update existent value
-            if less size:
+            if False: #change
                 slab.setValue(key, value)
                 self.updateLRU(slab)
 
