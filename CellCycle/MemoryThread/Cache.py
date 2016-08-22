@@ -56,18 +56,23 @@ class CacheSlubLRU:
 
         slab = self.cache.get(key)
 
-        if slab== None:
+        if slab== None:#insert new element
             slab = self.getSlab(valueSize)
-            slab.addValue(key, value)
-            self.updateLru(slab)
-        else:
+            slab.setValue(key, value)
+            self.updateLRU(slab)
+        else:#update existent value
             if less size:
-                slab.value[key] = value
+                slab.setValue(key, value)
+                self.updateLRU(slab)
+
             else:
                 cache[key] = None
+                self.set(key,value)
 
     def get(self, key):
-        
+        slab = self.cache.get[key]
+        self.updateLRU(slab)
+        return slab.getValue(key)
 
     def updateLRU(self, slab):
         index = self.lru.index(slab)
@@ -96,3 +101,27 @@ class Slab:
         self.availableSpace = self.slabSize
         self.value.clear()
         self.state = 0
+
+    def getValue(self, key):
+        begin, end = self.value[key]
+        value = ""
+        for index in range(begin,end):
+            value.append(self.array[index])
+        return value
+
+    def setValue(self, key, value):
+        size = getsizeof(value)
+        self.availableSpace -= size
+
+        begin = self.end - self.availableSpace
+        end = self.end - self.availableSpace + size
+
+        self.value[key] = begin, end
+
+        for index in range(begin, end):
+            self.slabArray[index] = value[index-begin]
+
+        if slab.state == 0:
+            slab.state = 1
+        if slab.availableSpace<=1000:
+            slab.state = 2
