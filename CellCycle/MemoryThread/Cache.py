@@ -22,9 +22,9 @@ class CacheSlubLRU:
             ar.fromstring("0"*slabSize)
             i += 1
 
-        self.unused = LinkedList()
-        self.partial = LinkedList()
-        self.complete = LinkedList()
+        self.unused = []
+        self.partial = []
+        self.complete = []
 
         self.lru = [] #list of slabs, ordered by last use
 
@@ -35,25 +35,28 @@ class CacheSlubLRU:
         for slabIndex in range(self.slabNumber):
             slab = Slab(self.slabArray, slabIndex,self.slabSize, self.slabNumber, self.totalSize)
             self.lru.append(slab)
-            self.unused.push(slab)
+            self.unused.append(slab)
 
     def getSlab(self, size):
         for slab in self.partial:
+
             if slab.availableSpace >= size:
                 return slab
+
+
         # no partial compatible slabs
-        if self.unused.isEmpty():
+        if len(self.unused)<1:
             #activate lru purge
             slab = self.lru[len(self.lru)-1]
             if (slab.state == 1):#partial
-                self.partial.pop(slab)
+                self.partial.remove(slab)
                 slab.clearSlab()
-                self.unused.push(slab)
+                self.unused.append(slab)
                 return slab
             if (slab.state == 2):#complete
-                self.complete.pop(slab)
+                self.complete.remove(slab)
             if (slab.state == 0):#unused
-                self.unused.pop(slab)
+                self.unused.remove(slab)
             self.updateLRUn(slab,3)
 
         else:
@@ -96,6 +99,9 @@ class CacheSlubLRU:
         for i in range(n):
             self.updateLRU(slab)
 
+    def debug(self):
+        return self.slabArray
+
 class Slab:
 
     def __init__(self, slabArray, slabIndex,slabSize, slabNumber, totalSize):
@@ -130,9 +136,19 @@ class Slab:
         self.value[key] = begin, end
 
         for index in range(begin, end):
+            print begin, end, index
+            print self.slabArray
             self.slabArray[index] = value[index-begin]
 
         if slab.state == 0:
             slab.state = 1
         if slab.availableSpace<=1000:
             slab.state = 2
+
+    def __str__(self):
+        return "slabSize: " +   str(self.slabSize) + "\n"\
+        + "availableSpace: " + str(self.availableSpace)  + "\n"\
+        + "state: "+ str(self.state)  + "\n"\
+        + "dictionary value: " + str(self.value)  + "\n"\
+        + "begin: " + str(self.begin)  + "\n"\
+        + "end: " + str(self.end)  + "\n"
