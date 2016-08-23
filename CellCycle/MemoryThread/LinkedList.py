@@ -31,6 +31,9 @@ def push(ll, new):
         ll.llhead = new
         new.llnext = None
         new.llprev = None
+        print "add " + str(int(new))
+        printList(ll)
+        return
 
     tail = ll.lltail
 
@@ -41,8 +44,9 @@ def push(ll, new):
     new.llnext = None
     #update link of old tail
     tail.llnext = new
+    print "add " + str(int(new))
     printList(ll)
-    print "a " + 3
+
 
 
 def pop(ll):
@@ -130,20 +134,26 @@ def bringToFirst(ll, node):
     newhead.llprev = None
     oldhead.llprev = newhead
 
+def nodeIndex(node):
+    if node != None:
+        return str(int(node))
+    else:
+        return "NN"
 
+def nodeIndexPlus(node):
+    return nodeIndex(node)+"("+ nodeIndex(node.llprev)+","+nodeIndex(node.llnext) +")"
 
 def listToString(ll):
     if isEmpty(ll):
         return "LL: Empty list"
     if hasOneElement(ll):
-        return "LL: " + str(int(ll.llhead))
+        return "LL 1 elment: " + nodeIndexPlus(ll.llhead)
 
-    string = "LL: \n"
+    string = "LL"+ "("+ nodeIndex(ll.llhead) + "," + nodeIndex(ll.lltail) + ")"+": "
     node = ll.llhead
-    it = 0
-    while node.llnext != ll.lltail and it < 20:
-        string += str(int(node))+ "("+ str(int(node.llprev)) + "," + str(int(node.llnext)) + ")" + "-"
-        it += 1
+    while node != None:
+        string += nodeIndexPlus(node) + "-"
+        node = node.llnext
     return string
 
 def printList(ll):
