@@ -6,9 +6,9 @@ from CellCycle.Settings import SettingsManager
 from ListCommunication import ListCommunication
 from zmq import Again
 
-FILE_PATH = "./my_list.txt"
+FILE_PATH = './my_list.txt'
 DEAD = 'DEAD'
-
+DEFAULT_ADDR = '*'
 
 class ReadingThread(ListThread):
     def __init__(self, threadId, prevId, slave, slaveOfSlave, masterMemory, slaveMemory):
@@ -22,31 +22,25 @@ class ReadingThread(ListThread):
         print "Exiting " + self.threadId
 
     def readList(self, threadName, counter):
-        listCommunication = ListCommunication()
+        listCommunication = ListCommunication(DEFAULT_ADDR,self.threadAddr)
 
-        if self.threadId > self.prevId:
-            print "I am the first : ", threadName, time.ctime(time.time())
-            listCommunication.initClientSocket()
-            listCommunication.startClientConnection()
-            # not necessary self.settingsManager.readConfigurationFromFile(FILE_PATH)
-            # if self.threadId in self.settingsManager.settings.configDict :
-            self.settingsManager.settings = SettingsManager.SettingsObject({})
-            self.settingsManager.settings.configDict[self.threadId] = [str(time.ctime(time.time()))]
-
-            print "This is the dictionary at this moment :"
-            print self.settingsManager.settings.configDict
-
-            self.settingsManager.writeFileFromConfiguration(FILE_PATH)
-            listCommunication.sendFromFile(FILE_PATH)
-        else:
+        '''
+        You don't need to check if you are the first
+        if self.threadId < self.prevId:
             print "I am not the first : ", threadName, time.ctime(time.time())
             listCommunication.initServerSocket()
+        '''
+
+        listCommunication.initServerSocket()
 
         while True:
+            '''
+            You don't need to sleep
             print 'sleeping...'
             time.sleep(counter)
             print 'awake!'
-            try :
+            '''
+            try:
                 message = listCommunication.recv()
 
                 listCommunication.storeData(message, FILE_PATH)
@@ -54,6 +48,8 @@ class ReadingThread(ListThread):
                 print "I've just received this message"
                 print message
 
+                '''
+                You don't need to send something
                 print "I am : ", threadName, time.ctime(time.time())
                 self.settingsManager.readConfigurationFromFile(FILE_PATH)
                 # if self.threadId in self.settingsManager.settings.configDict :
@@ -68,11 +64,12 @@ class ReadingThread(ListThread):
                 # hard-coded check if is still alive
                 #if self.threadId == '1':
                 #    counter = 10
+                '''
             except Again:
                 print "Message not ready"
                 if not hasattr(self.settingsManager.settings,'configDict') :
                     self.settingsManager.settings = SettingsManager.SettingsObject({})
-                self.settingsManager.settings.configDict[self.prevId] = [DEAD]
+                self.settingsManager.settings.configDict[self.masterId] = [DEAD]
                 self.settingsManager.settings.configDict[self.threadId] = [str(time.ctime(time.time()))]
 
                 print "This is the dictionary at this moment :"
@@ -80,13 +77,15 @@ class ReadingThread(ListThread):
                 self.settingsManager.writeFileFromConfiguration(FILE_PATH)
                 # else :
                 #     self.settingsManager.writeFileFromConfiguration(FILE_PATH)
+                '''
+                You don't need to send something
                 listCommunication.sendFromFile(FILE_PATH)
-
+                '''
 
 if __name__ == '__main__':
     # Create new threads
-    thread2 = ReadingThread(1, 2, 2, None, [0, 127], [0, 127])
-    thread1 = ReadingThread(2, 1, 1, None, [0, 127], [0, 127])
+    thread2 = ReadingThread([1,5555], [2,5556], [2,5556], [], [0, 127], [0, 127])
+    thread1 = ReadingThread([2,5556], [1,5555], [1,5555], [], [0, 127], [0, 127])
 
     # Start new Threads
     thread2.start()

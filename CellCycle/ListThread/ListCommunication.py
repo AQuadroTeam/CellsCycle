@@ -7,20 +7,20 @@ MAX_RCVTIMEO = 5
 
 class ListCommunication:
 
-    def __init__(self):
+    def __init__(self, addr="*", port="8080"):
         # create a socket object
         self.context = zmq.Context()
-
+        self.completeAddress = 'tcp://' + addr + ":" + port
 
     def initServerSocket(self):
-        self.communicationSocket = self.context.socket(zmq.ROUTER)
-        self.communicationSocket.RCVTIMEO = MAX_RCVTIMEO
+        self.communicationSocket = self.context.socket(zmq.PAIR)
+        # self.communicationSocket.RCVTIMEO = MAX_RCVTIMEO
         # bind to the port
-        self.communicationSocket.bind("tcp://*:5555")
+        self.communicationSocket.bind(self.completeAddress)
 
     def initClientSocket(self):
-        self.communicationSocket = self.context.socket(zmq.ROUTER)
-        self.communicationSocket.RCVTIMEO = MAX_RCVTIMEO
+        self.communicationSocket = self.context.socket(zmq.PAIR)
+        # self.communicationSocket.RCVTIMEO = MAX_RCVTIMEO
 
     def recv(self):
         #  Wait for next request
@@ -30,7 +30,8 @@ class ListCommunication:
 
     def startClientConnection(self):
         # connection to hostname on the port.
-        self.communicationSocket.connect("tcp://localhost:5555")
+        # self.communicationSocket.connect("tcp://localhost:5555")
+        self.communicationSocket.connect(self.completeAddress)
 
     def send(self,data):
         #  Send something to another node

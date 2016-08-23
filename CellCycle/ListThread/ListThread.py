@@ -5,12 +5,16 @@ import time
 
 
 class ListThread (threading.Thread):
-    def __init__(self, threadId, prevId, slave, slaveOfSlave, masterMemory, slaveMemory):
+    def __init__(self, threadId, master, slave, slaveOfSlave, masterMemory, slaveMemory):
         threading.Thread.__init__(self)
-        self.threadId = str(threadId)
-        self.prevId = str(prevId)
-        self.slave = slave
-        self.slaveOfSlave = slaveOfSlave
+        self.threadId = str(threadId[0])
+        self.threadAddr = str(threadId[1])
+        self.masterId = str(master[0])
+        self.masterAddr = str(master[1])
+        self.slaveId = str(slave[0])
+        self.slaveAddr = str(slave[1])
+        self.slaveOfSlaveId = str(slaveOfSlave[0])
+        self.slaveOfSlaveAddr = str(slaveOfSlave[1])
         self.masterM = masterMemory
         self.slaveM = slaveMemory
 
@@ -25,11 +29,11 @@ class ListThread (threading.Thread):
 
 if __name__ == '__main__':
     # Create new threads
-    thread1 = ListThread(1, 3, 2, -1, [0, 127], [0, 127])
-    thread2 = ListThread(2, 3, 1, -1, [0, 127], [0, 127])
+    thread2 = ListThread([1,5555], [2,5556], [2,5556], [], [0, 127], [0, 127])
+    thread1 = ListThread([2,5556], [1,5555], [1,5555], [], [0, 127], [0, 127])
 
     # Start new Threads
-    thread1.start()
     thread2.start()
+    thread1.start()
 
     print "Exiting Main Thread"
