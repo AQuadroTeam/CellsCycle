@@ -162,3 +162,13 @@ def listToString(ll):
 
 def printList(ll):
     print listToString(ll)
+
+class LinkedList:
+    def __init__(self):
+        self.lltail = None
+        self.llhead = None
+
+class Node:
+    def __init(self):
+        self.llnext = None
+        self.llprev = None        
