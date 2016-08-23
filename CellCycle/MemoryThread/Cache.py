@@ -1,5 +1,6 @@
 from array import array as C_Array
 from sys import getsizeof
+from SplayTree import SplayTree
 
 class CacheSlubLRU:
 
@@ -29,7 +30,7 @@ class CacheSlubLRU:
         self.partial = []
         self.complete = []
 
-        self.lru = [] #list of slabs, ordered by last use
+        self.lru = SplayTree() #list of slabs, ordered by last use
 
         self.cache = {} #dictionary of key-slab
 
@@ -37,7 +38,7 @@ class CacheSlubLRU:
 
         for slabIndex in range(self.slabNumber):
             slab = Slab(self, slabIndex,self.slabSize, self.slabNumber, self.totalSize)
-            self.lru.append(slab)
+            self.lru.insert(slabIndex, slab)
             self.unused.append(slab)
 
         self.logger.debug("Cache: End of Initialization Cache, Success!")
@@ -54,7 +55,7 @@ class CacheSlubLRU:
             print "new slab requested"
             #return an unused slab
             slab = self.unused[-1]
-            self.updateLRUn(slab,3)
+            self.lru.splay(slab.slabIndex)
             return slab
 
         else:
@@ -64,7 +65,7 @@ class CacheSlubLRU:
         #activate lru purge
         print "slab purged"
         #get the last slab in lru list
-        slab = self.lru[-1]
+        slab = self.lru.furthestNode().data
         if (slab.state == 1):#partial
             self.partial.remove(slab)
         if (slab.state == 2):#complete
@@ -74,7 +75,7 @@ class CacheSlubLRU:
 
         slab.clearSlab()
         self.unused.append(slab)
-        self.updateLRUn(slab,3)
+        self.lru.splay(slab.slabIndex)
         return slab
 
 
@@ -93,7 +94,7 @@ class CacheSlubLRU:
 
             slab.setValue(key, value)
             self.cache[key] = slab
-            self.updateLRU(slab)
+            self.lru.splay(slab.slabIndex)
         else:#update existent value
             self.logger.debug("Cache: set of "+ str(key) + ", it is been updated")
             if not key in slab.value:
@@ -103,7 +104,7 @@ class CacheSlubLRU:
             if valueSize <= end-begin-1: #change
 
                 slab.updateValue(key, value)
-                self.updateLRU(slab)
+                self.lru.splay(slab.slabIndex)
                 slab.value[key] = begin, begin + valueSize
 
             else:
@@ -114,21 +115,21 @@ class CacheSlubLRU:
         self.logger.debug("Cache: get of "+ str(key))
         slab = self.cache.get(key)
         if slab != None:
-            self.updateLRU(slab)
+            self.lru.splay(slab.slabIndex)
             return slab.getValue(key)
         else:
             return None
 
-    def updateLRU(self, slab):
-        index = self.lru.index(slab) # rhis istruction is heavy
-        if index > 0 :
-            nextOne = self.lru[index-1]
-            self.lru[index] = nextOne
-            self.lru[index-1] = slab
+    #def updateLRU(self, slab):
+    #    index = self.lru.index(slab) # rhis istruction is heavy
+    #    if index > 0 :
+    #        nextOne = self.lru[index-1]
+    #        self.lru[index] = nextOne
+    #        self.lru[index-1] = slab
 
-    def updateLRUn(self, slab, n):
-        for i in range(n):
-            self.updateLRU(slab)
+    #def updateLRUn(self, slab, n):
+    #    for i in range(n):
+    #        self.updateLRU(slab)
 
     def debug(self):
         return self.slabArray
@@ -138,6 +139,7 @@ class Slab:
     def __init__(self, cache, slabIndex,slabSize, slabNumber, totalSize):
         self.slabSize = slabSize
         self.cache = cache
+        self.slabIndex = slabIndex
         self.slabArray = cache.slabArray
         self.availableSpace = int(slabSize)  #in bytes
         self.state = 0 #0 unused, 1 partial, 2 complete
@@ -217,9 +219,9 @@ class Slab:
         + "end: " + str(self.end)  + "\n"
 
 def fun(cache):
-    it = 10000
+    it = 50000
     import random
-    for i in range(it):
+    for i in xrange(it):
         integer = random.randint(0,i)
 
         cache.set(str(random.randint(0,i)), str(i)*(integer%9000))
@@ -231,7 +233,7 @@ if __name__ == "__main__":
     mega = 1000 * kilo
     giga = 1000 * mega
 
-    cache = CacheSlubLRU(kilo*100 , kilo,logging.getLogger()) #set as 10 mega, 1 mega per slab
+    cache = CacheSlubLRU(10*mega , 100000,logging.getLogger()) #set as 10 mega, 1 mega per slab
     #cache = CacheSlubLRU(100, 10, logging.getLogger())
     fun(cache)
     #for x in cache.lru:
