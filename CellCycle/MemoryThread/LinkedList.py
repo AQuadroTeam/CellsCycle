@@ -1,55 +1,150 @@
+# Linked List Utils - LIFO
 
-class Node :
-	def __init__( self, data ) :
-		self.data = data
-		self.next = None
-		self.prev = None
+#Interface required:
+#
+#   Linked List class must have attributes:
+#   - lltail (tail node linker)
+#   - llhead (head node linker)
+#
+#   Node class must have attributes:
+#   - llprev (previous node linker)
+#   - llnext (next node linker)
+#   Node class must have methods (for debug):
+#   __int__(self)
+#
 
-class LinkedList :
-	def __init__( self ) :
-		self.head = None
-		self.tail = None
+def isEmpty(ll):
+    return True if ll.lltail == None and ll.llhead == None else False
 
-	def push( self, data ) :
-		node = Node( data )
-		if self.head == None :
-			self.head = node
-		else :
-			node.next = self.head
-			node.next.prev = node
-			self.head = node
+def hasOneElement(ll):
+    return True if ll.lltail == ll.llhead else False
 
-		self.tail = node
+def getTail(ll):
+    return ll.lltail
 
-	def search( self, k ) :
-		p = self.head
-		if p != None :
-			while p.next != None :
-				if ( p.data == k ) :
-					return p
-				p = p.next
-			if ( p.data == k ) :
-				return p
-		return None
+def getHead(ll):
+    return ll.llhead
 
-	def pop( self, p=None ) :
-		if p==None:
-			self.pop(self.tail)
-		else:
-			tmp = p.prev
-			p.prev.next = p.next
-			p.prev = tmp
-			return p.data
+def push(ll, new):
+    if isEmpty(ll):
+        ll.lltail = new
+        ll.llhead = new
+        new.llnext = None
+        new.llprev = None
 
-	def isEmpty(self):
-		return True if self.head == self.tail else False
+    tail = ll.lltail
 
-	def __str__( self ) :
-		s = ""
-		p = self.head
-		if p != None :
-			while p.next != None :
-				s += p.data
-				p = p.next
-			s += p.data
-		return s
+    #update tail
+    ll.lltail = new
+    #update link of new node
+    new.llprev = tail
+    new.llnext = None
+    #update link of old tail
+    tail.llnext = new
+    printList(ll)
+    print "a " + 3
+
+
+def pop(ll):
+    # empty list
+    if isEmpty(ll):
+        return None
+
+    oldtail = ll.lltail
+
+    # 1 object in list
+    if hasOneElement(ll):
+        ll.lltail = None
+        ll.llhead = None
+        return oldtail
+
+    # n objects in list
+    newtail = oldtail.llprev
+    newtail.llnext = None
+    ll.lltail = newtail
+
+    oldtail.llnext = None
+    oldtail.llprev = None
+
+    return oldtail
+
+def increment(ll, node):
+    switch(ll,node.llprev , node )
+
+#switch consecutive objects
+def switch(ll,before, after):
+    if isEmpty(ll) or hasOneElement(ll):
+        return
+
+    # after is the head
+    if before == None:
+        return
+
+    if ll.llhead == before:
+        ll.llhead = after
+
+    if ll.lltail == after:
+        ll.lltail = before
+
+    before.llprev.llnext = after
+    after.llnext.llprev = before
+
+    before.llnext = after.llnext
+    after.llprev = before.llprev
+
+    before.llprev = after
+    after.llnext = before
+
+    return
+
+
+def lastsWillBeFirsts(ll):
+    if isEmpty(ll) or hasOneElement(ll):
+        return
+
+    bringToFirst(ll, ll.lltail)
+
+
+def bringToFirst(ll, node):
+    if isEmpty(ll) or hasOneElement(ll):
+        return
+
+    oldtail = ll.lltail
+    oldhead = ll.llhead
+
+    if oldhead == node:
+        return
+
+    # update tail if necessary
+    if oldtail == node:
+        newtail = oldtail.llprev
+        ll.lltail = newtail
+        newtail.llnext = None
+
+    newhead = node
+
+    ll.llhead = newhead
+
+    #update new head
+    newhead.llnext = oldhead
+    newhead.llprev = None
+    oldhead.llprev = newhead
+
+
+
+def listToString(ll):
+    if isEmpty(ll):
+        return "LL: Empty list"
+    if hasOneElement(ll):
+        return "LL: " + str(int(ll.llhead))
+
+    string = "LL: \n"
+    node = ll.llhead
+    it = 0
+    while node.llnext != ll.lltail and it < 20:
+        string += str(int(node))+ "("+ str(int(node.llprev)) + "," + str(int(node.llnext)) + ")" + "-"
+        it += 1
+    return string
+
+def printList(ll):
+    print listToString(ll)
