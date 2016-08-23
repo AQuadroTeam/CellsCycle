@@ -17,6 +17,12 @@ def isEmpty(ll):
 def hasOneElement(ll):
     return True if ll.lltail == ll.llhead else False
 
+def getTail(ll):
+    return ll.lltail
+
+def getHead(ll):
+    return ll.llhead
+
 def push(ll, new):
     if isEmpty(ll):
         ll.lltail = new
@@ -86,23 +92,35 @@ def lastsWillBeFirsts(ll):
     if isEmpty(ll) or hasOneElement(ll)):
         return
 
+    bringToFirst(ll, ll.lltail)
+
+
+def bringToFirst(ll, node):
+    if isEmpty(ll) or hasOneElement(ll)):
+        return
+
     oldtail = ll.lltail
     oldhead = ll.llhead
 
-    newtail = oldtail.prev
-    newhead = oldtail
+    if oldhead == node:
+        return
 
-    #update ll
-    ll.lltail = newtail
+    # update tail if necessary
+    if oldtail == node:
+        newtail = oldtail.prev
+        ll.lltail = newtail
+        newtail.next = None
+
+    newhead = node
+
     ll.llhead = newhead
-
-    #update new tail
-    newtail.next = None
 
     #update new head
     newhead.next = oldhead
     newhead.prev = None
     oldhead.prev = newhead
+
+
 
 def listToString(ll):
     if isEmpty(ll):
