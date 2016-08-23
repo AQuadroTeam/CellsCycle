@@ -11,6 +11,7 @@ class ListCommunication:
         # create a socket object
         self.context = zmq.Context()
         self.completeAddress = 'tcp://' + addr + ":" + port
+        print self.completeAddress
 
     def initServerSocket(self):
         self.communicationSocket = self.context.socket(zmq.PAIR)
@@ -25,7 +26,6 @@ class ListCommunication:
     def recv(self):
         #  Wait for next request
         message = self.communicationSocket.recv()
-        print("Received request")
         return message
 
     def startClientConnection(self):
@@ -36,7 +36,6 @@ class ListCommunication:
     def send(self,data):
         #  Send something to another node
         self.communicationSocket.send(data)
-        print 'Message sent to another node'
 
     def storeData(self, data, filePath):
         with open(filePath,'w+') as f:

@@ -6,13 +6,14 @@ from CellCycle.Settings import SettingsManager
 from ListCommunication import ListCommunication
 from zmq import Again
 
-FILE_PATH = './my_list.txt'
+FILE_PATH = './my_list'
 DEAD = 'DEAD'
 DEFAULT_ADDR = '*'
+TXT = '.txt'
 
 class ReadingThread(ListThread):
-    def __init__(self, threadId, prevId, slave, slaveOfSlave, masterMemory, slaveMemory):
-        ListThread.__init__(self, threadId, prevId, slave, slaveOfSlave, masterMemory, slaveMemory)
+    def __init__(self, threadId, prevId, slave, slaveOfSlave, masterMemory, slaveMemory, logger):
+        ListThread.__init__(self, threadId, prevId, slave, slaveOfSlave, masterMemory, slaveMemory, logger)
         self.settingsManager = SettingsManager.SettingsManager()
         self.settingsObject = None
 
@@ -43,10 +44,12 @@ class ReadingThread(ListThread):
             try:
                 message = listCommunication.recv()
 
-                listCommunication.storeData(message, FILE_PATH)
+                listCommunication.storeData(message, FILE_PATH + self.threadId + TXT)
 
-                print "I've just received this message"
-                print message
+                self.logger.debug("I'm a READER , i've just received this message (" + self.threadId + ") from threadId " + self.masterId)
+                self.logger.debug(message)
+                #print "I've just received this message (" + self.threadId + ") from threadId " + self.masterId
+                #print message
 
                 '''
                 You don't need to send something
@@ -66,15 +69,18 @@ class ReadingThread(ListThread):
                 #    counter = 10
                 '''
             except Again:
-                print "Message not ready"
+                #print "Message not ready"
+                self.logger.debug("Message not ready")
                 if not hasattr(self.settingsManager.settings,'configDict') :
                     self.settingsManager.settings = SettingsManager.SettingsObject({})
                 self.settingsManager.settings.configDict[self.masterId] = [DEAD]
                 self.settingsManager.settings.configDict[self.threadId] = [str(time.ctime(time.time()))]
 
-                print "This is the dictionary at this moment :"
-                print self.settingsManager.settings.configDict
-                self.settingsManager.writeFileFromConfiguration(FILE_PATH)
+                #print "This is the dictionary at this moment (" + self.threadId + ") :"
+                self.logger.debug("This is the dictionary at this moment (" + self.threadId + ") :")
+                #print self.settingsManager.settings.configDict
+                self.logger.debug(self.settingsManager.settings.configDict)
+                self.settingsManager.writeFileFromConfiguration(FILE_PATH + self.threadId + TXT)
                 # else :
                 #     self.settingsManager.writeFileFromConfiguration(FILE_PATH)
                 '''

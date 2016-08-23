@@ -5,34 +5,37 @@ import time
 from ListCommunication import ListCommunication
 from CellCycle.Settings import SettingsManager
 from zmq import Again
+from random import randint
 
-FILE_PATH = './my_list.txt'
+
+FILE_PATH = './my_list'
 DEAD = 'DEAD'
-DEFAULT_ADDR = '*'
+DEFAULT_ADDR = 'localhost'
+TXT = '.txt'
+COUNTER = randint(0,2)
 
 
 class WritingThread (ListThread):
 
-    def __init__(self, threadId, master,slave, slaveOfSlave, masterMemory, slaveMemory):
-        ListThread.__init__(self, master, threadId, slave, slaveOfSlave, masterMemory, slaveMemory)
+    def __init__(self, threadId, master,slave, slaveOfSlave, masterMemory, slaveMemory, logger):
+        ListThread.__init__(self, master, threadId, slave, slaveOfSlave, masterMemory, slaveMemory, logger)
         self.settingsManager = SettingsManager.SettingsManager()
         self.settingsObject = None
 
 
     def run(self):
         print "Starting " + self.threadId
-        self.writeList(self.threadId, 2)
+        self.writeList(self.threadId, COUNTER)
         print "Exiting " + self.threadId
 
-
     def writeList(self, threadName, counter):
-
         listCommunication = ListCommunication(DEFAULT_ADDR,self.slaveAddr)
         listCommunication.initClientSocket()
         listCommunication.startClientConnection()
 
         if self.threadId > self.masterId:
-            print "I am the first : ", threadName, time.ctime(time.time())
+            #print "I am the first (" + self.threadId + "): ", threadName, time.ctime(time.time())
+            self.logger.debug("I am the first to write (" + self.threadId + "): " + " " + threadName + " " + time.ctime(time.time()))
 
             '''
             You don't need to check if you are the first
@@ -44,31 +47,42 @@ class WritingThread (ListThread):
             self.settingsManager.settings = SettingsManager.SettingsObject({})
             self.settingsManager.settings.configDict[self.threadId] = [str(time.ctime(time.time()))]
 
-            print "This is the dictionary at this moment :"
-            print self.settingsManager.settings.configDict
+            #print "This is the dictionary at this moment (" + self.threadId + "):"
+            self.logger.debug("This is the dictionary at this moment ( Writer " + self.threadId + "):")
+            #print self.settingsManager.settings.configDict
+            self.logger.debug(self.settingsManager.settings.configDict)
 
-            self.settingsManager.writeFileFromConfiguration(FILE_PATH)
-            listCommunication.sendFromFile(FILE_PATH)
+            self.settingsManager.writeFileFromConfiguration(FILE_PATH + self.threadId +TXT)
+            listCommunication.sendFromFile(FILE_PATH + self.threadId + TXT)
+            self.logger.debug('Message sent to another node ( Writer ' + self.threadId + ') to ' + self.slaveId)
 
         while True:
-            print 'sleeping...'
+            #print 'sleeping (' + self.threadId + ')...'
+            self.logger.debug('sleeping ( Writer ' + self.threadId + ')...')
             time.sleep(counter)
-            print 'awake!'
+            #print 'awake (' + self.threadId + ') !'
+            self.logger.debug('awake ( Writer ' + self.threadId + ') !')
 
-            print "I am : ", threadName, time.ctime(time.time())
-            self.settingsManager.readConfigurationFromFile(FILE_PATH)
+            #print "I am : ", threadName, time.ctime(time.time())
+            self.logger.debug("I am a writer : " + threadName + " " + time.ctime(time.time()))
+
+            self.settingsManager.readConfigurationFromFile(FILE_PATH + self.threadId + TXT)
             # if self.threadId in self.settingsManager.settings.configDict :
             self.settingsManager.settings.configDict[self.threadId] = [str(time.ctime(time.time()))]
-            print "This is the dictionary at this moment :"
-            print self.settingsManager.settings.configDict
-            self.settingsManager.writeFileFromConfiguration(FILE_PATH)
+            #print "This is the dictionary at this moment (" + self.threadId + "):"
+            self.logger.debug("This is the dictionary at this moment ( Writer " + self.threadId + "):")
+            #print self.settingsManager.settings.configDict
+            self.logger.debug(self.settingsManager.settings.configDict)
+            self.settingsManager.writeFileFromConfiguration(FILE_PATH + self.threadId + TXT)
             # else :
             #     self.settingsManager.writeFileFromConfiguration(FILE_PATH)
-            listCommunication.sendFromFile(FILE_PATH)
-
+            listCommunication.sendFromFile(FILE_PATH + self.threadId + TXT)
+            self.logger.debug('Message sent to another node ( Writer ' + self.threadId + ') to ' + self.slaveId)
+            #print "My work is done (" + self.threadId + ") ", threadName, time.ctime(time.time())
+            self.logger.debug("My work is done ( Writer " + self.threadId + ") " + " " + threadName + " " + time.ctime(time.time()))
             # hard-coded check if is still alive
-            #if self.threadId == '1':
-            #    counter = 10
+            # if self.threadId == '1':
+            #     counter = 10
 
 
 if __name__ == '__main__':

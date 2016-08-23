@@ -29,10 +29,10 @@ class SettingsManager:
         with open(filePath, 'w') as f:
             values = ''
             for key, value in self.settings.configDict.iteritems() :
-                print key, value
+                # print key, value
                 values = values + key + ' ' + ' '.join(value) + '\n'
-                #splitLine = line.split()
-                #dict[splitLine[0]] = splitLine[1:]
+                # splitLine = line.split()
+                # dict[splitLine[0]] = splitLine[1:]
             f.write(values)
             f.close()
 

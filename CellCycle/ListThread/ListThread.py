@@ -5,18 +5,28 @@ import time
 
 
 class ListThread (threading.Thread):
-    def __init__(self, threadId, master, slave, slaveOfSlave, masterMemory, slaveMemory):
+    def __init__(self, threadId, master, slave, slaveOfSlave, masterMemory, slaveMemory, logger):
         threading.Thread.__init__(self)
+        self.logger = logger
         self.threadId = str(threadId[0])
         self.threadAddr = str(threadId[1])
         self.masterId = str(master[0])
         self.masterAddr = str(master[1])
         self.slaveId = str(slave[0])
         self.slaveAddr = str(slave[1])
-        self.slaveOfSlaveId = str(slaveOfSlave[0])
-        self.slaveOfSlaveAddr = str(slaveOfSlave[1])
+        if len(slaveOfSlave) == 0:
+            self.slaveOfSlaveId = ''
+            self.slaveOfSlaveAddr = ''
+        else :
+            self.slaveOfSlaveId = str(slaveOfSlave[0])
+            self.slaveOfSlaveAddr = str(slaveOfSlave[1])
         self.masterM = masterMemory
         self.slaveM = slaveMemory
+
+        self.logger.debug("These are my features : (" + self.threadId + ")")
+        self.logger.debug("Master ID : " + self.masterId)
+        self.logger.debug("Slave ID : " + self.slaveId)
+
 
     def run(self):
         print "Starting " + self.threadId
