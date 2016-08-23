@@ -66,11 +66,12 @@ class ReadingThread(ListThread):
                 listCommunication.sendFromFile(FILE_PATH)
 
                 # hard-coded check if is still alive
-                if self.threadId == '1':
-                    counter = 10
+                #if self.threadId == '1':
+                #    counter = 10
             except Again:
                 print "Message not ready"
-
+                if not hasattr(self.settingsManager.settings,'configDict') :
+                    self.settingsManager.settings = SettingsManager.SettingsObject({})
                 self.settingsManager.settings.configDict[self.prevId] = [DEAD]
                 self.settingsManager.settings.configDict[self.threadId] = [str(time.ctime(time.time()))]
 
@@ -79,7 +80,7 @@ class ReadingThread(ListThread):
                 self.settingsManager.writeFileFromConfiguration(FILE_PATH)
                 # else :
                 #     self.settingsManager.writeFileFromConfiguration(FILE_PATH)
-                # Send file to another node listCommunication.sendFromFile(FILE_PATH)
+                listCommunication.sendFromFile(FILE_PATH)
 
 
 if __name__ == '__main__':

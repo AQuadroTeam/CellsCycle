@@ -13,13 +13,13 @@ class ListCommunication:
 
 
     def initServerSocket(self):
-        self.communicationSocket = self.context.socket(zmq.REP)
+        self.communicationSocket = self.context.socket(zmq.ROUTER)
         self.communicationSocket.RCVTIMEO = MAX_RCVTIMEO
         # bind to the port
         self.communicationSocket.bind("tcp://*:5555")
 
     def initClientSocket(self):
-        self.communicationSocket = self.context.socket(zmq.REQ)
+        self.communicationSocket = self.context.socket(zmq.ROUTER)
         self.communicationSocket.RCVTIMEO = MAX_RCVTIMEO
 
     def recv(self):
