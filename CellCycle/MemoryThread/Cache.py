@@ -1,6 +1,7 @@
 from array import array as C_Array
 from sys import getsizeof
-from SplayTree import SplayTree
+from lib.SplayTree import SplayTree
+from lib.LinkedList import *
 
 class CacheSlubLRU:
 
@@ -30,7 +31,10 @@ class CacheSlubLRU:
         self.partial = []
         self.complete = []
 
-        self.lru = SplayTree() #list of slabs, ordered by last use
+        #lru linked list
+        self.llhead = None
+        self.lltail = None
+        #
 
         self.cache = {} #dictionary of key-slab
 
@@ -38,7 +42,9 @@ class CacheSlubLRU:
 
         for slabIndex in range(self.slabNumber):
             slab = Slab(self, slabIndex,self.slabSize, self.slabNumber, self.totalSize)
-            self.lru.insert(slabIndex, slab)
+
+            LinkedList.push(slab)
+
             self.unused.append(slab)
 
         self.logger.debug("Cache: End of Initialization Cache, Success!")
@@ -55,7 +61,10 @@ class CacheSlubLRU:
             print "new slab requested"
             #return an unused slab
             slab = self.unused[-1]
-            self.lru.splay(slab.slabIndex)
+
+            #it's a new slab, it must not be purged soon
+            LinkedList.bringToFirst(slab)
+
             return slab
 
         else:
@@ -65,7 +74,7 @@ class CacheSlubLRU:
         #activate lru purge
         print "slab purged"
         #get the last slab in lru list
-        slab = self.lru.furthestNode().data
+        slab = LinkedList.getTail(self)
         if (slab.state == 1):#partial
             self.partial.remove(slab)
         if (slab.state == 2):#complete
@@ -75,7 +84,8 @@ class CacheSlubLRU:
 
         slab.clearSlab()
         self.unused.append(slab)
-        self.lru.splay(slab.slabIndex)
+
+        LinkedList.bringToFirst(self, slab)
         return slab
 
 
@@ -94,7 +104,8 @@ class CacheSlubLRU:
 
             slab.setValue(key, value)
             self.cache[key] = slab
-            self.lru.splay(slab.slabIndex)
+            LinkedList.increment(self, slab)
+
         else:#update existent value
             self.logger.debug("Cache: set of "+ str(key) + ", it is been updated")
             if not key in slab.value:
@@ -104,7 +115,7 @@ class CacheSlubLRU:
             if valueSize <= end-begin-1: #change
 
                 slab.updateValue(key, value)
-                self.lru.splay(slab.slabIndex)
+                LinkedList.increment(self, slab)
                 slab.value[key] = begin, begin + valueSize
 
             else:
@@ -115,7 +126,7 @@ class CacheSlubLRU:
         self.logger.debug("Cache: get of "+ str(key))
         slab = self.cache.get(key)
         if slab != None:
-            self.lru.splay(slab.slabIndex)
+            LinkedList.increment(self, slab)
             return slab.getValue(key)
         else:
             return None
@@ -144,6 +155,11 @@ class Slab:
         self.availableSpace = int(slabSize)  #in bytes
         self.state = 0 #0 unused, 1 partial, 2 complete
         self.value = {} #elements like ("1234", "4", "10") that means, value of key 1234 begins at 4 and ends at 10
+
+        #LL lru cache
+        self.llprev = None
+        self.llnext = None
+        #
 
         self.begin = int( slabIndex * slabSize )
         self.end = int( (slabIndex+1) * slabSize ) -1
@@ -235,6 +251,8 @@ if __name__ == "__main__":
 
     cache = CacheSlubLRU(10*mega , 100000,logging.getLogger()) #set as 10 mega, 1 mega per slab
     #cache = CacheSlubLRU(100, 10, logging.getLogger())
-    fun(cache)
+
+    #fun(cache)
+
     #for x in cache.lru:
     #    print x
