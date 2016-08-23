@@ -64,10 +64,16 @@ def pop(ll):
 
     return oldtail
 
+def increment(ll, node):
+    switch(ll,node.prev , node )
 
 #switch consecutive objects
 def switch(ll,before, after):
     if isEmpty(ll) or hasOneElement(ll)):
+        return
+
+    # after is the head
+    if before == None:
         return
 
     if ll.llhead == before:
