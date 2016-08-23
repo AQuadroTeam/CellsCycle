@@ -86,12 +86,15 @@ def switch(ll,before, after):
 
     if ll.llhead == before:
         ll.llhead = after
+    else:
+        before.llprev.llnext = after    
 
     if ll.lltail == after:
         ll.lltail = before
+    else:
+        after.llnext.llprev = before
 
-    before.llprev.llnext = after
-    after.llnext.llprev = before
+
 
     before.llnext = after.llnext
     after.llprev = before.llprev
@@ -115,6 +118,7 @@ def bringToFirst(ll, node):
 
     oldtail = ll.lltail
     oldhead = ll.llhead
+    newhead = node
 
     if oldhead == node:
         return
@@ -124,13 +128,12 @@ def bringToFirst(ll, node):
         newtail = oldtail.llprev
         ll.lltail = newtail
         newtail.llnext = None
-
-    newhead = node
+    else:
+        node.llnext.llprev = newhead.llprev
 
     ll.llhead = newhead
 
     newhead.llprev.llnext = newhead.llnext
-    newhead.llnext.llprev = newhead.llprev
 
     #update new head
     newhead.llnext = oldhead
