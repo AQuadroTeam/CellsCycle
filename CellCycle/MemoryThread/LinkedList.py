@@ -129,6 +129,9 @@ def bringToFirst(ll, node):
 
     ll.llhead = newhead
 
+    newhead.llprev.llnext = newhead.llnext
+    newhead.llnext.llprev = newhead.llprev
+
     #update new head
     newhead.llnext = oldhead
     newhead.llprev = None
@@ -151,9 +154,11 @@ def listToString(ll):
 
     string = "LL"+ "("+ nodeIndex(ll.llhead) + "," + nodeIndex(ll.lltail) + ")"+": "
     node = ll.llhead
-    while node != None:
+    it = 0
+    while node != None and it < 20:
         string += nodeIndexPlus(node) + "-"
         node = node.llnext
+        it += 1
     return string
 
 def printList(ll):
