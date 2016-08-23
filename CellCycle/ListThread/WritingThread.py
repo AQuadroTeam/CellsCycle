@@ -17,8 +17,9 @@ COUNTER = randint(0,2)
 
 class WritingThread (ListThread):
 
-    def __init__(self, threadId, master,slave, slaveOfSlave, masterMemory, slaveMemory, logger):
-        ListThread.__init__(self, master, threadId, slave, slaveOfSlave, masterMemory, slaveMemory, logger)
+    def __init__(self, threadId, master, slave, slaveOfSlave, masterMemory, slaveMemory, logger):
+        ListThread.__init__(self, threadId, master, slave, slaveOfSlave, masterMemory, slaveMemory, logger)
+        self.logger.debug("These are my features (Writer): (" + self.threadId + ") Master ID : " + self.masterId + " SlaveID: " + self.slaveId)
         self.settingsManager = SettingsManager.SettingsManager()
         self.settingsObject = None
 
@@ -33,9 +34,9 @@ class WritingThread (ListThread):
         listCommunication.initClientSocket()
         listCommunication.startClientConnection()
 
-        if self.threadId > self.masterId:
+        if self.threadId < self.masterId:
             #print "I am the first (" + self.threadId + "): ", threadName, time.ctime(time.time())
-            self.logger.debug("I am the first to write (" + self.threadId + "): " + " " + threadName + " " + time.ctime(time.time()))
+            self.logger.debug("I am the first to write (" + self.threadId + ", my master is " + self.masterId + "): " + " " + threadName + " " + time.ctime(time.time()))
 
             '''
             You don't need to check if you are the first
@@ -81,8 +82,8 @@ class WritingThread (ListThread):
             #print "My work is done (" + self.threadId + ") ", threadName, time.ctime(time.time())
             self.logger.debug("My work is done ( Writer " + self.threadId + ") " + " " + threadName + " " + time.ctime(time.time()))
             # hard-coded check if is still alive
-            # if self.threadId == '1':
-            #     counter = 10
+            if self.threadId == '1':
+                counter = 100000000
 
 
 if __name__ == '__main__':

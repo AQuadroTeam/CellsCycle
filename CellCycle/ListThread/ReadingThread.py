@@ -14,8 +14,11 @@ TXT = '.txt'
 class ReadingThread(ListThread):
     def __init__(self, threadId, prevId, slave, slaveOfSlave, masterMemory, slaveMemory, logger):
         ListThread.__init__(self, threadId, prevId, slave, slaveOfSlave, masterMemory, slaveMemory, logger)
+        self.logger.debug("These are my features (Reader): (" + self.threadId + ") Master ID : " + self.masterId + " SlaveID: " + self.slaveId)
+
         self.settingsManager = SettingsManager.SettingsManager()
         self.settingsObject = None
+
 
     def run(self):
         print "Starting " + self.threadId
@@ -46,8 +49,7 @@ class ReadingThread(ListThread):
 
                 listCommunication.storeData(message, FILE_PATH + self.threadId + TXT)
 
-                self.logger.debug("I'm a READER , i've just received this message (" + self.threadId + ") from threadId " + self.masterId)
-                self.logger.debug(message)
+                self.logger.debug("I'm a READER , i've just received this message (" + self.threadId + ") from threadId " + self.masterId + ", " + self.masterAddr + " : " + message)
                 #print "I've just received this message (" + self.threadId + ") from threadId " + self.masterId
                 #print message
 
@@ -70,7 +72,7 @@ class ReadingThread(ListThread):
                 '''
             except Again:
                 #print "Message not ready"
-                self.logger.debug("Message not ready")
+                self.logger.debug("Message not ready from (Reader " + self.threadId + ") : " + self.masterId)
                 if not hasattr(self.settingsManager.settings,'configDict') :
                     self.settingsManager.settings = SettingsManager.SettingsObject({})
                 self.settingsManager.settings.configDict[self.masterId] = [DEAD]

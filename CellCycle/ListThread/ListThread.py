@@ -17,16 +17,11 @@ class ListThread (threading.Thread):
         if len(slaveOfSlave) == 0:
             self.slaveOfSlaveId = ''
             self.slaveOfSlaveAddr = ''
-        else :
+        else:
             self.slaveOfSlaveId = str(slaveOfSlave[0])
             self.slaveOfSlaveAddr = str(slaveOfSlave[1])
         self.masterM = masterMemory
         self.slaveM = slaveMemory
-
-        self.logger.debug("These are my features : (" + self.threadId + ")")
-        self.logger.debug("Master ID : " + self.masterId)
-        self.logger.debug("Slave ID : " + self.slaveId)
-
 
     def run(self):
         print "Starting " + self.threadId

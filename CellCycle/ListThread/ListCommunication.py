@@ -3,7 +3,7 @@ import zmq
 
 BACKLOG = 5
 MAX_BUFF = 1024
-MAX_RCVTIMEO = 5
+MAX_RCVTIMEO = 2000
 
 class ListCommunication:
 
@@ -15,7 +15,7 @@ class ListCommunication:
 
     def initServerSocket(self):
         self.communicationSocket = self.context.socket(zmq.PAIR)
-        # self.communicationSocket.RCVTIMEO = MAX_RCVTIMEO
+        self.communicationSocket.RCVTIMEO = MAX_RCVTIMEO
         # bind to the port
         self.communicationSocket.bind(self.completeAddress)
 
