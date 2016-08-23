@@ -1,10 +1,14 @@
-from Cache import Slab, CacheSlubLRU
+from Cache import Slab, CacheSlubLRU, trialLinkedList
+
 
 def startMemoryThread(settings, logger):
 
     logger.debug("Hello, I'm a funny thread")
     logger.debug(settings)
+    trialLinkedList()
 
+
+    print "a" + 2
     kilo = 1000
     mega = 1000 * kilo
     giga = 1000 * mega

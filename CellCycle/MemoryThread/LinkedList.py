@@ -31,8 +31,6 @@ def push(ll, new):
         ll.llhead = new
         new.llnext = None
         new.llprev = None
-        print "add " + str(int(new))
-        printList(ll)
         return
 
     tail = ll.lltail
@@ -44,8 +42,6 @@ def push(ll, new):
     new.llnext = None
     #update link of old tail
     tail.llnext = new
-    print "add " + str(int(new))
-    printList(ll)
 
 
 
@@ -87,7 +83,7 @@ def switch(ll,before, after):
     if ll.llhead == before:
         ll.llhead = after
     else:
-        before.llprev.llnext = after    
+        before.llprev.llnext = after
 
     if ll.lltail == after:
         ll.lltail = before

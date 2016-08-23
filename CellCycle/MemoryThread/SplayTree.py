@@ -1,5 +1,7 @@
+# https://github.com/anoopj/pysplay
+
 class Node:
-    def __init__(self, key, data):
+    def __init__(self, key, data=None):
         self.key = key
         self.left = self.right = None
         self.data = data
@@ -10,9 +12,9 @@ class Node:
 class SplayTree:
     def __init__(self):
         self.root = None
-        self.header = Node(None,None) #For splay()
+        self.header = Node(None) #For splay()
 
-    def insert(self, key,data):
+    def insert(self, key,data=None):
         if (self.root == None):
             self.root = Node(key,data)
             return
@@ -82,7 +84,7 @@ class SplayTree:
         self.furthesth = 0
         self.furthestnode = self.root
         self.heightNode(self.root)
-        
+
         return self.furthestnode
 
     def heightNode(self, x,h=0):

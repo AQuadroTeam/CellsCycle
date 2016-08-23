@@ -1,7 +1,7 @@
 from array import array as C_Array
 from sys import getsizeof
-from lib.SplayTree import SplayTree
-from lib.LinkedList import *
+import LinkedList
+
 
 class CacheSlubLRU:
 
@@ -40,10 +40,10 @@ class CacheSlubLRU:
 
 
 
-        for slabIndex in range(self.slabNumber):
+        for slabIndex in xrange(self.slabNumber):
             slab = Slab(self, slabIndex,self.slabSize, self.slabNumber, self.totalSize)
 
-            LinkedList.push(slab)
+            LinkedList.push(self, slab)
 
             self.unused.append(slab)
 
@@ -63,7 +63,7 @@ class CacheSlubLRU:
             slab = self.unused[-1]
 
             #it's a new slab, it must not be purged soon
-            LinkedList.bringToFirst(slab)
+            LinkedList.bringToFirst(self, slab)
 
             return slab
 
@@ -139,7 +139,7 @@ class CacheSlubLRU:
     #        self.lru[index-1] = slab
 
     #def updateLRUn(self, slab, n):
-    #    for i in range(n):
+    #    for i in xrange(n):
     #        self.updateLRU(slab)
 
     def debug(self):
@@ -169,7 +169,7 @@ class Slab:
         self.value.clear()
         self.state = 0
 
-        for i in range(self.begin, self.end+1):
+        for i in xrange(self.begin, self.end+1):
             self.slabArray[i] = "0"
 
     def getValue(self, key):
@@ -179,7 +179,7 @@ class Slab:
         value = ""
         if begin == None:
             return None
-        for index in range(begin,end+1):
+        for index in xrange(begin,end+1):
             value += self.slabArray[index]
 
         return value
@@ -190,7 +190,7 @@ class Slab:
         begin, end = self.value[key]
         end = begin + size
         self.value[key] =begin, end
-        for index in range(begin, end):
+        for index in xrange(begin, end):
             self.slabArray[index]=  value[index-begin]
 
         if self.availableSpace<=0 and self.state==1:
@@ -210,7 +210,7 @@ class Slab:
 
         self.value[key] = begin, end
 
-        for index in range(begin, end+1):
+        for index in xrange(begin, end+1):
             #print begin, index, end
             self.slabArray[index] = value[index-begin]
 
@@ -227,32 +227,44 @@ class Slab:
         return self.state
 
     def __str__(self):
-        return "slabSize: " +   str(self.slabSize) + "\n"\
+        return "index: " + str(self.slabIndex) + "\n"\
+        + "slabSize: " +   str(self.slabSize) + "\n"\
         + "availableSpace: " + str(self.availableSpace)  + "\n"\
         + "state: "+ str(self.state)  + "\n"\
         + "dictionary value: " + str(self.value)  + "\n"\
         + "begin: " + str(self.begin)  + "\n"\
         + "end: " + str(self.end)  + "\n"
 
-def fun(cache):
-    it = 50000
+    def __int__(self):
+        return int(self.slabIndex)
+
+def fun(cache, it):
     import random
     for i in xrange(it):
         integer = random.randint(0,i)
 
-        cache.set(str(random.randint(0,i)), str(i)*(integer%9000))
+        cache.set(str(random.randint(0,i)), str(i)*(100))
         cache.get(str(integer))
         print "\b\b\b\b\b\b\b\b\b"+ str(i*1.0/it *100)+"%",
-if __name__ == "__main__":
+
+def trialLinkedList():
     import logging
     kilo = 1000
     mega = 1000 * kilo
     giga = 1000 * mega
 
-    cache = CacheSlubLRU(10*mega , 100000,logging.getLogger()) #set as 10 mega, 1 mega per slab
+    cache = CacheSlubLRU(100*kilo , 1*kilo,logging.getLogger()) #set as 10 mega, 1 mega per slab
     #cache = CacheSlubLRU(100, 10, logging.getLogger())
+    it  = 100000
+    fun(cache, it)
+    LinkedList.printList(cache)
 
-    #fun(cache)
+
+
+
 
     #for x in cache.lru:
     #    print x
+
+if __name__ == "__main__":
+    trialLinkedList()
