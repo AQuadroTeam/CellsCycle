@@ -94,25 +94,34 @@ def push(ll,tag, newnode):
 
 
 
-def pop(ll, tag):
+def pop(ll, tag, node=None):
+    node = node if node != None else getTail(ll, tag)
+
     # empty list
     if isEmpty(ll, tag):
         return None
 
-    oldtail = getTail(ll, tag)
-
     # 1 object in list
     if hasOneElement(ll, tag):
+        old = getHead(ll, tag)
         setHeadAndTail(ll, tag, None, None)
-        return oldtail
+        return old
 
-    # n objects in list
-    newtail = getPrev(tag, oldtail)
-    setNext(tag, newtail, None)
-    setTail(ll, tag, newtail)
+    head, tail = getHeadAndTail(ll, tag)
+    prev = getPrev(tag, node)
+    next = getNext(tag, node)
+    if node == head:
+        setHead(ll, tag, next)
+    else:
+        setNext(tag, prev, next)
+    if node == tail:
+        setTail(ll, tag, newtail)
+    else:
+        setPrev(tag, next, prev)
 
-    setPrevAndNext(tag, None, None)
-    return oldtail
+    setPrevAndNext(tag,node, None, None)
+
+    return node
 
 def increment(ll, tag, node):
     switch(ll,tag,getPrev(tag, node) , node )
