@@ -115,7 +115,7 @@ def pop(ll, tag, node=None):
     else:
         setNext(tag, prev, next)
     if node == tail:
-        setTail(ll, tag, newtail)
+        setTail(ll, tag, prev)
     else:
         setPrev(tag, next, prev)
 
@@ -214,6 +214,7 @@ def listToString(ll, tag):
 
 def printList(ll, tag):
     print listToString(ll ,tag)
+
 
 class LinkedList:
     def __init__(self,tag):

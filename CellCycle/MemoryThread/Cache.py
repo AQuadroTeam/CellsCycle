@@ -27,14 +27,20 @@ class CacheSlubLRU:
             ar.fromstring("0"*slabSize)
             i += 1
 
-        self.unused = []
-        self.partial = []
-        self.complete = []
-
         #lru linked list
         self.lists = {}
-        self.lists["lru" + "head"] = None
-        self.lists["lru" + "tail"] = None
+        self.taglru = "lru"
+        self.tagunused = "unused"
+        self.tagpartial = "partial"
+        self.tagcomplete = "complete"
+        self.lists[self.taglru + "head"] = None
+        self.lists[self.taglru + "tail"] = None
+        self.lists[self.tagunused + "head"] = None
+        self.lists[self.tagunused + "tail"] = None
+        self.lists[self.tagpartial + "head"] = None
+        self.lists[self.tagpartial + "tail"] = None
+        self.lists[self.tagcomplete + "head"] = None
+        self.lists[self.tagcomplete + "tail"] = None
         #
 
         self.cache = {} #dictionary of key-slab
@@ -44,27 +50,29 @@ class CacheSlubLRU:
         for slabIndex in xrange(self.slabNumber):
             slab = Slab(self, slabIndex,self.slabSize, self.slabNumber, self.totalSize)
 
-            LinkedList.push(self,"lru", slab)
-
-            self.unused.append(slab)
+            LinkedList.push(self,self.taglru, slab)
+            LinkedList.push(self, self.tagunused, slab)
 
         self.logger.debug("Cache: End of Initialization Cache, Success!")
 
     def getSlab(self, size):
 
-        for slab in self.partial:
+        slab = LinkedList.getHead(self, self.tagpartial)
+
+        while (slab != None):
             if slab.availableSpace >= size:
                 return slab
+            slab = LinkedList.getNext(self.tagpartial, slab)
 
 
         # no partial compatible slabs
-        if len(self.unused)>=1:
-            print "new slab requested"
+        if LinkedList.getHead(self, self.tagunused) != None:
+            # print "new unused slab requested"
             #return an unused slab
-            slab = self.unused[-1]
+            slab = LinkedList.getHead(self, self.tagunused)
 
             #it's a new slab, it must not be purged soon
-            LinkedList.bringToFirst(self,"lru", slab)
+            LinkedList.bringToFirst(self,self.taglru, slab)
 
             return slab
 
@@ -75,18 +83,18 @@ class CacheSlubLRU:
         #activate lru purge
         print "slab purged"
         #get the last slab in lru list
-        slab = LinkedList.getTail(self,"lru")
+        slab = LinkedList.getTail(self,self.taglru)
         if (slab.state == 1):#partial
-            self.partial.remove(slab)
+            LinkedList.pop(self, self.tagpartial, slab)
         if (slab.state == 2):#complete
-            self.complete.remove(slab)
+            LinkedList.pop(self, self.tagcomplete, slab)
         if (slab.state == 0):#unused
             raise Exception("an unused slab is purged, Not possible!")
 
         slab.clearSlab()
-        self.unused.append(slab)
+        LinkedList.push(self, self.tagunused, slab)
 
-        LinkedList.bringToFirst(self, "lru",slab)
+        LinkedList.bringToFirst(self, self.taglru,slab)
         return slab
 
 
@@ -96,19 +104,19 @@ class CacheSlubLRU:
             self.logger.warning("Cache: failed set, too large "+ str(key) + ", value:"+ str(value) + ",size:" + str(valueSize))
             return None
 
-        self.logger.debug("Cache: set of "+ str(key) + ", value:"+ str(value) + ",size:" + str(valueSize))
+        #self.logger.debug("Cache: set of "+ str(key) + ", value:"+ str(value) + ",size:" + str(valueSize))
         slab = self.cache.get(key)
 
         if slab== None:#insert new element
-            self.logger.debug("Cache: set of "+ str(key) + ", it is been added")
+            #self.logger.debug("Cache: set of "+ str(key) + ", it is been added")
             slab = self.getSlab(valueSize)
 
             slab.setValue(key, value)
             self.cache[key] = slab
-            LinkedList.increment(self, "lru",slab)
+            LinkedList.increment(self, self.taglru,slab)
 
         else:#update existent value
-            self.logger.debug("Cache: set of "+ str(key) + ", it is been updated")
+            #self.logger.debug("Cache: set of "+ str(key) + ", it is been updated")
             if not key in slab.value:
                 return None
             begin, end = slab.value.get(key)
@@ -116,7 +124,7 @@ class CacheSlubLRU:
             if valueSize <= end-begin-1: #change
 
                 slab.updateValue(key, value)
-                LinkedList.increment(self, "lru",slab)
+                LinkedList.increment(self, self.taglru,slab)
                 slab.value[key] = begin, begin + valueSize
 
             else:
@@ -124,10 +132,10 @@ class CacheSlubLRU:
                 self.set(key,value)
 
     def get(self, key):
-        self.logger.debug("Cache: get of "+ str(key))
+        #self.logger.debug("Cache: get of "+ str(key))
         slab = self.cache.get(key)
         if slab != None:
-            LinkedList.increment(self, "lru",slab)
+            LinkedList.increment(self, self.taglru,slab)
             return slab.getValue(key)
         else:
             return None
@@ -159,7 +167,10 @@ class Slab:
 
         #LL lru cache
         self.pointer = {}
-        LinkedList.setIndex("lru",self, self.slabIndex)
+        LinkedList.setIndex(self.cache.taglru,self, self.slabIndex)
+        LinkedList.setIndex(self.cache.tagunused,self, self.slabIndex)
+        LinkedList.setIndex(self.cache.tagpartial,self, self.slabIndex)
+        LinkedList.setIndex(self.cache.tagcomplete,self, self.slabIndex)
         #
 
         self.begin = int( slabIndex * slabSize )
@@ -196,8 +207,8 @@ class Slab:
 
         if self.availableSpace<=0 and self.state==1:
             self.state = 2
-            self.cache.partial.remove(self)
-            self.cache.complete.append(self)
+            LinkedList.pop(self.cache, self.cache.tagpartial, self)
+            LinkedList.push(self.cache, self.cache.tagcomplete, self)
 
         return self.state
 
@@ -217,13 +228,13 @@ class Slab:
 
         if self.state == 0:
             self.state = 1
-            self.cache.unused.remove(self)
-            self.cache.partial.append(self)
+            LinkedList.pop(self.cache, self.cache.tagunused, self)
+            LinkedList.push(self.cache, self.cache.tagpartial, self)
 
         if self.availableSpace<=0:
             self.state = 2
-            self.cache.partial.remove(self)
-            self.cache.complete.append(self)
+            LinkedList.pop(self.cache, self.cache.tagpartial, self)
+            LinkedList.push(self.cache, self.cache.tagcomplete, self)
 
         return self.state
 
@@ -242,11 +253,23 @@ class Slab:
 def fun(cache, it):
     import random
     for i in xrange(it):
-        integer = random.randint(0,i)
 
-        cache.set(str(random.randint(0,i)), str(i)*(1))
-        cache.get(str(integer))
-        print "\b\b\b\b\b\b\b\b\b"+ str(i*1.0/it *100)+"%",
+        setKey, setValue, getKey = trialPrepare(i ,it,cache)
+        trialDo(cache, setKey, setValue, getKey)
+        
+        if int((i*1.0/it *100))%5 == 0:
+            print "\b\b\b\b\b\b\b\b\b"+ str(i*1.0/it *100)+"%",
+
+def trialPrepare(i, int,cache):
+    import random
+    integer = random.randint(0,i)
+    setValue = cache.slabSize* 1.0 /1300
+    setValue = "a"*(cache.slabSize/1300)
+    return str(random.randint(0,i)), setValue, str(integer)
+
+def trialDo(cache, setKey, setValue, getKey):
+    cache.set(setKey, setValue)
+    cache.get(getKey)
 
 def trialLinkedList():
     import logging
@@ -254,12 +277,12 @@ def trialLinkedList():
     mega = 1000 * kilo
     giga = 1000 * mega
 
-    cache = CacheSlubLRU(100 , 10,logging.getLogger()) #set as 10 mega, 1 mega per slab
+    cache = CacheSlubLRU(100*mega , 100*kilo,logging.getLogger()) #set as 10 mega, 1 mega per slab
     #cache = CacheSlubLRU(100, 10, logging.getLogger())
-    it  = 1000
+    it  = 100000
     fun(cache, it)
 
-    LinkedList.printList(cache, "lru")
+    #LinkedList.printList(cache, "lru")
 
 
 
