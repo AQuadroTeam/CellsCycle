@@ -174,6 +174,6 @@ class Node:
         self.llprev = None
         self.data = data
         self.index = index
-        
+
     def __int__(self):
         return str(self.index)

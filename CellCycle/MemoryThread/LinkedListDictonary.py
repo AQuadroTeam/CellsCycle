@@ -34,38 +34,38 @@ def hasOneElement(ll, tag):
     return True if tail == head else False
 
 def getTail(ll, tag):
-    return ll.lists[tag.join("tail")]
+    return ll.lists[tag + "tail"]
 
 def setTail(ll, tag, node):
-    ll.lists[tag.join("tail")] = node
+    ll.lists[tag + "tail"] = node
 
 def getHead(ll, tag):
-    return ll.lists[tag.join("head")]
+    return ll.lists[tag + "head"]
 
 def setHead(ll, tag, node):
-    ll.lists[tag.join("head")] = node
+    ll.lists[tag + "head"] = node
 
 def setHeadAndTail(ll, tag, head, tail):
     setHead(ll, tag, head)
     setTail(ll, tag, tail)
 
 def getNext(tag, node):
-    return node.pointer[tag.join("next")]
+    return node.pointer[tag + "next"]
 
 def setNext(tag, node, next):
-    node.pointer[tag.join("next")] = next
+    node.pointer[tag + "next"] = next
 
 def getPrev(tag, node):
-    return node.pointer[tag.join("prev")]
+    return node.pointer[tag + "prev"]
 
 def setPrev(tag, node, prev):
-    node.pointer[tag.join("prev")] = prev
+    node.pointer[tag + "prev"] = prev
 
 def getIndex(tag, node):
-    return node.pointer[tag.join("index")]
+    return node.pointer[tag + "index"]
 
 def setIndex(tag, node, index):
-    node.pointer[tag.join("index")] = index
+    node.pointer[tag + "index"] = index
 
 def getPrevAndNext(tag, node):
     return getPrev(tag, node), getNext(tag, node)
@@ -74,23 +74,23 @@ def setPrevAndNext(tag, node, prev, next):
     setPrev(tag, node, prev)
     setNext(tag, node, next)
 
-def push(ll,tag, new):
+def push(ll,tag, newnode):
     if isEmpty(ll, tag):
-        setTail(ll,tag, new)
-        setHead(ll,tag, new)
-        setNext(tag, new, None)
-        setPrev(tag, new, None)
+        setTail(ll,tag, newnode)
+        setHead(ll,tag, newnode)
+        setNext(tag, newnode, None)
+        setPrev(tag, newnode, None)
         return
 
 
     tail = getTail(ll, tag)
 
     #update tail
-    setTail(ll, tag) = new
-    #update link of new node
-    setPrevAndNext(tag, new, tail, None )
+    setTail(ll, tag, newnode)
+    #update link of newnode node
+    setPrevAndNext(tag, newnode, tail, None )
     #update link of old tail
-    setNext(tag, tail, new)
+    setNext(tag, tail, newnode)
 
 
 
@@ -209,14 +209,14 @@ def printList(ll, tag):
 class LinkedList:
     def __init__(self,tag):
         self.lists = {}
-        self.lists[tag.join("head")] = None
-        self.lists[tag.join("tail")] = None
+        self.lists[tag + "head"] = None
+        self.lists[tag + "tail"] = None
 
 class Node:
     def __init(self,tag,  index, data = None):
         self.pointer = {}
-        self.pointer[tag.join("next")] = None
-        self.pointer[tag.join("prev")] = None
+        self.pointer[tag + "next"] = None
+        self.pointer[tag + "prev"] = None
         self.data = data
         self.index = index
 
