@@ -42,8 +42,7 @@ class CacheSlubLRU:
         self.lists[self.tagcomplete + "head"] = None
         self.lists[self.tagcomplete + "tail"] = None
         #
-
-        self.cache = {} #dictionary of key-slab
+        self.cache = {}#collections.defaultdict() #dictionary of key-slab
 
 
 
@@ -99,6 +98,8 @@ class CacheSlubLRU:
 
 
     def set(self, key, value):
+        key = int(key)
+
         valueSize = len(value)
         if valueSize > self.slabSize:
             self.logger.warning("Cache: failed set, too large "+ str(key) + ", value:"+ str(value) + ",size:" + str(valueSize))
@@ -132,6 +133,7 @@ class CacheSlubLRU:
                 self.set(key,value)
 
     def get(self, key):
+        key = int(key)
         #self.logger.debug("Cache: get of "+ str(key))
         slab = self.cache.get(key)
         if slab != None:
@@ -253,39 +255,74 @@ class Slab:
 def fun(cache, it):
     import random
     old = 0
+    getlist = []
+
     for i in xrange(it):
 
-        setKey, setValue, getKey = trialPrepare(i ,it,cache)
-        trialDo(cache, setKey, setValue, getKey)
+        setKey, setValue, getKey = trialPrepare(i ,it,cache, getlist)
+
+        getsetratio = 10
+        getratio = 1.0 * getsetratio/ (getsetratio +1)
+        setratio = 1.0/ (getsetratio +1)
+        if random.random()< getratio:
+            trialget(cache, setKey, setValue, getKey)
+        else:
+            trialset(cache, setKey, setValue, getKey)
 
         percent = int(i*1.0/it *100)
         if percent%5 == 0 and percent > old:
             old = percent
             print "\b\b\b\b\b\b\b\b\b"+ str(percent)+"%",
 
-def trialPrepare(i, int,cache):
+def trialPrepare(i, int,cache, getlist):
     import random
     integer = random.randint(0,i)
-    setValue = "a"*(cache.slabSize/13000)
-    return str(random.randint(0,i)), setValue, str(integer)
+    setValue = "a"*(300) #according to facebook article
+    setkey = str(random.randint(0,i))
+    getlist.append(setkey)
+    getkey = random.choice(getlist)
+    return setkey, setValue, getkey
 
-def trialDo(cache, setKey, setValue, getKey):
+def trialset(cache, setKey, setValue, getKey):
     cache.set(setKey, setValue)
+
+
+def trialget(cache, setKey, setValue, getKey):
     cache.get(getKey)
+
+
+def trialSplit(cache):
+    #LinkedList.printList(cache, "lru")
+    import itertools
+    n = len(cache.cache) // 2          # length of smaller half
+    i = iter(cache.cache.items())      # alternatively, i = d.iteritems() works in Python 2
+
+    d1 = dict(itertools.islice(i, n))   # grab first n items
+    d2 = dict(i)                        # grab the rest
+    old = 0
+    x = 0
+    print d1
+
+    for x in cache.cache.items():
+
+        if x[0] < old:
+            print old, x[0]
+        old = x[0]
+    print "-------------------------------------------------------------------------------------------------------"
+
 
 def trialLinkedList():
     import logging
+    import random
+
     kilo = 1000
     mega = 1000 * kilo
     giga = 1000 * mega
 
-    cache = CacheSlubLRU(100*mega , 100*kilo,logging.getLogger()) #set as 10 mega, 1 mega per slab
+    cache = CacheSlubLRU(1000*mega , 1000*kilo,logging.getLogger()) #set as 10 mega, 1 mega per slab
     #cache = CacheSlubLRU(100, 10, logging.getLogger())
-    it  = 100000
+    it  = 200000
     fun(cache, it)
-
-    #LinkedList.printList(cache, "lru")
-
 
 
 
