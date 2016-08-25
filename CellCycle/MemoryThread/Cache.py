@@ -76,7 +76,7 @@ class CacheSlubLRU(object):
     def purgeLRUSlab(self):
         #activate lru purge
         self.purged += 1
-        print "slab purged"
+        #print "slab purged"
         #get the last slab in lru list
         slab = LinkedList.getTail(self,self.taglru)
         if (slab.state == 1):#partial
