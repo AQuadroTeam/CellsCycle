@@ -57,35 +57,41 @@ class WritingThread (ListThread):
             self.settingsManager.writeFileFromConfiguration(FILE_PATH + self.threadId +TXT)
             listCommunication.sendFromFile(FILE_PATH + self.threadId + TXT)
             self.logger.debug('Message sent to another node ( Writer ' + self.threadId + ') to ' + self.slaveId)
-        else :
-            #while True:
-            for i in xrange(1):
-                with self.condition:
-                    #print 'sleeping (' + self.threadId + ')...'
-                    self.logger.debug('sleeping ( Writer ' + self.threadId + ')...')
-                    self.condition.wait()
-                    #print 'awake (' + self.threadId + ') !'
-                    self.logger.debug('awake ( Writer ' + self.threadId + ') !')
-                    #print "I am : ", threadName, time.ctime(time.time())
-                    self.logger.debug("I am a writer : " + threadName + " " + time.ctime(time.time()))
 
-                    self.settingsManager.readConfigurationFromFile(FILE_PATH + self.threadId + TXT)
-                    # if self.threadId in self.settingsManager.settings.configDict :
-                    self.settingsManager.settings.configDict[self.threadId] = [str(time.ctime(time.time()))]
-                    #print "This is the dictionary at this moment (" + self.threadId + "):"
-                    self.logger.debug("This is the dictionary at this moment ( Writer " + self.threadId + "):")
-                    #print self.settingsManager.settings.configDict
-                    self.logger.debug(self.settingsManager.settings.configDict)
-                    self.settingsManager.writeFileFromConfiguration(FILE_PATH + self.threadId + TXT)
-                    # else :
-                    #     self.settingsManager.writeFileFromConfiguration(FILE_PATH)
-                    listCommunication.sendFromFile(FILE_PATH + self.threadId + TXT)
-                    self.logger.debug('Message sent to another node ( Writer ' + self.threadId + ') to ' + self.slaveId)
-                    #print "My work is done (" + self.threadId + ") ", threadName, time.ctime(time.time())
-                    self.logger.debug("My work is done ( Writer " + self.threadId + ") " + " " + threadName + " " + time.ctime(time.time()))
-                    # hard-coded check if is still alive
-                    #if self.threadId == '1':
-                    #    counter = 100000000
+        if self.threadId == '1':
+            time.sleep(100000000000000000)
+
+        #while True:
+        for i in xrange(2):
+            time.sleep(self.delay)
+            while not self.condition.isSet():
+                #print 'sleeping (' + self.threadId + ')...'
+                self.logger.debug('sleeping ( Writer ' + self.threadId + ')...')
+                self.condition.wait()
+
+            #print 'awake (' + self.threadId + ') !'
+            self.logger.debug('awake ( Writer ' + self.threadId + ') !')
+            #print "I am : ", threadName, time.ctime(time.time())
+            self.logger.debug("I am a writer : " + threadName + " " + time.ctime(time.time()))
+
+            self.settingsManager.readConfigurationFromFile(FILE_PATH + self.threadId + TXT)
+            # if self.threadId in self.settingsManager.settings.configDict :
+            self.settingsManager.settings.configDict[self.threadId] = [str(time.ctime(time.time()))]
+            #print "This is the dictionary at this moment (" + self.threadId + "):"
+            self.logger.debug("This is the dictionary at this moment ( Writer " + self.threadId + "):")
+            #print self.settingsManager.settings.configDict
+            self.logger.debug(self.settingsManager.settings.configDict)
+            self.settingsManager.writeFileFromConfiguration(FILE_PATH + self.threadId + TXT)
+            # else :
+            #     self.settingsManager.writeFileFromConfiguration(FILE_PATH)
+            listCommunication.sendFromFile(FILE_PATH + self.threadId + TXT)
+            self.logger.debug('Message sent to another node ( Writer ' + self.threadId + ') to ' + self.slaveId)
+            #print "My work is done (" + self.threadId + ") ", threadName, time.ctime(time.time())
+            self.logger.debug("My work is done ( Writer " + self.threadId + ") " + " " + threadName + " " + time.ctime(time.time()))
+            # hard-coded check if is still alive
+            #if self.threadId == '1':
+            #    time.sleep(100000000000000000)
+            #counter = 100000000
 
 
 if __name__ == '__main__':

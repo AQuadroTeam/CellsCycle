@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="a1c89ab2-e673-4d5e-b868-5d8c5ef9cde2" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CellCycle/ListThread/ListCommunication.py" afterPath="$PROJECT_DIR$/CellCycle/ListThread/ListCommunication.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CellCycle/ListThread/ListThread.py" afterPath="$PROJECT_DIR$/CellCycle/ListThread/ListThread.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CellCycle/ListThread/ReadingThread.py" afterPath="$PROJECT_DIR$/CellCycle/ListThread/ReadingThread.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CellCycle/ListThread/WritingThread.py" afterPath="$PROJECT_DIR$/CellCycle/ListThread/WritingThread.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/my_list1.txt" afterPath="$PROJECT_DIR$/my_list1.txt" />
@@ -47,7 +45,7 @@
         <entry file="file://$PROJECT_DIR$/CellCycle/ListThread/ReadingThread.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="39" column="23" selection-start-line="39" selection-start-column="23" selection-end-line="39" selection-end-column="23" />
+              <caret line="42" column="25" selection-start-line="42" selection-start-column="25" selection-end-line="42" selection-end-column="25" />
               <folding>
                 <element signature="e#24#57#0" expanded="true" />
               </folding>
@@ -55,11 +53,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WritingThread.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="WritingThread.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/CellCycle/ListThread/WritingThread.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="65" column="41" selection-start-line="65" selection-start-column="41" selection-end-line="65" selection-end-column="41" />
+            <state vertical-scroll-proportion="0.29116946">
+              <caret line="70" column="0" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
               <folding>
                 <element signature="e#24#57#0" expanded="true" />
               </folding>
@@ -89,10 +87,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="start.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="start.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/start.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.35153583">
+            <state vertical-scroll-proportion="0.0">
               <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
               <folding>
                 <element signature="e#23#85#0" expanded="true" />
@@ -133,13 +131,13 @@
         <option value="$PROJECT_DIR$/CellCycle/ListThread/my_list3.txt" />
         <option value="$PROJECT_DIR$/CellCycle/ListThread/ListThread.py" />
         <option value="$PROJECT_DIR$/CellCycle/ListThread/ListCommunication.py" />
-        <option value="$PROJECT_DIR$/CellCycle/ListThread/WritingThread.py" />
         <option value="$PROJECT_DIR$/start.py" />
+        <option value="$PROJECT_DIR$/CellCycle/ListThread/ReadingThread.py" />
+        <option value="$PROJECT_DIR$/CellCycle/ListThread/WritingThread.py" />
+        <option value="$PROJECT_DIR$/logFile.txt" />
         <option value="$PROJECT_DIR$/my_list1.txt" />
         <option value="$PROJECT_DIR$/my_list2.txt" />
         <option value="$PROJECT_DIR$/my_list3.txt" />
-        <option value="$PROJECT_DIR$/logFile.txt" />
-        <option value="$PROJECT_DIR$/CellCycle/ListThread/ReadingThread.py" />
       </list>
     </option>
   </component>
@@ -655,7 +653,13 @@
       <option name="project" value="LOCAL" />
       <updated>1472136415442</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Set condition variables alla around the code but it's difficult to synchronize reader and writer with a circular structure">
+      <created>1472142078129</created>
+      <option name="number" value="00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1472142078129</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -668,7 +672,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32854864" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.48963317" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28867623" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -731,7 +735,8 @@
     <MESSAGE value="Support for a dead node" />
     <MESSAGE value="Condition variable to prevent an unuseful list" />
     <MESSAGE value="Removed condition , it's better to set a reader timeout greater than the writer timeout" />
-    <option name="LAST_COMMIT_MESSAGE" value="Removed condition , it's better to set a reader timeout greater than the writer timeout" />
+    <MESSAGE value="Set condition variables alla around the code but it's difficult to synchronize reader and writer with a circular structure" />
+    <option name="LAST_COMMIT_MESSAGE" value="Set condition variables alla around the code but it's difficult to synchronize reader and writer with a circular structure" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1063,6 +1068,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/LICENSE">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CellCycle/ListThread/ListCommunication.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="5" column="19" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/CellCycle/Settings/SettingsManager.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1071,11 +1094,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/LICENSE">
+    <entry file="file://$PROJECT_DIR$/start.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+          <folding>
+            <element signature="e#23#85#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1085,6 +1110,16 @@
           <caret line="9" column="34" selection-start-line="9" selection-start-column="34" selection-end-line="9" selection-end-column="34" />
           <folding>
             <element signature="e#24#40#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CellCycle/ListThread/ReadingThread.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="42" column="25" selection-start-line="42" selection-start-column="25" selection-end-line="42" selection-end-column="25" />
+          <folding>
+            <element signature="e#24#57#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1121,42 +1156,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CellCycle/ListThread/ListCommunication.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="5" column="19" selection-start-line="5" selection-start-column="19" selection-end-line="5" selection-end-column="19" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CellCycle/ListThread/ReadingThread.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="39" column="23" selection-start-line="39" selection-start-column="23" selection-end-line="39" selection-end-column="23" />
-          <folding>
-            <element signature="e#24#57#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/CellCycle/ListThread/WritingThread.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="65" column="41" selection-start-line="65" selection-start-column="41" selection-end-line="65" selection-end-column="41" />
+        <state vertical-scroll-proportion="0.29116946">
+          <caret line="70" column="0" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
           <folding>
             <element signature="e#24#57#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/start.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.35153583">
-          <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
-          <folding>
-            <element signature="e#23#85#0" expanded="true" />
           </folding>
         </state>
       </provider>
