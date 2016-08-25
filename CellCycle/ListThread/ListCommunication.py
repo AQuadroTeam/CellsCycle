@@ -3,7 +3,7 @@ import zmq
 
 BACKLOG = 5
 MAX_BUFF = 1024
-MAX_RCVTIMEO = 2000
+MAX_RCVTIMEO = 1000
 
 class ListCommunication:
 
