@@ -311,28 +311,25 @@ def trialSplit(cache):
 def trialGetSet():
     import logging
     import random
+    import sys
 
     kilo = 1000
     mega = 1000 * kilo
     giga = 1000 * mega
 
-    totram = 10*mega
-    slabSize = 100*kilo
+    totram = int(sys.argv[1]) if sys.argv[1]!=None  else  10*mega
+    slabSize = int(sys.argv[2])if sys.argv[2]!=None else 100*kilo
+    it = int(sys.argv[3])if sys.argv[3]!=None else 1000000
+    valuebytesize = int(sys.argv[4])if sys.argv[4]!=None else 300
+    getsetratio  = int(sys.argv[5])if sys.argv[5]!=None else 5
 
     cache = CacheSlubLRU(totram , slabSize,logging.getLogger())
     #cache = CacheSlubLRU(100, 10, logging.getLogger())
-    it  = 1000000
-    valuebytesize = 300
-    getsetratio = 5
     fun(cache, it, getsetratio, valuebytesize)
 
     print "|" + str(it) + "|" + str(getsetratio) + "|" + str(valuebytesize) + "|" + str(totram) + "|" + str(slabSize) + "|" + str(cache.purged) + "|"
 
 
-
-
-    #for x in cache.lru:
-    #    print x
 
 if __name__ == "__main__":
     trialGetSet()
