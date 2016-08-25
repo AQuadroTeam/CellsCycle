@@ -1,9 +1,9 @@
 from array import array as C_Array
 from sys import getsizeof
-import LinkedListDictonary as LinkedList
+import LinkedListArrays as LinkedList
 
 
-class CacheSlubLRU:
+class CacheSlubLRU(object):
 
     def __init__(self, totalSize, slabSize, logger):
         # to create slabArray:
@@ -28,23 +28,18 @@ class CacheSlubLRU:
             i += 1
 
         #lru linked list
-        self.lists = {}
-        self.taglru = "lru"
-        self.tagunused = "unused"
-        self.tagpartial = "partial"
-        self.tagcomplete = "complete"
-        self.lists[self.taglru + "head"] = None
-        self.lists[self.taglru + "tail"] = None
-        self.lists[self.tagunused + "head"] = None
-        self.lists[self.tagunused + "tail"] = None
-        self.lists[self.tagpartial + "head"] = None
-        self.lists[self.tagpartial + "tail"] = None
-        self.lists[self.tagcomplete + "head"] = None
-        self.lists[self.tagcomplete + "tail"] = None
+
+        self.taglru = 0
+        self.tagunused = 1
+        self.tagpartial = 2
+        self.tagcomplete = 3
+        self.llheads  = [None, None, None, None]
+        self.lltails = [None, None, None, None]
+
         #
         self.cache = {}#collections.defaultdict() #dictionary of key-slab
 
-
+        self.purged = 0
 
         for slabIndex in xrange(self.slabNumber):
             slab = Slab(self, slabIndex,self.slabSize, self.slabNumber, self.totalSize)
@@ -80,6 +75,7 @@ class CacheSlubLRU:
 
     def purgeLRUSlab(self):
         #activate lru purge
+        self.purged += 1
         print "slab purged"
         #get the last slab in lru list
         slab = LinkedList.getTail(self,self.taglru)
@@ -156,7 +152,7 @@ class CacheSlubLRU:
     def debug(self):
         return self.slabArray
 
-class Slab:
+class Slab(object):
 
     def __init__(self, cache, slabIndex,slabSize, slabNumber, totalSize):
         self.slabSize = slabSize
@@ -168,7 +164,10 @@ class Slab:
         self.value = {} #elements like ("1234", "4", "10") that means, value of key 1234 begins at 4 and ends at 10
 
         #LL lru cache
-        self.pointer = {}
+
+        self.nexts = [None, None, None, None]
+        self.prevs = [None, None, None, None]
+        self.indexes = [None, None, None,None]
         LinkedList.setIndex(self.cache.taglru,self, self.slabIndex)
         LinkedList.setIndex(self.cache.tagunused,self, self.slabIndex)
         LinkedList.setIndex(self.cache.tagpartial,self, self.slabIndex)
@@ -309,8 +308,6 @@ def trialSplit(cache):
             print old, x[0]
         old = x[0]
     print "-------------------------------------------------------------------------------------------------------"
-
-
 def trialGetSet():
     import logging
     import random
@@ -319,12 +316,17 @@ def trialGetSet():
     mega = 1000 * kilo
     giga = 1000 * mega
 
-    cache = CacheSlubLRU(1000*mega , 1000*kilo,logging.getLogger()) 
+    totram = 10*mega
+    slabSize = 100*kilo
+
+    cache = CacheSlubLRU(totram , slabSize,logging.getLogger())
     #cache = CacheSlubLRU(100, 10, logging.getLogger())
     it  = 1000000
     valuebytesize = 300
-    getsetratio = 30
+    getsetratio = 5
     fun(cache, it, getsetratio, valuebytesize)
+
+    print "|" + str(it) + "|" + str(getsetratio) + "|" + str(valuebytesize) + "|" + str(totram) + "|" + str(slabSize) + "|" + str(cache.purged) + "|"
 
 
 
