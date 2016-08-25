@@ -4,8 +4,11 @@ from CellCycle.Logger.Logger import LoggerHelper
 from CellCycle.MemoryThread.MemoryThread import startMemoryThread
 from CellCycle.ListThread.ReadingThread import ReadingThread
 from CellCycle.ListThread.WritingThread import WritingThread
+from threading import Condition
 
 SETTINGSFILEPATH = "./config.txt"
+DELAY = 0.3
+
 
 # read settings from config.txt
 settings = SettingsManager().readConfigurationFromFile(SETTINGSFILEPATH)
@@ -16,15 +19,20 @@ logger = LoggerHelper(settings).logger
 # start memory thread
 # Thread(name='MemoryThread',target=startMemoryThread, args=[settings, logger]).start()
 
+# Create conditions
+condition1 = Condition()
+condition2 = Condition()
+condition3 = Condition()
+
 # Create new threads
 
-thread1 = ReadingThread([1,5555], [3,5557], [2,5556], [], [0, 127], [0, 127], logger)
-thread2 = ReadingThread([2,5556], [1,5555], [3,5557], [], [0, 127], [0, 127], logger)
-thread3 = ReadingThread([3,5557], [2,5556], [1,5555], [], [0, 127], [0, 127], logger)
+thread1 = ReadingThread([1,5555], [3,5557], [2,5556], [], [0, 127], [0, 127], logger, condition1, DELAY)
+thread2 = ReadingThread([2,5556], [1,5555], [3,5557], [], [0, 127], [0, 127], logger, condition2, DELAY)
+thread3 = ReadingThread([3,5557], [2,5556], [1,5555], [], [0, 127], [0, 127], logger, condition3, DELAY)
 
-thread4 = WritingThread([1,5555], [3,5557], [2,5556], [], [0, 127], [0, 127], logger)
-thread5 = WritingThread([2,5556], [1,5555], [3,5557], [], [0, 127], [0, 127], logger)
-thread6 = WritingThread([3,5557], [2,5556], [1,5555], [], [0, 127], [0, 127], logger)
+thread4 = WritingThread([1,5555], [3,5557], [2,5556], [], [0, 127], [0, 127], logger, condition1, DELAY)
+thread5 = WritingThread([2,5556], [1,5555], [3,5557], [], [0, 127], [0, 127], logger, condition2, DELAY)
+thread6 = WritingThread([3,5557], [2,5556], [1,5555], [], [0, 127], [0, 127], logger, condition3, DELAY)
 
 # Start new Threads
 thread1.start()
