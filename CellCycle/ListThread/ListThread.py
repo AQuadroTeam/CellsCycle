@@ -5,9 +5,8 @@ import time
 
 
 class ListThread (threading.Thread):
-    def __init__(self, threadId, master, slave, slaveOfSlave, masterMemory, slaveMemory, logger , condition):
+    def __init__(self, threadId, master, slave, slaveOfSlave, masterMemory, slaveMemory, logger):
         threading.Thread.__init__(self)
-        self.condition = condition
         self.logger = logger
         self.threadId = str(threadId[0])
         self.threadAddr = str(threadId[1])

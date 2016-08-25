@@ -12,13 +12,12 @@ DEFAULT_ADDR = '*'
 TXT = '.txt'
 
 class ReadingThread(ListThread):
-    def __init__(self, threadId, prevId, slave, slaveOfSlave, masterMemory, slaveMemory, logger, condition):
-        ListThread.__init__(self, threadId, prevId, slave, slaveOfSlave, masterMemory, slaveMemory, logger, condition)
+    def __init__(self, threadId, prevId, slave, slaveOfSlave, masterMemory, slaveMemory, logger):
+        ListThread.__init__(self, threadId, prevId, slave, slaveOfSlave, masterMemory, slaveMemory, logger)
         self.logger.debug("These are my features (Reader): (" + self.threadId + ") Master ID : " + self.masterId + " SlaveID: " + self.slaveId)
 
         self.settingsManager = SettingsManager.SettingsManager()
         self.settingsObject = None
-
 
     def run(self):
         print "Starting " + self.threadId
@@ -45,56 +44,53 @@ class ReadingThread(ListThread):
             time.sleep(counter)
             print 'awake!'
             '''
-            with self.condition:
-                try:
-                    timeStart = time.time()
-                    message = listCommunication.recv()
-                    timeEnd = time.time()
+            try:
+                timeStart = time.time()
+                message = listCommunication.recv()
+                timeEnd = time.time()
 
-                    listCommunication.storeData(message, FILE_PATH + self.threadId + TXT)
+                listCommunication.storeData(message, FILE_PATH + self.threadId + TXT)
 
-                    self.logger.debug("I'm a READER , it's passed " + str((timeEnd - timeStart)) + " , i've just received this message (" + self.threadId + ") from threadId " + self.masterId + ", " + self.masterAddr + " : " + message)
-                    #print "I've just received this message (" + self.threadId + ") from threadId " + self.masterId
-                    #print message
+                self.logger.debug("I'm a READER , it's passed " + str((timeEnd - timeStart)) + " , i've just received this message (" + self.threadId + ") from threadId " + self.masterId + ", " + self.masterAddr + " : " + message)
+                #print "I've just received this message (" + self.threadId + ") from threadId " + self.masterId
+                #print message
 
-                    '''
-                    You don't need to send something
-                    print "I am : ", threadName, time.ctime(time.time())
-                    self.settingsManager.readConfigurationFromFile(FILE_PATH)
-                    # if self.threadId in self.settingsManager.settings.configDict :
-                    self.settingsManager.settings.configDict[self.threadId] = [str(time.ctime(time.time()))]
-                    print "This is the dictionary at this moment :"
-                    print self.settingsManager.settings.configDict
-                    self.settingsManager.writeFileFromConfiguration(FILE_PATH)
-                    # else :
-                    #     self.settingsManager.writeFileFromConfiguration(FILE_PATH)
-                    listCommunication.sendFromFile(FILE_PATH)
+                '''
+                You don't need to send something
+                print "I am : ", threadName, time.ctime(time.time())
+                self.settingsManager.readConfigurationFromFile(FILE_PATH)
+                # if self.threadId in self.settingsManager.settings.configDict :
+                self.settingsManager.settings.configDict[self.threadId] = [str(time.ctime(time.time()))]
+                print "This is the dictionary at this moment :"
+                print self.settingsManager.settings.configDict
+                self.settingsManager.writeFileFromConfiguration(FILE_PATH)
+                # else :
+                #     self.settingsManager.writeFileFromConfiguration(FILE_PATH)
+                listCommunication.sendFromFile(FILE_PATH)
 
-                    # hard-coded check if is still alive
-                    #if self.threadId == '1':
-                    #    counter = 10
-                    '''
-                except Again:
-                    #print "Message not ready"
-                    self.logger.debug("Message not ready from (Reader " + self.threadId + ") : " + self.masterId)
-                    if not hasattr(self.settingsManager.settings,'configDict') :
-                        self.settingsManager.settings = SettingsManager.SettingsObject({})
-                    self.settingsManager.settings.configDict[self.masterId] = [DEAD]
-                    self.settingsManager.settings.configDict[self.threadId] = [str(time.ctime(time.time()))]
+                # hard-coded check if is still alive
+                #if self.threadId == '1':
+                #    counter = 10
+                '''
+            except Again:
+                #print "Message not ready"
+                self.logger.debug("Message not ready from (Reader " + self.threadId + ") : " + self.masterId)
+                if not hasattr(self.settingsManager.settings,'configDict') :
+                    self.settingsManager.settings = SettingsManager.SettingsObject({})
+                self.settingsManager.settings.configDict[self.masterId] = [DEAD]
+                self.settingsManager.settings.configDict[self.threadId] = [str(time.ctime(time.time()))]
 
-                    #print "This is the dictionary at this moment (" + self.threadId + ") :"
-                    self.logger.debug("This is the dictionary at this moment (" + self.threadId + ") :")
-                    #print self.settingsManager.settings.configDict
-                    self.logger.debug(self.settingsManager.settings.configDict)
-                    self.settingsManager.writeFileFromConfiguration(FILE_PATH + self.threadId + TXT)
-                    # else :
-                    #     self.settingsManager.writeFileFromConfiguration(FILE_PATH)
-                    '''
-                    You don't need to send something
-                    listCommunication.sendFromFile(FILE_PATH)
-                    '''
-                finally:
-                    self.condition.notifyAll()
+                #print "This is the dictionary at this moment (" + self.threadId + ") :"
+                self.logger.debug("This is the dictionary at this moment (" + self.threadId + ") :")
+                #print self.settingsManager.settings.configDict
+                self.logger.debug(self.settingsManager.settings.configDict)
+                self.settingsManager.writeFileFromConfiguration(FILE_PATH + self.threadId + TXT)
+                # else :
+                #     self.settingsManager.writeFileFromConfiguration(FILE_PATH)
+                '''
+                You don't need to send something
+                listCommunication.sendFromFile(FILE_PATH)
+                '''
 
 if __name__ == '__main__':
     # Create new threads
