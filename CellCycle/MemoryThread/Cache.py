@@ -319,7 +319,7 @@ def trialGetSet():
     mega = 1000 * kilo
     giga = 1000 * mega
 
-    cache = CacheSlubLRU(1000*mega , 1000*kilo,logging.getLogger()) #set as 10 mega, 1 mega per slab
+    cache = CacheSlubLRU(1000*mega , 1000*kilo,logging.getLogger()) 
     #cache = CacheSlubLRU(100, 10, logging.getLogger())
     it  = 1000000
     valuebytesize = 300
