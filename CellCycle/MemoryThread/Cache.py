@@ -252,16 +252,16 @@ class Slab:
     def __int__(self):
         return int(self.slabIndex)
 
-def fun(cache, it):
+def fun(cache, it, getsetratio, valuebytesize):
     import random
     old = 0
     getlist = []
 
     for i in xrange(it):
 
-        setKey, setValue, getKey = trialPrepare(i ,it,cache, getlist)
+        setKey, setValue, getKey = trialPrepare(i ,it,cache, getlist, valuebytesize)
 
-        getsetratio = 10
+
         getratio = 1.0 * getsetratio/ (getsetratio +1)
         setratio = 1.0/ (getsetratio +1)
         if random.random()< getratio:
@@ -272,12 +272,12 @@ def fun(cache, it):
         percent = int(i*1.0/it *100)
         if percent%5 == 0 and percent > old:
             old = percent
-            print "\b\b\b\b\b\b\b\b\b"+ str(percent)+"%",
+            print "\b\b\b\b\b"+ str(percent)+"%",
 
-def trialPrepare(i, int,cache, getlist):
+def trialPrepare(i, int,cache, getlist, valuebytesize):
     import random
     integer = random.randint(0,i)
-    setValue = "a"*(300) #according to facebook article
+    setValue = "a"*(valuebytesize) #according to facebook article
     setkey = str(random.randint(0,i))
     getlist.append(setkey)
     getkey = random.choice(getlist)
@@ -311,7 +311,7 @@ def trialSplit(cache):
     print "-------------------------------------------------------------------------------------------------------"
 
 
-def trialLinkedList():
+def trialGetSet():
     import logging
     import random
 
@@ -321,8 +321,10 @@ def trialLinkedList():
 
     cache = CacheSlubLRU(1000*mega , 1000*kilo,logging.getLogger()) #set as 10 mega, 1 mega per slab
     #cache = CacheSlubLRU(100, 10, logging.getLogger())
-    it  = 200000
-    fun(cache, it)
+    it  = 1000000
+    valuebytesize = 300
+    getsetratio = 30
+    fun(cache, it, getsetratio, valuebytesize)
 
 
 
@@ -331,4 +333,4 @@ def trialLinkedList():
     #    print x
 
 if __name__ == "__main__":
-    trialLinkedList()
+    trialGetSet()
