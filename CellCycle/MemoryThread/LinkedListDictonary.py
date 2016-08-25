@@ -135,18 +135,22 @@ def switch(ll,tag, before, after):
     if before == None:
         return
 
-    if getHead(ll,tag) == before:
+    head, tail = getHeadAndTail(ll, tag)
+    beforebefore = getPrev(tag, before)
+    afterafter = getNext(tag, after)
+
+    if head == before:
         setHead(ll, tag, after)
     else:
-        setNext(tag, getPrev(tag, before), after)
+        setNext(tag, beforebefore, after)
 
-    if getTail(ll, tag) == after:
+    if tail == after:
         setTail(ll, tag, before)
     else:
-        setPrev(tag, getNext(tag, after), before)
+        setPrev(tag, afterafter, before)
 
-    setNext(tag, before, getNext(tag, after))
-    setPrev(tag, after, getPrev(tag, before))
+    setNext(tag, before, afterafter)
+    setPrev(tag, after, beforebefore)
 
     setPrev(tag, before, after)
     setNext(tag, after, before)

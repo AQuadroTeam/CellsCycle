@@ -252,19 +252,21 @@ class Slab:
 
 def fun(cache, it):
     import random
+    old = 0
     for i in xrange(it):
 
         setKey, setValue, getKey = trialPrepare(i ,it,cache)
         trialDo(cache, setKey, setValue, getKey)
-        
-        if int((i*1.0/it *100))%5 == 0:
-            print "\b\b\b\b\b\b\b\b\b"+ str(i*1.0/it *100)+"%",
+
+        percent = int(i*1.0/it *100)
+        if percent%5 == 0 and percent > old:
+            old = percent
+            print "\b\b\b\b\b\b\b\b\b"+ str(percent)+"%",
 
 def trialPrepare(i, int,cache):
     import random
     integer = random.randint(0,i)
-    setValue = cache.slabSize* 1.0 /1300
-    setValue = "a"*(cache.slabSize/1300)
+    setValue = "a"*(cache.slabSize/13000)
     return str(random.randint(0,i)), setValue, str(integer)
 
 def trialDo(cache, setKey, setValue, getKey):
