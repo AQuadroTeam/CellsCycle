@@ -90,7 +90,7 @@ def push(ll,tag, newnode):
     #update link of newnode node
     setPrevAndNext(tag, newnode, None, head )
     #update link of old tail
-    setPrev(tag, tail, newnode)
+    setPrev(tag, head, newnode)
 
 
 
