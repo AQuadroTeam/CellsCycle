@@ -83,14 +83,14 @@ def push(ll,tag, newnode):
         return
 
 
-    tail = getTail(ll, tag)
+    head = getHead(ll, tag)
 
     #update tail
-    setTail(ll, tag, newnode)
+    setHead(ll, tag, newnode)
     #update link of newnode node
-    setPrevAndNext(tag, newnode, tail, None )
+    setPrevAndNext(tag, newnode, None, head )
     #update link of old tail
-    setNext(tag, tail, newnode)
+    setPrev(tag, tail, newnode)
 
 
 
