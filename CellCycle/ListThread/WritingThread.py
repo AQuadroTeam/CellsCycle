@@ -58,6 +58,7 @@ class WritingThread (ListThread):
             listCommunication.sendFromFile(FILE_PATH + self.threadId + TXT)
             self.logger.debug('Message sent to another node ( Writer ' + self.threadId + ') to ' + self.slaveId)
 
+        # just a check for dead nodes
         if self.threadId == '1':
             time.sleep(100000000000000000)
 
@@ -69,6 +70,7 @@ class WritingThread (ListThread):
                 self.logger.debug('sleeping ( Writer ' + self.threadId + ')...')
                 self.condition.wait()
 
+            self.condition.clear()
             #print 'awake (' + self.threadId + ') !'
             self.logger.debug('awake ( Writer ' + self.threadId + ') !')
             #print "I am : ", threadName, time.ctime(time.time())
