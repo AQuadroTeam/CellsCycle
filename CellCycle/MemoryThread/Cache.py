@@ -105,7 +105,7 @@ class CacheSlubLRU(object):
         slab = self.cache.get(key)
 
         if slab== None:#insert new element
-            #self.logger.debug("Cache: set of "+ str(key) + ", it is been added")
+            self.logger.debug("Cache: set of "+ str(key) + ", it is been added")
             slab = self.getSlab(valueSize)
 
             slab.setValue(key, value)
@@ -113,7 +113,7 @@ class CacheSlubLRU(object):
             LinkedList.increment(self, self.taglru,slab)
 
         else:#update existent value
-            #self.logger.debug("Cache: set of "+ str(key) + ", it is been updated")
+            self.logger.debug("Cache: set of "+ str(key) + ", it is been updated")
             if not key in slab.value:
                 return None
             begin, end = slab.value.get(key)
@@ -137,17 +137,6 @@ class CacheSlubLRU(object):
             return slab.getValue(key)
         else:
             return None
-
-    #def updateLRU(self, slab):
-    #    index = self.lru.index(slab) # rhis istruction is heavy
-    #    if index > 0 :
-    #        nextOne = self.lru[index-1]
-    #        self.lru[index] = nextOne
-    #        self.lru[index-1] = slab
-
-    #def updateLRUn(self, slab, n):
-    #    for i in xrange(n):
-    #        self.updateLRU(slab)
 
     def debug(self):
         return self.slabArray
@@ -182,8 +171,8 @@ class Slab(object):
         self.value.clear()
         self.state = 0
 
-        for i in xrange(self.begin, self.end+1):
-            self.slabArray[i] = "0"
+        #for i in xrange(self.begin, self.end+1):
+        #    self.slabArray[i] = "0"
 
     def getValue(self, key):
         if not key in self.value:
@@ -313,7 +302,7 @@ def trialSplit(cache):
         old = x[0]
     print "-------------------------------------------------------------------------------------------------------"
 
-    
+
 def trialGetSet():
     import logging
     import random
