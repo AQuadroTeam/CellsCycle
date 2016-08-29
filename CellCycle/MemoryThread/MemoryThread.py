@@ -1,23 +1,20 @@
-from Cache import Slab, CacheSlubLRU, trialLinkedList
+from Cache import Slab, CacheSlubLRU
 
 
 def startMemoryThread(settings, logger):
 
     logger.debug("Hello, I'm a funny thread")
     logger.debug(settings)
-    trialLinkedList()
 
-    preallocatedPool settings.getPreallocatedPool()
+
+    preallocatedPool= settings.getPreallocatedPool()
     slabSize = settings.getSlabSize()
 
 
-    print "a" + 2
-    kilo = 1000
-    mega = 1000 * kilo
-    giga = 1000 * mega
+
     cache = CacheSlubLRU(preallocatedPool , slabSize, logger) #set as 10 mega, 1 mega per slab
 
 
     for i in range(10000):
         cache.set(str(i), "val"+str(i))
-        print cache.debug()
+    

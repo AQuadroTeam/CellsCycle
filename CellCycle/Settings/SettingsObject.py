@@ -13,10 +13,10 @@ class SettingsObject:
         return True if self.configDict[Constants.VERBOSE][0] == "True" else False
 
     def getSlabSize(self):
-        return self.configDict[Constants.SLABSIZE][0]
+        return int(self.configDict[Constants.SLABSIZE][0])
 
     def getPreallocatedPool(self):
-        return self.configDict[Constants.PREALLOCATEDPOOL][0]
+        return int(self.configDict[Constants.PREALLOCATEDPOOL][0])
 
     def __str__(self):
         string = "Configuration:\n"
