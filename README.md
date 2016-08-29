@@ -1,5 +1,6 @@
 # Cell Cycle Specification
 *A proposal for Elastic Distributed Shared Memory in the Cloud Application*
+*: -->Full specification at [CellCycleSpecification.pdf](https://github.com/AQuadroTeam/CellsCycle/blob/master/doc/CellsCycleSpecification_29_08_2016.pdf)*
 
 ![picture alt](https://github.com/AQuadroTeam/CellsCycle/blob/master/doc/icon.png)
 
