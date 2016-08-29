@@ -2,3 +2,7 @@
 
 LOGFILE = "LogFile"
 VERBOSE = "Verbose"
+
+#Memory settings
+SLABSIZE = "SlabSize"
+PREALLOCATEDPOOL = "PreallocatedPool"
