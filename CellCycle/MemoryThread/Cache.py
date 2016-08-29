@@ -4,7 +4,7 @@ import LinkedListArrays as LinkedList
 
 
 class CacheSlubLRU(object):
-    @profile
+
     def __init__(self, totalSize, slabSize, logger):
         # to create slabArray:
         #before self.slabArray = C_Array('c', '0'*self.totalSize)
@@ -48,7 +48,7 @@ class CacheSlubLRU(object):
             LinkedList.push(self, self.tagunused, slab)
 
         self.logger.debug("Cache: End of Initialization Cache, Success!")
-    
+
     def getSlab(self, size):
 
         slab = LinkedList.getHead(self, self.tagpartial)
@@ -72,7 +72,7 @@ class CacheSlubLRU(object):
 
         else:
             return self.purgeLRUSlab()
-    
+
     def purgeLRUSlab(self):
         #activate lru purge
         self.purged += 1
@@ -92,7 +92,7 @@ class CacheSlubLRU(object):
         LinkedList.bringToFirst(self, self.taglru,slab)
         return slab
 
-    
+
     def set(self, key, value):
         key = int(key)
 
@@ -127,7 +127,7 @@ class CacheSlubLRU(object):
             else:
                 self.cache[key] = None
                 self.set(key,value)
-    
+
     def get(self, key):
         key = int(key)
         #self.logger.debug("Cache: get of "+ str(key))
@@ -153,7 +153,7 @@ class CacheSlubLRU(object):
         return self.slabArray
 
 class Slab(object):
-    
+
     def __init__(self, cache, slabIndex,slabSize, slabNumber, totalSize):
         self.slabSize = slabSize
         self.cache = cache
@@ -176,7 +176,7 @@ class Slab(object):
 
         self.begin = int( slabIndex * slabSize )
         self.end = int( (slabIndex+1) * slabSize ) -1
-    
+
     def clearSlab(self):
         self.availableSpace = self.slabSize
         self.value.clear()
@@ -184,7 +184,7 @@ class Slab(object):
 
         for i in xrange(self.begin, self.end+1):
             self.slabArray[i] = "0"
-    
+
     def getValue(self, key):
         if not key in self.value:
             return None
@@ -196,7 +196,7 @@ class Slab(object):
             value += self.slabArray[index]
 
         return value
-    
+
     def updateValue(self, key, value):
         size = len(value)
 
@@ -212,7 +212,7 @@ class Slab(object):
             LinkedList.push(self.cache, self.cache.tagcomplete, self)
 
         return self.state
-    
+
     def setValue(self, key, value):
         size = len(value)
 
@@ -250,7 +250,11 @@ class Slab(object):
 
     def __int__(self):
         return int(self.slabIndex)
-@profile
+
+
+
+#Tests
+
 def fun(cache, it, getsetratio, valuebytesize):
     import random
     old = 0
@@ -308,6 +312,8 @@ def trialSplit(cache):
             print old, x[0]
         old = x[0]
     print "-------------------------------------------------------------------------------------------------------"
+
+    
 def trialGetSet():
     import logging
     import random
