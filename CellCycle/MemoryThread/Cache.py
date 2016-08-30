@@ -1,6 +1,7 @@
 from array import array as C_Array
 from sys import getsizeof
 import LinkedListArrays as LinkedList
+from threading import Semaphore
 
 
 class CacheSlubLRU(object):
@@ -36,7 +37,7 @@ class CacheSlubLRU(object):
         self.llheads  = [None, None, None, None]
         self.lltails = [None, None, None, None]
         self.lllen = [0, 0, 0, 0]
-
+        self.lrumutex = Semaphore(1)
         #
         self.cache = {}#collections.defaultdict() #dictionary of key-slab
 
@@ -67,8 +68,9 @@ class CacheSlubLRU(object):
             slab = LinkedList.getHead(self, self.tagunused)
 
             #it's a new slab, it must not be purged soon
+            self.lrumutex.acquire()
             LinkedList.bringToFirst(self,self.taglru, slab)
-
+            self.lrumutex.release()
             return slab
 
         else:
@@ -79,7 +81,11 @@ class CacheSlubLRU(object):
         self.purged += 1
         #print "slab purged"
         #get the last slab in lru list
+        self.lrumutex.acquire()
         slab = LinkedList.getTail(self,self.taglru)
+        LinkedList.bringToFirst(self, self.taglru,slab)
+        self.lrumutex.release()
+
         if (slab.state == 1):#partial
             LinkedList.pop(self, self.tagpartial, slab)
         if (slab.state == 2):#complete
@@ -90,7 +96,6 @@ class CacheSlubLRU(object):
         slab.clearSlab()
         LinkedList.push(self, self.tagunused, slab)
 
-        LinkedList.bringToFirst(self, self.taglru,slab)
         return slab
 
 
@@ -111,7 +116,10 @@ class CacheSlubLRU(object):
 
             slab.setValue(key, value)
             self.cache[key] = slab
+
+            self.lrumutex.acquire()
             LinkedList.increment(self, self.taglru,slab)
+            self.lrumutex.release()
 
         else:#update existent value
             self.logger.debug("Cache: set of "+ str(key) + ", it is been updated")
@@ -122,7 +130,10 @@ class CacheSlubLRU(object):
             if valueSize <= end-begin-1: #change
 
                 slab.updateValue(key, value)
+                self.lrumutex.acquire()
                 LinkedList.increment(self, self.taglru,slab)
+                self.lrumutex.release()
+
                 slab.value[key] = begin, begin + valueSize
 
             else:
@@ -134,7 +145,10 @@ class CacheSlubLRU(object):
         #self.logger.debug("Cache: get of "+ str(key))
         slab = self.cache.get(key)
         if slab != None:
+            self.lrumutex.acquire()
             LinkedList.increment(self, self.taglru,slab)
+            self.lrumutex.release()
+
             return slab.getValue(key)
         else:
             return None
