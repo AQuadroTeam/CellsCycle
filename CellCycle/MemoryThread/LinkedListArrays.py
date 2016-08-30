@@ -5,6 +5,7 @@
 #   Linked List class must have these arrays:
 #   - llheads = [None, None, None....] (head node linkers, one for each list)
 #   - lltails = [None, None, None....] (tail node linkers, one for each list)
+#   - lllen = [None, None, None...] (lists len)
 #
 #   Node class must have these arrays:
 #   - nexts = [None, None, None, ...] =  (next node linkers, one for each list)
@@ -50,6 +51,15 @@ def setHeadAndTail(ll, tag, head, tail):
     setHead(ll, tag, head)
     setTail(ll, tag, tail)
 
+def len(ll, tag):
+    return ll.lllen[tag]
+
+def oneUp(ll, tag):
+    ll.lllen[tag] += 1
+
+def oneDown(ll, tag):
+    ll.lllen[tag] -= 1
+
 def getNext(tag, node):
     return node.nexts[tag]
 
@@ -76,6 +86,7 @@ def setPrevAndNext(tag, node, prev, next):
     setNext(tag, node, next)
 
 def push(ll,tag, newnode):
+
     if isEmpty(ll, tag):
         setTail(ll,tag, newnode)
         setHead(ll,tag, newnode)

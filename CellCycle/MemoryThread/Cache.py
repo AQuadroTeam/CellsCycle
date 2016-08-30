@@ -35,6 +35,7 @@ class CacheSlubLRU(object):
         self.tagcomplete = 3
         self.llheads  = [None, None, None, None]
         self.lltails = [None, None, None, None]
+        self.lllen = [0, 0, 0, 0]
 
         #
         self.cache = {}#collections.defaultdict() #dictionary of key-slab
