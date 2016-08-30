@@ -182,7 +182,7 @@ class Slab(object):
         self.value.clear()
         self.state = 0
 
-        #for i in xrange(self.begin, self.end+1):
+        #for i in xrange(self.begin, self.end+1): useless, it was used in debug
         #    self.slabArray[i] = "0"
 
     def getValue(self, key):
