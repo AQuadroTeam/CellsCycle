@@ -171,9 +171,6 @@ class Slab(object):
         self.value.clear()
         self.state = 0
 
-        #for i in xrange(self.begin, self.end+1):
-        #    self.slabArray[i] = "0"
-
     def getValue(self, key):
         if not key in self.value:
             return None
