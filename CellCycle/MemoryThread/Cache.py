@@ -1,5 +1,4 @@
 from array import array as C_Array
-from sys import getsizeof
 import LinkedListArrays as LinkedList
 from threading import Semaphore, Thread
 
@@ -111,7 +110,7 @@ class CacheSlubLRU(object):
         slab = self.cache.get(key)
 
         if slab== None:#insert new element
-            self.logger.debug("Cache: set of "+ str(key) + ", it is been added")
+            #self.logger.debug("Cache: set of "+ str(key) + ", it is been added")
             slab = self.getSlab(valueSize)
 
             slab.setValue(key, value)
@@ -122,7 +121,7 @@ class CacheSlubLRU(object):
             self.lrumutex.release()
 
         else:#update existent value
-            self.logger.debug("Cache: set of "+ str(key) + ", it is been updated")
+            #self.logger.debug("Cache: set of "+ str(key) + ", it is been updated")
             if not key in slab.value:
                 return None
             begin, end = slab.value.get(key)
@@ -320,22 +319,23 @@ def trialSplit(cache):
 #Multithread tests
 
 
-def funWithThread(cache, it, getsetratio, valuebytesize):
+def funWithThread(cache, it, getsetratio, valuebytesize, getterThreads):
     import random
     old = 0
     getlist = []
-    import Queue
+    import Queue, threading
     getQueue = Queue.Queue()
     setQueue = Queue.Queue()
+    cache.ready = threading.Condition()
 
     from MemoryThread import memoryThreadSetter, memoryThreadGetter
     thr = Thread(name='MemoryThreadSetter' ,target=memoryThreadSetter, args=[cache, setQueue]).start()
-    for i in range(0,10):
+    for i in range(0,getterThreads):
         thr = Thread(name='MemoryThreadGetter_'+str(i),target=memoryThreadGetter, args=[cache, getQueue]).start()
 
 
     for i in xrange(it):
-
+        
         setKey, setValue, getKey = trialPrepare(i ,it,cache, getlist, valuebytesize)
 
 
@@ -347,16 +347,15 @@ def funWithThread(cache, it, getsetratio, valuebytesize):
             sendsetthread(cache, setKey, setValue, getKey, setQueue)
 
     print "end input"
+    cache.ready.acquire()
+    cache.ready.notifyAll()
+    cache.ready.release()
+    waitForThreadWork(getQueue, setQueue)
 
 
 def waitForThreadWork(getQueue, setQueue):
-    while not getQueue.empty() or not setQueue.empty():
-        a = 0
-        print "get : " + str(getQueue.qsize())
-        print "set : " + str(setQueue.qsize())
-        import time
-        time.sleep(1)
-
+    getQueue.join()
+    setQueue.join()
 
 def sendsetthread(cache, setKey, setValue, getKey, setQueue):
     setQueue.put((setKey, setValue))
@@ -382,14 +381,15 @@ def trialGetSet():
     it = int(sys.argv[3])if sys.argv[3]!=None else 1000000
     valuebytesize = int(sys.argv[4])if sys.argv[4]!=None else 300
     getsetratio  = int(sys.argv[5])if sys.argv[5]!=None else 5
+    getterThreads = int(sys.argv[6]) if sys.argv[6] != None else 1
 
     cache = CacheSlubLRU(totram , slabSize,logging.getLogger())
 
 
     #cache = CacheSlubLRU(100, 10, logging.getLogger())
-    funWithThread(cache, it, getsetratio, valuebytesize)
+    funWithThread(cache, it, getsetratio, valuebytesize, getterThreads)
 
-    print "|" + str(it) + "|" + str(getsetratio) + "|" + str(valuebytesize) + "|" + str(totram) + "|" + str(slabSize) + "|" + str(cache.purged) + "|"
+    print "|" + str(it) + "|" + str(getsetratio) + "|" + str(valuebytesize) + "|" + str(totram) + "|" + str(slabSize) + "|" + str(cache.purged) + "|" + str(getterThreads)
 
 
 

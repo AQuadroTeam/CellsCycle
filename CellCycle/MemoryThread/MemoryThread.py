@@ -20,14 +20,22 @@ def startMemoryThread(settings, logger):
 
 def memoryThreadGetter(cache, getQueue):
     i = 0
-    while True:
+    cache.ready.acquire()
+    cache.ready.wait()
+    cache.ready.release()
+    while getQueue.qsize()>0:
         getCommand = getQueue.get()
         cache.get(getCommand)
         i+=1
+        getQueue.task_done()
 
 def memoryThreadSetter(cache, setQueue):
     i = 0
-    while True:
+    cache.ready.acquire()
+    cache.ready.wait()
+    cache.ready.release()
+    while setQueue.qsize()>0:
         setCommand = setQueue.get()
         cache.set(setCommand[0], setCommand[1])
         i+=1
+        setQueue.task_done()
