@@ -1,6 +1,5 @@
 from array import array as C_Array
 import LinkedListArrays as LinkedList
-from threading import Semaphore, Thread
 
 
 class CacheSlubLRU(object):
@@ -36,7 +35,6 @@ class CacheSlubLRU(object):
         self.llheads  = [None, None, None, None]
         self.lltails = [None, None, None, None]
         self.lllen = [0, 0, 0, 0]
-        self.lrumutex = Semaphore(1)
         #
         self.cache = {}#collections.defaultdict() #dictionary of key-slab
 
@@ -67,9 +65,7 @@ class CacheSlubLRU(object):
             slab = LinkedList.getHead(self, self.tagunused)
 
             #it's a new slab, it must not be purged soon
-            self.lrumutex.acquire()
             LinkedList.bringToFirst(self,self.taglru, slab)
-            self.lrumutex.release()
             return slab
 
         else:
@@ -80,10 +76,8 @@ class CacheSlubLRU(object):
         self.purged += 1
         #print "slab purged"
         #get the last slab in lru list
-        self.lrumutex.acquire()
         slab = LinkedList.getTail(self,self.taglru)
         LinkedList.bringToFirst(self, self.taglru,slab)
-        self.lrumutex.release()
 
         if (slab.state == 1):#partial
             LinkedList.pop(self, self.tagpartial, slab)
@@ -116,9 +110,8 @@ class CacheSlubLRU(object):
             slab.setValue(key, value)
             self.cache[key] = slab
 
-            self.lrumutex.acquire()
             LinkedList.increment(self, self.taglru,slab)
-            self.lrumutex.release()
+
 
         else:#update existent value
             #self.logger.debug("Cache: set of "+ str(key) + ", it is been updated")
@@ -129,9 +122,8 @@ class CacheSlubLRU(object):
             if valueSize <= end-begin-1: #change
 
                 slab.updateValue(key, value)
-                self.lrumutex.acquire()
                 LinkedList.increment(self, self.taglru,slab)
-                self.lrumutex.release()
+
 
                 slab.value[key] = begin, begin + valueSize
 
@@ -144,9 +136,7 @@ class CacheSlubLRU(object):
         #self.logger.debug("Cache: get of "+ str(key))
         slab = self.cache.get(key)
         if slab != None:
-            self.lrumutex.acquire()
             LinkedList.increment(self, self.taglru,slab)
-            self.lrumutex.release()
 
             return slab.getValue(key)
         else:
@@ -319,50 +309,52 @@ def trialSplit(cache):
 #Multithread tests
 
 
-def funWithThread(cache, it, getsetratio, valuebytesize, getterThreads):
+def funWithTask(preallocatedPool, slabSize, it, getsetratio, valuebytesize):
     import random
     old = 0
     getlist = []
-    import Queue, threading
-    getQueue = Queue.Queue()
-    setQueue = Queue.Queue()
-    cache.ready = threading.Condition()
+    from multiprocessing import Process, Pipe
+    import logging
+    from MemoryThread import startMemoryTask, Command
+    parent_conn, child_conn = Pipe()
 
-    from MemoryThread import memoryThreadSetter, memoryThreadGetter
-    thr = Thread(name='MemoryThreadSetter' ,target=memoryThreadSetter, args=[cache, setQueue]).start()
-    for i in range(0,getterThreads):
-        thr = Thread(name='MemoryThreadGetter_'+str(i),target=memoryThreadGetter, args=[cache, getQueue]).start()
+    p = Process(target=startMemoryTask, args=(preallocatedPool,slabSize, logging.getLogger(), child_conn))
 
+    p.start()
+    parent_conn.recv()
 
     for i in xrange(it):
-        
-        setKey, setValue, getKey = trialPrepare(i ,it,cache, getlist, valuebytesize)
+
+        setKey, setValue, getKey = trialPrepare(i ,it,None,  getlist, valuebytesize)
 
 
         getratio = 1.0 * getsetratio/ (getsetratio +1)
         setratio = 1.0/ (getsetratio +1)
         if random.random()< getratio:
-            sendgetthread(cache, setKey, setValue, getKey, getQueue)
+            v = sendgettask(setKey, setValue, getKey, parent_conn)
+            #print "get "+str(getKey)+": " + str(v)
         else:
-            sendsetthread(cache, setKey, setValue, getKey, setQueue)
+            sendsettask(setKey, setValue, getKey, parent_conn)
+            #print "set " + str(setKey) + ": " + str(setValue)
 
-    print "end input"
-    cache.ready.acquire()
-    cache.ready.notifyAll()
-    cache.ready.release()
-    waitForThreadWork(getQueue, setQueue)
+    sendkilltask(parent_conn)
+    print "fine"
 
 
-def waitForThreadWork(getQueue, setQueue):
-    getQueue.join()
-    setQueue.join()
 
-def sendsetthread(cache, setKey, setValue, getKey, setQueue):
-    setQueue.put((setKey, setValue))
+def sendkilltask(parent_conn):
+    from MemoryThread import startMemoryTask, Command
+    parent_conn.send(Command(-1, "bye bye motherf@cker"))
+
+def sendsettask(setKey, setValue, getKey, parent_conn):
+    from MemoryThread import startMemoryTask, Command
+    parent_conn.send(Command(0, setKey, setValue))
 
 
-def sendgetthread(cache, setKey, setValue, getKey, getQueue):
-    getQueue.put(getKey)
+def sendgettask(setKey, setValue, getKey,parent_conn):
+    from MemoryThread import startMemoryTask, Command
+    parent_conn.send(Command(1, getKey))
+    return parent_conn.recv()
 
 
 
@@ -381,15 +373,11 @@ def trialGetSet():
     it = int(sys.argv[3])if sys.argv[3]!=None else 1000000
     valuebytesize = int(sys.argv[4])if sys.argv[4]!=None else 300
     getsetratio  = int(sys.argv[5])if sys.argv[5]!=None else 5
-    getterThreads = int(sys.argv[6]) if sys.argv[6] != None else 1
-
-    cache = CacheSlubLRU(totram , slabSize,logging.getLogger())
-
 
     #cache = CacheSlubLRU(100, 10, logging.getLogger())
-    funWithThread(cache, it, getsetratio, valuebytesize, getterThreads)
+    funWithTask(totram, slabSize, it, getsetratio, valuebytesize)
 
-    print "|" + str(it) + "|" + str(getsetratio) + "|" + str(valuebytesize) + "|" + str(totram) + "|" + str(slabSize) + "|" + str(cache.purged) + "|" + str(getterThreads)
+    print "|" + str(it) + "|" + str(getsetratio) + "|" + str(valuebytesize) + "|" + str(totram) + "|" + str(slabSize) + "|"
 
 
 
