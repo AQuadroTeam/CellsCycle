@@ -51,6 +51,10 @@ class CacheSlubLRU(object):
         self.logger.debug("Cache: End of Initialization Cache, Success!")
 
 
+
+
+
+
     def getSlab(self, size):
 
         slab = LinkedList.getHead(self, self.tagpartial)
@@ -158,7 +162,8 @@ class CacheSlubLRU(object):
         else:
             return None
 
-
+    def transferMemory(self):
+        return self
 
     # this instruction is heavy! Caution
     def debug(self):

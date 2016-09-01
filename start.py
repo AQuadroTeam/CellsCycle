@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 from CellCycle.Settings.SettingsManager import SettingsManager
 from CellCycle.Logger.Logger import LoggerHelper
-from CellCycle.MemoryModule.MemoryManagement import startMemoryTask, Command, getRequest, setRequest, killProcess
+from CellCycle.MemoryModule.MemoryManagement import startMemoryTask, Command, getRequest, setRequest, killProcess, transferRequest
 from threading import Thread
 
 SETTINGSFILEPATH = "./config.txt"
@@ -23,5 +23,7 @@ import time
 time.sleep(1)
 print getRequest(getSlavePipeList[0], 1)
 print getRequest(getMasterPipeList[0], 1)
+cache = transferRequest(setMasterPipe)
+print cache.debug()
 killProcess(setMasterPipe)
 killProcess(setSlavePipe)

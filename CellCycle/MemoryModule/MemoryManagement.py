@@ -6,6 +6,7 @@ from threading import Thread
 SETCOMMAND = 0
 GETCOMMAND = 1
 SHUTDOWNCOMMAND = -1
+TRANSFERMEMORY = 2
 
 def startMemoryTask(settings, logger):
     #get pipe
@@ -57,6 +58,8 @@ def _setThread(logger, cache, pipe):
             import os, signal
             os.kill(os.getpid(), signal.SIGTERM)
             return
+        if command.type == TRANSFERMEMORY:
+            pipe.send(cache.transferMemory())
 
 def _getThread(logger,cache, pipe):
     while True:
@@ -77,6 +80,10 @@ def setRequest(pipe, key, value):
 
 def killProcess(pipe):
     pipe.send(Command(SHUTDOWNCOMMAND))
+
+def transferRequest(pipe):
+    pipe.send(Command(TRANSFERMEMORY))
+    return pipe.recv()
 
 class Command(object):
     def __init__(self, type, key=None, value=None):
