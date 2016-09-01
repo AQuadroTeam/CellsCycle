@@ -1,6 +1,7 @@
 from Cache import Slab, CacheSlubLRU
 import Queue
 from multiprocessing import Process, Pipe
+from threading import Thread
 
 def startMemoryThread(settings, logger):
     parent_conn, child_conn = Pipe()
@@ -14,20 +15,32 @@ def startMemoryThread(settings, logger):
     p.join()
     print "e' morto il task"
 
-def startMemoryTask(preallocatedPool, slabSize, logger, pipe):
+def startMemoryTask(preallocatedPool, slabSize, logger, pipe_set, pipe_get):
 
     logger.debug("Hello, I'm a funny thread")
 
 
     cache = CacheSlubLRU(preallocatedPool , slabSize, logger) #set as 10 mega, 1 mega per slab
-    pipe.send(None)
+    for pipe in pipe_get:
+        th = Thread(target=startGetThread, args=(cache, pipe))
+        th.start()
 
     while True:
-        command = pipe.recv()
+        command = pipe_set.recv()
         if command.type == 0:
             cache.set(command.key, command.value)
         if command.type == 1:
-            pipe.send(cache.get(command.key))
+            v=cache.get(command.key)
+            pipe_get.send(v if v!=None else 0)
+        if command.type == -1:
+            return
+
+def startGetThread(cache, pipe_get):
+    while True:
+        command = pipe_get.recv()
+        if command.type == 1:
+            v=cache.get(command.key)
+            pipe_get.send(v if v!=None else 0)
         if command.type == -1:
             return
 
