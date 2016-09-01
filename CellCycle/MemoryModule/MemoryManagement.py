@@ -3,6 +3,10 @@ import Queue
 from multiprocessing import Process, Pipe
 from threading import Thread
 
+SETCOMMAND = 0
+GETCOMMAND = 1
+SHUTDOWNCOMMAND = -1
+
 def startMemoryTask(settings, logger):
     #get pipe
     getterNumber = settings.getGetterThreadNumber()
@@ -18,13 +22,13 @@ def startMemoryTask(settings, logger):
     memorySideSetPipe, clientSideSetPipe = Pipe()
 
     #create new process
-    p = Process(name='python-CCMemory',target=memoryTask, args=(settings, logger, memorySideSetPipe, memorySideGetPipeList))
+    p = Process(name='python-CCMemory',target=_memoryTask, args=(settings, logger, memorySideSetPipe, memorySideGetPipeList))
     p.start()
 
     return clientSideSetPipe, clientSideGetPipeList
 
 
-def memoryTask(settings, logger, pipe_set, pipe_get_list):
+def _memoryTask(settings, logger, pipe_set, pipe_get_list):
     # grab settings
     slabSize = settings.getSlabSize()
     preallocatedPool = settings.getPreallocatedPool()
@@ -37,12 +41,54 @@ def memoryTask(settings, logger, pipe_set, pipe_get_list):
     logger.debug("Memory Process initialized:" + str(preallocatedPool) + "B, get# = " + str(getterNumber))
 
     for pipe in pipe_get_list:
-        th = Thread(name='MemoryGetter',target=getThread, args=(cache, pipe))
+        th = Thread(name='MemoryGetter',target=_getThread, args=(logger, cache, pipe))
         th.start()
 
-    setThread(cache, pipe_set)
+    _setThread(logger, cache, pipe_set)
+
+def _setThread(logger, cache, pipe):
+    while True:
+        command = pipe.recv()
+        logger.debug("received set command: " + str(command))
+        if command.type == SETCOMMAND:
+            cache.set(command.key, command.value)
+        if command.type == SHUTDOWNCOMMAND:
+            logger.debug("shutdown command")
+            import os, signal
+            os.kill(os.getpid(), signal.SIGTERM)
+            return
+
+def _getThread(logger,cache, pipe):
+    while True:
+        command = pipe.recv()
+        logger.debug( "received get command: " + str(command))
+        if command.type == GETCOMMAND:
+            v=cache.get(command.key)
+            pipe.send(v)
+        if command.type == SHUTDOWNCOMMAND:
+            return
+
+def getRequest(pipe, key):
+    pipe.send(Command(GETCOMMAND, key))
+    return pipe.recv()
+
+def setRequest(pipe, key, value):
+    pipe.send(Command(SETCOMMAND, key, value))
+
+def killProcess(pipe):
+    pipe.send(Command(SHUTDOWNCOMMAND))
+
+class Command(object):
+    def __init__(self, type, key=None, value=None):
+        self.type = int(type)
+        self.key = key
+        self.value = value
+    def __str__(self):
+        return "type: "+ str(self.type) + ", key: "+ str(self.key) + ", value: " + str(self.value)
 
 
+
+# only for benchamrk
 def startMemoryTaskForTrial(preallocatedPool, slabSize, logger, pipe_set, pipe_get):
 
     cache = CacheSlubLRU(preallocatedPool , slabSize, logger) #set as 10 mega, 1 mega per slab
@@ -51,35 +97,3 @@ def startMemoryTaskForTrial(preallocatedPool, slabSize, logger, pipe_set, pipe_g
         th.start()
 
     setThread(cache, pipe_set)
-
-def setThread(cache, pipe):
-    while True:
-        command = pipe.recv()
-        print "received set command: " + str(command)
-        if command.type == 0:
-            cache.set(command.key, command.value)
-        if command.type == -1:
-            import os
-            os.kill()
-            return
-
-def getThread(cache, pipe):
-    while True:
-        command = pipe.recv()
-        print "received get command: " + str(command)
-        if command.type == 1:
-            v=cache.get(command.key)
-            pipe.send(v)
-        if command.type == -1:
-            return
-
-
-
-
-class Command(object):
-    def __init__(self, type, key, value=None):
-        self.type = int(type)
-        self.key = key
-        self.value = value
-    def __str__(self):
-        return "type: "+ str(self.type) + ", key: "+ str(self.key) + ", value: " + str(self.value)
