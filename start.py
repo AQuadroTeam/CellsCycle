@@ -26,9 +26,9 @@ event3 = Event()
 
 # Create new threads
 
-thread1 = ReadingThread([1,5555], [3,5557], [2,5556], [], [0, 127], [0, 127], logger, event1, DELAY)
-thread2 = ReadingThread([2,5556], [1,5555], [3,5557], [], [0, 127], [0, 127], logger, event2, DELAY)
-thread3 = ReadingThread([3,5557], [2,5556], [1,5555], [], [0, 127], [0, 127], logger, event3, DELAY)
+thread1 = ReadingThread([1,5555], [3,5557], [2,5556], [], [0, 33], [33,66], logger, event1, DELAY)
+thread2 = ReadingThread([2,5556], [1,5555], [3,5557], [], [33, 66], [66,99], logger, event2, DELAY)
+thread3 = ReadingThread([3,5557], [2,5556], [1,5555], [], [66, 99], [0, 33], logger, event3, DELAY)
 
 thread4 = WritingThread([1,5555], [3,5557], [2,5556], [], [0, 127], [0, 127], logger, event1, DELAY)
 thread5 = WritingThread([2,5556], [1,5555], [3,5557], [], [0, 127], [0, 127], logger, event2, DELAY)

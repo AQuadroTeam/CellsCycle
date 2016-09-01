@@ -78,7 +78,8 @@ class WritingThread (ListThread):
 
             self.settingsManager.readConfigurationFromFile(FILE_PATH + self.threadId + TXT)
             # if self.threadId in self.settingsManager.settings.configDict :
-            self.settingsManager.settings.configDict[self.threadId] = [str(time.ctime(time.time()))]
+            # This is an old version to write a file self.settingsManager.settings.configDict[self.threadId] = [str(time.ctime(time.time()))]
+            self.settingsManager.settings.configDict[self.threadId] = []
             #print "This is the dictionary at this moment (" + self.threadId + "):"
             self.logger.debug("This is the dictionary at this moment ( Writer " + self.threadId + "):")
             #print self.settingsManager.settings.configDict
