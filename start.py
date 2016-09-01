@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 from CellCycle.Settings.SettingsManager import SettingsManager
 from CellCycle.Logger.Logger import LoggerHelper
-from CellCycle.MemoryThread.MemoryThread import startMemoryThread
+from CellCycle.MemoryModule.MemoryManagement import startMemoryTask, Command
 from threading import Thread
 
 SETTINGSFILEPATH = "./config.txt"
@@ -13,4 +13,12 @@ settings = SettingsManager().readConfigurationFromFile(SETTINGSFILEPATH)
 logger = LoggerHelper(settings).logger
 
 # start memory thread
-Thread(name='MemoryThread',target=startMemoryThread, args=[settings, logger]).start()
+setPipe, getPipeList = startMemoryTask(settings, logger)
+
+#usage example
+setPipe.send(Command(0, "12", "333"))
+setPipe.send(Command(0, 1, "3555553"))
+import time
+time.sleep(1)
+getPipeList[0].send(Command(1, "12"))
+print getPipeList[0].recv()
