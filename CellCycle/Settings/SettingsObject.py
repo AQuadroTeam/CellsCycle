@@ -23,6 +23,7 @@ class SettingsObject:
 
     def getGetterThreadNumber(self):
         return int(self.configDict[Constants.GETTERTHREADNUMBER][0])
+    # end of memory settings
 
     def __str__(self):
         string = "Configuration:\n"
@@ -30,7 +31,7 @@ class SettingsObject:
             string += key + " : " + str(value) + "\n"
         string += "End Of Configuration\n"
         return string
-    # end of memory settings
+
 
 
     def printAll(self):
