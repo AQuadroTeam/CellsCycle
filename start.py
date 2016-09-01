@@ -12,7 +12,7 @@ settings = SettingsManager().readConfigurationFromFile(SETTINGSFILEPATH)
 # setup logger. to write messages: logger.warning("hello warning"), logger.exception(""), logger.debug("Hi,I'm a bug")
 logger = LoggerHelper(settings).logger
 
-# start memory thread
+# start memory task. there's a thread for set/control requests, and n threads for get. getterNumber is a setting
 setPipe, getPipeList = startMemoryTask(settings, logger)
 
 #usage example
