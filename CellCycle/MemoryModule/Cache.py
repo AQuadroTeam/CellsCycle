@@ -50,6 +50,7 @@ class CacheSlubLRU(object):
 
         self.logger.debug("Cache: End of Initialization Cache, Success!")
 
+
     def getSlab(self, size):
 
         slab = LinkedList.getHead(self, self.tagpartial)
@@ -75,6 +76,7 @@ class CacheSlubLRU(object):
         else:
             return self.purgeLRUSlab()
 
+    # purge an entire slab, move it from complete/partial to unused
     def purgeLRUSlab(self):
         #activate lru purge
         self.purged += 1
@@ -109,6 +111,28 @@ class CacheSlubLRU(object):
         #self.logger.debug("Cache: set of "+ str(key) + ", value:"+ str(value) + ",size:" + str(valueSize))
         slab = self.cache.get(key)
 
+        if slab!=None:#update existent value
+            #self.logger.debug("Cache: set of "+ str(key) + ", it is been updated")
+
+            if slab.hasKey(key): #check if it was purged
+                begin, end = slab.value.get(key)
+
+                if valueSize <= end-begin-1: #change
+
+                    slab.updateValue(key, value)
+                    self.lrumutex.acquire()
+                    LinkedList.increment(self, self.taglru,slab)
+                    self.lrumutex.release()
+
+                    slab.value[key] = begin, begin + valueSize
+                    return
+
+                else:
+                    self.cache[key] = None
+                    self.set(key,value)
+                    return
+            else:
+                slab = None # slab was purged. key is still in dictionary but not in slab. it must be created another time
         if slab== None:#insert new element
             #self.logger.debug("Cache: set of "+ str(key) + ", it is been added")
             slab = self.getSlab(valueSize)
@@ -120,24 +144,6 @@ class CacheSlubLRU(object):
             LinkedList.increment(self, self.taglru,slab)
             self.lrumutex.release()
 
-        else:#update existent value
-            #self.logger.debug("Cache: set of "+ str(key) + ", it is been updated")
-            if not key in slab.value:
-                return None
-            begin, end = slab.value.get(key)
-
-            if valueSize <= end-begin-1: #change
-
-                slab.updateValue(key, value)
-                self.lrumutex.acquire()
-                LinkedList.increment(self, self.taglru,slab)
-                self.lrumutex.release()
-
-                slab.value[key] = begin, begin + valueSize
-
-            else:
-                self.cache[key] = None
-                self.set(key,value)
 
     def get(self, key):
         key = int(key)
@@ -152,6 +158,9 @@ class CacheSlubLRU(object):
         else:
             return None
 
+
+
+    # this instruction is heavy! Caution
     def debug(self):
         return self.slabArray
 
@@ -184,6 +193,9 @@ class Slab(object):
         self.availableSpace = self.slabSize
         self.value.clear()
         self.state = 0
+
+    def hasKey(self, key):
+        return key in self.value
 
     def getValue(self, key):
         if not key in self.value:
@@ -253,7 +265,11 @@ class Slab(object):
 
 
 
-#Tests
+
+
+
+
+#------------------------------------------------Tests----------------------------------------------
 
 
 
