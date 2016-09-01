@@ -2,3 +2,4 @@ LogFile logFile.txt
 Verbose True
 PreallocatedPool 100000000
 SlabSize 100000
+GetterThreadNumber 2
