@@ -13,12 +13,15 @@ settings = SettingsManager().readConfigurationFromFile(SETTINGSFILEPATH)
 logger = LoggerHelper(settings).logger
 
 # start memory task. there's a thread for set/control requests, and n threads for get. getterNumber is a setting
-setPipe, getPipeList = startMemoryTask(settings, logger)
+setMasterPipe, getMasterPipeList = startMemoryTask(settings, logger)
+setSlavePipe, getSlavePipeList = startMemoryTask(settings, logger)
 
 #usage example
-setRequest(setPipe, "12", "333asd")
-setRequest(setPipe, "1", "asadasdasdsd")
+setRequest(setMasterPipe, "12", "333asd")
+setRequest(setMasterPipe, "1", "asadasdasdsd")
 import time
 time.sleep(1)
-print getRequest(getPipeList[0], 1)
-killProcess(setPipe)
+print getRequest(getSlavePipeList[0], 1)
+print getRequest(getMasterPipeList[0], 1)
+killProcess(setMasterPipe)
+killProcess(setSlavePipe)
