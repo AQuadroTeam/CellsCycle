@@ -1,4 +1,3 @@
-from Cache import Slab, CacheSlubLRU
 import Queue
 from multiprocessing import Process, Pipe
 from threading import Thread
@@ -31,6 +30,7 @@ def startMemoryTask(settings, logger):
 
 
 def _memoryTask(settings, logger, pipe_set, pipe_get_list):
+    from Cache import Slab, CacheSlubLRU
     # grab settings
     slabSize = settings.getSlabSize()
     preallocatedPool = settings.getPreallocatedPool()

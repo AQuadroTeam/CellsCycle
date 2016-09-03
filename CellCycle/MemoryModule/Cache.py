@@ -1,7 +1,7 @@
 from array import array as C_Array
 import LinkedListArrays as LinkedList
 from threading import Lock
-from MemoryManagement import  Command, getRequest, setRequest, killProcess
+from MemoryManagement import getRequest, setRequest, killProcess, Command
 
 
 class CacheSlubLRU(object):
