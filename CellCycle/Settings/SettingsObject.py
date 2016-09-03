@@ -3,11 +3,11 @@ import Constants
 
 def manualSettings(logFile=None, verbose=False, preallocatedPool=100, slabSize=10, getterThreadNumber=1 ):
     dic = {}
-    dic[Constants.LOGFILE] = logFile
-    dic[Constants.VERBOSE] =  verbose
-    dic[Constants.SLABSIZE] = slabSize
-    dic[Constants.PREALLOCATEDPOOL] = preallocatedPool
-    dic[Constants.GETTERTHREADNUMBER] = getterThreadNumber
+    dic[Constants.LOGFILE] = [logFile]
+    dic[Constants.VERBOSE] =  [verbose]
+    dic[Constants.SLABSIZE] = [slabSize]
+    dic[Constants.PREALLOCATEDPOOL] = [preallocatedPool]
+    dic[Constants.GETTERTHREADNUMBER] = [getterThreadNumber]
     return SettingsObject(dic)
 
 class SettingsObject(object):

@@ -335,42 +335,34 @@ def trialSplit(cache):
 #Multithread tests
 
 
-def funWithTask(preallocatedPool, slabSize, it, getsetratio, valuebytesize, getThreadNumber):
+def funWithTask(preallocatedPool, slabSize, it, getsetratio, valuebytesize, getThreadNumber, settings):
     import random
     old = 0
     getlist = []
     from multiprocessing import Process, Pipe
 
     import logging
-    from MemoryManagement import startMemoryTaskForTrial, Command
+    from MemoryManagement import startMemoryTask, Command
     parent_conn_set, child_conn_set = Pipe()
 
     mineGetPipe = []
     threadGetPipe = []
 
-    for pipe in range(0, getThreadNumber):
-        parent, child = Pipe()
-        mineGetPipe.append(parent)
-        threadGetPipe.append(child)
-
-    p = Process(target=startMemoryTaskForTrial, args=(preallocatedPool,slabSize, logging.getLogger(), child_conn_set, threadGetPipe))
-
-    p.start()
-
+    setPipe, clientPipes = startMemoryTask(settings, logging.getLogger())
 
     from threading import Thread
     threads = []
     for th in range(0, getThreadNumber):
-        t = Process(target=trialThread, args=(it/getThreadNumber, valuebytesize,getsetratio, parent_conn_set, mineGetPipe[th]))
+        t = Process(target=trialThread, args=(it/getThreadNumber, valuebytesize,getsetratio, setPipe, clientPipes[th]))
         t.start()
         threads.append(t)
 
 
     for t in threads:
         t.join()
-    for pipe in mineGetPipe:
+    for pipe in clientPipes:
         sendkilltask(pipe)
-    sendkilltask(parent_conn_set)
+    sendkilltask(setPipe)
     print "fine"
 
 def trialThread(it, valuebytesize,getsetratio, parent_conn_set, parent_conn_get):
@@ -393,21 +385,23 @@ def trialThread(it, valuebytesize,getsetratio, parent_conn_set, parent_conn_get)
 
 
 def sendkilltask(parent_conn):
-    from MemoryManagement import Command
-    parent_conn.send(Command(-1, "bye bye"))
+    from MemoryManagement import Command, killProcess
+    killProcess(parent_conn)
 
 def sendsettask(setKey, setValue, getKey, parent_conn):
-    from MemoryManagement import  Command
-    parent_conn.send(Command(0, setKey, setValue))
+    from MemoryManagement import  Command, setRequest
+    setRequest(parent_conn, setKey, setValue)
 
 
 def sendgettask(setKey, setValue, getKey,parent_conn):
-    from MemoryManagement import  Command
-    parent_conn.send(Command(1, getKey))
-    return parent_conn.recv()
+    from MemoryManagement import  Command, getRequest
+    return getRequest(parent_conn, getKey)
 
-
-
+def getSettings(totram, slabSize, getThreadNumber):
+    import sys
+    sys.path.append("..")
+    from Settings import SettingsObject
+    return SettingsObject.manualSettings(preallocatedPool=totram, slabSize=slabSize, getterThreadNumber=getThreadNumber)
 
 def trialGetSet():
     import logging
@@ -424,8 +418,10 @@ def trialGetSet():
     valuebytesize = int(sys.argv[4])if sys.argv[4]!=None else 300
     getsetratio  = int(sys.argv[5])if sys.argv[5]!=None else 5
     getThreadNumber  = int(sys.argv[6])if sys.argv[6]!=None else 6
-    #cache = CacheSlubLRU(100, 10, logging.getLogger())
-    funWithTask(totram, slabSize, it, getsetratio, valuebytesize, getThreadNumber)
+
+    settings = getSettings(totram, slabSize, getThreadNumber)
+
+    funWithTask(totram, slabSize, it, getsetratio, valuebytesize, getThreadNumber, settings)
 
     print "|" + str(it) + "|" + str(getsetratio) + "|" + str(valuebytesize) + "|" + str(totram) + "|" + str(slabSize) + "|"+ str(getThreadNumber)
 
