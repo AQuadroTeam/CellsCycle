@@ -2,7 +2,7 @@ from Cache import Slab, CacheSlubLRU
 import Queue
 from multiprocessing import Process, Pipe
 from threading import Thread
-import pickle as pickle
+import cPickle as pickle
 
 SETCOMMAND = 0
 GETCOMMAND = 1
