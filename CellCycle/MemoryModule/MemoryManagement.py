@@ -52,7 +52,7 @@ def _memoryTask(settings, logger, pipe_set, pipe_get_list):
 def _setThread(logger, cache, pipe):
     while True:
         command = loads(pipe.recv_bytes())
-        logger.debug("received set command: " + str(command))
+        #logger.debug("received set command: " + str(command)) too heavy
         if command.type == SETCOMMAND:
             cache.set(command.key, command.value)
         if command.type == SHUTDOWNCOMMAND:
@@ -60,18 +60,18 @@ def _setThread(logger, cache, pipe):
             import os, signal
             os.kill(os.getpid(), signal.SIGTERM)
             return
-        if command.type == TRANSFERMEMORY:
-            pipe.send_bytes(dumps(cache.transferMemory()))
+        #if command.type == TRANSFERMEMORY:
+        #    pipe.send_bytes(dumps(cache.transferMemory()))
 
 def _getThread(logger,cache, pipe):
     while True:
         command = loads(pipe.recv_bytes())
-        logger.debug( "received get command: " + str(command))
+        #logger.debug( "received get command: " + str(command))
         if command.type == GETCOMMAND:
             v=cache.get(command.key)
             pipe.send_bytes(dumps(v))
-        if command.type == SHUTDOWNCOMMAND:
-            return
+        #if command.type == SHUTDOWNCOMMAND:
+        #    return
 
 def getRequest(pipe, key):
     pipe.send_bytes(dumps(Command(GETCOMMAND, key)))
