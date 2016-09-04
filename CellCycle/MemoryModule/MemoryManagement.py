@@ -70,7 +70,6 @@ def _getThread(logger,cache, pipe):
         if command.type == GETCOMMAND:
             v=cache.get(command.key)
             pipe.send_bytes(dumps(v))
-            pipe.flush()
         if command.type == SHUTDOWNCOMMAND:
             return
 
