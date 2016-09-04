@@ -1,5 +1,5 @@
 from array import array as C_Array
-import LinkedListArrays as LinkedList
+from LinkedListArrays import getNext, getPrev, getHead, getTail, increment, switch, pop, push, bringToFirst, setIndex
 from threading import Lock
 from MemoryManagement import  Command, getRequest, setRequest, killProcess
 
@@ -46,31 +46,31 @@ class CacheSlubLRU(object):
         for slabIndex in xrange(self.slabNumber):
             slab = Slab(self, slabIndex,self.slabSize, self.slabNumber, self.totalSize)
 
-            LinkedList.push(self,self.taglru, slab)
-            LinkedList.push(self, self.tagunused, slab)
+            push(self,self.taglru, slab)
+            push(self, self.tagunused, slab)
 
         self.logger.debug("Cache: End of Initialization Cache, Success!")
 
 
     def getSlab(self, size):
 
-        slab = LinkedList.getHead(self, self.tagpartial)
+        slab = getHead(self, self.tagpartial)
 
         while (slab != None):
             if slab.availableSpace >= size:
                 return slab
-            slab = LinkedList.getNext(self.tagpartial, slab)
+            slab = getNext(self.tagpartial, slab)
 
 
         # no partial compatible slabs
-        if LinkedList.getHead(self, self.tagunused) != None:
+        if getHead(self, self.tagunused) != None:
             # print "new unused slab requested"
             #return an unused slab
-            slab = LinkedList.getHead(self, self.tagunused)
+            slab = getHead(self, self.tagunused)
 
             #it's a new slab, it must not be purged soon
             self.lrumutex.acquire()
-            LinkedList.bringToFirst(self,self.taglru, slab)
+            bringToFirst(self,self.taglru, slab)
             self.lrumutex.release()
             return slab
 
@@ -84,19 +84,19 @@ class CacheSlubLRU(object):
         #print "slab purged"
         #get the last slab in lru list
         self.lrumutex.acquire()
-        slab = LinkedList.getTail(self,self.taglru)
-        LinkedList.bringToFirst(self, self.taglru,slab)
+        slab = getTail(self,self.taglru)
+        bringToFirst(self, self.taglru,slab)
         self.lrumutex.release()
 
         if (slab.state == 1):#partial
-            LinkedList.pop(self, self.tagpartial, slab)
+            pop(self, self.tagpartial, slab)
         if (slab.state == 2):#complete
-            LinkedList.pop(self, self.tagcomplete, slab)
+            pop(self, self.tagcomplete, slab)
         if (slab.state == 0):#unused
             raise Exception("an unused slab is purged, Not possible!")
 
         slab.clearSlab()
-        LinkedList.push(self, self.tagunused, slab)
+        push(self, self.tagunused, slab)
 
         return slab
 
@@ -122,7 +122,7 @@ class CacheSlubLRU(object):
 
                     slab.updateValue(key, value)
                     self.lrumutex.acquire()
-                    LinkedList.increment(self, self.taglru,slab)
+                    increment(self, self.taglru,slab)
                     self.lrumutex.release()
 
                     slab.value[key] = begin, begin + valueSize
@@ -142,7 +142,7 @@ class CacheSlubLRU(object):
             self.cache[key] = slab
 
             self.lrumutex.acquire()
-            LinkedList.increment(self, self.taglru,slab)
+            increment(self, self.taglru,slab)
             self.lrumutex.release()
 
 
@@ -152,7 +152,7 @@ class CacheSlubLRU(object):
         slab = self.cache.get(key)
         if slab != None:
             self.lrumutex.acquire()
-            LinkedList.increment(self, self.taglru,slab)
+            increment(self, self.taglru,slab)
             self.lrumutex.release()
 
             return slab.getValue(key)
@@ -181,10 +181,10 @@ class Slab(object):
         self.nexts = [None, None, None, None]
         self.prevs = [None, None, None, None]
         self.indexes = [None, None, None,None]
-        LinkedList.setIndex(self.cache.taglru,self, self.slabIndex)
-        LinkedList.setIndex(self.cache.tagunused,self, self.slabIndex)
-        LinkedList.setIndex(self.cache.tagpartial,self, self.slabIndex)
-        LinkedList.setIndex(self.cache.tagcomplete,self, self.slabIndex)
+        setIndex(self.cache.taglru,self, self.slabIndex)
+        setIndex(self.cache.tagunused,self, self.slabIndex)
+        setIndex(self.cache.tagpartial,self, self.slabIndex)
+        setIndex(self.cache.tagcomplete,self, self.slabIndex)
         #
 
         self.begin = int( slabIndex * slabSize )
@@ -221,8 +221,8 @@ class Slab(object):
 
         if self.availableSpace<=0 and self.state==1:
             self.state = 2
-            LinkedList.pop(self.cache, self.cache.tagpartial, self)
-            LinkedList.push(self.cache, self.cache.tagcomplete, self)
+            pop(self.cache, self.cache.tagpartial, self)
+            push(self.cache, self.cache.tagcomplete, self)
 
         return self.state
 
@@ -242,13 +242,13 @@ class Slab(object):
 
         if self.state == 0:
             self.state = 1
-            LinkedList.pop(self.cache, self.cache.tagunused, self)
-            LinkedList.push(self.cache, self.cache.tagpartial, self)
+            pop(self.cache, self.cache.tagunused, self)
+            push(self.cache, self.cache.tagpartial, self)
 
         if self.availableSpace<=0:
             self.state = 2
-            LinkedList.pop(self.cache, self.cache.tagpartial, self)
-            LinkedList.push(self.cache, self.cache.tagcomplete, self)
+            pop(self.cache, self.cache.tagpartial, self)
+            push(self.cache, self.cache.tagcomplete, self)
 
         return self.state
 

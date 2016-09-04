@@ -1,7 +1,8 @@
 import Queue
 from multiprocessing import Process, Pipe
+from cPickle import loads, dumps
 from threading import Thread
-import pickle as pickle
+
 
 SETCOMMAND = 0
 GETCOMMAND = 1
@@ -50,7 +51,7 @@ def _memoryTask(settings, logger, pipe_set, pipe_get_list):
 
 def _setThread(logger, cache, pipe):
     while True:
-        command = pickle.loads(pipe.recv_bytes())
+        command = loads(pipe.recv_bytes())
         logger.debug("received set command: " + str(command))
         if command.type == SETCOMMAND:
             cache.set(command.key, command.value)
@@ -60,31 +61,32 @@ def _setThread(logger, cache, pipe):
             os.kill(os.getpid(), signal.SIGTERM)
             return
         if command.type == TRANSFERMEMORY:
-            pipe.send_bytes(pickle.dumps(cache.transferMemory()))
+            pipe.send_bytes(dumps(cache.transferMemory()))
 
 def _getThread(logger,cache, pipe):
     while True:
-        command = pickle.loads(pipe.recv_bytes())
+        command = loads(pipe.recv_bytes())
         logger.debug( "received get command: " + str(command))
         if command.type == GETCOMMAND:
             v=cache.get(command.key)
-            pipe.send_bytes(pickle.dumps(v))
+            pipe.send_bytes(dumps(v))
+            pipe.flush()
         if command.type == SHUTDOWNCOMMAND:
             return
 
 def getRequest(pipe, key):
-    pipe.send_bytes(pickle.dumps(Command(GETCOMMAND, key)))
-    return pickle.loads(pipe.recv_bytes())
+    pipe.send_bytes(dumps(Command(GETCOMMAND, key)))
+    return loads(pipe.recv_bytes())
 
 def setRequest(pipe, key, value):
-    pipe.send_bytes(pickle.dumps(Command(SETCOMMAND, key, value)))
+    pipe.send_bytes(dumps(Command(SETCOMMAND, key, value)))
 
 def killProcess(pipe):
-    pipe.send_bytes(pickle.dumps(Command(SHUTDOWNCOMMAND)))
+    pipe.send_bytes(dumps(Command(SHUTDOWNCOMMAND)))
 
 def transferRequest(pipe):
-    pipe.send_bytes(pickle(Command(TRANSFERMEMORY)))
-    return pickle.loads(pipe.recv_bytes())
+    pipe.send_bytes(dumps(Command(TRANSFERMEMORY)))
+    return loads(pipe.recv_bytes())
 
 class Command(object):
     def __init__(self, type, key=None, value=None):
