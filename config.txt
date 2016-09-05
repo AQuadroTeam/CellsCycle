@@ -1,5 +1,5 @@
 LogFile logFile.txt
 Verbose True
-PreallocatedPool 100
-SlabSize 10
+PreallocatedPool 1000
+SlabSize 100
 GetterThreadNumber 2

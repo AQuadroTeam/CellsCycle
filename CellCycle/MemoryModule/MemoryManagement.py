@@ -1,7 +1,8 @@
-from Cache import Slab, CacheSlubLRU
 import Queue
 from multiprocessing import Process, Pipe
+from cPickle import loads, dumps
 from threading import Thread
+
 
 SETCOMMAND = 0
 GETCOMMAND = 1
@@ -30,6 +31,7 @@ def startMemoryTask(settings, logger):
 
 
 def _memoryTask(settings, logger, pipe_set, pipe_get_list):
+    from Cache import Slab, CacheSlubLRU
     # grab settings
     slabSize = settings.getSlabSize()
     preallocatedPool = settings.getPreallocatedPool()
@@ -49,8 +51,8 @@ def _memoryTask(settings, logger, pipe_set, pipe_get_list):
 
 def _setThread(logger, cache, pipe):
     while True:
-        command = pipe.recv()
-        logger.debug("received set command: " + str(command))
+        command = loads(pipe.recv_bytes())
+        #logger.debug("received set command: " + str(command)) too heavy
         if command.type == SETCOMMAND:
             cache.set(command.key, command.value)
         if command.type == SHUTDOWNCOMMAND:
@@ -59,27 +61,32 @@ def _setThread(logger, cache, pipe):
             os.kill(os.getpid(), signal.SIGTERM)
             return
         if command.type == TRANSFERMEMORY:
-            pipe.send(cache.transferMemory())
+            pipe.send_bytes(dumps(cache.transferMemory()))
+
 
 def _getThread(logger,cache, pipe):
     while True:
-        command = pipe.recv()
-        logger.debug( "received get command: " + str(command))
+        command = loads(pipe.recv_bytes())
+        #logger.debug( "received get command: " + str(command))
         if command.type == GETCOMMAND:
             v=cache.get(command.key)
-            pipe.send(v)
-        if command.type == SHUTDOWNCOMMAND:
-            return
+            pipe.send_bytes(dumps(v))
+        #if command.type == SHUTDOWNCOMMAND:
+        #    return
 
 def getRequest(pipe, key):
-    pipe.send(Command(GETCOMMAND, key))
-    return pipe.recv()
+    pipe.send_bytes(dumps(Command(GETCOMMAND, key)))
+    return loads(pipe.recv_bytes())
 
 def setRequest(pipe, key, value):
-    pipe.send(Command(SETCOMMAND, key, value))
+    pipe.send_bytes(dumps(Command(SETCOMMAND, key, value)))
 
 def killProcess(pipe):
-    pipe.send(Command(SHUTDOWNCOMMAND))
+    pipe.send_bytes(dumps(Command(SHUTDOWNCOMMAND)))
+
+def transferRequest(pipe):
+    pipe.send_bytes(dumps(Command(TRANSFERMEMORY)))
+    return loads(pipe.recv_bytes())
 
 def transferRequest(pipe):
     pipe.send(Command(TRANSFERMEMORY))

@@ -1,0 +1,2 @@
+3:         26062729 function calls (26039117 primitive calls) in 37.143 seconds
+182:         127772921 function calls (127772465 primitive calls) in 115.922 seconds

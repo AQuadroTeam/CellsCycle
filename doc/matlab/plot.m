@@ -129,25 +129,27 @@ ylabel('sec (lower is better)')
 %%
 
 figure(7)
-a = [test3_pickle , test3_cpickle]
+a = [test3_pickle , test3_cpickle, test3_cpickle_u]
 bar_handle = bar(a,'grouped');
 set(bar_handle(1),'FaceColor',[1, 1, 0])
 set(bar_handle(2),'FaceColor',[0 ,1, 0])
+set(bar_handle(3),'FaceColor',[1, 0.23, 0])
 set(gca,'XTick',[1:1:8])
 grid on
-legend('pickle','cpickle')
-title('Test 3 for pickle / cpickle')
+legend('pickle','cpickle', 'cpickle_u')
+title('Test 3 for pickle, cpickle, cpickle_u')
 ylabel('sec (lower is better)')
 xlabel('Getter Threads')
 
 figure(8)
-a = [test7_pickle , test7_cpickle]
+a = [test7_pickle , test7_cpickle, test7_cpickle_u]
 bar_handle = bar(a,'grouped');
 set(bar_handle(1),'FaceColor',[1, 1, 0])
 set(bar_handle(2),'FaceColor',[0 ,1, 0])
+set(bar_handle(3),'FaceColor',[1, 0.23, 0])
 set(gca,'XTick',[1:1:8])
 grid on
-legend('pickle','cpickle')
-title('Test 7 for pickle / cpickle')
+legend('pickle','cpickle','cpickle_u')
+title('Test 7 for pickle, cpickle, cpickle_u')
 ylabel('sec (lower is better)')
 xlabel('Getter Threads')

@@ -1,0 +1,41 @@
+cpickle2
+5:         1518 function calls (1504 primitive calls) in 94.801 seconds
+285:         1518 function calls (1504 primitive calls) in 401.285 seconds
+566:         1567 function calls (1553 primitive calls) in 88.462 seconds
+847:         1567 function calls (1553 primitive calls) in 301.984 seconds
+1129:         1618 function calls (1604 primitive calls) in 89.503 seconds
+1411:         1618 function calls (1604 primitive calls) in 300.095 seconds
+1694:         1671 function calls (1657 primitive calls) in 95.277 seconds
+1977:         1671 function calls (1657 primitive calls) in 295.028 seconds
+2261:         1726 function calls (1712 primitive calls) in 100.458 seconds
+2545:         1726 function calls (1712 primitive calls) in 293.995 seconds
+2832:         1903 function calls (1889 primitive calls) in 109.093 seconds
+3119:         1903 function calls (1889 primitive calls) in 308.547 seconds
+
+cPickle
+5:         1518 function calls (1504 primitive calls) in 96.074 seconds
+285:         1518 function calls (1504 primitive calls) in 399.427 seconds
+566:         1567 function calls (1553 primitive calls) in 88.865 seconds
+847:         1567 function calls (1553 primitive calls) in 303.024 seconds
+1129:         1618 function calls (1604 primitive calls) in 89.695 seconds
+1411:         1618 function calls (1604 primitive calls) in 301.627 seconds
+1694:         1671 function calls (1657 primitive calls) in 95.763 seconds
+1977:         1671 function calls (1657 primitive calls) in 292.628 seconds
+2261:         1726 function calls (1712 primitive calls) in 101.596 seconds
+2545:         1726 function calls (1712 primitive calls) in 295.283 seconds
+2832:         1903 function calls (1889 primitive calls) in 108.865 seconds
+3119:         1903 function calls (1889 primitive calls) in 310.968 seconds
+
+pickle
+5:         1896 function calls (1858 primitive calls) in 240.144 seconds
+308:         1896 function calls (1858 primitive calls) in 1111.089 seconds
+612:         2134 function calls (2084 primitive calls) in 196.970 seconds
+916:         2134 function calls (2084 primitive calls) in 803.443 seconds
+1221:         2374 function calls (2312 primitive calls) in 185.735 seconds
+1526:         2374 function calls (2312 primitive calls) in 764.709 seconds
+1832:         2616 function calls (2542 primitive calls) in 185.810 seconds
+2138:         2616 function calls (2542 primitive calls) in 729.710 seconds
+2445:         2860 function calls (2774 primitive calls) in 190.120 seconds
+2752:         2860 function calls (2774 primitive calls) in 738.353 seconds
+3062:         3604 function calls (3482 primitive calls) in 202.353 seconds
+3372:         3604 function calls (3482 primitive calls) in 756.877 seconds
