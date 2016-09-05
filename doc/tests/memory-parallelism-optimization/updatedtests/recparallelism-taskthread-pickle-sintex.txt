@@ -1,0 +1,12 @@
+5:         1896 function calls (1858 primitive calls) in 243.766 seconds
+308:         1896 function calls (1858 primitive calls) in 1120.362 seconds
+612:         2134 function calls (2084 primitive calls) in 199.642 seconds
+916:         2134 function calls (2084 primitive calls) in 858.906 seconds
+1221:         2374 function calls (2312 primitive calls) in 199.171 seconds
+1526:         2374 function calls (2312 primitive calls) in 830.157 seconds
+1832:         2616 function calls (2542 primitive calls) in 201.917 seconds
+2138:         2616 function calls (2542 primitive calls) in 815.729 seconds
+2445:         2860 function calls (2774 primitive calls) in 212.578 seconds
+2752:         2860 function calls (2774 primitive calls) in 818.744 seconds
+3062:         3604 function calls (3482 primitive calls) in 222.329 seconds
+3372:         3604 function calls (3482 primitive calls) in 853.193 seconds

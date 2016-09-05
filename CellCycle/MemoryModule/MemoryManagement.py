@@ -60,8 +60,8 @@ def _setThread(logger, cache, pipe):
             import os, signal
             os.kill(os.getpid(), signal.SIGTERM)
             return
-        #if command.type == TRANSFERMEMORY:
-        #    pipe.send_bytes(dumps(cache.transferMemory()))
+        if command.type == TRANSFERMEMORY:
+            pipe.send_bytes(dumps(cache.transferMemory()))
 
 def _getThread(logger,cache, pipe):
     while True:
