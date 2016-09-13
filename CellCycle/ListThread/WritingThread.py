@@ -23,11 +23,12 @@ class WritingThread (ListThread):
         self.settingsManager = SettingsManager.SettingsManager()
         self.settingsObject = None
 
-
     def run(self):
-        print "Starting " + self.threadId
+        #sleep_index = int(self.threadId) % 3 + 1
+        #time.sleep(sleep_index)
+        print "Starting Writer " + self.threadId
         self.writeList(self.threadId, COUNTER)
-        print "Exiting " + self.threadId
+        print "Exiting Writer " + self.threadId
 
     def writeList(self, threadName, counter):
 
@@ -79,7 +80,8 @@ class WritingThread (ListThread):
             self.settingsManager.readConfigurationFromFile(FILE_PATH + self.threadId + TXT)
             # if self.threadId in self.settingsManager.settings.configDict :
             # This is an old version to write a file self.settingsManager.settings.configDict[self.threadId] = [str(time.ctime(time.time()))]
-            self.settingsManager.settings.configDict[self.threadId] = []
+            # self.settingsManager.settings.configDict[self.threadId] = []
+            self.settingsManager.settings.configDict[self.threadId] = [str(time.ctime(time.time()))]
             #print "This is the dictionary at this moment (" + self.threadId + "):"
             self.logger.debug("This is the dictionary at this moment ( Writer " + self.threadId + "):")
             #print self.settingsManager.settings.configDict

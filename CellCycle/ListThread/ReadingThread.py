@@ -1,28 +1,40 @@
 #! /usr/bin/env python
 
-from ListThread import ListThread
+# from ListThread import ListThread
 import time
 from CellCycle.Settings import SettingsManager
 from ListCommunication import ListCommunication
 from zmq import Again
+from ProdCons import ProducerThread
 
 FILE_PATH = './my_list'
 DEAD = 'DEAD'
 DEFAULT_ADDR = '*'
 TXT = '.txt'
+DEF_NODES = 3
 
-class ReadingThread(ListThread):
+
+class ReadingThread(ProducerThread):
     def __init__(self, threadId, prevId, slave, slaveOfSlave, masterMemory, slaveMemory, logger, condition, delay):
-        ListThread.__init__(self, threadId, prevId, slave, slaveOfSlave, masterMemory, slaveMemory, logger, condition, delay)
+        ProducerThread.__init__(self, threadId, prevId, slave, slaveOfSlave, masterMemory, slaveMemory, logger, condition, delay)
         self.logger.debug("These are my features (Reader): (" + self.threadId + ") Master ID : " + self.masterId + " SlaveID: " + self.slaveId)
 
         self.settingsManager = SettingsManager.SettingsManager()
         self.settingsObject = None
 
     def run(self):
-        print "Starting " + self.threadId
+        #time.sleep(int(self.threadId))
+        print "Starting Reader " + self.threadId
         self.readList(self.threadId, 2)
-        print "Exiting " + self.threadId
+        print "Exiting Reader " + self.threadId
+
+    # def set_proper_timeout(self, nodes=DEF_NODES, special_lap=False):
+    #    if special_lap:
+    #        index_timeout = int(self.threadId) - 1
+    #        change_timeout = index_timeout % nodes
+    #        node_timeout = (change_timeout + 1)*nodes
+        # else:
+
 
     def readList(self, threadName, counter):
         listCommunication = ListCommunication(DEFAULT_ADDR,self.threadAddr)
@@ -47,7 +59,6 @@ class ReadingThread(ListThread):
             time.sleep(counter)
             print 'awake!'
             '''
-
             try:
                 #timeStart = time.time()
                 message = listCommunication.recv()
@@ -57,8 +68,8 @@ class ReadingThread(ListThread):
 
                 #self.logger.debug("I'm a READER , it's passed " + str((timeEnd - timeStart)) + " , i've just received this message (" + self.threadId + ") from threadId " + self.masterId + ", " + self.masterAddr + " : " + message)
                 self.logger.debug("I'm a READER , i've just received this message (" + self.threadId + ") from threadId " + self.masterId + ", " + self.masterAddr + " : " + message)
-                #print "I've just received this message (" + self.threadId + ") from threadId " + self.masterId
-                #print message
+                # print "I've just received this message (" + self.threadId + ") from threadId " + self.masterId
+                # print message
 
                 '''
                 You don't need to send something

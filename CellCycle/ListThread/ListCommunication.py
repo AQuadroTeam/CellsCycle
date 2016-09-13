@@ -15,9 +15,13 @@ class ListCommunication:
 
     def initServerSocket(self):
         self.communicationSocket = self.context.socket(zmq.PAIR)
-        self.communicationSocket.RCVTIMEO = MAX_RCVTIMEO
+        self.setRcvTimeo()
+        #self.communicationSocket.RCVTIMEO = MAX_RCVTIMEO
         # bind to the port
         self.communicationSocket.bind(self.completeAddress)
+
+    def setRcvTimeo(self, timeout=MAX_RCVTIMEO):
+        self.communicationSocket.RCVTIMEO = timeout
 
     def initClientSocket(self):
         self.communicationSocket = self.context.socket(zmq.PAIR)
