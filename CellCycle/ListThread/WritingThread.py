@@ -36,15 +36,25 @@ class WritingThread (ListThread):
         listCommunication.initClientSocket()
         listCommunication.startClientConnection()
 
+        for i in xrange(2):
+            time.sleep(1)
+            print 'Send that i\'m ALIVE'
+            listCommunication.send(self.threadId+'ALIVE')
+            # send(self.threadId + 'ALIVE')
+
+        '''
+        This thread only sends an advisory to the next one
         if self.threadId < self.masterId:
             #print "I am the first (" + self.threadId + "): ", threadName, time.ctime(time.time())
             self.logger.debug("I am the first to write (" + self.threadId + ", my master is " + self.masterId + "): " + " " + threadName + " " + time.ctime(time.time()))
-
-            '''
-            You don't need to check if you are the first
-            listCommunication.initClientSocket()
-            listCommunication.startClientConnection()
-            '''
+        '''
+        '''
+        You don't need to check if you are the first
+        listCommunication.initClientSocket()
+        listCommunication.startClientConnection()
+        '''
+        '''
+        This thread only sends an advisory to the next one
             # not necessary self.settingsManager.readConfigurationFromFile(FILE_PATH)
             # if self.threadId in self.settingsManager.settings.configDict :
             self.settingsManager.settings = SettingsManager.SettingsObject({})
@@ -97,7 +107,7 @@ class WritingThread (ListThread):
             #if self.threadId == '1':
             #    time.sleep(100000000000000000)
             #counter = 100000000
-
+        '''
 
 if __name__ == '__main__':
     # Create new threads

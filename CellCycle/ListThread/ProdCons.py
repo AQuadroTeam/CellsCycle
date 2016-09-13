@@ -35,7 +35,7 @@ class ProducerThread(ListThread):
 
     def produce(self,item):
         if not q.full():
-            q.put(item)
+            q.put_nowait(item)
             print "This the item i've just put into the queue"
             return True
         else:

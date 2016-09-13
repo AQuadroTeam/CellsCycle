@@ -18,7 +18,6 @@ class ReadingThread(ProducerThread):
     def __init__(self, threadId, prevId, slave, slaveOfSlave, masterMemory, slaveMemory, logger, condition, delay):
         ProducerThread.__init__(self, threadId, prevId, slave, slaveOfSlave, masterMemory, slaveMemory, logger, condition, delay)
         self.logger.debug("These are my features (Reader): (" + self.threadId + ") Master ID : " + self.masterId + " SlaveID: " + self.slaveId)
-
         self.settingsManager = SettingsManager.SettingsManager()
         self.settingsObject = None
 
@@ -51,7 +50,7 @@ class ReadingThread(ProducerThread):
         # just to see if it's a condition problem
         # time.sleep(0.1)
 
-        #while True:
+        # while True:
         for i in xrange(2):
             '''
             You don't need to sleep
@@ -64,7 +63,10 @@ class ReadingThread(ProducerThread):
                 message = listCommunication.recv()
                 #timeEnd = time.time()
 
-                listCommunication.storeData(message, FILE_PATH + self.threadId + TXT)
+                # Will will not use files anymore
+                # listCommunication.storeData(message, FILE_PATH + self.threadId + TXT)
+
+                self.produce(message)
 
                 #self.logger.debug("I'm a READER , it's passed " + str((timeEnd - timeStart)) + " , i've just received this message (" + self.threadId + ") from threadId " + self.masterId + ", " + self.masterAddr + " : " + message)
                 self.logger.debug("I'm a READER , i've just received this message (" + self.threadId + ") from threadId " + self.masterId + ", " + self.masterAddr + " : " + message)
@@ -89,6 +91,8 @@ class ReadingThread(ProducerThread):
                 #    counter = 10
                 '''
             except Again:
+                '''
+                Not necessary because we wait forever
                 #print "Message not ready"
                 self.logger.debug("Message not ready from (Reader " + self.threadId + ") : " + self.masterId)
                 if not hasattr(self.settingsManager.settings,'configDict') :
@@ -104,11 +108,13 @@ class ReadingThread(ProducerThread):
                 # else :
                 #     self.settingsManager.writeFileFromConfiguration(FILE_PATH)
                 '''
+                '''
                 You don't need to send something
                 listCommunication.sendFromFile(FILE_PATH)
                 '''
             finally:
-                self.condition.set()
+                # We will not use conditions anymore
+                # self.condition.set()
                 self.logger.debug('Event notified by ' + self.threadId + ' , so the writer must sleep for ' + str(self.delay))
 
 
