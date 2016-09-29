@@ -50,8 +50,8 @@ class ReadingThread(ProducerThread):
         # just to see if it's a condition problem
         # time.sleep(0.1)
 
-        # while True:
-        for i in xrange(2):
+        while True:
+        # for i in xrange(2):
             '''
             You don't need to sleep
             print 'sleeping...'
@@ -59,9 +59,9 @@ class ReadingThread(ProducerThread):
             print 'awake!'
             '''
             try:
-                #timeStart = time.time()
+                # timeStart = time.time()
                 message = listCommunication.recv()
-                #timeEnd = time.time()
+                # timeEnd = time.time()
 
                 # Will will not use files anymore
                 # listCommunication.storeData(message, FILE_PATH + self.threadId + TXT)
@@ -112,10 +112,10 @@ class ReadingThread(ProducerThread):
                 You don't need to send something
                 listCommunication.sendFromFile(FILE_PATH)
                 '''
-            finally:
-                # We will not use conditions anymore
-                # self.condition.set()
-                self.logger.debug('Event notified by ' + self.threadId + ' , so the writer must sleep for ' + str(self.delay))
+            #finally:
+            # We will not use conditions anymore
+            # self.condition.set()
+            # self.logger.debug('Event notified by ' + self.threadId + ' , so the writer must sleep for ' + str(self.delay))
 
 
 if __name__ == '__main__':

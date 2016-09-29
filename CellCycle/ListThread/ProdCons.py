@@ -5,6 +5,7 @@ import time
 import logging
 import random
 import Queue
+from Queue import Empty
 from ListThread import ListThread
 
 #logging.basicConfig(level=logging.DEBUG,
@@ -36,7 +37,6 @@ class ProducerThread(ListThread):
     def produce(self,item):
         if not q.full():
             q.put_nowait(item)
-            print "This the item i've just put into the queue"
             return True
         else:
             return False
@@ -56,12 +56,16 @@ class ConsumerThread(ListThread):
             '''
             item = self.consume()
             if item is not None:
-                print "This is my item: " + item
                 time.sleep(random.random())
         return
 
     def consume(self):
-        return  q.get() if q.empty() else None
+        try:
+            return q.get_nowait()
+        except Empty:
+            return None
+
+        # return q.get() if not q.empty() else None
 
 if __name__ == '__main__':
 

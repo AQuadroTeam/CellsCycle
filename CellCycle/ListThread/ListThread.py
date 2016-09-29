@@ -23,6 +23,8 @@ class ListThread (threading.Thread):
             self.slaveOfSlaveAddr = str(slaveOfSlave[1])
         self.masterM = masterMemory
         self.slaveM = slaveMemory
+        self.node_list = {'1':'1', '2':'2', '3':'3'}
+
 
     def run(self):
         print "Starting " + self.threadId

@@ -13,6 +13,7 @@ DEAD = 'DEAD'
 DEFAULT_ADDR = 'localhost'
 TXT = '.txt'
 COUNTER = 1
+PRIORITY_ALIVE = '0'
 
 
 class WritingThread (ListThread):
@@ -24,8 +25,8 @@ class WritingThread (ListThread):
         self.settingsObject = None
 
     def run(self):
-        #sleep_index = int(self.threadId) % 3 + 1
-        #time.sleep(sleep_index)
+        # sleep_index = int(self.threadId) % 3 + 1
+        # time.sleep(sleep_index)
         print "Starting Writer " + self.threadId
         self.writeList(self.threadId, COUNTER)
         print "Exiting Writer " + self.threadId
@@ -36,10 +37,15 @@ class WritingThread (ListThread):
         listCommunication.initClientSocket()
         listCommunication.startClientConnection()
 
-        for i in xrange(2):
-            time.sleep(1)
-            print 'Send that i\'m ALIVE'
-            listCommunication.send(self.threadId+'ALIVE')
+        # just a check for dead nodes
+        if self.threadId == '1':
+            time.sleep(100000000000000000)
+
+        # for i in xrange(2):
+        while True:
+            time.sleep(0.5)
+            self.logger.debug('Send that i\'m ALIVE (' + self.threadId + ') to ' + self.slaveId)
+            listCommunication.send(self.threadId + ' ' + PRIORITY_ALIVE)
             # send(self.threadId + 'ALIVE')
 
         '''
