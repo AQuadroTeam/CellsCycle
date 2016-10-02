@@ -163,8 +163,10 @@ class CacheSlubLRU(object):
         else:
             return None
 
+    #unused
     def transferMemory(self):
-        return self
+        return getHead(self, self.taglru)
+
 
     # this instruction is heavy! Caution
     def debug(self):
@@ -182,18 +184,34 @@ class Slab(object):
         self.value = {} #elements like ("1234", "4", "10") that means, value of key 1234 begins at 4 and ends at 10
 
         #LL lru cache
-
-        self.nexts = [None, None, None, None]
-        self.prevs = [None, None, None, None]
-        self.indexes = [None, None, None,None]
-        setIndex(self.cache.taglru,self, self.slabIndex)
-        setIndex(self.cache.tagunused,self, self.slabIndex)
-        setIndex(self.cache.tagpartial,self, self.slabIndex)
-        setIndex(self.cache.tagcomplete,self, self.slabIndex)
-        #
+        if cache!=None:
+            self.nexts = [None, None, None, None]
+            self.prevs = [None, None, None, None]
+            self.indexes = [None, None, None,None]
+            setIndex(self.cache.taglru,self, self.slabIndex)
+            setIndex(self.cache.tagunused,self, self.slabIndex)
+            setIndex(self.cache.tagpartial,self, self.slabIndex)
+            setIndex(self.cache.tagcomplete,self, self.slabIndex)
+            #
 
         self.begin = int( slabIndex * slabSize )
         self.end = int( (slabIndex+1) * slabSize ) -1
+
+    #unused
+    def exportSlab(self):
+        ex = Slab(None, self.slabIndex, self.slabSize, slabNumber, totalSize)
+        ex.state = self.state
+        ex.availableSpace = self.availableSpace
+        ex.value = self.value.items()
+
+    #unused
+    def importSlab(self, ex):
+        self.slabIndex = ex.slabIndex
+        self.slabNumber =  ex.slabNumber
+        self.totalSize =  ex.totalSize
+        self.state =  ex.state
+        self.availableSpace =  ex.availableSpace
+        self.value = dict(ex.value)
 
     def clearSlab(self):
         self.availableSpace = self.slabSize
