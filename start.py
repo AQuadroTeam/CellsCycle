@@ -20,9 +20,10 @@ url_worker_slave, url_set_slave, url_setPort_slave, url_getPort_slave = startMem
 import time
 time.sleep(5)
 url_getPort = "tcp://localhost:" + str(settings.getMasterGetPort())
-print url_getPort
+url_setPort = "tcp://localhost:" + str(settings.getMasterSetPort())
+url_setPort_slave = "tcp://localhost:" + str(settings.getSlaveSetPort())
+url_getPort_slave = "tcp://localhost:" + str(settings.getSlaveGetPort())
 getRequest(url_getPort, "12")
-print "primo get"
 setRequest(url_setPort, "12", "333asd")
 
 setRequest(url_setPort, "1", "asadasdasdsd")
@@ -30,8 +31,8 @@ import time
 time.sleep(1)
 print getRequest(url_getPort, 1)
 print getRequest(url_getPort_slave, 1)
+print "now transfer"
 cache = transferRequest(url_setPort)
-print len(cache)
 print "sul task principale ho ricevuto con chiave 1 su slave:" + str(getRequest(url_getPort_slave, 1))
 print "sul task principale ho ricevuto con chiave 1 su master: " + str(getRequest(url_getPort, 1))
 killProcess(url_setPort)

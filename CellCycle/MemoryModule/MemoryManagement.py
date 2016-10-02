@@ -117,7 +117,7 @@ def getRequest(url, key):
 def setRequest(url, key, value):
     context = zmq.Context.instance()
     socket = context.socket(zmq.REQ)
-    socket.connect("tcp://localhost:5550")
+    socket.connect(url)
 
     socket.send(dumps(Command(SETCOMMAND, key, value)))
 
