@@ -34,6 +34,21 @@ class SettingsObject(object):
         return int(self.configDict[Constants.GETTERTHREADNUMBER][0])
     # end of memory settings
 
+    # network settings
+    def getMasterSetPort(self):
+        return int(self.configDict[Constants.MASTERSETPORT][0])
+
+    def getMasterGetPort(self):
+        return int(self.configDict[Constants.MASTERGETPORT][0])
+
+    def getSlaveSetPort(self):
+        return int(self.configDict[Constants.SLAVESETPORT][0])
+
+    def getSlaveGetPort(self):
+        return int(self.configDict[Constants.SLAVEGETPORT][0])
+
+    # end of network settings
+
     def __str__(self):
         string = "Configuration:\n"
         for (key,value) in self.configDict.iteritems() :
