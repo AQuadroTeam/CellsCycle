@@ -78,7 +78,7 @@ def _setThread(logger, cache, master, url):
         #logger.debug("received set command: " + str(command)) too heavy
         if command.type == SETCOMMAND:
             cache.set(command.key, command.value)
-            socket.send()
+            socket.send(dumps(0))
         if command.type == SHUTDOWNCOMMAND:
             logger.debug("shutdown command")
             import os, signal
