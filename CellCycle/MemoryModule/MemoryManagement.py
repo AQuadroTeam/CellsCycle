@@ -41,20 +41,17 @@ def _memoryTask(settings, logger,master, url_setFrontend, url_getFrontend, url_g
 
     # Prepare our context and sockets
     context = zmq.Context.instance()
-    # Socket to talk to set
+    # Socket to talk to get
     socketGetFrontend = context.socket(zmq.ROUTER)
     socketGetFrontend.bind(url_getFrontend)
-    # Socket to talk to get
-    #socketSetFrontend = context.socket(zmq.ROUTER)
-    #socketSetFrontend.bind(url_setFrontend)
+
     # Socket to talk to workers
     socketGetBackend = context.socket(zmq.DEALER)
     socketGetBackend.bind(url_getBackend)
-    #socketSetBackend = context.socket(zmq.DEALER)
-    #socketSetBackend.bind(url_setBackend)
+
 
     Thread(name='MemoryGetProxy',target=_proxyThread, args=(logger, master, socketGetFrontend, socketGetBackend, url_getFrontend, url_getBackend)).start()
-    #Thread(name='MemorySetProxy',target=_proxyThread, args=(logger, master,socketSetFrontend, socketSetBackend,url_setFrontend, url_setBackend )).start()
+
     for _ in range(getterNumber):
         th = Thread(name='MemoryGetter',target=_getThread, args=(logger, cache,master,url_getBackend))
         th.start()

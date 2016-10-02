@@ -367,26 +367,26 @@ def funWithTask(preallocatedPool, slabSize, it, getsetratio, valuebytesize, getT
 
     import logging
     from MemoryManagement import startMemoryTask, Command
-    parent_conn_set, child_conn_set = Pipe()
 
-    mineGetPipe = []
-    threadGetPipe = []
 
-    setPipe, clientPipes = startMemoryTask(settings, logging.getLogger())
+    url_getPort = "tcp://localhost:" + str(settings.getMasterGetPort())
+    url_setPort = "tcp://localhost:" + str(settings.getMasterSetPort())
+
+    startMemoryTask(settings, logging.getLogger(),True)
 
     from threading import Thread
     threads = []
     for th in range(0, getThreadNumber):
-        t = Process(target=trialThread, args=(it/getThreadNumber, valuebytesize,getsetratio, setPipe, clientPipes[th]))
+        t = Process(target=trialThread, args=(it/getThreadNumber, valuebytesize,getsetratio, url_setPort, url_getPort))
         t.start()
         threads.append(t)
 
 
     for t in threads:
         t.join()
-    for pipe in clientPipes:
-        sendkilltask(pipe)
-    sendkilltask(setPipe)
+    for _ in range(settings.getGetterThreadNumber()):
+        sendkilltask(url_getPort)
+    sendkilltask(url_setPort)
     print "fine"
 
 def trialThread(it, valuebytesize,getsetratio, parent_conn_set, parent_conn_get):
@@ -425,7 +425,7 @@ def getSettings(totram, slabSize, getThreadNumber):
     import sys
     sys.path.append("..")
     from Settings import SettingsObject
-    return SettingsObject.manualSettings(preallocatedPool=totram, slabSize=slabSize, getterThreadNumber=getThreadNumber)
+    return SettingsObject.manualSettings(preallocatedPool=totram, slabSize=slabSize, getterThreadNumber=getThreadNumber, MasterGetPort=5551, MasterSetPort=5550, SlaveGetPort=5553, SlaveSetPort=5552)
 
 def trialGetSet():
     import logging
