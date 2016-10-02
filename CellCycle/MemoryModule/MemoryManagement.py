@@ -20,7 +20,8 @@ def startMemoryTask(settings, logger, master):
     url_getFrontend = "tcp://*:" + str(settings.getMasterGetPort() if master else settings.getSlaveGetPort())
 
     #create new process
-    p = Process(name='python-CCMemory',target=_memoryTask, args=(settings, logger,master, url_setFrontend, url_getFrontend, url_getBackend, url_setBackend))
+    processName = "python-CCMemoryMaster" if master else "python-CCMemorySlave"
+    p = Process(name=processName,target=_memoryTask, args=(settings, logger,master, url_setFrontend, url_getFrontend, url_getBackend, url_setBackend))
     p.start()
 
     return url_getBackend, url_setBackend, url_setFrontend, url_getFrontend
@@ -72,7 +73,7 @@ def _setThread(logger, cache, master, url):
 
     while True:
         command = loads(socket.recv())
-        #logger.debug("received set command: " + str(command)) too heavy
+        #logger.debug("received set command: " + str(command))
         if command.type == SETCOMMAND:
             cache.set(command.key, command.value)
         if command.type == SHUTDOWNCOMMAND:
@@ -81,9 +82,14 @@ def _setThread(logger, cache, master, url):
             os.kill(os.getpid(), signal.SIGTERM)
             return
         if command.type == TRANSFERMEMORY:
-            print "transferring memory..."
-            print "missing"
-            print "transfer completed"
+            logger.debug("Transferring memory to " + str(command.address) + "....")
+            context = zmq.Context.instance()
+            socketTM = context.socket(zmq.PUSH)
+            socketTM.connect(command.address)
+            for data in cache.cache.iteritems():
+                socketTM.send(dumps(Command(SETCOMMAND,data[0],data[1].getValue(data[0]))))
+            socketTM.close()
+            logger.debug("Transfer complete!")
 
 def _getThread(logger,cache, master, url):
     logger.debug("Listening in new task for get on " + url)
@@ -107,7 +113,9 @@ def getRequest(url, key):
     socket.connect(url)
 
     socket.send(dumps(Command(GETCOMMAND, key)))
-    return loads(socket.recv())
+    v = loads(socket.recv())
+    socket.close()
+    return v
 
 def setRequest(url, key, value):
     context = zmq.Context.instance()
@@ -115,6 +123,7 @@ def setRequest(url, key, value):
     socket.connect(url)
 
     socket.send(dumps(Command(SETCOMMAND, key, value)))
+    socket.close()
 
 def killProcess(url):
     context = zmq.Context.instance()
@@ -122,20 +131,23 @@ def killProcess(url):
     socket.connect(url)
 
     socket.send(dumps(Command(SHUTDOWNCOMMAND)))
+    socket.close()
 
-def transferRequest(url):
+def transferRequest(url, dest):
     context = zmq.Context.instance()
     socket = context.socket(zmq.PUSH)
     socket.connect(url)
 
-    socket.send(dumps(Command(TRANSFERMEMORY)))
+    socket.send(dumps(Command(TRANSFERMEMORY, address=dest)))
+    socket.close()
 
 
 class Command(object):
-    def __init__(self, type, key=None, value=None):
+    def __init__(self, type, key=None, value=None, address=None):
         self.type = int(type)
         self.key = key
         self.value = value
+        self.address = address
     def __str__(self):
         return "type: "+ str(self.type) + ", key: "+ str(self.key) + ", value: " + str(self.value)
 
