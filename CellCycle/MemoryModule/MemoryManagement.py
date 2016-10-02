@@ -45,21 +45,21 @@ def _memoryTask(settings, logger,master, url_setFrontend, url_getFrontend, url_g
     socketGetFrontend = context.socket(zmq.ROUTER)
     socketGetFrontend.bind(url_getFrontend)
     # Socket to talk to get
-    socketSetFrontend = context.socket(zmq.ROUTER)
-    socketSetFrontend.bind(url_setFrontend)
+    #socketSetFrontend = context.socket(zmq.ROUTER)
+    #socketSetFrontend.bind(url_setFrontend)
     # Socket to talk to workers
     socketGetBackend = context.socket(zmq.DEALER)
     socketGetBackend.bind(url_getBackend)
-    socketSetBackend = context.socket(zmq.DEALER)
-    socketSetBackend.bind(url_setBackend)
+    #socketSetBackend = context.socket(zmq.DEALER)
+    #socketSetBackend.bind(url_setBackend)
 
     Thread(name='MemoryGetProxy',target=_proxyThread, args=(logger, master, socketGetFrontend, socketGetBackend, url_getFrontend, url_getBackend)).start()
-    Thread(name='MemorySetProxy',target=_proxyThread, args=(logger, master,socketSetFrontend, socketSetBackend,url_setFrontend, url_setBackend )).start()
+    #Thread(name='MemorySetProxy',target=_proxyThread, args=(logger, master,socketSetFrontend, socketSetBackend,url_setFrontend, url_setBackend )).start()
     for _ in range(getterNumber):
         th = Thread(name='MemoryGetter',target=_getThread, args=(logger, cache,master,url_getBackend))
         th.start()
 
-    _setThread(logger, cache,master,url_setBackend)
+    _setThread(logger, cache,master,url_setFrontend)
 
 
 def _proxyThread(logger, master, frontend, backend, url_frontend, url_backend):
@@ -69,16 +69,15 @@ def _proxyThread(logger, master, frontend, backend, url_frontend, url_backend):
 def _setThread(logger, cache, master, url):
     logger.debug("Listening in new task for set on " + url)
     context = zmq.Context.instance()
-    socket = context.socket(zmq.REP)
+    socket = context.socket(zmq.PULL)
 
-    socket.connect(url)
+    socket.bind(url)
 
     while True:
         command = loads(socket.recv())
         #logger.debug("received set command: " + str(command)) too heavy
         if command.type == SETCOMMAND:
             cache.set(command.key, command.value)
-            socket.send(dumps(0))
         if command.type == SHUTDOWNCOMMAND:
             logger.debug("shutdown command")
             import os, signal
@@ -97,7 +96,6 @@ def _getThread(logger,cache, master, url):
 
     while True:
         command = loads(socket.recv())
-        print "ok"
         #logger.debug( "received get command: " + str(command))
         if command.type == GETCOMMAND:
             v=cache.get(command.key)
@@ -116,21 +114,21 @@ def getRequest(url, key):
 
 def setRequest(url, key, value):
     context = zmq.Context.instance()
-    socket = context.socket(zmq.REQ)
+    socket = context.socket(zmq.PUSH)
     socket.connect(url)
 
     socket.send(dumps(Command(SETCOMMAND, key, value)))
 
 def killProcess(url):
     context = zmq.Context.instance()
-    socket = context.socket(zmq.REQ)
+    socket = context.socket(zmq.PUSH)
     socket.connect(url)
 
     socket.send(dumps(Command(SHUTDOWNCOMMAND)))
 
 def transferRequest(url):
     context = zmq.Context.instance()
-    socket = context.socket(zmq.REQ)
+    socket = context.socket(zmq.PUSH)
     socket.connect(url)
 
     socket.send(dumps(Command(TRANSFERMEMORY)))

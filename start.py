@@ -29,9 +29,9 @@ setRequest(url_setPort, "12", "333asd")
 setRequest(url_setPort, "1", "asadasdasdsd")
 import time
 time.sleep(1)
-print getRequest(url_getPort, 1)
-print getRequest(url_getPort_slave, 1)
-print "now transfer"
+print "dovrebbe uscire asad....: " + str(getRequest(url_getPort, 1))
+print "non dovrebbe uscire asdasda...: " + str(getRequest(url_getPort_slave, 1))
+
 cache = transferRequest(url_setPort)
 print "sul task principale ho ricevuto con chiave 1 su slave:" + str(getRequest(url_getPort_slave, 1))
 print "sul task principale ho ricevuto con chiave 1 su master: " + str(getRequest(url_getPort, 1))
