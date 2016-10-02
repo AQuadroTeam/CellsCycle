@@ -1,13 +1,17 @@
 # All info at https://github.com/AQuadroTeam/CellsCycle/wiki/Settings
 import Constants
 
-def manualSettings(logFile=None, verbose=False, preallocatedPool=100, slabSize=10, getterThreadNumber=1 ):
+def manualSettings(logFile=None, verbose=False, preallocatedPool=100, slabSize=10, getterThreadNumber=1 , MasterSetPort=5550, MasterGetPort=5551, SlaveSetPort=5552, SlaveGetPort=5553):
     dic = {}
     dic[Constants.LOGFILE] = [logFile]
     dic[Constants.VERBOSE] =  [verbose]
     dic[Constants.SLABSIZE] = [slabSize]
     dic[Constants.PREALLOCATEDPOOL] = [preallocatedPool]
     dic[Constants.GETTERTHREADNUMBER] = [getterThreadNumber]
+    dic[Constants.MASTERSETPORT] = [MasterSetPort]
+    dic[Constants.MASTERGETPORT] = [MasterGetPort]
+    dic[Constants.SLAVESETPORT] = [SlaveSetPort]
+    dic[Constants.SLAVEGETPORT] = [SlaveGetPort]
     return SettingsObject(dic)
 
 class SettingsObject(object):
