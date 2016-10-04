@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="a1c89ab2-e673-4d5e-b868-5d8c5ef9cde2" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CellCycle/ListThread/Generator.py" afterPath="$PROJECT_DIR$/CellCycle/ListThread/Generator.py" />
     </list>
     <ignored path="CellsCycle.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -36,11 +35,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DeadReader.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="DeadReader.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/CellCycle/ListThread/DeadReader.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="49" column="30" selection-start-line="49" selection-start-column="30" selection-end-line="49" selection-end-column="30" />
+            <state vertical-scroll-proportion="0.31333333">
+              <caret line="88" column="0" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
               <folding>
                 <element signature="e#59#94#0" expanded="true" />
               </folding>
@@ -84,11 +83,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DeadWriter.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DeadWriter.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CellCycle/ListThread/DeadWriter.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.425">
-              <caret line="83" column="20" selection-start-line="83" selection-start-column="20" selection-end-line="83" selection-end-column="20" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="83" column="0" selection-start-line="83" selection-start-column="0" selection-end-line="83" selection-end-column="0" />
               <folding>
                 <element signature="e#60#71#0" expanded="true" />
               </folding>
@@ -174,11 +173,11 @@
         <option value="$PROJECT_DIR$/CellCycle/ListThread/suscriber_trial.py" />
         <option value="$PROJECT_DIR$/start.py" />
         <option value="$PROJECT_DIR$/logFile.txt" />
-        <option value="$PROJECT_DIR$/CellCycle/ListThread/DeadReader.py" />
         <option value="$PROJECT_DIR$/CellCycle/ListThread/RequestThread.py" />
         <option value="$PROJECT_DIR$/CellCycle/ListThread/ListCommunication.py" />
         <option value="$PROJECT_DIR$/CellCycle/ListThread/Generator.py" />
         <option value="$PROJECT_DIR$/CellCycle/ListThread/DeadWriter.py" />
+        <option value="$PROJECT_DIR$/CellCycle/ListThread/DeadReader.py" />
       </list>
     </option>
   </component>
@@ -748,7 +747,13 @@
       <option name="project" value="LOCAL" />
       <updated>1475601163789</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="Added control for a new node in writer">
+      <created>1475602059443</created>
+      <option name="number" value="00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1475602059443</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -807,7 +812,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added a very simple name for reading and writing structure&#10;" />
     <MESSAGE value="Reading function with function print" />
     <MESSAGE value="Write file configuration, added features to readList&#10;&#10;Read and Write from a dictionary" />
     <MESSAGE value="Basic client / server interaction&#10;&#10;Added ListCommunication.py" />
@@ -832,7 +836,8 @@
     <MESSAGE value="Got working DEAD version. Now the DeadReader thread waits for a certain timeout and sends a message to the following node if no message is received. The structure is made with the help of a pub/sub socket provided by ZMQ:&#10;- Producer (subscriber)&#10;- Consumer (publisher)" />
     <MESSAGE value="Added new thread generator for the req rep initialization&#10;" />
     <MESSAGE value="Added CHILD SYNC message for node generations" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added CHILD SYNC message for node generations" />
+    <MESSAGE value="Added control for a new node in writer" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added control for a new node in writer" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1209,16 +1214,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CellCycle/ListThread/DeadReader.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="49" column="30" selection-start-line="49" selection-start-column="30" selection-end-line="49" selection-end-column="30" />
-          <folding>
-            <element signature="e#59#94#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/CellCycle/ListThread/ProdCons.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1259,10 +1254,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/CellCycle/ListThread/DeadWriter.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.425">
-          <caret line="83" column="20" selection-start-line="83" selection-start-column="20" selection-end-line="83" selection-end-column="20" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="83" column="0" selection-start-line="83" selection-start-column="0" selection-end-line="83" selection-end-column="0" />
           <folding>
             <element signature="e#60#71#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CellCycle/ListThread/DeadReader.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.31333333">
+          <caret line="88" column="0" selection-start-line="88" selection-start-column="0" selection-end-line="88" selection-end-column="0" />
+          <folding>
+            <element signature="e#59#94#0" expanded="true" />
           </folding>
         </state>
       </provider>
