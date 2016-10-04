@@ -1,5 +1,6 @@
 import zmq
 import time
+from zmq import Again
 
 BACKLOG = 5
 MAX_BUFF = 1024
@@ -43,8 +44,11 @@ class ListCommunication:
     def sync(self):
 
         # wait for synchronization request
-        msg = self.syncservice.recv()
+        try:
 
+            msg = self.syncservice.recv()
+        except Again:
+            raise Again
         # send synchronization reply
         self.syncservice.send(b'')
 
