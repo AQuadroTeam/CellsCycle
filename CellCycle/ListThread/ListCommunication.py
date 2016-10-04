@@ -29,12 +29,16 @@ class ListCommunication:
         #self.communicationSocket.RCVTIMEO = MAX_RCVTIMEO
         # bind to the port
         self.communicationSocket.bind(self.completeAddress)
+        self.open_rep_socket()
+        self.sync()
 
+    def open_rep_socket(self, syncAddr=None):
         # Socket to receive signals
         self.syncservice = self.context.socket(zmq.REP)
-        self.syncservice.bind(self.syncaddress)
-
-        self.sync()
+        if syncAddr is not None:
+            self.syncservice.bind(syncAddr)
+        else:
+            self.syncservice.bind(self.syncaddress)
 
     def sync(self):
 
@@ -73,10 +77,17 @@ class ListCommunication:
 
         self.sync_client()
 
-    def sync_client(self):
+    def open_req_socket(self, syncAddr=None):
+
         # Second, synchronize with publisher
         self.syncclient = self.context.socket(zmq.REQ)
-        self.syncclient.connect(self.syncaddress)
+        if syncAddr is not None:
+            self.syncclient.connect(syncAddr)
+        else:
+            self.syncclient.connect(self.syncaddress)
+
+    def sync_client(self):
+        self.open_req_socket()
 
         # send a synchronization request
         self.syncclient.send(b'')
