@@ -28,7 +28,7 @@ class LoggerHelper:
         logger.setLevel(logging.DEBUG)
 
         # format of log lines
-        formatter = logging.Formatter('%(asctime)s %(threadName)s %(levelname)s: %(message)s')
+        formatter = logging.Formatter('%(asctime)s %(threadName)s %(processName)s %(levelname)s: %(message)s')
 
         # build log handler for logFile
         fl = logging.FileHandler(self.logFilePath)

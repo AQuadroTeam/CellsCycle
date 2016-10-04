@@ -1,7 +1,6 @@
 #! /usr/bin/env python
 from CellCycle.Settings.SettingsManager import SettingsManager
 from CellCycle.Logger.Logger import LoggerHelper
-from CellCycle.MemoryThread.MemoryThread import startMemoryThread
 from CellCycle.ListThread.ReadingThread import ReadingThread
 from CellCycle.ListThread.WritingThread import WritingThread
 from threading import Event
@@ -9,6 +8,8 @@ from CellCycle.ListThread.DeadReader import DeadReader
 from CellCycle.ListThread.DeadWriter import DeadWriter
 import time
 import multiprocessing
+from CellCycle.MemoryModule.MemoryManagement import startMemoryTask, Command, getRequest, setRequest, killProcess, transferRequest
+from threading import Thread
 
 SETTINGSFILEPATH = "./config.txt"
 DELAY = 0.3
@@ -81,20 +82,43 @@ if __name__ == '__main__':
         jobs.append(p)
         p.start()
 
+    # start memory task. there's a thread for set/control requests, and n threads for get. getterNumber is a setting
+    url_worker, url_set, url_setPort, url_getPort = startMemoryTask(settings, logger, True)
+    url_worker_slave, url_set_slave, url_setPort_slave, url_getPort_slave = startMemoryTask(settings, logger, False)
 
 
-# Start new Threads
-'''
-thread2.start()
-thread3.start()
+    def exampleFillAndTransfer(settings, logger):
+        #usage example
+        import time
+        time.sleep(5)
+        url_getPort = "tcp://localhost:" + str(settings.getMasterGetPort())
+        url_setPort = "tcp://localhost:" + str(settings.getMasterSetPort())
+        url_setPort_slave = "tcp://localhost:" + str(settings.getSlaveSetPort())
+        url_getPort_slave = "tcp://localhost:" + str(settings.getSlaveGetPort())
+        getRequest(url_getPort, "12")
+        setRequest(url_setPort, "12", "333asd")
 
-thread4.start()
-thread5.start()
-thread6.start()
+        setRequest(url_setPort, "1", "asadasdasdsd")
+        import time
+        time.sleep(1)
+        import zmq
+        from cPickle import dumps, loads
+        from CellCycle.MemoryModule.MemoryManagement import Command, SETCOMMAND
+        context = zmq.Context.instance()
+        socket = context.socket(zmq.PUSH)
+        socket.connect(url_setPort)
 
-thread7.start()
-thread8.start()
-thread9.start()
-'''
+        for a in range(1000000):
 
-print "Exiting Main Thread"
+            socket.send(dumps(Command(SETCOMMAND, str(a), "aaaaaaaaa", address="url_setPort_slave")))
+        socket.close()
+
+        print "dovrebbe uscire asad....: " + str(getRequest(url_getPort, 1))
+        print "non dovrebbe uscire asdasda...: " + str(getRequest(url_getPort_slave, 1))
+
+        transferRequest(url_setPort, url_setPort_slave)
+        time.sleep(10)
+        print "sul task principale ho ricevuto con chiave 1 su slave:" + str(getRequest(url_getPort_slave, 1))
+        print "sul task principale ho ricevuto con chiave 1 su master: " + str(getRequest(url_getPort, 1))
+        killProcess(url_setPort)
+        killProcess(url_setPort_slave)
