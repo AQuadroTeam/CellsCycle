@@ -13,6 +13,7 @@ PRIORITY_DEAD = '3'
 PRIORITY_ALIVE = '0'
 PRIORITY_ADD = '2'
 DEFAULT_ADDR = '127.0.0.1'
+CHILD_SYNC = "CHILD SYNC"
 TXT = '.txt'
 DEF_NODES = 3
 BUF_SIZE = 10
@@ -47,7 +48,7 @@ class Generator(ProducerThread):
             return
 
         self.logger.debug("Node added i\'m " + self.threadId)
-        self.produce("CHILD SYNC")
+        self.produce(CHILD_SYNC)
 
 if __name__ == '__main__':
     # Create new threads
