@@ -15,7 +15,8 @@ logger = LoggerHelper(settings).logger
 # start memory task. there's a thread for set/control requests, and n threads for get. getterNumber is a setting
 url_worker, url_set, url_setPort, url_getPort = startMemoryTask(settings, logger, True)
 url_worker_slave, url_set_slave, url_setPort_slave, url_getPort_slave = startMemoryTask(settings, logger, False)
-
+from CellCycle.Frontend.FrontendManagement import ciaoQui
+ciaoQui()
 
 def exampleFillAndTransfer(settings, logger):
     #usage example

@@ -141,6 +141,8 @@ def transferRequest(url, dest):
     socket.send(dumps(Command(TRANSFERMEMORY, address=dest)))
     socket.close()
 
+def ciao():
+    print "ciao"
 
 class Command(object):
     def __init__(self, type, key=None, value=None, address=None):
