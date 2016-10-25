@@ -17,7 +17,8 @@ logger = LoggerHelper(settings).logger
 url_worker, url_set, url_setPort, url_getPort = startMemoryTask(settings, logger, True)
 url_worker_slave, url_set_slave, url_setPort_slave, url_getPort_slave = startMemoryTask(settings, logger, False)
 
-startExtraCycleListeners(settings, logger);
+startExtraCycleListeners(settings, logger)
+
 def exampleFillAndTransfer(settings, logger):
     #usage example
     import time
