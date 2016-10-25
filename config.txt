@@ -7,3 +7,5 @@ MasterSetPort 5550
 MasterGetPort 5551
 SlaveSetPort 5552
 SlaveGetPort 5553
+ServiceThreadNumber 4
+ClientEntrypointPort 5555

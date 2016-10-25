@@ -53,6 +53,14 @@ class SettingsObject(object):
 
     # end of network settings
 
+    # client entrypoint service settings
+    def getServiceThreadNumber(self):
+        return int(self.configDict[Constants.SERVICETHREADNUMBER][0])
+
+    def getClientEntrypointPort(self):
+        return int(self.configDict[Constants.CLIENTENTRYPOINTPORT][0])
+    # end of client entrypoint service settings
+
     def __str__(self):
         string = "Configuration:\n"
         for (key,value) in self.configDict.iteritems() :

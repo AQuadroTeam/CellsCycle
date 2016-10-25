@@ -13,3 +13,7 @@ MASTERSETPORT = "MasterSetPort"
 MASTERGETPORT = "MasterGetPort"
 SLAVESETPORT = "SlaveSetPort"
 SLAVEGETPORT = "SlaveGetPort"
+
+# external settings
+CLIENTENTRYPOINTPORT = "ClientEntrypointPort"
+SERVICETHREADNUMBER = "ServiceThreadNumber"
