@@ -57,14 +57,29 @@ def _memoryTask(settings, logger,master, url_setFrontend, url_getFrontend, url_g
         th = Thread(name='MemoryGetter',target=_getThread, args=(logger, cache,master,url_getBackend))
         th.start()
 
-    _setThread(logger, cache,master,url_setFrontend)
+    slaveSetQueue = Queue.Queue()
+    hostState = HostUrlState()
+
+    Thread(name='MemorySlaveSetter',target=_setToSlaveThread, args=(logger, cache,master,url_getBackend, slaveSetQueue, hostState)).start()
+
+    _setThread(logger, cache,master,url_setFrontend,hostState)
 
 
 def _proxyThread(logger, master, frontend, backend, url_frontend, url_backend):
     logger.debug("Routing from " + url_frontend + " to " + url_backend)
     zmq.proxy(frontend, backend)
 
-def _setThread(logger, cache, master, url):
+def _setToSlaveThread(logger, cache, master,url, queue, hostState):
+    while True:
+        objToSend = queue.get()
+        slaveAddress = hostState.getSlaveUrl()
+        if(slaveAddress != None):
+            try:
+                setRequest(slaveAddress, objToSend.key, objToSend.value)
+            except Exception as e:
+                logger.warning(str(e))
+
+def _setThread(logger, cache, master, url, hostState):
     logger.debug("Listening in new task for set on " + url)
     context = zmq.Context.instance()
     socket = context.socket(zmq.PULL)
@@ -174,7 +189,14 @@ class Command(object):
     def __str__(self):
         return "type: "+ str(self.type) + ", key: "+ str(self.key) + ", value: " + str(self.value)
 
-
+class HostUrlState(object):
+    def __init__(self):
+        self.masterSetUrl = None
+        self.masterGetUrl = None
+        self.slaveSetUrl = None
+        self.slaveGetUrl = None
+    def getSlaveUrl(self):
+        return self.slaveSetUrl
 
 # only for benchamrk
 def startMemoryTaskForTrial(preallocatedPool, slabSize, logger, pipe_set, pipe_get):
