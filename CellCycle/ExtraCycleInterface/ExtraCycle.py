@@ -29,14 +29,22 @@ def startExtraCycleListeners(settings, logger):
 
 def _receiverThread(logger, socket, queue):
     while True:
-        client, command = socket.recv_multipart()
-        queue.put([client, command])
-
+        try:
+            client, command = socket.recv_multipart()
+            queue.put([client, command])
+        except KeyboardInterrupt as e:
+            logger.error(str(e))
+            return
 
 def _serviceThread(settings, logger, url_Backend,socket,queue):
     logger.debug("Listening for clients on " + url_Backend)
     while True:
-        client, message = queue.get()
+        try:
+            client, message = queue.get()
+        except KeyboardInterrupt as e:
+            logger.error(str(e))
+            return
+
         if(message != ""):
             command = message.split()
             try:
