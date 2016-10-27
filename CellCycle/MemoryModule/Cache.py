@@ -107,6 +107,9 @@ class CacheSlubLRU(object):
 
     def set(self, key, value):
         key = int(key)
+        if (value == None):
+            self.delete(key)
+            return None
 
         valueSize = len(value)
         if valueSize > self.slabSize:
@@ -149,6 +152,9 @@ class CacheSlubLRU(object):
             increment(self, self.taglru,slab)
             self.lrumutex.release()
 
+    def delete(self, key):
+        key = int(key)
+        self.cache.pop(key)
 
     def get(self, key):
         key = int(key)

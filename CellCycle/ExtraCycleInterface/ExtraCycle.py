@@ -61,6 +61,14 @@ def _manageRequest(settings, socket, command, client):
         else:
             _sendGuide(socket, client)
             return;
+    if(command[0].upper() == DELETE):
+        if(command[1] != ""):
+            key = hashOfKey(command[1])
+            _deleteHandler(settings, socket, client, key)
+            return;
+        else:
+            _sendGuide(socket, client)
+            return;
     elif(command[0].upper() in setList):
         if(len(command) < 5):
             _sendGuide(socket, client)
@@ -97,7 +105,12 @@ def _send(socket, client, data):
     socket.send_multipart([client,data])
 
 def _sendGuide(socket, client):
-    guide = "ERROR\r\nSUPPORTED OPERATIONS:\n-SET (SET <key> <flag> <exp> <byte> <data>)\n-GET (SET <key> <data>)\n\nBYE\n"
+    guide = "ERROR\r\nSUPPORTED OPERATIONS:\n"\
+        "-SET (SET <key> <flag> <exp> <byte> <data>)\n"\
+        "-ADD (ADD <key> <flag> <exp> <byte> <data>)\n"\
+        "-GET (SET <key> <data>)\n"\
+        "-DELETE (DELETE <key> <data>)\n"\
+        "\nBYE\r\n"
     _send(socket, client, guide)
 
 def _sendError(socket, client):
@@ -111,6 +124,13 @@ def _setHandler(settings, socket,client, key, flag, exp, byte, value):
     returnValue = MemoryManagement.standardMasterSetRequest(settings, key, value)
     returnString = "STORED\r\n"
     _send(socket, client, returnString)
+
+def _deleteHandler(settings, socket,client, key):
+    #get host address
+    returnValue = MemoryManagement.standardMasterSetRequest(settings, key, None)
+    returnString = "DELETED\r\n"
+    _send(socket, client, returnString)
+
 
 def _getHandler(settings, socket, client, key):
     returnValue = MemoryManagement.standardMasterGetRequest(settings, key)
