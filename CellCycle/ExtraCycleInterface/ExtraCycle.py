@@ -111,7 +111,7 @@ def _setHandler(settings, socket,client, key, flag, exp, byte, value):
 
 def _getHandler(settings, socket, client, key):
     returnValue = MemoryManagement.standardMasterGetRequest(settings, key)
-
+    returnValue = returnValue if returnValue!=None else ""
     if(len(returnValue)>=10):
         flag = int(returnValue[:10])
         data = returnValue[10:]
