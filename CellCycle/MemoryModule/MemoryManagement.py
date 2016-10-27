@@ -109,6 +109,8 @@ def _setThread(logger, cache, master, url,queue,  hostState):
             logger.debug("Transfer complete!")
         if command.type == NEWMASTER:
             #do something with command and hostState
+            #command.optional --> hostState
+            pass
 def _getThread(logger,cache, master, url):
     logger.debug("Listening in new task for get on " + url)
     context = zmq.Context.instance()
@@ -159,6 +161,19 @@ def transferRequest(url, dest):
     socket.send(dumps(Command(TRANSFERMEMORY, address=dest)))
     socket.close()
 
+def newMasterRequest(url, hostInformations):
+    context = zmq.Context.instance()
+    socket = context.socket(zmq.PUSH)
+    socket.connect(url)
+    command = Command(SETCOMMAND)
+    command.optional = hostInformations
+    socket.send(dumps(command))
+    socket.close()
+
+def standardnewMasterRequest(settings, hostInformations, host="localhost"):
+    url_setPort = "tcp://"+host+":" + str(settings.getMasterSetPort())
+    return newMasterRequest(url_setPort, hostInformations)
+
 def standardMasterSetRequest(settings, key, value, host="localhost"):
     url_setPort = "tcp://"+host+":" + str(settings.getMasterSetPort())
     return setRequest(url_setPort, key, value)
@@ -184,11 +199,12 @@ def standardTransferRequest(settings, dest, host="localhost"):
     return transferRequest(url_setPort, dest)
 
 class Command(object):
-    def __init__(self, type, key=None, value=None, address=None):
+    def __init__(self, type, key=None, value=None, address=None, optional=None):
         self.type = int(type)
         self.key = key
         self.value = value
         self.address = address
+        self.optional = optional
     def __str__(self):
         return "type: "+ str(self.type) + ", key: "+ str(self.key) + ", value: " + str(self.value)
 
