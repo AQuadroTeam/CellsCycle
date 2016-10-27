@@ -141,6 +141,29 @@ def transferRequest(url, dest):
     socket.send(dumps(Command(TRANSFERMEMORY, address=dest)))
     socket.close()
 
+def standardMasterSetRequest(settings, key, value, host="localhost"):
+    url_setPort = "tcp://"+host+":" + str(settings.getMasterSetPort())
+    return setRequest(url_setPort, key, value)
+
+def standardMasterGetRequest(settings, key, host="localhost"):
+    url_getPort = "tcp://"+host+":" + str(settings.getMasterGetPort())
+    return getRequest(url_setPort, key)
+
+def standardSlaveSetRequest(settings, key, value, host="localhost"):
+    url_setPort = "tcp://"+host+":" + str(settings.getSlaveSetPort())
+    return setRequest(url_setPort, key, value)
+
+def standardSlaveGetRequest(settings, key, host="localhost"):
+    url_getPort = "tcp://"+host+":" + str(settings.getSlaveGetPort())
+    return getRequest(url_setPort, key)
+
+def standardKillRequest(settings, host="localhost"):
+    url_setPort = "tcp://"+host+":" + str(settings.getMasterSetPort())
+    return killRequest(url_setPort)
+
+def standardTransferRequest(settings, dest, host="localhost"):
+    url_setPort = "tcp://"+host+":" + str(settings.getMasterSetPort())
+    return transferRequest(url_setPort, dest)
 
 class Command(object):
     def __init__(self, type, key=None, value=None, address=None):
