@@ -2,7 +2,8 @@ from threading import Thread
 import zmq
 from Queue import Queue
 from binascii import crc32
-from CellCycle.MemoryModule import MemoryManagement
+from CellCycle.MemoryModule.MemoryManagement import standardKillRequest, standardSlaveSetRequest, standardSlaveGetRequest, standardTransferRequest, standardMasterSetRequest, standardMasterGetRequest
+
 
 def startExtraCycleListeners(settings, logger):
     threadNumber = settings.getServiceThreadNumber()
@@ -37,22 +38,21 @@ def _serviceThread(settings, logger, url_Backend,socket,queue):
     while True:
         client, message = queue.get()
         if(message != ""):
-
-            logger.debug( "received service command: " + str(message))
             command = message.split()
             try:
-                _manageRequest(settings, socket, command, client)
+                _manageRequest(logger, settings, socket, command, client)
             except Exception as e:
-                logger.warning("Error for client: "+ str(client) +", error:"+ str(e))
+                logger.warning("Error for client: "+ str(client) +", error:"+ str(e) + ". command: " + message)
 
 
-def _manageRequest(settings, socket, command, client):
+def _manageRequest(logger, settings, socket, command, client):
     GET = "GET"
     ADD = "ADD"
     DELETE = "DELETE"
     SET = "SET"
     setList = [ADD , SET]
     QUIT = "QUIT"
+
     if(command[0].upper() == GET):
         if(command[1] != ""):
             key = hashOfKey(command[1])
@@ -82,13 +82,14 @@ def _manageRequest(settings, socket, command, client):
             try:
                 value = " ".join(command[5:])
             except Exception as e:
+                logger.warning(str(e) + " for command: " + " ".join(command))
                 _sendGuide(socket, client)
                 return
 
             try:
                 _setHandler(settings, socket,client, key, flag, exp, byte, value)
             except Exception as e:
-                print "qui errore"+ str(e)
+                logger.warning(str(e) + " for command: " + " ".join(command))
                 _sendError(socket, client)
 
             return
@@ -120,20 +121,30 @@ def _sendError(socket, client):
 def _setHandler(settings, socket,client, key, flag, exp, byte, value):
     #add flag to stored data
     value = '{:010d}'.format(int(flag)) + value;
-    #get host address
-    returnValue = MemoryManagement.standardMasterSetRequest(settings, key, value)
+    #get server node
+    #hosts = getNodesForKey(key)
+    #standardMasterGetRequest(settings, key, hosts[0].ip)
+    returnValue = standardMasterSetRequest(settings, key, value)
     returnString = "STORED\r\n"
     _send(socket, client, returnString)
 
 def _deleteHandler(settings, socket,client, key):
-    #get host address
-    returnValue = MemoryManagement.standardMasterSetRequest(settings, key, None)
+    #get server node
+    #hosts = getNodesForKey(key)
+    #standardMasterGetRequest(settings, key, hosts[0].ip)
+    returnValue = standardMasterSetRequest(settings, key, None)
     returnString = "DELETED\r\n"
     _send(socket, client, returnString)
 
 
 def _getHandler(settings, socket, client, key):
-    returnValue = MemoryManagement.standardMasterGetRequest(settings, key)
+    #get server nodes and choose
+    #hosts = getNodesForKey(key)
+    #if(random()>0.5):
+    #   standardMasterGetRequest(settings, key, hosts[0].ip)
+    #else:
+    #   standardSlaveGetRequest(settings, key, hosts[1].ip)
+    returnValue = standardMasterGetRequest(settings, key)
     returnValue = returnValue if returnValue!=None else ""
 
     if(len(returnValue)>=10):
@@ -147,6 +158,7 @@ def _getHandler(settings, socket, client, key):
 
 def _quitHandler(settings, socket, client):
     _send(socket, client, b'')
+
 
 def hashOfKey(key):
     return crc32(key) % (1<<32)
