@@ -62,7 +62,7 @@ def _memoryTask(settings, logger,master, url_setFrontend, url_getFrontend, url_g
 
     Thread(name='MemorySlaveSetter',target=_setToSlaveThread, args=(logger, cache,master,url_getBackend, slaveSetQueue, hostState)).start()
 
-    _setThread(logger, cache,master,url_setFrontend,hostState)
+    _setThread(logger, cache,master,url_setFrontend,slaveSetQueue, hostState)
 
 
 def _proxyThread(logger, master, frontend, backend, url_frontend, url_backend):
@@ -79,7 +79,7 @@ def _setToSlaveThread(logger, cache, master,url, queue, hostState):
             except Exception as e:
                 logger.warning(str(e))
 
-def _setThread(logger, cache, master, url, hostState):
+def _setThread(logger, cache, master, url,queue,  hostState):
     logger.debug("Listening in new task for set on " + url)
     context = zmq.Context.instance()
     socket = context.socket(zmq.PULL)
@@ -90,6 +90,7 @@ def _setThread(logger, cache, master, url, hostState):
         command = loads(socket.recv())
         #logger.debug("received set command: " + str(command))
         if command.type == SETCOMMAND:
+            queue.put(Command(command.type, command.key, command.value, command.address))
             cache.set(command.key, command.value)
         if command.type == SHUTDOWNCOMMAND:
             logger.debug("shutdown command")
