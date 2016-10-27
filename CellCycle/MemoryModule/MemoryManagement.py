@@ -147,7 +147,7 @@ def standardMasterSetRequest(settings, key, value, host="localhost"):
 
 def standardMasterGetRequest(settings, key, host="localhost"):
     url_getPort = "tcp://"+host+":" + str(settings.getMasterGetPort())
-    return getRequest(url_setPort, key)
+    return getRequest(url_getPort, key)
 
 def standardSlaveSetRequest(settings, key, value, host="localhost"):
     url_setPort = "tcp://"+host+":" + str(settings.getSlaveSetPort())
@@ -155,7 +155,7 @@ def standardSlaveSetRequest(settings, key, value, host="localhost"):
 
 def standardSlaveGetRequest(settings, key, host="localhost"):
     url_getPort = "tcp://"+host+":" + str(settings.getSlaveGetPort())
-    return getRequest(url_setPort, key)
+    return getRequest(url_getPort, key)
 
 def standardKillRequest(settings, host="localhost"):
     url_setPort = "tcp://"+host+":" + str(settings.getMasterSetPort())

@@ -2,6 +2,7 @@ from threading import Thread
 import zmq
 from Queue import Queue
 from binascii import crc32
+from CellCycle.MemoryModule import MemoryManagement
 
 def startExtraCycleListeners(settings, logger):
     threadNumber = settings.getServiceThreadNumber()
@@ -19,7 +20,7 @@ def startExtraCycleListeners(settings, logger):
     queue = Queue()
 
     for i in range(threadNumber):
-        th = Thread(name='ServiceEntrypointThread',target=_serviceThread, args=(logger, url_Frontend, socket, queue))
+        th = Thread(name='ServiceEntrypointThread',target=_serviceThread, args=(settings, logger, url_Frontend, socket, queue))
         th.start()
 
     Thread(name='ServiceEntrypointRouterThread',target=_receiverThread, args=(logger, socket, queue)).start()
@@ -31,7 +32,7 @@ def _receiverThread(logger, socket, queue):
         queue.put([client, command])
 
 
-def _serviceThread(logger, url_Backend,socket,queue):
+def _serviceThread(settings, logger, url_Backend,socket,queue):
     logger.debug("Listening for clients on " + url_Backend)
     while True:
         client, message = queue.get()
@@ -40,22 +41,27 @@ def _serviceThread(logger, url_Backend,socket,queue):
             logger.debug( "received service command: " + str(message))
             command = message.split()
             try:
-                _manageRequest(socket, command, client)
+                _manageRequest(settings, socket, command, client)
             except Exception as e:
                 logger.warning("Error for client: "+ str(client) +", error:"+ str(e))
 
 
-def _manageRequest(socket, command, client):
+def _manageRequest(settings, socket, command, client):
     GET = "GET"
     SET = "SET"
+    QUIT = "QUIT"
     if(command[0].upper() == GET):
         if(command[1] != ""):
             key = hashOfKey(command[1])
-            _getHandler(socket, client, key)
-
+            _getHandler(settings, socket, client, key)
+            return;
+        else:
+            _sendGuide(socket, client)
+            return;
     elif(command[0].upper() == SET):
         if(len(command) < 5):
             _sendGuide(socket, client)
+            return;
         else:
             key = hashOfKey(command[1])
             flag = command[2]
@@ -69,11 +75,18 @@ def _manageRequest(socket, command, client):
                 return
 
             try:
-                _setHandler(socket,client, key, flag, exp, byte, value)
-            except:
+                _setHandler(settings, socket,client, key, flag, exp, byte, value)
+            except Exception as e:
+                print "qui errore"+ str(e)
                 _sendError(socket, client)
+
+            return
+    elif(command[0].upper() == QUIT):
+        _quitHandler(settings, socket, client)
+        return
     else:
         _sendGuide(socket, client)
+        return
 
 
 
@@ -88,11 +101,28 @@ def _sendError(socket, client):
     error = "ERROR\r\n"
     _send(socket, client, error)
 
-def _setHandler(socket,client, key, flag, exp, byte, value):
-    _send(socket, client, "ERROR\r\nSTILL NOT IMPLEMENTED\n" + str(key))
+def _setHandler(settings, socket,client, key, flag, exp, byte, value):
+    #add flag to stored data
+    value = '{:010d}'.format(int(flag)) + value;
+    #get host address
+    returnValue = MemoryManagement.standardMasterSetRequest(settings, key, value)
+    returnString = "STORED\n"
+    _send(socket, client, returnString)
 
-def _getHandler(socket, client, key):
-    _send(socket, client, "ERROR\r\nSTILL NOT IMPLEMENTED\n" + str(key))
+def _getHandler(settings, socket, client, key):
+    returnValue = MemoryManagement.standardMasterGetRequest(settings, key)
+
+    if(len(returnValue)>=10):
+        flag = int(returnValue[:10])
+        data = returnValue[10:]
+
+        returnString = "VALUE " + str(key) +" "+ str(flag) +" "+ str(len(data)) +"  \n"+ data + "\r\nEND\n"
+    else:
+        returnString = "NOT_FOUND\n"
+    _send(socket, client, returnString)
+
+def _quitHandler(settings, socket, client):
+    _send(socket, client, b'')
 
 def hashOfKey(key):
     return crc32(key) % (1<<32)
