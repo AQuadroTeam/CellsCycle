@@ -9,6 +9,7 @@ SETCOMMAND = 0
 GETCOMMAND = 1
 SHUTDOWNCOMMAND = -1
 TRANSFERMEMORY = 2
+NEWMASTER = 3
 
 def startMemoryTask(settings, logger, master):
 
@@ -106,7 +107,8 @@ def _setThread(logger, cache, master, url,queue,  hostState):
                 socketTM.send(dumps(Command(SETCOMMAND,data[0],data[1].getValue(data[0]))))
             socketTM.close()
             logger.debug("Transfer complete!")
-
+        if command.type == NEWMASTER:
+            #do something with command and hostState
 def _getThread(logger,cache, master, url):
     logger.debug("Listening in new task for get on " + url)
     context = zmq.Context.instance()
