@@ -48,7 +48,10 @@ def _serviceThread(settings, logger, url_Backend,socket,queue):
 
 def _manageRequest(settings, socket, command, client):
     GET = "GET"
+    ADD = "ADD"
+    DELETE = "DELETE"
     SET = "SET"
+    setList = [ADD , SET]
     QUIT = "QUIT"
     if(command[0].upper() == GET):
         if(command[1] != ""):
@@ -58,7 +61,7 @@ def _manageRequest(settings, socket, command, client):
         else:
             _sendGuide(socket, client)
             return;
-    elif(command[0].upper() == SET):
+    elif(command[0].upper() in setList):
         if(len(command) < 5):
             _sendGuide(socket, client)
             return;
@@ -106,19 +109,20 @@ def _setHandler(settings, socket,client, key, flag, exp, byte, value):
     value = '{:010d}'.format(int(flag)) + value;
     #get host address
     returnValue = MemoryManagement.standardMasterSetRequest(settings, key, value)
-    returnString = "STORED\n"
+    returnString = "STORED\r\n"
     _send(socket, client, returnString)
 
 def _getHandler(settings, socket, client, key):
     returnValue = MemoryManagement.standardMasterGetRequest(settings, key)
     returnValue = returnValue if returnValue!=None else ""
+
     if(len(returnValue)>=10):
         flag = int(returnValue[:10])
         data = returnValue[10:]
 
-        returnString = "VALUE " + str(key) +" "+ str(flag) +" "+ str(len(data)) +"  \n"+ data + "\r\nEND\n"
+        returnString = "VALUE " + str(key) +" "+ str(flag) +" "+ str(len(data)) +"  \r\n"+ data + "\r\nEND\r\n"
     else:
-        returnString = "NOT_FOUND\n"
+        returnString = "NOT_FOUND\r\n"
     _send(socket, client, returnString)
 
 def _quitHandler(settings, socket, client):
