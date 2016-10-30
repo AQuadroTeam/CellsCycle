@@ -60,6 +60,7 @@ def _manageRequest(logger, settings, socket, command, client):
     SET = "SET"
     setList = [ADD , SET]
     QUIT = "QUIT"
+    TRANSFER = "TRANSFER"
 
     if(command[0].upper() == GET):
         if(command[1] != ""):
@@ -69,6 +70,9 @@ def _manageRequest(logger, settings, socket, command, client):
         else:
             _sendGuide(socket, client)
             return;
+    if(command[0].upper() == TRANSFER):
+        _transferHandler(settings, socket, client)
+        return;
     if(command[0].upper() == DELETE):
         if(command[1] != ""):
             key = hashOfKey(command[1])
@@ -132,7 +136,9 @@ def _setHandler(settings, socket,client, key, flag, exp, byte, value):
     #get server node
     #hosts = getNodesForKey(key)
     #standardMasterGetRequest(settings, key, hosts[0].ip)
+
     returnValue = standardMasterSetRequest(settings, key, value)
+
     returnString = "STORED\r\n"
     _send(socket, client, returnString)
 
@@ -167,6 +173,10 @@ def _getHandler(settings, socket, client, key):
 def _quitHandler(settings, socket, client):
     _send(socket, client, b'')
 
+def _transferHandler(settings, socket, client):
+    _send(socket, client, "DOING....")
+    standardTransferRequest(settings)
+    _send(socket, client, "DONE!")
 
 def hashOfKey(key):
     return crc32(key) % (1<<32)
