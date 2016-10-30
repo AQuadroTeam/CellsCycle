@@ -60,6 +60,14 @@ class SettingsObject(object):
     def getClientEntrypointPort(self):
         return int(self.configDict[Constants.CLIENTENTRYPOINTPORT][0])
     # end of client entrypoint service settings
+    #
+
+    # metric settings
+    def getAlpha(self):
+        return float(self.configDict[Constants.ALPHA][0])
+    def getBeta(self):
+        return float(self.configDict[Constants.BETA][0])
+    # end of metric settings
 
     def __str__(self):
         string = "Configuration:\n"

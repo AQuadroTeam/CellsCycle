@@ -59,7 +59,7 @@ def _memoryTask(settings, logger,master, url_setFrontend, url_getFrontend, url_g
 
     for i in range(getterNumber):
         timing["getters"].append(-1)
-        th = Thread(name='MemoryGetter',target=_getThread, args=(i,logger, cache,master,url_getBackend, timing))
+        th = Thread(name='MemoryGetter',target=_getThread, args=(i,logger, settings, cache,master,url_getBackend, timing))
         th.start()
 
     slaveSetQueue = Queue.Queue()
@@ -68,7 +68,7 @@ def _memoryTask(settings, logger,master, url_setFrontend, url_getFrontend, url_g
     Thread(name='MemoryPerformanceMetricator',target=_memoryMetricatorThread, args=(logger, cache, settings, timing)).start()
     Thread(name='MemorySlaveSetter',target=_setToSlaveThread, args=(logger, cache,master,url_getBackend, slaveSetQueue, hostState)).start()
 
-    _setThread(logger, cache,master,url_setFrontend,slaveSetQueue, hostState, timing)
+    _setThread(logger, settings, cache,master,url_setFrontend,slaveSetQueue, hostState, timing)
 
 
 def _memoryMetricatorThread(logger, cache, settings, timing):
@@ -97,14 +97,14 @@ def _setToSlaveThread(logger, cache, master,url, queue, hostState):
             except Exception as e:
                 logger.warning(str(e))
 
-def _setThread(logger, cache, master, url,queue,  hostState, timing):
+def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
     logger.debug("Listening in new task for set on " + url)
     context = zmq.Context.instance()
     socket = context.socket(zmq.PULL)
     socket.bind(url)
 
     timing["setters"] = []
-    timing["setters"].append(TimingMetricator(0.5, 0.5))
+    timing["setters"].append(TimingMetricator(settings.getAlpha(), settings.getBeta()))
 
     while True:
         timing["setters"][0].startWaiting()
@@ -137,13 +137,13 @@ def _setThread(logger, cache, master, url,queue,  hostState, timing):
         timing["setters"][0].stopWorking()
 
 
-def _getThread(index, logger,cache, master, url, timing):
+def _getThread(index, logger,settings, cache, master, url, timing):
     logger.debug("Listening in new task for get on " + url)
     context = zmq.Context.instance()
     socket = context.socket(zmq.REP)
     socket.connect(url)
 
-    timing["getters"][index] = TimingMetricator(0.5, 0.5)
+    timing["getters"][index] = TimingMetricator(settings.getAlpha(), settings.getBeta())
 
     while True:
         timing["getters"][index].startWaiting()
@@ -281,9 +281,6 @@ class TimingMetricator(object):
 
     def stopWorking(self):
         self.stopWorkingTime = time()
-        print self.startWaitingTime
-        print self.startWorkingTime
-        print self.stopWorkingTime
         wait = self.startWorkingTime - self.startWaitingTime
         period = self.stopWorkingTime - self.startWaitingTime
         self.meanWaitingRatio = wait / period * self.alpha + self.beta * self.meanWaitingRatio

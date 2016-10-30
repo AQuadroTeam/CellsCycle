@@ -17,3 +17,7 @@ SLAVEGETPORT = "SlaveGetPort"
 # external settings
 CLIENTENTRYPOINTPORT = "ClientEntrypointPort"
 SERVICETHREADNUMBER = "ServiceThreadNumber"
+
+# metrics
+ALPHA = "Alpha"
+BETA = "Beta"
