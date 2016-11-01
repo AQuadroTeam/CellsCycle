@@ -95,9 +95,11 @@ def _memoryMetricatorThread(logger, cache, settings, master, timing):
             #scale up needed
             if(getMean >= getScaleUpLevel or setMean >= setScaleUpLevel):
                 logger.debug("Requests for scale Up!")
+                #TODO: add call scale up service
             #scale down needed
             elif(getMean <= getScaleDownLevel or setMean <= setScaleDownLevel):
                 logger.debug("Requests for scale Down!")
+                #TODO: add call scale down service
 
 
 def _proxyThread(logger, master, frontend, backend, url_frontend, url_backend):
