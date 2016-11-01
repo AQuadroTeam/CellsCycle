@@ -19,5 +19,8 @@ CLIENTENTRYPOINTPORT = "ClientEntrypointPort"
 SERVICETHREADNUMBER = "ServiceThreadNumber"
 
 # metrics
-ALPHA = "Alpha"
-BETA = "Beta"
+SCALEPERIOD = "ScalePeriod"
+GETSCALEUPLEVEL = "GetScaleUpLevel"
+GETSCALEDOWNLEVEL = "GetScaleDownLevel"
+SETSCALEUPLEVEL = "SetScaleUpLevel"
+SETSCALEDOWNLEVEL = "SetScaleDownLevel"

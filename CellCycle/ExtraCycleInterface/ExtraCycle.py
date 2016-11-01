@@ -136,7 +136,6 @@ def _setHandler(settings, socket,client, key, flag, exp, byte, value):
     #get server node
     #hosts = getNodesForKey(key)
     #standardMasterGetRequest(settings, key, hosts[0].ip)
-
     returnValue = standardMasterSetRequest(settings, key, value)
 
     returnString = "STORED\r\n"

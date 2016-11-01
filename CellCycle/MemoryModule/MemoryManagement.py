@@ -65,22 +65,39 @@ def _memoryTask(settings, logger,master, url_setFrontend, url_getFrontend, url_g
     slaveSetQueue = Queue.Queue()
     hostState = HostUrlState()
 
-    Thread(name='MemoryPerformanceMetricator',target=_memoryMetricatorThread, args=(logger, cache, settings, timing)).start()
+    Thread(name='MemoryPerformanceMetricator',target=_memoryMetricatorThread, args=(logger, cache, settings, master, timing)).start()
     Thread(name='MemorySlaveSetter',target=_setToSlaveThread, args=(logger, cache,master,url_getBackend, slaveSetQueue, hostState)).start()
 
     _setThread(logger, settings, cache,master,url_setFrontend,slaveSetQueue, hostState, timing)
 
 
-def _memoryMetricatorThread(logger, cache, settings, timing):
-    logger.debug("Metricator thread alive")
-    period = 10
-    while True:
-        sleep(period)
-        logger.debug("Waiting time for setter: " + str(timing["setters"][0]))
-        for metr in timing["getters"]:
-            logger.debug("Waiting time for getters: " + str(metr) )
+def _memoryMetricatorThread(logger, cache, settings, master, timing):
+    if master:
+        period = settings.getScalePeriod()
 
+        setScaleDownLevel   = settings.getSetScaleDownLevel()   if settings.getSetScaleDownLevel()  >0 else -float("inf")
+        setScaleUpLevel     = settings.getSetScaleUpLevel()     if settings.getSetScaleUpLevel()    >0 else  float("inf")
+        getScaleDownLevel   = settings.getGetScaleDownLevel()   if settings.getGetScaleDownLevel()  >0 else -float("inf")
+        getScaleUpLevel     = settings.getGetScaleUpLevel()     if settings.getGetScaleUpLevel()    >0 else  float("inf")
 
+        logger.debug("Metricator alive, period: "+ str(period) +"s, getThrLevel: [" +str(getScaleDownLevel) +"," + str(getScaleUpLevel)+ "], setThrLevel: [" + str(setScaleDownLevel) + "," + str(setScaleUpLevel) + "]"  )
+
+        while True:
+            sleep(period)
+            setMean = 1.0 - timing["setters"][0].calcMean()
+            getMean = 0.0
+            for metr in timing["getters"]:
+                getMean += 1.0 - metr.calcMean()
+            getMean = getMean / settings.getGetterThreadNumber()
+
+            logger.debug("Working time for setters: " + str(setMean) + ", getters (mean): " + str(getMean) )
+
+            #scale up needed
+            if(getMean >= getScaleUpLevel or setMean >= setScaleUpLevel):
+                logger.debug("Requests for scale Up!")
+            #scale down needed
+            elif(getMean <= getScaleDownLevel or setMean <= setScaleDownLevel):
+                logger.debug("Requests for scale Down!")
 
 
 def _proxyThread(logger, master, frontend, backend, url_frontend, url_backend):
@@ -103,14 +120,17 @@ def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
     socket = context.socket(zmq.PULL)
     socket.bind(url)
 
-    timing["setters"] = []
-    timing["setters"].append(TimingMetricator(settings.getAlpha(), settings.getBeta()))
+    if master:
+        timing["setters"] = []
+        timing["setters"].append(TimingMetricator())
 
     while True:
-        timing["setters"][0].startWaiting()
+        if master:
+            timing["setters"][0].startWaiting()
 
         command = loads(socket.recv())
-        timing["setters"][0].startWorking()
+        if master:
+            timing["setters"][0].startWorking()
 
         #logger.debug("received set command: " + str(command))
         if command.type == SETCOMMAND:
@@ -134,7 +154,9 @@ def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
             #do something with command and hostState
             #command.optional --> hostState
             a = 2
-        timing["setters"][0].stopWorking()
+
+        if master:
+            timing["setters"][0].stopWorking()
 
 
 def _getThread(index, logger,settings, cache, master, url, timing):
@@ -143,12 +165,15 @@ def _getThread(index, logger,settings, cache, master, url, timing):
     socket = context.socket(zmq.REP)
     socket.connect(url)
 
-    timing["getters"][index] = TimingMetricator(settings.getAlpha(), settings.getBeta())
+    if master:
+        timing["getters"][index] = TimingMetricator()
 
     while True:
-        timing["getters"][index].startWaiting()
+        if master:
+            timing["getters"][index].startWaiting()
         command = loads(socket.recv())
-        timing["getters"][index].startWorking()
+        if master:
+            timing["getters"][index].startWorking()
 
         #logger.debug( "received get command: " + str(command))
         if command.type == GETCOMMAND:
@@ -156,7 +181,8 @@ def _getThread(index, logger,settings, cache, master, url, timing):
             socket.send(dumps(v))
         #if command.type == SHUTDOWNCOMMAND:
         #    return
-        timing["getters"][index].stopWorking()
+        if master:
+            timing["getters"][index].stopWorking()
 
 # client operations
 def getRequest(url, key):
@@ -262,16 +288,19 @@ def startMemoryTaskForTrial(preallocatedPool, slabSize, logger, pipe_set, pipe_g
 
 class TimingMetricator(object):
     """docstring forTimingMetricator."""
-    def __init__(self, alpha, beta):
+    def __init__(self):
         self.startWaitingTime = 0
         self.startWorkingTime = 0
         self.stopWorkingTime = 0
-        self.alpha = alpha
-        self.beta = beta
         self.meanWaitingRatio = 0
+        self.totalWorkingTime = 0
+        self.startPeriod = time()
 
     def __str__(self):
-        return str(self.meanWaitingRatio)
+        return str(self.getMean())
+
+    def getMean(self):
+        return self.meanWaitingRatio
 
     def startWorking(self):
         self.startWorkingTime = time()
@@ -279,8 +308,16 @@ class TimingMetricator(object):
     def startWaiting(self):
         self.startWaitingTime = time()
 
+    def calcMean(self):
+        period = time() - self.startPeriod
+        working = self.totalWorkingTime
+        waitingMean = 1 - (working / float(period))
+        self.totalWorkingTime = 0
+        self.startPeriod = time()
+        self.meanWaitingRatio = waitingMean
+        return waitingMean
+
     def stopWorking(self):
         self.stopWorkingTime = time()
-        wait = self.startWorkingTime - self.startWaitingTime
-        period = self.stopWorkingTime - self.startWaitingTime
-        self.meanWaitingRatio = wait / period * self.alpha + self.beta * self.meanWaitingRatio
+        work = self.stopWorkingTime - self.startWorkingTime
+        self.totalWorkingTime += work

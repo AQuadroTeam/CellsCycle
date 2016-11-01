@@ -63,10 +63,16 @@ class SettingsObject(object):
     #
 
     # metric settings
-    def getAlpha(self):
-        return float(self.configDict[Constants.ALPHA][0])
-    def getBeta(self):
-        return float(self.configDict[Constants.BETA][0])
+    def getScalePeriod(self):
+        return int(self.configDict[Constants.SCALEPERIOD][0])
+    def getGetScaleUpLevel(self):
+        return float(self.configDict[Constants.GETSCALEUPLEVEL][0])
+    def getGetScaleDownLevel(self):
+        return float(self.configDict[Constants.GETSCALEDOWNLEVEL][0])
+    def getSetScaleUpLevel(self):
+        return float(self.configDict[Constants.SETSCALEUPLEVEL][0])
+    def getSetScaleDownLevel(self):
+        return float(self.configDict[Constants.SETSCALEDOWNLEVEL][0])
     # end of metric settings
 
     def __str__(self):
