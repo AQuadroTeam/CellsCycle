@@ -23,17 +23,17 @@ def main():
     subscribers = 0
     while subscribers < SUBSCRIBERS_EXPECTED:
         # wait for synchronization request
-        msg = syncservice.recv()
+        msg = syncservice.wait_ext_message()
         # send synchronization reply
-        syncservice.send(b'')
+        syncservice.forward(b'')
         subscribers += 1
         print("+1 subscriber (%i/%i)" % (subscribers, SUBSCRIBERS_EXPECTED))
 
     # Now broadcast exactly 1M updates followed by END
     for i in range(100):
-        publisher.send(b'Rhubarb')
+        publisher.forward(b'Rhubarb')
 
-    publisher.send(b'END')
+    publisher.forward(b'END')
 
 if __name__ == '__main__':
     main()

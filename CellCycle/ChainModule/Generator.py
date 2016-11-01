@@ -17,21 +17,21 @@ CHILD_SYNC = "CHILD SYNC"
 TXT = '.txt'
 DEF_NODES = 3
 BUF_SIZE = 10
+SECRETARY_PORT = '5186'
 
 class Generator(ProducerThread):
-    def __init__(self, threadId, prevId, slave, slaveOfSlave, masterMemory, slaveMemory, logger, condition, delay):
-        ProducerThread.__init__(self, threadId, prevId, slave, slaveOfSlave, masterMemory, slaveMemory, logger, condition, delay)
-        self.logger.debug("These are my features (Reader): (" + self.threadId + ") Master ID : " + self.masterId + " SlaveID: " + self.slaveId)
+    def __init__(self, threadId, prevId, slave, slave_of_slave, masterMemory, slaveMemory, logger, condition, delay):
+        ProducerThread.__init__(self, threadId, prevId, slave, slave_of_slave, masterMemory, slaveMemory, logger, condition, delay)
+        self.logger.debug("These are my features (Reader): (" + self.myself + ") Master ID : " + self.masterId + " SlaveID: " + self.slaveId)
 
     def run(self):
-        # time.sleep(int(self.threadId))
-        print "Starting Reader " + self.threadId
-        self.generate(self.threadId, 2)
-        print "Exiting Reader " + self.threadId
+        # time.sleep(int(self.myself))
+        print "Starting Reader " + self.myself
+        self.generate(self.myself, 2)
+        print "Exiting Reader " + self.myself
 
     def initReqRepConnection(self):
-        # Troppo hardcoded
-        listCommunication = ListCommunication(DEFAULT_ADDR,'5186')
+        listCommunication = ListCommunication(DEFAULT_ADDR,SECRETARY_PORT)
         listCommunication.open_rep_socket()
         try:
             listCommunication.sync()
@@ -44,10 +44,10 @@ class Generator(ProducerThread):
         try:
             listCommunication = self.initReqRepConnection()
         except Again:
-            self.logger.debug("No answers from the new node, i\'m " + self.threadId)
+            self.logger.debug("No answers from the new node, i\'m " + self.myself)
             return
 
-        self.logger.debug("Node added i\'m " + self.threadId)
+        self.logger.debug("Node added i\'m " + self.myself)
         self.produce(CHILD_SYNC)
 
 if __name__ == '__main__':

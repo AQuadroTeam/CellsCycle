@@ -72,7 +72,7 @@ def _setThread(logger, cache, master, url):
     socket.bind(url)
 
     while True:
-        command = loads(socket.recv())
+        command = loads(socket.wait_ext_message())
         #logger.debug("received set command: " + str(command))
         if command.type == SETCOMMAND:
             cache.set(command.key, command.value)
@@ -87,7 +87,7 @@ def _setThread(logger, cache, master, url):
             socketTM = context.socket(zmq.PUSH)
             socketTM.connect(command.address)
             for data in cache.cache.iteritems():
-                socketTM.send(dumps(Command(SETCOMMAND,data[0],data[1].getValue(data[0]))))
+                socketTM.forward(dumps(Command(SETCOMMAND, data[0], data[1].getValue(data[0]))))
             socketTM.close()
             logger.debug("Transfer complete!")
 
@@ -98,11 +98,11 @@ def _getThread(logger,cache, master, url):
     socket.connect(url)
 
     while True:
-        command = loads(socket.recv())
+        command = loads(socket.wait_ext_message())
         #logger.debug( "received get command: " + str(command))
         if command.type == GETCOMMAND:
             v=cache.get(command.key)
-            socket.send(dumps(v))
+            socket.forward(dumps(v))
         #if command.type == SHUTDOWNCOMMAND:
         #    return
 
@@ -112,8 +112,8 @@ def getRequest(url, key):
     socket = context.socket(zmq.REQ)
     socket.connect(url)
 
-    socket.send(dumps(Command(GETCOMMAND, key)))
-    v = loads(socket.recv())
+    socket.forward(dumps(Command(GETCOMMAND, key)))
+    v = loads(socket.wait_ext_message())
     socket.close()
     return v
 
@@ -122,7 +122,7 @@ def setRequest(url, key, value):
     socket = context.socket(zmq.PUSH)
     socket.connect(url)
 
-    socket.send(dumps(Command(SETCOMMAND, key, value)))
+    socket.forward(dumps(Command(SETCOMMAND, key, value)))
     socket.close()
 
 def killProcess(url):
@@ -130,7 +130,7 @@ def killProcess(url):
     socket = context.socket(zmq.PUSH)
     socket.connect(url)
 
-    socket.send(dumps(Command(SHUTDOWNCOMMAND)))
+    socket.forward(dumps(Command(SHUTDOWNCOMMAND)))
     socket.close()
 
 def transferRequest(url, dest):
@@ -138,7 +138,7 @@ def transferRequest(url, dest):
     socket = context.socket(zmq.PUSH)
     socket.connect(url)
 
-    socket.send(dumps(Command(TRANSFERMEMORY, address=dest)))
+    socket.forward(dumps(Command(TRANSFERMEMORY, address=dest)))
     socket.close()
 
 

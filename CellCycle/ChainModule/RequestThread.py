@@ -17,22 +17,22 @@ DEF_NODES = 3
 BUF_SIZE = 10
 
 class DeadReader(ProducerThread):
-    def __init__(self, threadId, prevId, slave, slaveOfSlave, masterMemory, slaveMemory, logger, condition, delay):
-        ProducerThread.__init__(self, threadId, prevId, slave, slaveOfSlave, masterMemory, slaveMemory, logger, condition, delay)
-        self.logger.debug("These are my features (Reader): (" + self.threadId + ") Master ID : " + self.masterId + " SlaveID: " + self.slaveId)
+    def __init__(self, threadId, prevId, slave, slave_of_slave, masterMemory, slaveMemory, logger, condition, delay):
+        ProducerThread.__init__(self, threadId, prevId, slave, slave_of_slave, masterMemory, slaveMemory, logger, condition, delay)
+        self.logger.debug("These are my features (Reader): (" + self.myself + ") Master ID : " + self.masterId + " SlaveID: " + self.slaveId)
         self.dead_message = ''
         self.last_version = 1
 
     def run(self):
-        print "Starting Reader " + self.threadId
-        self.processRequest(self.threadId)
-        print "Exiting Reader " + self.threadId
+        print "Starting Reader " + self.myself
+        self.processRequest(self.myself)
+        print "Exiting Reader " + self.myself
 
     def initConnection(self):
         # We have to subscribe to our master
         listCommunication = ListCommunication(DEFAULT_ADDR,self.masterAddr)
-        listCommunication.initServerSocket()
-        self.logger.debug('Sync completed. New client socket (Writer ' + self.threadId + ') to node ' + self.slaveId + ' with address ' + listCommunication.completeAddress)
+        listCommunication.external_channel_publish()
+        self.logger.debug('Sync completed. New client socket (Writer ' + self.myself + ') to node ' + self.slaveId + ' with address ' + listCommunication.complete_address)
         return listCommunication
 
     def processRequest(self, threadName):
@@ -44,11 +44,12 @@ class DeadReader(ProducerThread):
 
             # do your own job
 
-            self.logger.debug('I\'m worker ' + self.threadId + ' and this throughput is too much : ' + str(randint(1000,9999)))
-            self.add_message = str(self.last_version) + ' ' + PRIORITY_ADD + ' ' + str(randint(1000,9999)) + ' ' + self.masterId + ' ' + self.threadId
+            self.logger.debug('I\'m worker ' + self.myself + ' and this throughput is too much : ' + str(randint(1000, 9999)))
+            # take the last version or sent a new type of message
+            self.add_message = str(self.last_version) + ' ' + PRIORITY_ADD + ' ' + str(randint(1000,9999)) + ' ' + self.masterId + ' ' + self.myself
 
             self.produce(self.add_message)
-            self.logger.debug("This is my add_message (" + self.threadId + ") : " + self.add_message)
+            self.logger.debug("This is my add_message (" + self.myself + ") : " + self.add_message)
             self.last_version += 1
 
             # crea thread che aspetta il nuovo tizio

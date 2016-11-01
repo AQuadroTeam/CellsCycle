@@ -16,8 +16,8 @@ class ServerZMQ(Thread):
 
     def server_behaviour(self):
         while True:
-            self.socket.send("Server message to client3")
-            msg = self.socket.recv()
+            self.socket.forward("Server message to client3")
+            msg = self.socket.wait_ext_message()
             print msg
             time.sleep(1)
 
@@ -33,10 +33,10 @@ class ClientZMQ(Thread):
 
     def client_behaviour(self):
         while True:
-            msg = self.socket.recv()
+            msg = self.socket.wait_ext_message()
             print msg
-            self.socket.send("client message to server1")
-            self.socket.send("client message to server2")
+            self.socket.forward("client message to server1")
+            self.socket.forward("client message to server2")
             time.sleep(1)
 
 if __name__ == '__main__':

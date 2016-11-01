@@ -20,15 +20,15 @@ def main():
     syncclient.connect('tcp://localhost:5562')
 
     # send a synchronization request
-    syncclient.send(b'')
+    syncclient.forward(b'')
 
     # wait for synchronization reply
-    syncclient.recv()
+    syncclient.wait_ext_message()
 
     # Third, get our updates and report how many we got
     nbr = 0
     while True:
-        msg = subscriber.recv()
+        msg = subscriber.wait_ext_message()
         if msg == b'END':
             break
         nbr += 1

@@ -244,9 +244,9 @@ fine
         1    0.000    0.000    0.000    0.000 {method 'lower' of 'str' objects}
       117    0.000    0.000    0.000    0.000 {method 'match' of '_sre.SRE_Pattern' objects}
   4000000    0.467    0.000    0.467    0.000 {method 'random' of '_random.Random' objects}
-   832931   45.327    0.000   45.327    0.000 {method 'recv' of '_multiprocessing.Connection' objects}
+   832931   45.327    0.000   45.327    0.000 {method 'wait_ext_message' of '_multiprocessing.Connection' objects}
         8    0.000    0.000    0.000    0.000 {method 'remove' of 'set' objects}
-  1000001   13.603    0.000   13.603    0.000 {method 'send' of '_multiprocessing.Connection' objects}
+  1000001   13.603    0.000   13.603    0.000 {method 'forward' of '_multiprocessing.Connection' objects}
         2    0.000    0.000    0.000    0.000 {method 'setblocking' of '_socket.socket' objects}
         5    0.000    0.000    0.000    0.000 {method 'setter' of 'property' objects}
         1    0.000    0.000    0.000    0.000 {method 'split' of 'str' objects}
@@ -513,9 +513,9 @@ fine
         1    0.000    0.000    0.000    0.000 {method 'lower' of 'str' objects}
       117    0.000    0.000    0.000    0.000 {method 'match' of '_sre.SRE_Pattern' objects}
  20000000    2.419    0.000    2.419    0.000 {method 'random' of '_random.Random' objects}
-  4166614  154.175    0.000  154.175    0.000 {method 'recv' of '_multiprocessing.Connection' objects}
+  4166614  154.175    0.000  154.175    0.000 {method 'wait_ext_message' of '_multiprocessing.Connection' objects}
         8    0.000    0.000    0.000    0.000 {method 'remove' of 'set' objects}
-  5000001   71.624    0.000   71.624    0.000 {method 'send' of '_multiprocessing.Connection' objects}
+  5000001   71.624    0.000   71.624    0.000 {method 'forward' of '_multiprocessing.Connection' objects}
         2    0.000    0.000    0.000    0.000 {method 'setblocking' of '_socket.socket' objects}
         5    0.000    0.000    0.000    0.000 {method 'setter' of 'property' objects}
         1    0.000    0.000    0.000    0.000 {method 'split' of 'str' objects}
