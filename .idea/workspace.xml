@@ -2,38 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a1c89ab2-e673-4d5e-b868-5d8c5ef9cde2" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/CellCycle/ChainModule/ChainFlow.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/CellCycle/ChainModule/ChainList.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/CellCycle/ChainModule/Const.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/CellCycle/ChainModule/DeadReader.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/CellCycle/ChainModule/DeadWriter.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/CellCycle/ChainModule/ListCommunication.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/CellCycle/ChainModule/ListThread.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/CellCycle/ChainModule/Message.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/CellCycle/ChainModule/Printer.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/CellCycle/ChainModule/ProdCons.py" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/CellCycle/ListThread/DeadReader.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/CellCycle/ListThread/DeadWriter.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/CellCycle/ListThread/ListCommunication.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/CellCycle/ListThread/ListThread.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/CellCycle/ListThread/ProdCons.py" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/CellCycle/ListThread/Generator.py" afterPath="$PROJECT_DIR$/CellCycle/ChainModule/Generator.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/CellCycle/ListThread/ReadingThread.py" afterPath="$PROJECT_DIR$/CellCycle/ChainModule/ReadingThread.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/CellCycle/ListThread/RequestThread.py" afterPath="$PROJECT_DIR$/CellCycle/ChainModule/RequestThread.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/CellCycle/ListThread/WritingThread.py" afterPath="$PROJECT_DIR$/CellCycle/ChainModule/WritingThread.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/CellCycle/ListThread/__init__.py" afterPath="$PROJECT_DIR$/CellCycle/ChainModule/__init__.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/CellCycle/ListThread/publisher_trial.py" afterPath="$PROJECT_DIR$/CellCycle/ChainModule/publisher_trial.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/CellCycle/ListThread/suscriber_trial.py" afterPath="$PROJECT_DIR$/CellCycle/ChainModule/suscriber_trial.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/CellCycle/ListThread/zmq_pair_trial.py" afterPath="$PROJECT_DIR$/CellCycle/ChainModule/zmq_pair_trial.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CellCycle/MemoryModule/MemoryManagement.py" afterPath="$PROJECT_DIR$/CellCycle/MemoryModule/MemoryManagement.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/tests/memory-parallelism-optimization/updated/recparallelism-taskthread-cpickle.txt" afterPath="$PROJECT_DIR$/doc/tests/memory-parallelism-optimization/updated/recparallelism-taskthread-cpickle.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/tests/memory-parallelism-optimization/updated/recparallelism-taskthread-pickle.txt" afterPath="$PROJECT_DIR$/doc/tests/memory-parallelism-optimization/updated/recparallelism-taskthread-pickle.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/tests/memory-parallelism-optimization/updated/recparallelism-taskthread-pickleold.txt" afterPath="$PROJECT_DIR$/doc/tests/memory-parallelism-optimization/updated/recparallelism-taskthread-pickleold.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/tests/memory-parallelism/recparallelism-task.txt" afterPath="$PROJECT_DIR$/doc/tests/memory-parallelism/recparallelism-task.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/tests/memory-parallelism/recparallelism-taskthread.txt" afterPath="$PROJECT_DIR$/doc/tests/memory-parallelism/recparallelism-taskthread.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/start.py" afterPath="$PROJECT_DIR$/start.py" />
     </list>
     <ignored path="CellsCycle.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -828,7 +797,13 @@
       <option name="project" value="LOCAL" />
       <updated>1475603477844</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="New state machine for&#10;- New Node&#10;- Reader&#10;- Writer&#10;&#10;Changed everything to object oriented&#10;&#10;New Printer module&#10;&#10;New ChainFlow module&#10;&#10;New Message Object">
+      <created>1478039747831</created>
+      <option name="number" value="00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1478039747832</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -837,6 +812,7 @@
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2126394" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32854864" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32854864" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32854864" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -844,7 +820,6 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32854864" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
