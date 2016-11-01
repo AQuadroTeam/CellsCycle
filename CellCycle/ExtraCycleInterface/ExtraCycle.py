@@ -175,7 +175,7 @@ def _quitHandler(settings, socket, client):
 def _transferHandler(settings, socket, client):
     _send(socket, client, "DOING....")
     standardTransferRequest(settings)
-    _send(socket, client, "DONE!")
+    _send(socket, client, "DONE!\r\n")
 
 def hashOfKey(key):
     return crc32(key) % (1<<32)
