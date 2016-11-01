@@ -220,12 +220,17 @@ def transferRequest(url, dest):
 
     socket.send(dumps(Command(TRANSFERMEMORY, address=dest)))
     socket.close()
-
+"""
+usage:
+    from MemoryModule.MemoryManagement import newMasterRequest
+    import zmq
+    newMasterRequest("tcp://localhost:" + str(settings.getMasterSetPort()), hostInformations)
+"""
 def newMasterRequest(url, hostInformations):
     context = zmq.Context.instance()
     socket = context.socket(zmq.PUSH)
     socket.connect(url)
-    command = Command(SETCOMMAND)
+    command = Command(NEWMASTER)
     command.optional = hostInformations
     socket.send(dumps(command))
     socket.close()
