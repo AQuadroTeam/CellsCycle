@@ -116,7 +116,7 @@ class DeadWriter (ConsumerThread):
                     # we send a notice to the next node
                     self.external_channel.forward(string_message)
                     # sync with the new node addr
-                    self.external_channel.resync(msg.target_id)
+                    self.internal_channel.resync()
             if is_dead_message(msg):
                 self.version += 1
                 msg_to_send = to_external_obj_message(self.version, msg)
@@ -193,13 +193,23 @@ class DeadWriter (ConsumerThread):
                         target_master = msg.target_relative_id
                         target_slave = msg.source_id
 
-                        # TODO put the right IDs
+                        # Update the target ID
                         self.update_list(target_node=target_id, target_master=target_master, target_slave=target_slave)
+                        # Update the master node, the new master of target_slave is target_master
+                        self.change_master_to(target_node=target_slave, target_master=target_id)
+                        # Update the slave node, the new slave of target_master is target_slave
+                        self.change_slave_to(target_node=target_master, target_slave=target_id)
 
+                        # if this node is one of my relatives, let's update our static attributes
                         if msg.target_id == self.slave.id:
                             self.slave = self.slave_of_slave
                             self.slave_of_slave = self.node_list.get_value(self.slave_of_slave.id).slave
-                            self.external_channel.resync(self.slave_of_slave.addr)
+                            # Send master of master ip
+                            min_max_key = Node.get_min_max_key(self.master)
+                            self.internal_channel.resync(msg=self.make_added_node_msg(target_id=self.master.id,
+                                                                                      target_key=min_max_key,
+                                                                                      target_addr=self.master.ip,
+                                                                                      target_slave_id=self.slave.id))
                         if msg.target_id == self.slave_of_slave.id:
                             self.slave_of_slave = self.node_list.get_value(msg.target_id).slave
                         # No case of master.addr
@@ -226,8 +236,19 @@ class DeadWriter (ConsumerThread):
                                            min_max_key.min_key, min_max_key.max_key)
                         target_master = self.node_list.get_value(msg.source_id).target
                         target_slave = self.node_list.get_value(msg.target_relative_id).target
+                        # Add the new node in list
                         self.add_in_list(target_node=node_to_add, target_master=target_master,
                                          target_slave=target_slave)
+
+                        target_id = msg.target_id
+                        target_master = msg.source_id
+                        target_slave = msg.target_relative_id
+
+                        # Update the master node, the new master of target_slave is target_id
+                        self.change_master_to(target_node=target_slave, target_master=target_id)
+                        # Update the slave node, the new master of target_master is target_id
+                        self.change_slave_to(target_node=target_master, target_slave=target_id)
+
                         relatives_check = self.is_one_of_my_relatives(msg.target_id)
                         if relatives_check:
                             self.busy_add = False

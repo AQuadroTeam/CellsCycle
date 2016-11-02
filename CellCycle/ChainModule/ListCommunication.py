@@ -2,7 +2,7 @@ import zmq
 import time
 from zmq import Again
 from Printer import *
-from Const import TRIES, TRY_TIMEOUT
+from Const import TRIES, TRY_TIMEOUT, OK
 
 BACKLOG = 5
 MAX_BUFF = 1024
@@ -63,10 +63,6 @@ class ListCommunication:
         self.context.destroy()
         self.logger.debug(closing_socket_with(self.complete_address))
         # self.list_communication_channel.disconnect(self.completeAddress)
-
-    # TODO resync
-    def resync(self, address):
-        pass
 
     # TODO notify_dead_node
     def notify_dead_node(self, address):
@@ -186,6 +182,11 @@ class InternalChannel(ListCommunication):
 
     def send_internal_message_server_side(self, message):
         self.send_int_message(message)
+
+    def resync(self, msg=OK):
+        self.wait_int_message(dont_wait=False)
+
+        self.reply_to_int_message(msg=msg)
 
     # Let's try with the first alive message, send it to the server
     def first_sync(self):

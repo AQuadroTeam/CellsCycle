@@ -12,6 +12,7 @@ def from_ext_msg_string_to_msg_obj(msg):
     obj.priority = split[PRIORITY_INDEX]
     obj.random = split[RANDOM_INDEX]
     obj.target_id = split[TARGET_ID_INDEX]
+    obj.target_addr = split[TARGET_ADDR_INDEX]
     obj.target_key = split[TARGET_KEY_INDEX]
     obj.source_id = split[SOURCE_ID_INDEX]
 
@@ -26,6 +27,7 @@ def from_int_msg_string_to_msg_obj(msg):
     obj.priority = split[PRIORITY_INDEX-1]
     obj.random = split[RANDOM_INDEX-1]
     obj.target_id = split[TARGET_ID_INDEX-1]
+    obj.target_addr = split[TARGET_ID_INDEX-1]
     obj.target_key = split[TARGET_KEY_INDEX-1]
     obj.source_id = split[SOURCE_ID_INDEX-1]
 
@@ -58,6 +60,7 @@ def from_msg_obj_to_string(message):
     msg[PRIORITY_INDEX] = message.priority
     msg[RANDOM_INDEX] = message.random
     msg[TARGET_ID_INDEX] = message.target_id
+    msg[TARGET_ADDR_INDEX] = message.target_addr
     msg[TARGET_KEY_INDEX] = message.target_key
     msg[SOURCE_ID_INDEX] = message.source_id
 

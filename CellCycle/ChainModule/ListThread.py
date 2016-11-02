@@ -39,7 +39,26 @@ class ListThread (threading.Thread):
         self.node_list.add_node(target_node=target_node, target_master=target_master,
                                 target_slave=target_slave)
 
-    def make_node_msg(self, source_flag=INT, version='', priority='', target_id='', target_key='', target_relative=''):
+    def change_slave_to(self, target_node, target_slave):
+        result = self.node_list.get_value(target_node)
+        target_node = result.target
+        target_master = result.master
+        target_slave = self.node_list.get_value(target_slave)
+
+        self.node_list.add_node(target_node=target_node, target_master=target_master,
+                                target_slave=target_slave)
+
+    def change_master_to(self, target_node, target_master):
+        result = self.node_list.get_value(target_node)
+        target_node = result.target
+        target_slave = result.slave
+        target_master = self.node_list.get_value(target_master)
+
+        self.node_list.add_node(target_node=target_node, target_master=target_master,
+                                target_slave=target_slave)
+
+    def make_node_msg(self, source_flag=INT, version='', priority='', target_id='', target_addr='', target_key='',
+                      target_relative=''):
         msg = dict()
         msg[SOURCE_FLAG_INDEX] = source_flag
         msg[VERSION_INDEX] = version
@@ -47,30 +66,35 @@ class ListThread (threading.Thread):
         msg[RANDOM_INDEX] = randint(MIN_RANDOM, MAX_RANDOM)
         msg[TARGET_ID_INDEX] = target_id
         msg[TARGET_KEY_INDEX] = target_key
+        msg[TARGET_ADDR_INDEX] = target_addr
         msg[TARGET_RELATIVE_INDEX] = target_relative
         msg[SOURCE_ID_INDEX] = self.myself.id
 
         return ' '.join(str(x) for x in msg.values())
 
     def make_alive_node_msg(self, target_id, target_master_id, source_flag=INT):
-        return self.make_node_msg(source_flag, priority=ALIVE, target_id=target_id,
+        return self.make_node_msg(source_flag, priority=ALIVE, target_id=target_id, target_addr='',
                                   target_relative=target_master_id)
 
-    def make_added_node_msg(self, target_id, target_key, source_flag=INT, target_slave_id=''):
-        return self.make_node_msg(source_flag=source_flag, priority=ADDED, target_id=target_id, target_key=target_key,
+    def make_added_node_msg(self, target_id, target_addr, target_key, source_flag=INT, target_slave_id=''):
+        return self.make_node_msg(source_flag=source_flag, priority=ADDED, target_id=target_id, target_addr=target_addr,
+                                  target_key=target_key,
                                   target_relative=target_slave_id)
 
     def make_add_node_msg(self, target_id, target_key, source_flag=INT, target_slave_id=''):
-        return self.make_node_msg(source_flag=source_flag, priority=ADD, target_id=target_id, target_key=target_key,
+        return self.make_node_msg(source_flag=source_flag, priority=ADD, target_id=target_id, target_addr='',
+                                  target_key=target_key,
                                   target_relative=target_slave_id)
 
-    def make_dead_node_msg(self, target_id, target_key, source_flag=INT, target_master_id=''):
-        return self.make_node_msg(source_flag=source_flag, priority=DEAD, target_id=target_id, target_key=target_key,
+    def make_dead_node_msg(self, target_id, target_addr, target_key, source_flag=INT, target_master_id=''):
+        return self.make_node_msg(source_flag=source_flag, priority=DEAD, target_id=target_id, target_addr=target_addr,
+                                  target_key=target_key,
                                   target_relative=target_master_id)
 
-    def make_restored_node_msg(self, target_id, target_key, source_flag=INT, target_master_id=''):
+    def make_restored_node_msg(self, target_id, target_addr, target_key, source_flag=INT, target_master_id=''):
         return self.make_node_msg(source_flag=source_flag, priority=RESTORED,
-                                  target_id=target_id, target_key=target_key, target_relative=target_master_id)
+                                  target_id=target_id, target_addr=target_addr,
+                                  target_key=target_key, target_relative=target_master_id)
 
     def is_one_of_my_relatives(self, target_id):
         return self.master_of_master.id == target_id or \

@@ -5,6 +5,7 @@ from ListCommunication import *
 from zmq import Again
 from Printer import *
 from ChainFlow import *
+from ListThread import Node
 
 
 class DeadReader(ProducerThread):
@@ -15,6 +16,7 @@ class DeadReader(ProducerThread):
 
         self.external_channel = ExternalChannel(DEFAULT_ADDR, self.master.ext_port)
         self.internal_channel = InternalChannel(DEFAULT_ADDR, self.master.int_port)
+        self.last_dead_node = ''
 
     def run(self):
         self.logger.debug(starting_reader(self.myself.id))
@@ -40,6 +42,9 @@ class DeadReader(ProducerThread):
         self.external_channel.generate_external_channel_client_side()
         self.external_channel.external_channel_subscribe()
 
+    def is_dead_message_and_i_am_the_slave(self, message):
+        return message.target_id == self.last_dead_node
+
     '''
     Why is this function here???
     def renewConnection(self):
@@ -57,6 +62,9 @@ class DeadReader(ProducerThread):
     def change_master(self):
         self.master = self.master_of_master
         self.master_of_master = None
+
+    def change_master_of_master(self, new_master_of_master):
+        self.master_of_master = new_master_of_master
 
     def wait_for_a_dead(self):
 
@@ -80,12 +88,30 @@ class DeadReader(ProducerThread):
                         if self.is_my_new_master(message):
                             # This is the part when i connect to another publisher
                             self.external_channel.close()
-                            # TODO resync, this node must have id, addr, keys
-                            self.change_master()
+
+                            min_max_key = Node.to_min_max_key_obj(message.target_key)
+                            self.master_of_master = self.master
+                            self.master = Node(node_id=message.target_id, ip=message.target_addr,
+                                               min_key=min_max_key.min_key, max_key=min_max_key.max_key,
+                                               int_port=INT_PORT, ext_port=EXT_PORT)
                             self.init_connection()
                             # list_communication = self.init_connection()
 
                         self.logger.debug(new_node_added(message.target_id))
+                    if self.is_dead_message_and_i_am_the_slave(message):
+                        self.last_dead_node = ''
+                        self.internal_channel.send_int_message()
+                        self.internal_channel.send_internal_message_client_side(
+                            self.make_alive_node_msg(source_flag=INT, target_id=self.myself.id,
+                                                     target_master_id=self.master.id))
+                        new_master_of_master = self.internal_channel.wait_int_message(dont_wait=False)
+                        new_master_of_master = from_int_msg_string_to_msg_obj(new_master_of_master)
+                        min_max_key = Node.to_min_max_key_obj(new_master_of_master.target_key)
+                        new_master_of_master = Node(new_master_of_master.target_id, new_master_of_master.target_addr,
+                                                    ext_port=EXT_PORT, int_port=INT_PORT,
+                                                    max_key=min_max_key.max_key, min_key=min_max_key.min_key)
+
+                        self.change_master_of_master(new_master_of_master=new_master_of_master)
 
                     '''
                     This is a special case, for now we don't consider it
@@ -103,9 +129,10 @@ class DeadReader(ProducerThread):
 
             except Again:
 
-                dead_message = self.make_dead_node_msg(target_id=self.master.id,
-                                                       target_key=self.master.get_min_max_key())
-
+                dead_message = self.make_dead_node_msg(target_id=self.master.id, target_addr=self.master.ip,
+                                                       target_key=self.master.get_min_max_key(),
+                                                       target_master_id=self.master_of_master)
+                self.last_dead_node = self.master.id
                 '''
                 This is a special case, for now we don't consider it
                 if not (self.masterId in self.node_list):
@@ -116,9 +143,13 @@ class DeadReader(ProducerThread):
 
                 self.produce(dead_message)
                 self.logger.debug(this_is_my_dead_message(self.myself.id, self.master.id, dead_message))
+                self.last_dead_node = self.master.id
 
                 self.change_master()
 
                 # This is the part when i connect to another publisher
                 self.external_channel.close()
-                self.init_connection()
+
+                # just subscribe to another publisher for now
+                self.external_channel.generate_external_channel_client_side()
+                self.external_channel.external_channel_subscribe(DEFAULT_ADDR, self.master.ext_port)
