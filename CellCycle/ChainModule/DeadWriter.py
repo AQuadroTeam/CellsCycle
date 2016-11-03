@@ -6,7 +6,7 @@ from zmq import ZMQError
 from ProdCons import ConsumerThread
 from ChainFlow import *
 from ListThread import Node
-from cPickle import dumps, loads
+from cPickle import dumps
 
 
 class DeadWriter (ConsumerThread):
@@ -22,8 +22,8 @@ class DeadWriter (ConsumerThread):
         self.last_dead_message = ''
         self.last_restored_message = ''
 
-        self.external_channel = ExternalChannel(DEFAULT_ADDR, self.myself.ext_port)
-        self.internal_channel = InternalChannel(DEFAULT_ADDR, self.myself.int_port)
+        self.external_channel = ExternalChannel(self.myself.ip, self.myself.ext_port)
+        self.internal_channel = InternalChannel(self.myself.ip, self.myself.int_port)
 
     def run(self):
         self.logger.debug(starting_writer(self.myself.id))

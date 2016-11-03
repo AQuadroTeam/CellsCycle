@@ -22,12 +22,12 @@ class ListCommunication:
         self.list_communication_channel = None
 
         # This part is just for test
-        if port == '5555':
-            self.sync_address = Address(addr, '5562').complete_address
-        elif port == '5556':
-            self.sync_address = Address(addr, '5563').complete_address
-        elif port == '5557':
-            self.sync_address = Address(addr, '5564').complete_address
+        # if port == '5555':
+        #     self.sync_address = Address(addr, '5562').complete_address
+        # elif port == '5556':
+        #     self.sync_address = Address(addr, '5563').complete_address
+        # elif port == '5557':
+        #     self.sync_address = Address(addr, '5564').complete_address
 
     def open_sub_socket(self):
         self.list_communication_channel = self.context.socket(zmq.SUB)

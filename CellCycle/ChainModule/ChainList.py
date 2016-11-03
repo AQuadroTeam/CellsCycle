@@ -38,14 +38,6 @@ class ChainList:
     def is_in_list(self, key):
         return key in self.dictionary
 
-    # TODO implement with json utilities
-    def from_obj_to_string(self):
-        pass
-
-    # TODO implement with json utilities
-    def from_string_to_obj(self):
-        pass
-
 
 class ListKey:
 
