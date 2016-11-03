@@ -50,8 +50,6 @@ def from_msg_string_to_msg_obj(msg, source_flag=EXT):
     else:
         return from_ext_msg_string_to_msg_obj(msg)
 
-# Return a string with EXT flag and the right version
-
 
 def from_msg_obj_to_string(message):
     msg = dict()
@@ -65,8 +63,6 @@ def from_msg_obj_to_string(message):
     msg[SOURCE_ID_INDEX] = message.source_id
 
     return ' '.join(str(x) for x in msg.values())
-
-# Make Node Message
 
 
 # Return a string with EXT flag and the right version

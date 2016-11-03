@@ -9,8 +9,8 @@ q = Queue.Queue(BUF_SIZE)
 
 
 class ProducerThread(ListThread):
-    def __init__(self, myself, master, slave, slave_of_slave, master_of_master, logger):
-        ListThread.__init__(self, myself, master, slave, slave_of_slave, master_of_master, logger)
+    def __init__(self, myself, master, slave, slave_of_slave, master_of_master, logger, settings):
+        ListThread.__init__(self, myself, master, slave, slave_of_slave, master_of_master, logger, settings)
 
     def run(self):
         print_string = "I\'m {} and i\'m running".format(self.myself.id)
@@ -26,8 +26,8 @@ class ProducerThread(ListThread):
 
 
 class ConsumerThread(ListThread):
-    def __init__(self, myself, master, slave, slave_of_slave, master_of_master, logger):
-        ListThread.__init__(self, myself, master, slave, slave_of_slave, master_of_master, logger)
+    def __init__(self, myself, master, slave, slave_of_slave, master_of_master, logger, settings):
+        ListThread.__init__(self, myself, master, slave, slave_of_slave, master_of_master, logger, settings)
 
     def run(self):
         print_string = "I\'m {} and i\'m running".format(self.myself.id)
