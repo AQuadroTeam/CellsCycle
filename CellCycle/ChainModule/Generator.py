@@ -1,62 +1,68 @@
 #! /usr/bin/env python
 
-from ListThread import ListThread
-from ListCommunication import ListCommunication
-from zmq import Again
-from ProdCons import ProducerThread
-from random import randint
-# from Queue import Queue
+from multiprocessing import Process
+from argparse import ArgumentParser
+from ListThread import Node
+from DeadReader import DeadReader
+from DeadWriter import DeadWriter
 
-FILE_PATH = './my_list'
-DEAD = 'DEAD'
-PRIORITY_DEAD = '3'
-PRIORITY_ALIVE = '0'
-PRIORITY_ADD = '2'
-DEFAULT_ADDR = '127.0.0.1'
-CHILD_SYNC = "CHILD SYNC"
-TXT = '.txt'
-DEF_NODES = 3
-BUF_SIZE = 10
-SECRETARY_PORT = '5186'
+ID_INDEX = 0
+IP_INDEX = 1
+MIN_KEY_INDEX = 2
+MAX_KEY_INDEX = 3
 
-class Generator(ProducerThread):
-    def __init__(self, threadId, prevId, slave, slave_of_slave, masterMemory, slaveMemory, logger, condition, delay):
-        ProducerThread.__init__(self, threadId, prevId, slave, slave_of_slave, masterMemory, slaveMemory, logger, condition, delay)
-        self.logger.debug("These are my features (Reader): (" + self.myself + ") Master ID : " + self.masterId + " SlaveID: " + self.slaveId)
 
-    def run(self):
-        # time.sleep(int(self.myself))
-        print "Starting Reader " + self.myself
-        self.generate(self.myself, 2)
-        print "Exiting Reader " + self.myself
+def get_args():
+    parser = ArgumentParser(description='Process Cells Cycle')
+    parser.add_argument('myself', type=list, help='the node we are talking about')
+    parser.add_argument('master', type=list, help='the node\'s master')
+    parser.add_argument('slave', type=list, help='the node\'s slave')
+    parser.add_argument('master_of_master', type=list, help='the node\'s master of master')
+    parser.add_argument('slave_of_slave', type=list, help='the node\'s slave of slave')
 
-    def initReqRepConnection(self):
-        listCommunication = ListCommunication(DEFAULT_ADDR,SECRETARY_PORT)
-        listCommunication.open_rep_socket()
-        try:
-            listCommunication.sync()
-        except Again:
-            raise Again
-        return listCommunication
+    return parser.parse_args()
 
-    def generate(self, threadName, counter):
 
-        try:
-            listCommunication = self.initReqRepConnection()
-        except Again:
-            self.logger.debug("No answers from the new node, i\'m " + self.myself)
-            return
+class Generator:
+    def __init__(self, logger, settings, args):
+        self.logger = logger
+        self.settings = settings
+        self.args = args
 
-        self.logger.debug("Node added i\'m " + self.myself)
-        self.produce(CHILD_SYNC)
+    def _create_process_environment(self):
+        myself = self.args.myself
+        myself = Node(myself[ID_INDEX], myself[IP_INDEX], self.settings.getIntPort(),
+                      self.settings.getExtPort(), min_key=myself[MIN_KEY_INDEX], max_key=myself[MAX_KEY_INDEX])
+        master = self.args.master
+        master = Node(master[ID_INDEX], master[IP_INDEX], self.settings.getIntPort(),
+                      self.settings.getExtPort(), min_key=master[MIN_KEY_INDEX], max_key=master[MAX_KEY_INDEX])
+        slave = self.args.slave
+        slave = Node(slave[ID_INDEX], slave[IP_INDEX], self.settings.getIntPort(),
+                     self.settings.getExtPort(), min_key=slave[MIN_KEY_INDEX], max_key=slave[MAX_KEY_INDEX])
+        master_of_master = self.args.master_of_master
+        master_of_master = Node(master_of_master[ID_INDEX], master_of_master[IP_INDEX], self.settings.getIntPort(),
+                                self.settings.getExtPort(), min_key=master_of_master[MIN_KEY_INDEX],
+                                max_key=master_of_master[MAX_KEY_INDEX])
+        slave_of_slave = self.args.slave_of_slave
+        slave_of_slave = Node(slave_of_slave[ID_INDEX], slave_of_slave[IP_INDEX], self.settings.getIntPort(),
+                              self.settings.getExtPort(), min_key=slave_of_slave[MIN_KEY_INDEX],
+                              max_key=slave_of_slave[MAX_KEY_INDEX])
 
-if __name__ == '__main__':
-    # Create new threads
-    thread2 = Generator([1,5555], [2,5556], [2,5556], [], [0, 127], [0, 127])
-    thread1 = Generator([2,5556], [1,5555], [1,5555], [], [0, 127], [0, 127])
+        reader = DeadReader(myself, master, slave, slave_of_slave, master_of_master, self.logger, self.settings)
+        writer = DeadWriter(myself, master, slave, slave_of_slave, master_of_master, self.logger, self.settings)
 
-    # Start new Threads
-    thread2.start()
-    thread1.start()
+        reader.run()
+        writer.run()
 
-    print "Exiting Main Thread"
+    def create_process(self):
+        Process(name='ListCommunicationProcess', target=Generator._create_process_environment(self))
+
+
+class Parameter:
+
+    def __init__(self, myself, master, slave, master_of_master, slave_of_slave):
+        self.myself = myself
+        self.slave = slave
+        self.slave_of_slave = slave_of_slave
+        self.master = master
+        self.master_of_master = master_of_master

@@ -65,7 +65,7 @@ class ListCommunication:
         # self.list_communication_channel.disconnect(self.completeAddress)
 
     # TODO notify_dead_node
-    def notify_dead_node(self, address):
+    def notify_dead_node(self, settings, message):
         pass
 
     @staticmethod

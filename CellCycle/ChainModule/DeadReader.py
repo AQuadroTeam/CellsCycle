@@ -9,8 +9,8 @@ from ListThread import Node
 
 
 class DeadReader(ProducerThread):
-    def __init__(self, myself, master, slave, slave_of_slave, master_of_master, logger):
-        ProducerThread.__init__(self, myself, master, slave, slave_of_slave, master_of_master, logger)
+    def __init__(self, myself, master, slave, slave_of_slave, master_of_master, logger, settings):
+        ProducerThread.__init__(self, myself, master, slave, slave_of_slave, master_of_master, logger, settings)
         self.logger.debug(these_are_my_features_reader(self.myself.id, self.master.id, self.slave.id))
         # We know nothing, no dead_message, no version. We only check if our master replies
 

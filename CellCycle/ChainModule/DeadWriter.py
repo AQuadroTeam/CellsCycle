@@ -11,8 +11,8 @@ from cPickle import dumps
 
 class DeadWriter (ConsumerThread):
 
-    def __init__(self, myself, master, slave, slave_of_slave, master_of_master, logger):
-        ConsumerThread.__init__(self, myself, master, slave, slave_of_slave, master_of_master, logger)
+    def __init__(self, myself, master, slave, slave_of_slave, master_of_master, logger, settings):
+        ConsumerThread.__init__(self, myself, master, slave, slave_of_slave, master_of_master, logger, settings)
         self.logger.debug(these_are_my_features_writer(self.myself.id, self.master.id, self.slave.id))
         # The version is handled by the dead writer
         self.version = 0

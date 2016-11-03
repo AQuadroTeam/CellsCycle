@@ -39,4 +39,3 @@ class ConsumerThread(ListThread):
             return q.get_nowait()
         except Empty:
             return None
-
