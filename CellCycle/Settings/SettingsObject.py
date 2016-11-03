@@ -53,6 +53,28 @@ class SettingsObject(object):
 
     # end of network settings
 
+    # client entrypoint service settings
+    def getServiceThreadNumber(self):
+        return int(self.configDict[Constants.SERVICETHREADNUMBER][0])
+
+    def getClientEntrypointPort(self):
+        return int(self.configDict[Constants.CLIENTENTRYPOINTPORT][0])
+    # end of client entrypoint service settings
+    #
+
+    # metric settings
+    def getScalePeriod(self):
+        return int(self.configDict[Constants.SCALEPERIOD][0])
+    def getGetScaleUpLevel(self):
+        return float(self.configDict[Constants.GETSCALEUPLEVEL][0])
+    def getGetScaleDownLevel(self):
+        return float(self.configDict[Constants.GETSCALEDOWNLEVEL][0])
+    def getSetScaleUpLevel(self):
+        return float(self.configDict[Constants.SETSCALEUPLEVEL][0])
+    def getSetScaleDownLevel(self):
+        return float(self.configDict[Constants.SETSCALEDOWNLEVEL][0])
+    # end of metric settings
+
     def __str__(self):
         string = "Configuration:\n"
         for (key,value) in self.configDict.iteritems() :
