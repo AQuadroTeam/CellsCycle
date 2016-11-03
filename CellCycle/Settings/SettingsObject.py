@@ -1,7 +1,7 @@
 # All info at https://github.com/AQuadroTeam/CellsCycle/wiki/Settings
 import Constants
 
-def manualSettings(logFile=None, verbose=False, preallocatedPool=100, slabSize=10, getterThreadNumber=1 , MasterSetPort=5550, MasterGetPort=5551, SlaveSetPort=5552, SlaveGetPort=5553):
+def manualSettings(logFile=None, verbose=False, preallocatedPool=100, slabSize=10, getterThreadNumber=1 , MasterSetPort=5550, MasterGetPort=5551, SlaveSetPort=5552, SlaveGetPort=5553, intPort=5193, extPort=5194):
     dic = {}
     dic[Constants.LOGFILE] = [logFile]
     dic[Constants.VERBOSE] =  [verbose]
@@ -12,7 +12,10 @@ def manualSettings(logFile=None, verbose=False, preallocatedPool=100, slabSize=1
     dic[Constants.MASTERGETPORT] = [MasterGetPort]
     dic[Constants.SLAVESETPORT] = [SlaveSetPort]
     dic[Constants.SLAVEGETPORT] = [SlaveGetPort]
+    dic[Constants.INTPORT] = [intPort]
+    dic[Constants.EXTPORT] = [extPort]
     return SettingsObject(dic)
+
 
 class SettingsObject(object):
 
@@ -50,6 +53,12 @@ class SettingsObject(object):
 
     def getSlaveGetPort(self):
         return int(self.configDict[Constants.SLAVEGETPORT][0])
+
+    def getIntPort(self):
+        return int(self.configDict[Constants.INTPORT][0])
+
+    def getExtPort(self):
+        return int(self.configDict[Constants.EXTPORT][0])
 
     # end of network settings
 

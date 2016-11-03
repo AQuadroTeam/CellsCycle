@@ -96,7 +96,7 @@ class DeadReader(ProducerThread):
                                                int_port=INT_PORT, ext_port=EXT_PORT)
                             self.init_connection()
                             # list_communication = self.init_connection()
-
+                            # TODO take ports from the configuration file
                         self.logger.debug(new_node_added(message.target_id))
                     if self.is_dead_message_and_i_am_the_slave(message):
                         self.last_dead_node = ''

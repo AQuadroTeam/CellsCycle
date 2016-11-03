@@ -9,9 +9,10 @@ from Printer import this_is_the_thread_in_action
 
 class ListThread (threading.Thread):
 
-    def __init__(self, myself, master, slave, slave_of_slave, master_of_master, logger):
+    def __init__(self, myself, master, slave, slave_of_slave, master_of_master, logger, settings):
         threading.Thread.__init__(self)
 
+        self.settings = settings
         self.logger = logger
         self.myself = myself
         self.master = master

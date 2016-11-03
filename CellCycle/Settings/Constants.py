@@ -24,3 +24,9 @@ GETSCALEUPLEVEL = "GetScaleUpLevel"
 GETSCALEDOWNLEVEL = "GetScaleDownLevel"
 SETSCALEUPLEVEL = "SetScaleUpLevel"
 SETSCALEDOWNLEVEL = "SetScaleDownLevel"
+
+# List Communication Ports
+EXTPORT = "ExtPort"
+INTPORT = "IntPort"
+
+
