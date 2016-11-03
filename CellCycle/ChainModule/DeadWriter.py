@@ -134,7 +134,7 @@ class DeadWriter (ConsumerThread):
                 self.update_list(self.myself.id, self.master.id, self.slave.id)
 
                 # notify memory process about the new node
-                self.internal_channel.notify_dead_node(self.master_of_master)
+                self.internal_channel.notify_dead_node(settings=self.settings, message=self.master_of_master)
 
         else:
             # Save the origin message just to avoid another conversion, remember
