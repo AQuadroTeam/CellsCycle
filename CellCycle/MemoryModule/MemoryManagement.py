@@ -10,6 +10,7 @@ GETCOMMAND = 1
 SHUTDOWNCOMMAND = -1
 TRANSFERMEMORY = 2
 NEWMASTER = 3
+TRANSFERCOMPLETE = 4
 
 def startMemoryTask(settings, logger, master):
 
@@ -122,44 +123,84 @@ def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
     socket = context.socket(zmq.PULL)
     socket.bind(url)
 
+    transferToDoAfter = False
+
     if master:
         timing["setters"] = []
         timing["setters"].append(TimingMetricator())
 
     while True:
-        if master:
-            timing["setters"][0].startWaiting()
+        try:
+            if master:
+                timing["setters"][0].startWaiting()
 
-        command = loads(socket.recv())
-        if master:
-            timing["setters"][0].startWorking()
+            command = loads(socket.recv())
+            if master:
+                timing["setters"][0].startWorking()
 
-        #logger.debug("received set command: " + str(command))
-        if command.type == SETCOMMAND:
-            queue.put(Command(command.type, command.key, command.value, command.address))
-            cache.set(command.key, command.value)
-        if command.type == SHUTDOWNCOMMAND:
-            logger.debug("shutdown command")
-            import os, signal
-            os.kill(os.getpid(), signal.SIGTERM)
-            return
-        if command.type == TRANSFERMEMORY:
-            logger.debug("Transferring memory to " + str(command.address) + "....")
-            context = zmq.Context.instance()
-            socketTM = context.socket(zmq.PUSH)
-            socketTM.connect(command.address)
-            for data in cache.cache.iteritems():
-                socketTM.send(dumps(Command(SETCOMMAND,data[0],data[1].getValue(data[0]))))
-            socketTM.close()
-            logger.debug("Transfer complete!")
-        if command.type == NEWMASTER:
-            #do something with command and hostState
-            #command.optional --> hostState
-            a = 2
+            #logger.debug("received set command: " + str(command))
+            if command.type == SETCOMMAND:
+                queue.put(Command(command.type, command.key, command.value))
+                cache.set(command.key, command.value)
+            elif command.type == SHUTDOWNCOMMAND:
+                logger.debug("shutdown command")
+                import os, signal
+                os.kill(os.getpid(), signal.SIGTERM)
+                return
+            elif command.type == TRANSFERMEMORY:
+                for address in command.address:
+                    logger.debug("Transferring memory to " + str(address) + "....")
+                    dest = address
+                    dataList = cache.cache.iteritems()
+                    begin = command.optional[0]
+                    end = command.optional[1]
+                    _transfer(dest, dataList, begin, end)
+                    logger.debug("Transfer complete!")
+            elif command.type == NEWMASTER:
+                logger.warning("master is dead. Recovering...")
+                # import keys of master, from this slave memory
+                thisMasterMemory = "tcp://localhost:"+ str(settings.getMasterSetPort())
+                thisSlaveMemory = "tcp://localhost:"+ str(settings.getSlaveSetPort())
+                newSlaveSlaveMemory =  "tcp://localhost:"+ str(settings.getSlaveSetPort())
+                #TODO: instead of localhost i must have command.optional.newslave.url
+                beginFirst = 0 #TODO: command.optional.thisnode.slave.keys.begin oldone!
+                endFirst = 1 #TODO: command.optional.thisnode.slave.keys.end oldone!
+                transferRequest(thisSlaveMemory, [thisMasterMemory, newSlaveSlaveMemory], beginFirst, endFirst)
 
-        if master:
-            timing["setters"][0].stopWorking()
+                # create new slave memory for this node from new master
+                newMasterMasterMemory = "tcp://"+ "localhost" +":"+ str(settings.getMasterSetPort())
+                #TODO: instead of localhost i must have command.optional.newmaster.url
+                thisSlaveMemory = "tcp://localhost:"+ str(settings.getSlaveSetPort())
+                beginSecond = 0 #TODO: command.optional.newmaster.master.keys.begin
+                endSecond = 1 #TODO: command.optional.newmaster.master.keys.end
+                transferRequest(newMasterMasterMemory,[thisSlaveMemory],  beginSecond, endSecond)
 
+                transferToDoAfter = True
+
+            elif command.type== TRANSFERCOMPLETE:
+                if(transferToDoAfter):
+                    #avvertire gestore ciclo che è finito recovery TODO
+                    logger.warning("new master state recovery: DONE")
+                    #do something with command and hostState
+                    #command.optional --> hostState
+                    transferToDoAfter = False
+
+            if master:
+                timing["setters"][0].stopWorking()
+        except Exception as e:
+            logger.error(e)
+
+def _transfer(dest, dataList, begin, end):
+    context = zmq.Context.instance()
+    socketTM = context.socket(zmq.PUSH)
+
+    socketTM.connect(dest)
+    for data in dataList:
+        if(int(data[0]) >= int(begin) and int(data[0]) <= int(end) ):
+            print "transferring:" +str(data[0]) #it's just for debug TODO to delete
+            socketTM.send(dumps(Command(SETCOMMAND,data[0],data[1].getValue(data[0]))))
+    socketTM.send(dumps(Command(TRANSFERCOMPLETE)))
+    socketTM.close()
 
 def _getThread(index, logger,settings, cache, master, url, timing):
     logger.debug("Listening in new task for get on " + url)
@@ -171,21 +212,23 @@ def _getThread(index, logger,settings, cache, master, url, timing):
         timing["getters"][index] = TimingMetricator()
 
     while True:
-        if master:
-            timing["getters"][index].startWaiting()
-        command = loads(socket.recv())
-        if master:
-            timing["getters"][index].startWorking()
+        try:
+            if master:
+                timing["getters"][index].startWaiting()
+            command = loads(socket.recv())
+            if master:
+                timing["getters"][index].startWorking()
 
-        #logger.debug( "received get command: " + str(command))
-        if command.type == GETCOMMAND:
-            v=cache.get(command.key)
-            socket.send(dumps(v))
-        #if command.type == SHUTDOWNCOMMAND:
-        #    return
-        if master:
-            timing["getters"][index].stopWorking()
-
+            #logger.debug( "received get command: " + str(command))
+            if command.type == GETCOMMAND:
+                v=cache.get(command.key)
+                socket.send(dumps(v))
+            #if command.type == SHUTDOWNCOMMAND:
+            #    return
+            if master:
+                timing["getters"][index].stopWorking()
+        except Exception as e:
+            logger.error(e)
 # client operations
 def getRequest(url, key):
     context = zmq.Context.instance()
@@ -213,12 +256,12 @@ def killProcess(url):
     socket.send(dumps(Command(SHUTDOWNCOMMAND)))
     socket.close()
 
-def transferRequest(url, dest):
+def transferRequest(url, dest, begin, end):
     context = zmq.Context.instance()
     socket = context.socket(zmq.PUSH)
     socket.connect(url)
 
-    socket.send(dumps(Command(TRANSFERMEMORY, address=dest)))
+    socket.send(dumps(Command(TRANSFERMEMORY, address=dest, optional=(begin,end))))
     socket.close()
 """
 usage:
@@ -262,10 +305,10 @@ def standardKillRequest(settings, host="localhost"):
 def standardTransferRequest(settings, dest="localhost", host="localhost"):
     url_setPort = "tcp://"+host+":" + str(settings.getMasterSetPort())
     dest = "tcp://"+dest+":" + str(settings.getSlaveSetPort())
-    return transferRequest(url_setPort, dest)
+    return transferRequest(url_setPort, [dest], 0,99999999999999)
 
 class Command(object):
-    def __init__(self, type, key=None, value=None, address=None, optional=None):
+    def __init__(self, type, key=None, value=None, address=[], optional=None):
         self.type = int(type)
         self.key = key
         self.value = value
