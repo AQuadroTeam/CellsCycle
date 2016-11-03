@@ -6,6 +6,7 @@ from zmq import ZMQError
 from ProdCons import ConsumerThread
 from ChainFlow import *
 from ListThread import Node
+from cPickle import dumps, loads
 
 
 class DeadWriter (ConsumerThread):
@@ -76,8 +77,7 @@ class DeadWriter (ConsumerThread):
             msg = from_int_msg_string_to_msg_obj(msg)
             if is_alive_message(msg):
                 if self.busy_add:
-                    dict_string = dictionary_to_string(self.node_list)
-                    self.internal_channel.reply_to_int_message(dict_string)
+                    self.internal_channel.reply_to_int_message(dumps(self.node_list))
                 else:
                     # In the future we can add an error code instead of empty msgs
                     self.internal_channel.reply_to_int_message(DIE)
@@ -107,8 +107,7 @@ class DeadWriter (ConsumerThread):
                 if not self.busy_add:
                     self.internal_channel.reply_to_int_message(NOK)
                 else:
-                    string_dictionary = dictionary_to_string(self.node_list)
-                    self.internal_channel.reply_to_int_message(string_dictionary)
+                    self.internal_channel.reply_to_int_message(dumps(self.node_list))
                     self.version += 1
                     msg_to_send = to_external_obj_message(self.version, msg)
                     self.last_added_message = msg_to_send
@@ -154,8 +153,7 @@ class DeadWriter (ConsumerThread):
                 # The cycle is over
                 self.last_added_message = ''
                 self.busy_add = False
-                string_dictionary = dictionary_to_string(self.node_list)
-                self.internal_channel.reply_to_int_message(string_dictionary)
+                self.internal_channel.reply_to_int_message(dumps(self.node_list))
             elif is_my_last_dead_message(msg, self.last_dead_message):
                 # The cycle is over
                 self.last_dead_message = ''
