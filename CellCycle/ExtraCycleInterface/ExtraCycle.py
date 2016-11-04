@@ -110,7 +110,7 @@ def _manageRequest(logger, settings, socket, command, client):
         _quitHandler(settings, socket, client)
         return
     elif(command[0].upper() == NEWCELL):
-        startInstanceAWS(settings, socket)
+        startInstanceAWS(settings, logger)
         return
     else:
         _sendGuide(socket, client)
