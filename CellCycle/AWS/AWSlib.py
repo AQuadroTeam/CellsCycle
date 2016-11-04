@@ -7,9 +7,10 @@ def startInstanceAWS(settings, logger):
     imageIdCellCycle = settings.getAwsImageId()
     keyName = settings.getAwsKeyName()
     securityGroup = settings.getAwsSecurityGroup()
+    userData = "#!/bin/bash\npython /home/ubuntu/git/CellsCycle/startOnBoot.py\ngit -C /home/ubuntu/git/CellsCycle/ pull origin master\nADDRESSOFFATHER=prova"
 
     logger.debug("id image: " + imageIdCellCycle)
-    ec2.create_instances(ImageId=imageIdCellCycle, MinCount=1, MaxCount=1, InstanceType='t2.micro', KeyName=keyName, SecurityGroups=[securityGroup])
+    ec2.create_instances(ImageId=imageIdCellCycle, MinCount=1, MaxCount=1, InstanceType='t2.micro', KeyName=keyName, SecurityGroups=[securityGroup], UserData=userData)
 
 def terminateThisInstanceAWS(settings, logger):
     import requests

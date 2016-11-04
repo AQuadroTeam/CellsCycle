@@ -14,6 +14,6 @@ GetScaleUpLevel 0.5
 GetScaleDownLevel 0.001
 SetScaleUpLevel 0.5
 SetScaleDownLevel 0.001
-AwsImageId ami-6f0cf700
+AwsImageId ami-1c07fc73
 AwsSecurityGroup SSHToAll
 AwsKeyName CellCycleBot
