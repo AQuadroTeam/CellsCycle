@@ -5,8 +5,11 @@ def startInstanceAWS(settings, logger):
     ec2 = boto3.resource('ec2')
 
     imageIdCellCycle = settings.getAwsImageId()
+    keyName = settings.getAwsKeyName()
+    securityGroup = settings.getAwsSecurityGroup()
+
     logger.debug("id image: " + imageIdCellCycle)
-    ec2.create_instances(ImageId=imageIdCellCycle, MinCount=1, MaxCount=1, InstanceType='t2.micro')
+    ec2.create_instances(ImageId=imageIdCellCycle, MinCount=1, MaxCount=1, InstanceType='t2.micro', KeyName=keyName, SecurityGroups=[securityGroup])
 
 def terminateThisInstanceAWS(settings, logger):
     import requests

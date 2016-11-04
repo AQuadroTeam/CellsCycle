@@ -27,3 +27,5 @@ SETSCALEDOWNLEVEL = "SetScaleDownLevel"
 
 # AWS
 AWSIMAGEID = "AwsImageId"
+AWSSECURITYGROUP = "AwsSecurityGroup"
+AWSKEYNAME = "AwsKeyName" 

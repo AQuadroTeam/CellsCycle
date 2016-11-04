@@ -78,8 +78,12 @@ class SettingsObject(object):
     # aws settings
     def getAwsImageId(self):
         return str(self.configDict[Constants.AWSIMAGEID][0])
+    def getAwsSecurityGroup(self):
+        return str(self.configDict[Constants.AWSSECURITYGROUP][0])
+    def getAwsKeyName(self):
+        return str(self.configDict[Constants.AWSKEYNAME][0])
     # end of aws settings
-    
+
     def __str__(self):
         string = "Configuration:\n"
         for (key,value) in self.configDict.iteritems() :
