@@ -156,6 +156,7 @@ def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
                     end = command.optional[1]
                     _transfer(dest, dataList, begin, end)
                     logger.debug("Transfer complete!")
+
             elif command.type == NEWMASTER:
                 logger.warning("master is dead. Recovering...")
                 # import keys of master, from this slave memory
@@ -179,7 +180,7 @@ def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
 
             elif command.type== TRANSFERCOMPLETE:
                 if(transferToDoAfter):
-                    #avvertire gestore ciclo che è finito recovery TODO
+                    #avvertire gestore ciclo che E finito recovery TODO:
                     logger.warning("new master state recovery: DONE")
                     #do something with command and hostState
                     #command.optional --> hostState

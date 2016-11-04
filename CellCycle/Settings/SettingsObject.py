@@ -75,6 +75,11 @@ class SettingsObject(object):
         return float(self.configDict[Constants.SETSCALEDOWNLEVEL][0])
     # end of metric settings
 
+    # aws settings
+    def getAwsImageId(self):
+        return str(self.configDict[Constants.AWSIMAGEID][0])
+    # end of aws settings
+    
     def __str__(self):
         string = "Configuration:\n"
         for (key,value) in self.configDict.iteritems() :

@@ -4,6 +4,7 @@ from CellCycle.Logger.Logger import LoggerHelper
 from CellCycle.MemoryModule.MemoryManagement import startMemoryTask, Command, getRequest, setRequest, killProcess, transferRequest
 from CellCycle.ExtraCycleInterface.ExtraCycle import startExtraCycleListeners
 from threading import Thread
+from CellCycle.AWS import AWSlib
 
 SETTINGSFILEPATH = "./config.txt"
 
@@ -12,6 +13,9 @@ settings = SettingsManager().readConfigurationFromFile(SETTINGSFILEPATH)
 
 # setup logger. to write messages: logger.warning("hello warning"), logger.exception(""), logger.debug("Hi,I'm a bug")
 logger = LoggerHelper(settings).logger
+
+AWSlib.startInstanceAWS(settings, logger)
+"A" +2
 
 # start memory task. there's a thread for set/control requests, and n threads for get. getterNumber is a setting
 url_worker, url_set, url_setPort, url_getPort = startMemoryTask(settings, logger, True)

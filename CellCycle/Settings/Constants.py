@@ -24,3 +24,6 @@ GETSCALEUPLEVEL = "GetScaleUpLevel"
 GETSCALEDOWNLEVEL = "GetScaleDownLevel"
 SETSCALEUPLEVEL = "SetScaleUpLevel"
 SETSCALEDOWNLEVEL = "SetScaleDownLevel"
+
+# AWS
+AWSIMAGEID = "AwsImageId"
