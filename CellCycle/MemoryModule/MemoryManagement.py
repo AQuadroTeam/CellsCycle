@@ -4,6 +4,10 @@ from cPickle import loads, dumps
 from threading import Thread
 import zmq
 from time import time, sleep
+from CellCycle.ChainModule.ListThread import ListThread
+from CellCycle.ChainModule.ChainFlow import compute_son_id
+
+from CellCycle.MemoryModule.Cache import CacheSlubLRU
 
 SETCOMMAND = 0
 GETCOMMAND = 1
@@ -93,14 +97,17 @@ def _memoryMetricatorThread(logger, cache, settings, master, timing):
 
             logger.debug("Working time for setters: " + str(setMean) + ", getters (mean): " + str(getMean) )
 
-            #scale up needed
+            # scale up needed
             if(getMean >= getScaleUpLevel or setMean >= setScaleUpLevel):
                 logger.debug("Requests for scale Up!")
-                #TODO: add call scale up service
-            #scale down needed
+                # TODO: add call scale up service
+                # self.list_communication_thread.notify_scale_up()
+
+            # scale down needed
             elif(getMean <= getScaleDownLevel or setMean <= setScaleDownLevel):
                 logger.debug("Requests for scale Down!")
-                #TODO: add call scale down service
+                # TODO: add call scale down service
+                # self.list_communication_thread.notify_scale_down()
 
 
 def _proxyThread(logger, master, frontend, backend, url_frontend, url_backend):
