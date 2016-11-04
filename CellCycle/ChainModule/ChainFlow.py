@@ -1,5 +1,21 @@
 from Const import *
 from Message import Message
+from math import ceil
+
+
+def compute_son_id(master_id, slave_id):   # Computes a new id based on greater whole number
+    assert(master_id < master_id)
+
+    master_greater_whole_number = ceil(master_id)
+    if master_greater_whole_number == master_id:
+        master_greater_whole_number += 1
+
+    slave_greater_whole_number = ceil(slave_id)
+
+    if master_greater_whole_number == slave_greater_whole_number:
+        return float(master_id + (slave_id - master_id)/2.0)
+    else:
+        return master_greater_whole_number
 
 # Object - String Message Conversion
 
