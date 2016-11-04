@@ -17,3 +17,4 @@ SetScaleDownLevel 0.001
 AwsImageId ami-1c07fc73
 AwsSecurityGroup SSHToAll
 AwsKeyName CellCycleBot
+GitBranch AWS-lib

@@ -28,4 +28,5 @@ SETSCALEDOWNLEVEL = "SetScaleDownLevel"
 # AWS
 AWSIMAGEID = "AwsImageId"
 AWSSECURITYGROUP = "AwsSecurityGroup"
-AWSKEYNAME = "AwsKeyName" 
+AWSKEYNAME = "AwsKeyName"
+GITBRANCH = "GitBranch"

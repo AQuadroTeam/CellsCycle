@@ -82,6 +82,8 @@ class SettingsObject(object):
         return str(self.configDict[Constants.AWSSECURITYGROUP][0])
     def getAwsKeyName(self):
         return str(self.configDict[Constants.AWSKEYNAME][0])
+    def getGitBranch(self):
+        return str(self.configDict[Constants.GITBRANCH][0])
     # end of aws settings
 
     def __str__(self):

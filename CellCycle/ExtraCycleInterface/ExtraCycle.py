@@ -3,7 +3,7 @@ import zmq
 from Queue import Queue
 from binascii import crc32
 from CellCycle.MemoryModule.MemoryManagement import standardKillRequest, standardSlaveSetRequest, standardSlaveGetRequest, standardTransferRequest, standardMasterSetRequest, standardMasterGetRequest
-
+from CellCycle.AWS.AWSlib import *
 
 def startExtraCycleListeners(settings, logger):
     threadNumber = settings.getServiceThreadNumber()
@@ -61,6 +61,7 @@ def _manageRequest(logger, settings, socket, command, client):
     setList = [ADD , SET]
     QUIT = "QUIT"
     TRANSFER = "TRANSFER"
+    NEWCELL = "NEWCELL"
 
     if(command[0].upper() == GET):
         if(command[1] != ""):
@@ -107,6 +108,9 @@ def _manageRequest(logger, settings, socket, command, client):
             return
     elif(command[0].upper() == QUIT):
         _quitHandler(settings, socket, client)
+        return
+    elif(command[0].upper() == NEWCELL):
+        startInstanceAWS(settings, socket)
         return
     else:
         _sendGuide(socket, client)
