@@ -18,3 +18,4 @@ AwsImageId ami-9707fcf8
 AwsSecurityGroup SSHToAll
 AwsKeyName CellCycleBot
 GitBranch AWS-lib
+StartFileRelativePath startOnBoot.py

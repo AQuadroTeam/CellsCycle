@@ -8,7 +8,15 @@ def startInstanceAWS(settings, logger):
     keyName = settings.getAwsKeyName()
     branch = settings.getGitBranch()
     securityGroup = settings.getAwsSecurityGroup()
-    userData = "#!/bin/bash\nsudo cp /home/ubuntu/.aws /root/ -r\ncd /home/ubuntu/git/CellsCycle/\ngit checkout "+branch+"\ngit pull origin "+branch+"\n/usr/bin/python startOnBoot.py\nADDRESSOFFATHER=prova"
+    startFile = settings.getAwsStartFile()
+
+    userData = "#!/bin/bash\n" \
+    "sudo cp /home/ubuntu/.aws /root/ -r\n" \
+    "cd /home/ubuntu/git/CellsCycle/\n" \
+    "git checkout "+branch+"\n" \
+    "git pull origin "+branch+"\n" \
+    "/usr/bin/python "+ startFile +"\n" \
+    "ADDRESSOFFATHER=prova"
 
     logger.debug("id image: " + imageIdCellCycle)
     ec2.create_instances(ImageId=imageIdCellCycle, MinCount=1, MaxCount=1, InstanceType='t2.micro', KeyName=keyName, SecurityGroups=[securityGroup], UserData=userData)
