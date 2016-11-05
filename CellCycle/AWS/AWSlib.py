@@ -1,6 +1,6 @@
 import boto3
 
-def startInstanceAWS(settings, logger):
+def startInstanceAWS(settings, logger, params):
     logger.debug("contact amazon")
     ec2 = boto3.resource('ec2')
 
@@ -10,13 +10,16 @@ def startInstanceAWS(settings, logger):
     securityGroup = settings.getAwsSecurityGroup()
     startFile = settings.getAwsStartFile()
 
+    from pickle import dumps
+
+    serializedParams = dumps(params)
+
     userData = "#!/bin/bash\n" \
     "sudo cp /home/ubuntu/.aws /root/ -r\n" \
     "cd /home/ubuntu/git/CellsCycle/\n" \
     "git checkout "+branch+"\n" \
     "git pull origin "+branch+"\n" \
-    "/usr/bin/python "+ startFile +"\n" \
-    "ADDRESSOFFATHER=prova"
+    "/usr/bin/python "+ startFile + " " + serializedParams + "\n"
 
     logger.debug("id image: " + imageIdCellCycle)
     ec2.create_instances(ImageId=imageIdCellCycle, MinCount=1, MaxCount=1, InstanceType='t2.micro', KeyName=keyName, SecurityGroups=[securityGroup], UserData=userData)

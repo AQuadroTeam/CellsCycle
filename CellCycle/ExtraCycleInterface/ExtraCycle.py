@@ -123,15 +123,15 @@ def _manageRequest(logger, settings, socket, command, client):
         if (len(command) < 2):
             _sendGuide(socket, client)
             return
-        params = command[2]
+        params = " ".join(command[2:])
 
         if(operation.upper() == KILLYOURSELF):
             logger.debug("Hello darkness my old friend...")
             if(params.upper() == STOP):
-                _awsKillYourselfStopHandler(settings, socket, client)
+                _awsKillYourselfStopHandler(settings, logger, socket, client)
                 return
             elif(params.upper() == TERMINATE):
-                _awsKillYourselfTerminateHandler(settings, socket, client)
+                _awsKillYourselfTerminateHandler(settings, logger, socket, client)
                 return
             else:
                 _sendGuide(socket, client)
@@ -220,10 +220,10 @@ def _transferHandler(settings, socket, client):
 def _awsCreateCellHandler(settings,logger,  socket, client,  params ):
     startInstanceAWS(settings, logger, params)
 
-def _awsKillYourselfStopHandler(settings, socket, client):
+def _awsKillYourselfStopHandler(settings,logger, socket, client):
     stopThisInstanceAWS(settings, logger)
-    
-def _awsKillYourselfTerminateHandler(settings, socket, client):
+
+def _awsKillYourselfTerminateHandler(settings,logger, socket, client):
     terminateThisInstanceAWS(settings, logger)
 
 
