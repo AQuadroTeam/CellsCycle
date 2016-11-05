@@ -11,7 +11,6 @@ def startInstanceAWS(settings, logger, params):
     startFile = settings.getAwsStartFile()
 
     from json import dumps
-
     serializedParams = dumps(params)
 
     userData = "#!/bin/bash\n" \
@@ -19,8 +18,7 @@ def startInstanceAWS(settings, logger, params):
     "cd /home/ubuntu/git/CellsCycle/\n" \
     "git checkout "+branch+"\n" \
     "git pull origin "+branch+"\n" \
-    "cat " + serializedParams + " > /home/ubuntu/git/CellsCycle/startLog.log\n"\
-    "/usr/bin/python "+ startFile + " " + serializedParams + "\n"
+    "/usr/bin/python "+ startFile + " '" + serializedParams + "'\n"
 
     logger.debug("id image: " + imageIdCellCycle)
     ec2.create_instances(ImageId=imageIdCellCycle, MinCount=1, MaxCount=1, InstanceType='t2.micro', KeyName=keyName, SecurityGroups=[securityGroup], UserData=userData)
