@@ -3,7 +3,7 @@ import zmq
 from Queue import Queue
 from binascii import crc32
 from CellCycle.MemoryModule.MemoryManagement import standardKillRequest, standardSlaveSetRequest, standardSlaveGetRequest, standardTransferRequest, standardMasterSetRequest, standardMasterGetRequest
-
+from CellCycle.AWS.AWSlib import *
 
 def startExtraCycleListeners(settings, logger):
     threadNumber = settings.getServiceThreadNumber()
@@ -48,6 +48,7 @@ def _serviceThread(settings, logger, url_Backend,socket,queue):
         if(message != ""):
             command = message.split()
             try:
+                logger.debug("Received command: " + str(command))
                 _manageRequest(logger, settings, socket, command, client)
             except Exception as e:
                 logger.warning("Error for client: "+ str(client) +", error:"+ str(e) + ". command: " + message)
@@ -61,6 +62,7 @@ def _manageRequest(logger, settings, socket, command, client):
     setList = [ADD , SET]
     QUIT = "QUIT"
     TRANSFER = "TRANSFER"
+    AWS = "AWS"
 
     if(command[0].upper() == GET):
         if(command[1] != ""):
@@ -108,6 +110,40 @@ def _manageRequest(logger, settings, socket, command, client):
     elif(command[0].upper() == QUIT):
         _quitHandler(settings, socket, client)
         return
+    elif(command[0].upper() == AWS):
+        if (len(command) < 2):
+            _sendGuide(socket, client)
+            return
+        KILLYOURSELF = "KILLYOURSELF"
+        NEWCELL = "NEWCELL"
+        STOP = "STOP"
+        TERMINATE = "TERMINATE"
+
+        operation = command[1]
+        params = " ".join(command[2:])
+
+        if(operation.upper() == KILLYOURSELF):
+            logger.debug("Hello darkness my old friend...")
+            if(params.upper() == STOP):
+                _awsKillYourselfStopHandler(settings, logger, socket, client)
+                return
+            elif(params.upper() == TERMINATE):
+                _awsKillYourselfTerminateHandler(settings, logger, socket, client)
+                return
+            else:
+                _sendGuide(socket, client)
+                return
+        elif(operation.upper() == NEWCELL):
+            logger.debug("I'm creating a new node on AWS with params: " + str(params))
+            _awsCreateCellHandler(settings,logger, socket, client,  params )
+            return
+
+        else:
+            _sendGuide(socket, client)
+            return
+
+
+        return
     else:
         _sendGuide(socket, client)
         return
@@ -123,6 +159,7 @@ def _sendGuide(socket, client):
         "-ADD (ADD <key> <flag> <exp> <byte> <data>)\n"\
         "-GET (SET <key> <data>)\n"\
         "-DELETE (DELETE <key> <data>)\n"\
+        "-AWS (AWS KILLYOURSELF <TERMINATE or STOP>) or (AWS NEWCELL <params>)\n"\
         "\nBYE\r\n"
     _send(socket, client, guide)
 
@@ -176,6 +213,19 @@ def _transferHandler(settings, socket, client):
     _send(socket, client, "DOING....")
     standardTransferRequest(settings)
     _send(socket, client, "DONE!\r\n")
+
+def _awsCreateCellHandler(settings,logger,  socket, client,  params ):
+    _send(socket, client, "SENDING REQUEST TO AMAZON\r\n")
+    startInstanceAWS(settings, logger, params)
+
+def _awsKillYourselfStopHandler(settings,logger, socket, client):
+    _send(socket, client, "HELLO DARKNESS MY OLD FRIEND...\r\n")
+    stopThisInstanceAWS(settings, logger)
+
+def _awsKillYourselfTerminateHandler(settings,logger, socket, client):
+    _send(socket, client, "HELLO DARKNESS MY OLD FRIEND...\r\n")
+    terminateThisInstanceAWS(settings, logger)
+
 
 def hashOfKey(key):
     return crc32(key) % (1<<32)

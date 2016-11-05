@@ -117,6 +117,9 @@ class DeadWriter (ConsumerThread):
                     # sync with the new node addr
                     self.internal_channel.resync()
             if is_dead_message(msg):
+                # if i am the target just DIE
+                if msg.target_id == self.myself.id:
+                    exit(0)
                 self.version += 1
                 msg_to_send = to_external_obj_message(self.version, msg)
                 string_message = from_msg_obj_to_string(msg_to_send)

@@ -11,22 +11,25 @@ import multiprocessing
 from CellCycle.MemoryModule.MemoryManagement import startMemoryTask, Command, getRequest, setRequest, killProcess, transferRequest
 from CellCycle.ExtraCycleInterface.ExtraCycle import startExtraCycleListeners
 from threading import Thread
-
-SETTINGSFILEPATH = "./config.txt"
-DELAY = 0.3
+from CellCycle.AWS import AWSlib
 
 
-# read settings from config.txt
-settings = SettingsManager().readConfigurationFromFile(SETTINGSFILEPATH)
+def startApplication(startParams):
+    SETTINGSFILEPATH = "./config.txt"
 
-# setup logger. to write messages: logger.warning("hello warning"), logger.exception(""), logger.debug("Hi,I'm a bug")
-logger = LoggerHelper(settings).logger
+    # read settings from config.txt
+    settings = SettingsManager().readConfigurationFromFile(SETTINGSFILEPATH)
 
-# start memory task. there's a thread for set/control requests, and n threads for get. getterNumber is a setting
-url_worker, url_set, url_setPort, url_getPort = startMemoryTask(settings, logger, True)
-url_worker_slave, url_set_slave, url_setPort_slave, url_getPort_slave = startMemoryTask(settings, logger, False)
+    # setup logger. to write messages: logger.warning("hello warning"), logger.exception(""), logger.debug("Hi,I'm a bug")
+    logger = LoggerHelper(settings).logger
 
-startExtraCycleListeners(settings, logger)
+    logger.debug("Starting with params: " + str(startParams))
+    
+    # start memory task. there's a thread for set/control requests, and n threads for get. getterNumber is a setting
+    url_worker, url_set, url_setPort, url_getPort = startMemoryTask(settings, logger, True)
+    url_worker_slave, url_set_slave, url_setPort_slave, url_getPort_slave = startMemoryTask(settings, logger, False)
+
+    startExtraCycleListeners(settings, logger)
 
 
 def exampleFillAndTransfer(settings, logger):
@@ -64,3 +67,6 @@ def exampleFillAndTransfer(settings, logger):
     print "sul task principale ho ricevuto con chiave 1 su master: " + str(getRequest(url_getPort, 1))
     killProcess(url_setPort)
     killProcess(url_setPort_slave)
+
+if __name__ == "__main__":
+    startApplication("Starting from console")

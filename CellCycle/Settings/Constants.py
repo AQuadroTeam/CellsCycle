@@ -29,4 +29,9 @@ SETSCALEDOWNLEVEL = "SetScaleDownLevel"
 EXTPORT = "ExtPort"
 INTPORT = "IntPort"
 
-
+# AWS
+AWSIMAGEID = "AwsImageId"
+AWSSECURITYGROUP = "AwsSecurityGroup"
+AWSKEYNAME = "AwsKeyName"
+GITBRANCH = "GitBranch"
+STARTFILE = "StartFileRelativePath"
