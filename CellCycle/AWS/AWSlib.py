@@ -19,6 +19,7 @@ def startInstanceAWS(settings, logger, params):
     "cd /home/ubuntu/git/CellsCycle/\n" \
     "git checkout "+branch+"\n" \
     "git pull origin "+branch+"\n" \
+    "cat " + serializedParams + " > /home/ubuntu/git/CellsCycle/startLog.log\n"\
     "/usr/bin/python "+ startFile + " " + serializedParams + "\n"
 
     logger.debug("id image: " + imageIdCellCycle)
