@@ -58,4 +58,4 @@ def exampleFillAndTransfer(settings, logger):
     killProcess(url_setPort_slave)
 
 if __name__ == "__main__":
-    startApplication()
+    startApplication("Starting from console")
