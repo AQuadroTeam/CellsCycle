@@ -10,7 +10,7 @@ def startInstanceAWS(settings, logger, params):
     securityGroup = settings.getAwsSecurityGroup()
     startFile = settings.getAwsStartFile()
 
-    from pickle import dumps
+    from json import dumps
 
     serializedParams = dumps(params)
 
