@@ -93,7 +93,7 @@ class DeadReader(ProducerThread):
                             self.master_of_master = self.master
                             self.master = Node(node_id=message.target_id, ip=message.target_addr,
                                                min_key=min_max_key.min_key, max_key=min_max_key.max_key,
-                                               int_port=INT_PORT, ext_port=EXT_PORT)
+                                               int_port=self.settings.getIntPort(), ext_port=self.settings.getExtPort())
                             self.init_connection()
                             # list_communication = self.init_connection()
                             # TODO take ports from the configuration file
@@ -108,7 +108,8 @@ class DeadReader(ProducerThread):
                         new_master_of_master = from_int_msg_string_to_msg_obj(new_master_of_master)
                         min_max_key = Node.to_min_max_key_obj(new_master_of_master.target_key)
                         new_master_of_master = Node(new_master_of_master.target_id, new_master_of_master.target_addr,
-                                                    ext_port=EXT_PORT, int_port=INT_PORT,
+                                                    ext_port=self.settings.getExtPort(),
+                                                    int_port=self.settings.getIntPort(),
                                                     max_key=min_max_key.max_key, min_key=min_max_key.min_key)
 
                         self.change_master_of_master(new_master_of_master=new_master_of_master)

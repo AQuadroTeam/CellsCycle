@@ -233,7 +233,8 @@ class DeadWriter (ConsumerThread):
                             self.external_channel.forward(origin_message)
                     elif is_added_message(msg):
                         min_max_key = Node.to_min_max_key_obj(msg.target_key)
-                        node_to_add = Node(msg.target_id, msg.target_addr, INT_PORT, EXT_PORT,
+                        node_to_add = Node(msg.target_id, msg.target_addr, self.settings.getIntPort(),
+                                           self.settings.getExtPort(),
                                            min_max_key.min_key, min_max_key.max_key)
                         target_master = self.node_list.get_value(msg.source_id).target
                         target_slave = self.node_list.get_value(msg.target_relative_id).target
