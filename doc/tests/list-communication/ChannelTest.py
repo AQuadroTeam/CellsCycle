@@ -1,7 +1,7 @@
 # This is a test for Internal and External Channels
 from CellCycle.ChainModule.ListCommunication import *
 from start import loadSettingsAndLogger
-from zmq import ZMQError
+from zmq import ZMQError, Again
 from threading import Thread
 from time import sleep
 from CellCycle.ChainModule.Message import Message
@@ -20,7 +20,7 @@ def client_behavior(settings, logger):
 
     message = Message()
     message.priority = ALIVE
-    message.source_flag = EXT
+    message.source_flag = INT
     message.source_id = '1'
     message.target_id = '1'
     message.target_addr = '192.168.1.1'
@@ -33,10 +33,12 @@ def client_behavior(settings, logger):
     logger.debug("msg : " + msg)
 
     external_channel = ExternalChannel(addr="127.0.0.1", port=settings.getExtPort(), logger=logger)
+    external_channel.generate_external_channel_client_side()
+    external_channel.external_channel_subscribe()
 
+    logger.debug(loads(external_channel.wait_ext_message()).printable_message())
 
-
-    logger.debug("try_to_connect without server TEST COMPLETED")
+    logger.debug("try_to_connect TEST COMPLETED")
 
 
 def server_behavior(settings, logger):
@@ -54,7 +56,22 @@ def server_behavior(settings, logger):
 
     external_channel = ExternalChannel(addr="127.0.0.1", port=settings.getExtPort(), logger=logger)
 
-    logger.debug("try_to_connect without server TEST COMPLETED")
+    external_channel.generate_external_channel_server_side()
+    external_channel.external_channel_publish()
+
+    message = Message()
+    message.priority = ALIVE
+    message.source_flag = EXT
+    message.source_id = '1'
+    message.target_id = '1'
+    message.target_addr = '192.168.1.1'
+    message.target_key = '{}:{}'.format(0, 19)
+
+    sleep(1)
+
+    external_channel.forward(dumps(message))
+
+    logger.debug("try_to_connect TEST COMPLETED")
 
 CONFIG_PATH = "/home/alessandro/git/CellsCycle/config.txt"
 

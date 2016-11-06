@@ -1,7 +1,7 @@
 import zmq
 import time
 from Printer import *
-from Const import TRIES, TRY_TIMEOUT, OK, TRACKER_INFINITE_TIMEOUT
+from Const import TRACKER_TIMEOUT, TRY_TIMEOUT, OK, TRACKER_INFINITE_TIMEOUT
 
 BACKLOG = 5
 MAX_BUFF = 1024
@@ -114,12 +114,23 @@ class ExternalChannel(ListCommunication):
 
     # Forward a new external message like a router
     def forward(self, data):
-        tries = 0
-        while tries < TRIES:
-            try:
-                self.list_communication_channel.send(data)
-            except zmq.Again:
-                time.sleep(TRY_TIMEOUT)
+        # self.list_communication_channel.send(data)
+
+        try:
+            self.logger.debug('sending message')
+            tracker_object = self.list_communication_channel.send(data, track=True, copy=False)
+            # wait forever
+            tracker_object.wait(TRACKER_TIMEOUT)
+            self.logger.debug('ok with the message')
+        except zmq.error.NotDone:
+            self.logger.debug('Something went wrong with that message')
+            time.sleep(TRY_TIMEOUT)
+            self.logger.debug('Sleep finished')
+            # self.list_communication_channel.close()
+        except zmq.ZMQError as a:
+            self.logger.debug(a.strerror)
+            self.context.destroy()
+            self.context = zmq.Context()
 
     def external_channel_subscribe(self, addr=DEFAULT_ADDR, port=None):
         # connection to hostname on the port.
@@ -132,7 +143,7 @@ class ExternalChannel(ListCommunication):
         # #############################
 
         # Let the server take its time
-        time.sleep(0.1)
+        # time.sleep(0.1)
 
 
 class InternalChannel(ListCommunication):

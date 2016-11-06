@@ -44,14 +44,14 @@ class DeadWriter (ConsumerThread):
         self.external_channel.external_channel_publish()
 
         # Just a check for dead nodes
-        if self.myself.id == '1':
-            time.sleep(100000000000000000)
+        # if self.myself.id == '1':
+        #    time.sleep(100000000000000000)
 
         while True:
 
             self.logger.debug(send_i_am_alive(self.myself.id, self.slave.id))
 
-            self.external_channel.forward(self.make_alive_node_msg(self.myself.id, self.master.id))
+            self.external_channel.forward(dumps(self.make_alive_node_msg(self.myself.id, self.master.id)))
 
             try:
                 req_rep_msg = self.internal_channel.wait_int_message(dont_wait=True)
