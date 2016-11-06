@@ -6,7 +6,7 @@ from zmq import ZMQError
 from ProdCons import ConsumerThread
 from ChainFlow import *
 from ListThread import Node
-from cPickle import dumps
+from cPickle import dumps, loads
 
 
 class DeadWriter (ConsumerThread):
@@ -74,7 +74,7 @@ class DeadWriter (ConsumerThread):
         # Message from another process or a new node
         if is_int_message(msg):
             # Now we have a simple object to handle with
-            msg = from_int_msg_string_to_msg_obj(msg)
+            msg = loads(msg)
             if is_alive_message(msg):
                 if self.busy_add:
                     self.internal_channel.reply_to_int_message(dumps(self.node_list))
@@ -85,10 +85,10 @@ class DeadWriter (ConsumerThread):
                 if not self.busy_add:
                     self.internal_channel.reply_to_int_message(OK)
                     self.version += 1
-                    msg_to_send = to_external_obj_message(self.version, msg)
+                    msg_to_send = to_external_message(self.version, msg)
                     self.last_add_message = msg_to_send
                     self.busy_add = True
-                    string_message = from_msg_obj_to_string(msg_to_send)
+                    string_message = dumps(msg_to_send)
                     self.external_channel.forward(string_message)
                 else:
                     # I'm busy, retry later if you want to add a new node
@@ -99,9 +99,9 @@ class DeadWriter (ConsumerThread):
                 else:
                     self.internal_channel.reply_to_int_message(OK)
                     self.version += 1
-                    msg_to_send = to_external_obj_message(self.version, msg)
+                    msg_to_send = dumps(self.version, msg)
                     self.last_restored_message = msg_to_send
-                    string_message = from_msg_obj_to_string(msg_to_send)
+                    string_message = dumps(msg_to_send)
                     self.external_channel.forward(string_message)
             if is_added_message(msg):
                 if not self.busy_add:
@@ -109,9 +109,9 @@ class DeadWriter (ConsumerThread):
                 else:
                     self.internal_channel.reply_to_int_message(dumps(self.node_list))
                     self.version += 1
-                    msg_to_send = to_external_obj_message(self.version, msg)
+                    msg_to_send = to_external_message(self.version, msg)
                     self.last_added_message = msg_to_send
-                    string_message = from_msg_obj_to_string(msg_to_send)
+                    string_message = dumps(msg_to_send)
                     # we send a notice to the next node
                     self.external_channel.forward(string_message)
                     # sync with the new node addr
@@ -121,8 +121,8 @@ class DeadWriter (ConsumerThread):
                 if msg.target_id == self.myself.id:
                     exit(0)
                 self.version += 1
-                msg_to_send = to_external_obj_message(self.version, msg)
-                string_message = from_msg_obj_to_string(msg_to_send)
+                msg_to_send = to_external_message(self.version, msg)
+                string_message = dumps(msg_to_send)
                 self.external_channel.forward(string_message)
                 self.last_dead_message = msg_to_send
                 # The check for the already self.busy_add == True is missing
@@ -144,7 +144,7 @@ class DeadWriter (ConsumerThread):
             # that we send strings
             origin_message = msg
             # Now we have a simple object to handle with
-            msg = from_ext_msg_string_to_msg_obj(msg)
+            msg = loads(msg)
 
             # This is an external message, let's check if it's none of my business
             if is_my_last_add_message(msg, self.last_add_message):
@@ -169,23 +169,23 @@ class DeadWriter (ConsumerThread):
 
                     if self.last_dead_message != '' and version_random_priority_check(msg, self.last_dead_message):
                         self.version += 1
-                        string_message = from_msg_obj_to_string(self.last_dead_message)
+                        string_message = dumps(self.last_dead_message)
                         self.external_channel.forward(string_message)
 
                     if self.last_add_message != '' and version_random_priority_check(msg, self.last_add_message):
                         self.version += 1
-                        string_message = from_msg_obj_to_string(self.last_add_message)
+                        string_message = dumps(self.last_add_message)
                         self.external_channel.forward(string_message)
 
                     if self.last_added_message != '' and version_random_priority_check(msg, self.last_added_message):
                         self.version += 1
-                        string_message = from_msg_obj_to_string(self.last_added_message)
+                        string_message = dumps(self.last_added_message)
                         self.external_channel.forward(string_message)
 
                     if self.last_restored_message != '' and \
                             version_random_priority_check(msg, self.last_restored_message):
                         self.version += 1
-                        string_message = from_msg_obj_to_string(self.last_restored_message)
+                        string_message = dumps(self.last_restored_message)
                         self.external_channel.forward(string_message)
 
                     # Check if the node is DEAD
@@ -206,7 +206,7 @@ class DeadWriter (ConsumerThread):
                             self.slave = self.slave_of_slave
                             self.slave_of_slave = self.node_list.get_value(self.slave_of_slave.id).slave
                             # Send master of master ip
-                            min_max_key = Node.get_min_max_key(self.master)
+                            min_max_key = self.master.get_min_max_key()
                             self.internal_channel.resync(msg=self.make_added_node_msg(target_id=self.master.id,
                                                                                       target_key=min_max_key,
                                                                                       target_addr=self.master.ip,

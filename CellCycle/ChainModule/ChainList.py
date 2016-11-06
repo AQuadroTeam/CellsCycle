@@ -20,10 +20,15 @@ class ChainList:
             raise KeyError
 
     # Search for a memory key in list, returns None if key_to_find is not part of the dictionary
+    # def find_memory_key(self, key_to_find):
+    #     for k, v in self.dictionary.iteritems():
+    #         if int(v.master.min_key) <= key_to_find <= int(v.master.max_key) or\
+    #            int(v.slave.min_key) <= key_to_find <= int(v.slave.max_key):
+    #             return v
+    #     return None
     def find_memory_key(self, key_to_find):
-        for k, v in self.dictionary.iteritems():
-            if v.master.min_key <= key_to_find <= v.master.max_key or\
-               v.slave.min_key <= key_to_find <= v.slave.max_key:
+        for v in self.dictionary.itervalues():
+            if int(v.target.min_key) <= key_to_find <= int(v.target.max_key):
                 return v
         return None
 

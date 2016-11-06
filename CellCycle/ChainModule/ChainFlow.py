@@ -1,5 +1,4 @@
 from Const import *
-from Message import Message
 from math import ceil
 
 '''There are two standard behaviour for requester to name a new child, depends on name of the Slave node of the creator.
@@ -16,7 +15,7 @@ hoping there wont be consecutive ids (this solution can be easily avoided with o
 
 
 def compute_son_id(master_id, slave_id):   # Computes a new id based on greater whole number
-    assert(master_id < master_id)
+    # assert(master_id < master_id)
 
     master_greater_whole_number = ceil(master_id)
     if master_greater_whole_number == master_id:
@@ -33,80 +32,11 @@ def compute_son_id(master_id, slave_id):   # Computes a new id based on greater 
 def compute_son_key():
     pass
 
-# Object - String Message Conversion
-
-
-def from_ext_msg_string_to_msg_obj(msg):
-    split = msg.split()
-    obj = Message()
-    obj.source_flag = split[SOURCE_FLAG_INDEX]
-    obj.version = split[VERSION_INDEX]
-    obj.priority = split[PRIORITY_INDEX]
-    obj.random = split[RANDOM_INDEX]
-    obj.target_id = split[TARGET_ID_INDEX]
-    obj.target_addr = split[TARGET_ADDR_INDEX]
-    obj.target_key = split[TARGET_KEY_INDEX]
-    obj.source_id = split[SOURCE_ID_INDEX]
-
-    return obj
-
-
-def from_int_msg_string_to_msg_obj(msg):
-    split = msg.split()
-    obj = Message()
-    obj.source_flag = split[SOURCE_FLAG_INDEX]
-    obj.version = NO_VERSION
-    obj.priority = split[PRIORITY_INDEX-1]
-    obj.random = split[RANDOM_INDEX-1]
-    obj.target_id = split[TARGET_ID_INDEX-1]
-    obj.target_addr = split[TARGET_ID_INDEX-1]
-    obj.target_key = split[TARGET_KEY_INDEX-1]
-    obj.source_id = split[SOURCE_ID_INDEX-1]
-
-    return obj
-
-
-def from_ext_alive_msg_string_to_alive_msg_obj(msg):
-    split = msg.split()
-    obj = Message()
-    obj.source_flag = split[SOURCE_FLAG_INDEX]
-    obj.priority = split[PRIORITY_INDEX-1]
-    obj.target_id = split[TARGET_ID_INDEX-2]
-
-    return obj
-
-
-def from_msg_string_to_msg_obj(msg, source_flag=EXT):
-    if source_flag == INT:
-        return from_int_msg_string_to_msg_obj(msg)
-    else:
-        return from_ext_msg_string_to_msg_obj(msg)
-
-
-def from_msg_obj_to_string(message):
-    msg = dict()
-    msg[SOURCE_FLAG_INDEX] = message.source_flag
-    msg[VERSION_INDEX] = message.version
-    msg[PRIORITY_INDEX] = message.priority
-    msg[RANDOM_INDEX] = message.random
-    msg[TARGET_ID_INDEX] = message.target_id
-    msg[TARGET_ADDR_INDEX] = message.target_addr
-    msg[TARGET_KEY_INDEX] = message.target_key
-    msg[SOURCE_ID_INDEX] = message.source_id
-
-    return ' '.join(str(x) for x in msg.values())
-
-
-# Return a string with EXT flag and the right version
-def to_external_string_message(version, message):
-    ext_msg = to_external_obj_message(version, message)
-    return from_msg_obj_to_string(ext_msg)
-
 
 # Return an obj with EXT flag and the right version
-def to_external_obj_message(version, message):
+def to_external_message(version, message):
     message.source_flag = EXT
-    message.version = version
+    message.version = str(version)
     return message
 
 # Reply
@@ -117,19 +47,19 @@ def to_external_obj_message(version, message):
 
 
 def msg_variable_version_check(msg, version):
-    return msg.version >= version
+    return int(msg.version) >= version
 
 
 def msg_msg_version_check(msg1, msg2):
-    return msg1.version - msg2.version
+    return int(msg1.version) - int(msg2.version)
 
 
 def msg_msg_priority_check(msg1, msg2):
-    return msg1.priority - msg2.priority
+    return int(msg1.priority) - int(msg2.priority)
 
 
 def msg_msg_random_check(msg1, msg2):
-    return msg1.random - msg2.random
+    return int(msg1.random) - int(msg2.random)
 
 
 def is_equal_message(msg1, msg2):
@@ -173,7 +103,7 @@ def version_random_priority_check(new_message, old_message):
 
 # In this phase we don't now which is the type of message
 def check_source_message(msg, source_flag):
-    return msg[SOURCE_FLAG_INDEX] == source_flag
+    return msg.source_flag == source_flag
 
 
 def is_int_message(msg):

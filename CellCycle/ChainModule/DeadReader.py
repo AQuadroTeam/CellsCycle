@@ -6,6 +6,7 @@ from zmq import Again
 from Printer import *
 from ChainFlow import *
 from ListThread import Node
+from cPickle import loads
 
 
 class DeadReader(ProducerThread):
@@ -76,7 +77,7 @@ class DeadReader(ProducerThread):
                 message = self.external_channel.wait_ext_message()
 
                 origin_message = message
-                message = from_ext_alive_msg_string_to_alive_msg_obj(message)
+                message = loads(message)
 
                 if is_alive_message(message):
                     if is_dead_and_i_am_the_target(message, self.myself.id):
@@ -104,7 +105,7 @@ class DeadReader(ProducerThread):
                             self.make_alive_node_msg(source_flag=INT, target_id=self.myself.id,
                                                      target_master_id=self.master.id))
                         new_master_of_master = self.internal_channel.wait_int_message(dont_wait=False)
-                        new_master_of_master = from_int_msg_string_to_msg_obj(new_master_of_master)
+                        new_master_of_master = loads(new_master_of_master)
                         min_max_key = Node.to_min_max_key_obj(new_master_of_master.target_key)
                         new_master_of_master = Node(new_master_of_master.target_id, new_master_of_master.target_addr,
                                                     ext_port=self.settings.getExtPort(),
@@ -131,7 +132,7 @@ class DeadReader(ProducerThread):
 
                 dead_message = self.make_dead_node_msg(target_id=self.master.id, target_addr=self.master.ip,
                                                        target_key=self.master.get_min_max_key(),
-                                                       target_master_id=self.master_of_master)
+                                                       target_master_id=self.master_of_master.id)
                 self.last_dead_node = self.master.id
                 '''
                 This is a special case, for now we don't consider it

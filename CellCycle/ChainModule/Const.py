@@ -1,6 +1,6 @@
 # Message identifiers
-INT = 0
-EXT = 1
+INT = '0'
+EXT = '1'
 MIN_RANDOM = 1000
 MAX_RANDOM = 9999
 NO_VERSION = ''
@@ -19,7 +19,7 @@ SOURCE_ID_INDEX = 8
 NUM_FIELDS = 9
 
 # Priority
-DEAD = '3'
+DEAD = '4'
 RESTORED = '3'
 ADDED = '2'
 ADD = '1'

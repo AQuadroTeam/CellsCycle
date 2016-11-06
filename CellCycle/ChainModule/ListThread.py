@@ -5,7 +5,8 @@ from Const import *
 from random import randint
 from ChainList import ChainList
 from Printer import this_is_the_thread_in_action
-from ChainFlow import compute_son_id, compute_son_key
+from ChainFlow import compute_son_id
+from Message import Message
 
 
 class ListThread (threading.Thread):
@@ -66,25 +67,27 @@ class ListThread (threading.Thread):
 
     def make_node_msg(self, source_flag=INT, version='', priority='', target_id='', target_addr='', target_key='',
                       target_relative=''):
-        msg = dict()
-        msg[SOURCE_FLAG_INDEX] = source_flag
-        msg[VERSION_INDEX] = version
-        msg[PRIORITY_INDEX] = priority
-        msg[RANDOM_INDEX] = randint(MIN_RANDOM, MAX_RANDOM)
-        msg[TARGET_ID_INDEX] = target_id
-        msg[TARGET_KEY_INDEX] = target_key
-        msg[TARGET_ADDR_INDEX] = target_addr
-        msg[TARGET_RELATIVE_INDEX] = target_relative
-        msg[SOURCE_ID_INDEX] = self.myself.id
+        msg = Message()
+        msg.source_flag = source_flag
+        msg.version = version
+        msg.priority = priority
+        msg.random = randint(MIN_RANDOM, MAX_RANDOM)
+        msg.target_id = target_id
+        msg.target_key = target_key
+        msg.target_addr = target_addr
+        msg.target_relative_id = target_relative
+        msg.source_id = self.myself.id
 
-        return ' '.join(str(x) for x in msg.values())
+        return msg
 
     # This function is used by Memory Management Process to notify a new scale up
     # It is just a wrapper
     def notify_scale_up(self):
-        new_id = compute_son_id(master_id=self.myself.id, slave_id=self.slave.id)
-        new_key = compute_son_key()
-        return self.make_add_node_msg(target_id=new_id, target_key=new_key, source_flag=INT,
+        new_id = compute_son_id(master_id=float(self.myself.id), slave_id=float(self.slave.id))
+        # new_key = compute_son_key()
+        return self.make_add_node_msg(target_id=new_id,
+                                      target_key='{}:{}'.format(self.myself.min_key, self.myself.max_key),
+                                      source_flag=INT,
                                       target_slave_id=self.myself.id)
 
     # This function is used by Memory Management Process to notify a new scale up
@@ -152,6 +155,8 @@ class ListThread (threading.Thread):
         node_result = self.node_list.find_memory_key(key_to_find)
         if node_result is not None:
             return node_result.target.ip
+        else:
+            return None
 
 
 class Node:
@@ -167,7 +172,7 @@ class Node:
         self.ext_port = ext_port    # Node external channel's port
 
     def get_min_max_key(self):
-        return [self.min_key, self.max_key]
+        return "{}:{}".format(self.min_key, self.max_key)
 
     @staticmethod
     def to_min_max_key_obj(min_max_string):

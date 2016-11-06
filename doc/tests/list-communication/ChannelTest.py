@@ -4,6 +4,9 @@ from start import loadSettingsAndLogger
 from zmq import ZMQError
 from threading import Thread
 from time import sleep
+from CellCycle.ChainModule.Message import Message
+from CellCycle.ChainModule.Const import *
+from cPickle import loads, dumps
 
 
 def client_behavior(settings, logger):
@@ -15,7 +18,15 @@ def client_behavior(settings, logger):
     except ZMQError as e:
         logger.debug(e)
 
-    internal_channel.send_first_internal_channel_message(message=OK)
+    message = Message()
+    message.priority = ALIVE
+    message.source_flag = EXT
+    message.source_id = '1'
+    message.target_id = '1'
+    message.target_addr = '192.168.1.1'
+    message.target_key = '{}:{}'.format(0, 19)
+
+    internal_channel.send_first_internal_channel_message(dumps(message))
 
     msg = internal_channel.wait_int_message(dont_wait=False)
 
@@ -30,8 +41,9 @@ def server_behavior(settings, logger):
 
     try:
         internal_channel.generate_internal_channel_server_side()
-        msg = internal_channel.wait_int_message(dont_wait=False)
-        logger.debug("msg : " + msg)
+        msg = loads(internal_channel.wait_int_message(dont_wait=False))
+        logger.debug("msg : ")
+        logger.debug(msg.printable_message())
         internal_channel.reply_to_int_message(OK)
     except ZMQError as e:
         logger.debug(e)

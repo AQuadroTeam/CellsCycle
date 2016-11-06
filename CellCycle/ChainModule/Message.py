@@ -10,3 +10,7 @@ class Message:
         self.target_key = ''
         self.target_relative_id = ''
         self.source_id = ''
+
+    def printable_message(self):
+        attributes = vars(self)
+        return ''.join("%s: %s\n" % item for item in attributes.items())
