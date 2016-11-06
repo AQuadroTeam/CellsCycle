@@ -1,7 +1,6 @@
 from array import array as C_Array
 from LinkedListArrays import getNext, getPrev, getHead, getTail, increment, switch, pop, push, bringToFirst, setIndex
 from threading import Lock
-from MemoryManagement import  Command, getRequest, setRequest, killProcess
 
 
 class CacheSlubLRU(object):
@@ -416,16 +415,18 @@ def trialThread(it, valuebytesize,getsetratio, parent_conn_set, parent_conn_get)
 
 def sendkilltask(parent_conn):
 
-    killProcess(parent_conn)
+    # killProcess(parent_conn)
+    pass
 
 def sendsettask(setKey, setValue, getKey, parent_conn):
 
-    setRequest(parent_conn, setKey, setValue)
-
+    # setRequest(parent_conn, setKey, setValue)
+    pass
 
 def sendgettask(setKey, setValue, getKey,parent_conn):
 
-    return getRequest(parent_conn, getKey)
+    #    return getRequest(parent_conn, getKey)
+    pass
 
 def getSettings(totram, slabSize, getThreadNumber):
     import sys

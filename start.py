@@ -1,17 +1,8 @@
 #! /usr/bin/env python
 from CellCycle.Settings.SettingsManager import SettingsManager
 from CellCycle.Logger.Logger import LoggerHelper
-from CellCycle.ChainModule.ReadingThread import ReadingThread
-from CellCycle.ChainModule.WritingThread import WritingThread
-from threading import Event
-from CellCycle.ChainModule.DeadReader import DeadReader
-from CellCycle.ChainModule.DeadWriter import DeadWriter
-import time
-import multiprocessing
-from CellCycle.MemoryModule.MemoryManagement import startMemoryTask, Command, getRequest, setRequest, killProcess, transferRequest
+from CellCycle.MemoryModule.MemoryManagement import startMemoryTask, getRequest, setRequest, killProcess, transferRequest
 from CellCycle.ExtraCycleInterface.ExtraCycle import startExtraCycleListeners
-from threading import Thread
-from CellCycle.AWS import AWSlib
 
 
 def loadSettingsAndLogger():

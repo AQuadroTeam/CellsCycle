@@ -4,9 +4,6 @@ from cPickle import loads, dumps
 from threading import Thread
 import zmq
 from time import time, sleep
-from CellCycle.ChainModule.ListThread import ListThread
-from CellCycle.ChainModule.ChainFlow import compute_son_id
-
 from CellCycle.MemoryModule.Cache import CacheSlubLRU
 
 SETCOMMAND = 0
@@ -237,6 +234,7 @@ def _getThread(index, logger,settings, cache, master, url, timing):
                 timing["getters"][index].stopWorking()
         except Exception as e:
             logger.error(e)
+
 # client operations
 def getRequest(url, key):
     context = zmq.Context.instance()

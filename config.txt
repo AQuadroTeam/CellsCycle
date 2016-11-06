@@ -16,8 +16,8 @@ SetScaleUpLevel 0.5
 SetScaleDownLevel 0.001
 AwsImageId ami-9707fcf8
 AwsSecurityGroup SSHToAll
-AwsKeyName CellCycleBot
+AwsKeyName AWSCellCycle
 GitBranch master
 StartFileRelativePath startOnBoot.py
-IntPort 5193
-ExtPort 5194
+IntPort 5557
+ExtPort 5558
