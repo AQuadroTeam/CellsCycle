@@ -86,6 +86,8 @@ class SettingsObject(object):
         return str(self.configDict[Constants.GITBRANCH][0])
     def getAwsStartFile(self):
         return str(self.configDict[Constants.STARTFILE][0])
+    def getAwsProfileName(self):
+        return str(self.configDict[Constants.AWSPROFILENAME][0])
     # end of aws settings
 
     def __str__(self):

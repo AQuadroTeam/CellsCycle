@@ -19,3 +19,4 @@ AwsSecurityGroup SSHToAll
 AwsKeyName CellCycleBot
 GitBranch master
 StartFileRelativePath startOnBoot.py
+AwsProfileName default
