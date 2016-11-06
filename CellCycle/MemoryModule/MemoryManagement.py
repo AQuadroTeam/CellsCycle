@@ -299,7 +299,7 @@ def standardSlaveGetRequest(settings, key, host="localhost"):
     url_getPort = "tcp://"+host+":" + str(settings.getSlaveGetPort())
     return getRequest(url_getPort, key)
 
-def standardKillProcess(settings, host="localhost"):
+def standardKillRequest(settings, host="localhost"):
     url_setPort = "tcp://"+host+":" + str(settings.getMasterSetPort())
     return killProcess(url_setPort)
 
