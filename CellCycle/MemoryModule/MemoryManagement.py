@@ -299,9 +299,9 @@ def standardSlaveGetRequest(settings, key, host="localhost"):
     url_getPort = "tcp://"+host+":" + str(settings.getSlaveGetPort())
     return getRequest(url_getPort, key)
 
-def standardKillRequest(settings, host="localhost"):
+def standardKillProcess(settings, host="localhost"):
     url_setPort = "tcp://"+host+":" + str(settings.getMasterSetPort())
-    return killRequest(url_setPort)
+    return killProcess(url_setPort)
 
 def standardTransferRequest(settings, dest="localhost", host="localhost"):
     url_setPort = "tcp://"+host+":" + str(settings.getMasterSetPort())
@@ -332,10 +332,10 @@ def startMemoryTaskForTrial(preallocatedPool, slabSize, logger, pipe_set, pipe_g
 
     cache = CacheSlubLRU(preallocatedPool , slabSize, logger) #set as 10 mega, 1 mega per slab
     for pipe in pipe_get:
-        th = Thread(target=getThread, args=(cache, pipe))
+        th = Thread(target=_getThread, args=(cache, pipe))
         th.start()
 
-    setThread(cache, pipe_set)
+    _setThread(cache, pipe_set)
 
 class TimingMetricator(object):
     """docstring forTimingMetricator."""
