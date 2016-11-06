@@ -14,7 +14,7 @@ from threading import Thread
 from CellCycle.AWS import AWSlib
 
 
-def startApplication(startParams):
+def loadSettingsAndLogger():
     SETTINGSFILEPATH = "./config.txt"
 
     # read settings from config.txt
@@ -22,9 +22,13 @@ def startApplication(startParams):
 
     # setup logger. to write messages: logger.warning("hello warning"), logger.exception(""), logger.debug("Hi,I'm a bug")
     logger = LoggerHelper(settings).logger
+    return settings, logger
 
-    logger.debug("Starting with params: " + str(startParams))
+def startApplication(startParams):
+    settings, logger = loadSettingsAndLogger()
     
+    logger.debug("Starting with params: " + str(startParams))
+
     # start memory task. there's a thread for set/control requests, and n threads for get. getterNumber is a setting
     url_worker, url_set, url_setPort, url_getPort = startMemoryTask(settings, logger, True)
     url_worker_slave, url_set_slave, url_setPort_slave, url_getPort_slave = startMemoryTask(settings, logger, False)
