@@ -19,6 +19,7 @@
           <option value="zmq.DONTWAIT" />
           <option value="zmq.PUB" />
           <option value="zmq.REQ" />
+          <option value="zmq.NOBLOCK" />
         </list>
       </option>
     </inspection_tool>

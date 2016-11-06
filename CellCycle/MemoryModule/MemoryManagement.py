@@ -15,8 +15,6 @@ TRANSFERCOMPLETE = 4
 
 def startMemoryTask(settings, logger, master):
 
-
-
     url_getBackend = "inproc://get_memory" + ("master" if master else "slave")
     url_setBackend = "inproc://set_memory" + ("master" if master else "slave")
     url_setFrontend = "tcp://*:" + str(settings.getMasterSetPort() if master else settings.getSlaveSetPort())

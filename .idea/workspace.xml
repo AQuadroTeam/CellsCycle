@@ -2,11 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a1c89ab2-e673-4d5e-b868-5d8c5ef9cde2" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/tests/list-communication/ChannelTest.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/doc/tests/list-communication/MessagesTest.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CellCycle/ChainModule/Generator.py" afterPath="$PROJECT_DIR$/CellCycle/ChainModule/Generator.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/firstLaunchAWS.py" afterPath="$PROJECT_DIR$/firstLaunchAWS.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CellCycle/ChainModule/Const.py" afterPath="$PROJECT_DIR$/CellCycle/ChainModule/Const.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CellCycle/ChainModule/DeadReader.py" afterPath="$PROJECT_DIR$/CellCycle/ChainModule/DeadReader.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CellCycle/ChainModule/ListCommunication.py" afterPath="$PROJECT_DIR$/CellCycle/ChainModule/ListCommunication.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CellCycle/ChainModule/ListThread.py" afterPath="$PROJECT_DIR$/CellCycle/ChainModule/ListThread.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CellCycle/ChainModule/Printer.py" afterPath="$PROJECT_DIR$/CellCycle/ChainModule/Printer.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CellCycle/MemoryModule/MemoryManagement.py" afterPath="$PROJECT_DIR$/CellCycle/MemoryModule/MemoryManagement.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/start.py" afterPath="$PROJECT_DIR$/start.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/startOnBoot.py" afterPath="$PROJECT_DIR$/startOnBoot.py" />
     </list>
     <ignored path="CellsCycle.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -27,26 +33,54 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="Const.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/Const.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="46" column="0" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="ListThread.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/ListThread.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+              <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MessagesTest.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/doc/tests/list-communication/MessagesTest.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.1627907">
+              <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
               <folding>
-                <element signature="e#24#40#0" expanded="true" />
+                <element signature="e#0#61#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Generator.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/Generator.py">
+      <file leaf-file-name="ChannelTest.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/doc/tests/list-communication/ChannelTest.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="61" column="0" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
-              <folding>
-                <element signature="e#24#51#0" expanded="true" />
-              </folding>
+              <caret line="2" column="34" selection-start-line="2" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DeadWriter.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/DeadWriter.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="239" column="53" selection-start-line="239" selection-start-column="53" selection-end-line="239" selection-end-column="53" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -55,7 +89,7 @@
         <entry file="file://$PROJECT_DIR$/start.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+              <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
               <folding>
                 <element signature="e#23#85#0" expanded="true" />
               </folding>
@@ -63,34 +97,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Cache.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CellCycle/MemoryModule/Cache.py">
+      <file leaf-file-name="ListCommunication.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/ListCommunication.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+              <caret line="188" column="0" selection-start-line="188" selection-start-column="0" selection-end-line="188" selection-end-column="0" />
               <folding>
-                <element signature="e#0#34#0" expanded="true" />
+                <element signature="e#0#10#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MemoryManagement.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CellCycle/MemoryModule/MemoryManagement.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="5" column="28" selection-start-line="5" selection-start-column="28" selection-end-line="5" selection-end-column="28" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="config.txt" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="5" column="18" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -99,31 +113,9 @@
         <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/DeadReader.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+              <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
               <folding>
                 <element signature="e#24#59#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="firstLaunchAWS.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/firstLaunchAWS.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="48" column="0" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="startOnBoot.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/startOnBoot.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.17518248">
-              <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
-              <folding>
-                <element signature="e#31#41#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -149,9 +141,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/CellCycle/ListThread/my_list.txt" />
-        <option value="$PROJECT_DIR$/CellCycle/SequentialReadWrite.py" />
-        <option value="$PROJECT_DIR$/CellCycle/PairClient.py" />
         <option value="$PROJECT_DIR$/CellCycle/PairServer.py" />
         <option value="$PROJECT_DIR$/CellCycle/Settings/SettingsManager.py" />
         <option value="$PROJECT_DIR$/CellCycle/ListThread/testListThreads.py" />
@@ -180,26 +169,29 @@
         <option value="$PROJECT_DIR$/CellCycle/ListThread/DeadWriter.py" />
         <option value="$PROJECT_DIR$/CellCycle/ListThread/RingFlow.py" />
         <option value="$PROJECT_DIR$/CellCycle/ChainModule/RingFlow.py" />
-        <option value="$PROJECT_DIR$/CellCycle/ChainModule/Printer.py" />
         <option value="$PROJECT_DIR$/CellCycle/ChainModule/Message.py" />
-        <option value="$PROJECT_DIR$/CellCycle/ChainModule/Const.py" />
         <option value="$PROJECT_DIR$/CellCycle/ChainModule/ChainList.py" />
         <option value="$PROJECT_DIR$/CellCycle/Settings/SettingsObject.py" />
         <option value="$PROJECT_DIR$/CellCycle/ChainModule/ProdCons.py" />
-        <option value="$PROJECT_DIR$/CellCycle/ChainModule/ListCommunication.py" />
         <option value="$PROJECT_DIR$/CellCycle/ChainModule/ChainFlow.py" />
-        <option value="$PROJECT_DIR$/CellCycle/ChainModule/ListThread.py" />
         <option value="$PROJECT_DIR$/CellCycle/Settings/Constants.py" />
         <option value="$PROJECT_DIR$/CellCycle/ChainModule/strings.json" />
         <option value="$PROJECT_DIR$/CellCycle/ChainModule/DeadWriter.py" />
-        <option value="$PROJECT_DIR$/CellCycle/ChainModule/DeadReader.py" />
         <option value="$PROJECT_DIR$/config.txt" />
         <option value="$PROJECT_DIR$/CellCycle/MemoryModule/Cache.py" />
-        <option value="$PROJECT_DIR$/CellCycle/MemoryModule/MemoryManagement.py" />
-        <option value="$PROJECT_DIR$/start.py" />
         <option value="$PROJECT_DIR$/firstLaunchAWS.py" />
         <option value="$PROJECT_DIR$/CellCycle/ChainModule/Generator.py" />
         <option value="$PROJECT_DIR$/startOnBoot.py" />
+        <option value="$PROJECT_DIR$/CellCycle/MemoryModule/MemoryManagement.py" />
+        <option value="$PROJECT_DIR$/CellCycle/ChainModule/DeadReader.py" />
+        <option value="$PROJECT_DIR$/CellCycle/ChainModule/Printer.py" />
+        <option value="$PROJECT_DIR$/start.py" />
+        <option value="$PROJECT_DIR$/doc/tests/list-communication/logFile.txt" />
+        <option value="$PROJECT_DIR$/CellCycle/ChainModule/Const.py" />
+        <option value="$PROJECT_DIR$/CellCycle/ChainModule/ListCommunication.py" />
+        <option value="$PROJECT_DIR$/doc/tests/list-communication/ChannelTest.py" />
+        <option value="$PROJECT_DIR$/doc/tests/list-communication/MessagesTest.py" />
+        <option value="$PROJECT_DIR$/CellCycle/ChainModule/ListThread.py" />
       </list>
     </option>
   </component>
@@ -265,6 +257,46 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="doc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CellsCycle" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CellsCycle" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="doc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tests" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CellsCycle" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="CellsCycle" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="doc" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tests" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="list-communication" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -417,7 +449,7 @@
       <recent name="$PROJECT_DIR$/CellCycle/ListThread" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.firstLaunchAWS">
+  <component name="RunManager" selected="Python.MessagesTest">
     <configuration default="false" name="start" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -431,40 +463,6 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="CellsCycle" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/start.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <method />
-    </configuration>
-    <configuration default="false" name="suscriber_trial" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/CellCycle/ListThread" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="CellsCycle" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/CellCycle/ListThread/suscriber_trial.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <method />
-    </configuration>
-    <configuration default="false" name="publisher_trial" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/CellCycle/ListThread" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="CellsCycle" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/CellCycle/ListThread/publisher_trial.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
@@ -499,6 +497,40 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="CellsCycle" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/firstLaunchAWS.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="ChannelTest" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/doc/tests/list-communication" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="CellsCycle" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/doc/tests/list-communication/ChannelTest.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="MessagesTest" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/doc/tests/list-communication" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="CellsCycle" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/doc/tests/list-communication/MessagesTest.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
@@ -627,18 +659,18 @@
     </configuration>
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Python.start" />
-      <item index="1" class="java.lang.String" itemvalue="Python.suscriber_trial" />
-      <item index="2" class="java.lang.String" itemvalue="Python.publisher_trial" />
-      <item index="3" class="java.lang.String" itemvalue="Python.Generator" />
-      <item index="4" class="java.lang.String" itemvalue="Python.firstLaunchAWS" />
+      <item index="1" class="java.lang.String" itemvalue="Python.Generator" />
+      <item index="2" class="java.lang.String" itemvalue="Python.firstLaunchAWS" />
+      <item index="3" class="java.lang.String" itemvalue="Python.ChannelTest" />
+      <item index="4" class="java.lang.String" itemvalue="Python.MessagesTest" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.firstLaunchAWS" />
-        <item index="1" class="java.lang.String" itemvalue="Python.Generator" />
-        <item index="2" class="java.lang.String" itemvalue="Python.start" />
-        <item index="3" class="java.lang.String" itemvalue="Python.suscriber_trial" />
-        <item index="4" class="java.lang.String" itemvalue="Python.publisher_trial" />
+        <item index="0" class="java.lang.String" itemvalue="Python.MessagesTest" />
+        <item index="1" class="java.lang.String" itemvalue="Python.ChannelTest" />
+        <item index="2" class="java.lang.String" itemvalue="Python.firstLaunchAWS" />
+        <item index="3" class="java.lang.String" itemvalue="Python.Generator" />
+        <item index="4" class="java.lang.String" itemvalue="Python.start" />
       </list>
     </recent_temporary>
   </component>
@@ -899,7 +931,13 @@
       <option name="project" value="LOCAL" />
       <updated>1478433663781</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="Support for generator within startOnBoot&#10;">
+      <created>1478436184229</created>
+      <option name="number" value="00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1478436184229</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -913,7 +951,7 @@
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32854864" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32854864" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3014354" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.40829346" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24981412" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -958,7 +996,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Condition variable to prevent an unuseful list" />
     <MESSAGE value="Removed condition , it's better to set a reader timeout greater than the writer timeout" />
     <MESSAGE value="Set condition variables alla around the code but it's difficult to synchronize reader and writer with a circular structure" />
     <MESSAGE value="Changed structure with threading.Event" />
@@ -983,29 +1020,19 @@
     <MESSAGE value="Added notify_scale_up and notify_scale_down" />
     <MESSAGE value="Changed Generator.py, now it accepts a json string as input parameter" />
     <MESSAGE value="Working instances initialization" />
-    <option name="LAST_COMMIT_MESSAGE" value="Working instances initialization" />
+    <MESSAGE value="Support for generator within startOnBoot&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Support for generator within startOnBoot&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="2" />
+      <breakpoints-dialog>
+        <breakpoints-dialog />
+      </breakpoints-dialog>
+      <option name="time" value="3" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/ListThread.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/ReadingThread.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/WritingThread.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1185,13 +1212,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/WritingThread.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3">
-          <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/CellCycle/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1227,13 +1247,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/ProdCons.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.24">
-          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/CellCycle/ExtraCycleInterface/ExtraCycle.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1241,17 +1254,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/Printer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="79" column="4" selection-start-line="79" selection-start-column="4" selection-end-line="79" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/CellCycle/Settings/SettingsManager.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.36">
           <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1259,60 +1266,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.93">
           <caret line="37" column="0" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/ChainList.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="36" column="19" selection-start-line="36" selection-start-column="17" selection-end-line="36" selection-end-column="19" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/ListCommunication.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="154" column="17" selection-start-line="154" selection-start-column="13" selection-end-line="154" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/ChainFlow.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#19#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/Const.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/ListThread.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding>
-            <element signature="e#24#40#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CellCycle/MemoryModule/Cache.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#34#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1322,52 +1276,6 @@
           <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
           <folding>
             <element signature="e#62#73#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="5" column="18" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/DeadWriter.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7007299">
-          <caret line="25" column="84" selection-start-line="25" selection-start-column="76" selection-end-line="25" selection-end-column="84" />
-          <folding>
-            <element signature="e#24#55#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CellCycle/MemoryModule/MemoryManagement.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="5" column="28" selection-start-line="5" selection-start-column="28" selection-end-line="5" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/Generator.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="61" column="0" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
-          <folding>
-            <element signature="e#24#51#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/start.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-          <folding>
-            <element signature="e#23#85#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1388,22 +1296,162 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/DeadReader.py">
+    <entry file="file://$PROJECT_DIR$/CellCycle/MemoryModule/MemoryManagement.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.62530416">
+          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
           <folding>
-            <element signature="e#24#59#0" expanded="true" />
+            <element signature="e#0#12#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CellCycle/MemoryModule/Cache.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.13138686">
+          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#34#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/startOnBoot.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.17518248">
+        <state vertical-scroll-proportion="0.08759124">
           <caret line="4" column="0" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/ChainFlow.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/ChainList.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.04379562">
+          <caret line="36" column="19" selection-start-line="36" selection-start-column="17" selection-end-line="36" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/Generator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2189781">
+          <caret line="5" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
           <folding>
-            <element signature="e#31#41#0" expanded="true" />
+            <element signature="e#24#51#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/Printer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.08759124">
+          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/DeadReader.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="38" column="0" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+          <folding>
+            <element signature="e#24#59#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2189781">
+          <caret line="5" column="18" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/start.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding>
+            <element signature="e#23#85#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/Const.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="46" column="0" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/ListCommunication.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="188" column="0" selection-start-line="188" selection-start-column="0" selection-end-line="188" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/ProdCons.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
+          <folding>
+            <element signature="e#24#36#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/WritingThread.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.30232558">
+          <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/tests/list-communication/ChannelTest.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="2" column="34" selection-start-line="2" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/DeadWriter.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="239" column="53" selection-start-line="239" selection-start-column="53" selection-end-line="239" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/ListThread.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/tests/list-communication/MessagesTest.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.1627907">
+          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#61#0" expanded="true" />
           </folding>
         </state>
       </provider>

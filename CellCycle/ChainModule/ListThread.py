@@ -23,7 +23,12 @@ class ListThread (threading.Thread):
         self.busy_add = False
 
         self.node_list = ChainList()
+        # TODO this is for just 5 nodes
         self.add_in_list(myself, master, slave)
+        self.add_in_list(master, master_of_master, myself)
+        self.add_in_list(slave, myself, slave_of_slave)
+        self.add_in_list(slave_of_slave, slave, master_of_master)
+        self.add_in_list(master_of_master, slave_of_slave, master)
 
         self.list_communication = None
 
@@ -79,13 +84,14 @@ class ListThread (threading.Thread):
     def notify_scale_up(self):
         new_id = compute_son_id(master_id=self.myself.id, slave_id=self.slave.id)
         new_key = compute_son_key()
-        self.make_add_node_msg(target_id=new_id, target_key=new_key, source_flag=INT, target_slave_id=self.myself.id)
+        return self.make_add_node_msg(target_id=new_id, target_key=new_key, source_flag=INT,
+                                      target_slave_id=self.myself.id)
 
     # This function is used by Memory Management Process to notify a new scale up
     # It is just a wrapper
     def notify_scale_down(self):
-        self.make_dead_node_msg(target_id=self.myself.id, target_key=self.myself.key, source_flag=INT,
-                                target_master_id=self.master.id, target_addr=self.myself.ip)
+        return self.make_dead_node_msg(target_id=self.myself.id, target_key=self.myself.key,
+                                       source_flag=INT, target_master_id=self.master.id, target_addr=self.myself.ip)
 
     def make_alive_node_msg(self, target_id, target_master_id, source_flag=INT):
         return self.make_node_msg(source_flag, priority=ALIVE, target_id=target_id, target_addr='',

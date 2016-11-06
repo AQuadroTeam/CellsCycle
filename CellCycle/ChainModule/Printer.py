@@ -1,6 +1,4 @@
 #! /usr/bin/env python
-from ListCommunication import Address
-
 # Just a few methods to print better
 
 SOMETHING_WENT_WRONG = 'Error sending the message, something went wrong'
@@ -122,10 +120,4 @@ def this_is_the_thread_in_action(thread_in_action):
 def dictionary_to_string(dictionary):
     return ''.join('{}{}'.format(key, val) for key, val in dictionary.items())
 
-
-def from_complete_address_to_ip_port(complete_address):
-    address_split = complete_address.split(':')
-    ip = address_split[0]
-    port = address_split[1]
-    return Address(ip, port)
 

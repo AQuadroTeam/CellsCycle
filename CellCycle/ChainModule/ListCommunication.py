@@ -1,8 +1,7 @@
 import zmq
 import time
-from zmq import Again
 from Printer import *
-from Const import TRIES, TRY_TIMEOUT, OK
+from Const import TRIES, TRY_TIMEOUT, OK, TRACKER_INFINITE_TIMEOUT
 
 BACKLOG = 5
 MAX_BUFF = 1024
@@ -119,7 +118,7 @@ class ExternalChannel(ListCommunication):
         while tries < TRIES:
             try:
                 self.list_communication_channel.send(data)
-            except Again:
+            except zmq.Again:
                 time.sleep(TRY_TIMEOUT)
 
     def external_channel_subscribe(self, addr=DEFAULT_ADDR, port=None):
@@ -140,6 +139,7 @@ class InternalChannel(ListCommunication):
 
     def __init__(self, addr="*", port="8080", logger=None):
         ListCommunication.__init__(self, addr=addr, port=port, logger=logger)
+        self.sync_address = Address(addr, port).complete_address
 
     # After generating an external channel we need an internal channel to receive internal messages
     def generate_internal_channel_server_side(self):
@@ -158,24 +158,38 @@ class InternalChannel(ListCommunication):
             try:
                 msg = self.list_communication_channel.recv(zmq.DONTWAIT)
                 return msg
-            except Again:
-                raise Again
+            except zmq.Again:
+                raise zmq.Again
         else:
+            self.logger.debug('waiting for a request')
             msg = self.list_communication_channel.recv()
             return msg
 
-    def reply_to_int_message(self, msg='ACK'):
+    def reply_to_int_message(self, msg=b'ACK'):
         self.send_int_message(msg=msg)
 
-    def send_int_message(self, msg=b'ALIVE'):
-        stop = False
+    def send_int_message(self, msg=b'ALIVE', timeout=TRACKER_INFINITE_TIMEOUT):
 
-        while not stop:
-            try:
-                self.list_communication_channel.send(msg)
-                stop = True
-            except Again:
-                time.sleep(TRY_TIMEOUT)
+        try:
+            self.logger.debug('sending message')
+            tracker_object = self.list_communication_channel.send(msg, track=True, copy=False)
+            # wait forever
+            tracker_object.wait(timeout)
+            self.logger.debug('ok with the message')
+        except zmq.error.NotDone:
+            self.logger.debug('Something went wrong with that message')
+            time.sleep(TRY_TIMEOUT)
+            self.logger.debug('Sleep finished')
+            # self.list_communication_channel.close()
+        except zmq.ZMQError as a:
+            self.logger.debug(a.strerror)
+            self.context.destroy()
+            self.context = zmq.Context()
+            self.generate_internal_channel_client_side()
+
+    # used when it's the first time to sync
+    def send_first_internal_channel_message(self, message):
+        self.send_int_message(msg=message, timeout=TRACKER_INFINITE_TIMEOUT)
 
     def send_internal_message_client_side(self, message):
         self.send_int_message(message)
@@ -206,6 +220,13 @@ class Address:
         self.ip = ip
         self.port = port
         self.complete_address = 'tcp://{}:{}'.format(self.ip, self.port)
+
+
+def from_complete_address_to_ip_port(complete_address):
+    address_split = complete_address.split(':')
+    ip = address_split[0]
+    port = address_split[1]
+    return Address(ip, port)
 
 '''
 context = zmq.Context()

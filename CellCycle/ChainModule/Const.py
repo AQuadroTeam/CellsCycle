@@ -42,6 +42,8 @@ EXT_PORT = '5194'
 # Try a number of times, then stop sending message
 TRIES = 3
 TRY_TIMEOUT = 1
+TRACKER_TIMEOUT = 1
+TRACKER_INFINITE_TIMEOUT = -1
 
 # Writer Timeout
 WRITER_TIMEOUT = 0.001
