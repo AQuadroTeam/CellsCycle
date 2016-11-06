@@ -56,6 +56,10 @@ class ListThreadTest(ListThread):
         # Needs a change on find_memory_key
         # self.query_test(22)
 
+        restored_message = to_external_message(version=1, message=restored_message)
+        self.flow_test(dead_message, restored_message)
+        self.inverted_flow_test(restored_message, restored_message)
+
     def dead_test(self, msg):
         self.logger.debug('###### DEAD TEST ########')
         self.logger.debug(is_dead_message(msg))
@@ -87,6 +91,14 @@ class ListThreadTest(ListThread):
     def query_test(self, key_to_find):
         self.logger.debug('###### KEY TO FIND TEST ########')
         self.logger.debug(self.get_ip_from_key(key_to_find=key_to_find).target.id == '2')
+
+    def flow_test(self, first_message, other_message):
+        self.logger.debug('###### FLOW TEST ########')
+        self.logger.debug(version_random_priority_check(first_message, other_message))
+
+    def inverted_flow_test(self, first_message, other_message):
+        self.logger.debug('###### INVERTED FLOW TEST ########')
+        self.logger.debug(not version_random_priority_check(first_message, other_message))
 
 CONFIG_PATH = "/home/alessandro/git/CellsCycle/config.txt"
 

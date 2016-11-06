@@ -32,6 +32,10 @@ def client_behavior(settings, logger):
 
     logger.debug("msg : " + msg)
 
+    external_channel = ExternalChannel(addr="127.0.0.1", port=settings.getExtPort(), logger=logger)
+
+
+
     logger.debug("try_to_connect without server TEST COMPLETED")
 
 
@@ -47,6 +51,8 @@ def server_behavior(settings, logger):
         internal_channel.reply_to_int_message(OK)
     except ZMQError as e:
         logger.debug(e)
+
+    external_channel = ExternalChannel(addr="127.0.0.1", port=settings.getExtPort(), logger=logger)
 
     logger.debug("try_to_connect without server TEST COMPLETED")
 
