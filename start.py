@@ -3,6 +3,7 @@ from CellCycle.Settings.SettingsManager import SettingsManager
 from CellCycle.Logger.Logger import LoggerHelper
 from CellCycle.MemoryModule.MemoryManagement import startMemoryTask, getRequest, setRequest, killProcess, transferRequest
 from CellCycle.ExtraCycleInterface.ExtraCycle import startExtraCycleListeners
+from CellCycle.ChainModule.Generator import Generator
 
 
 def loadSettingsAndLogger():
@@ -15,6 +16,7 @@ def loadSettingsAndLogger():
     logger = LoggerHelper(settings).logger
     return settings, logger
 
+
 def startApplication(startParams):
     settings, logger = loadSettingsAndLogger()
     
@@ -25,6 +27,10 @@ def startApplication(startParams):
     url_worker_slave, url_set_slave, url_setPort_slave, url_getPort_slave = startMemoryTask(settings, logger, False)
 
     startExtraCycleListeners(settings, logger)
+
+    # Let's start the list communication part
+    generator = Generator(logger=logger, settings=settings, json_arg=startParams)
+    generator.create_process_environment()
 
 
 def exampleFillAndTransfer(settings, logger):
