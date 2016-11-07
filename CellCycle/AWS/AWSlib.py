@@ -20,7 +20,7 @@ def startInstanceAWS(settings, logger, params, privateIp=None):
     "cd /home/ubuntu/git/CellsCycle/\n" \
     "git checkout "+branch+"\n" \
     "git pull origin "+branch+"\n" \
-    "/usr/bin/python "+ startFile + " '" + serializedParams + "'\n"
+    "/usr/bin/python "+ startFile + " '" + serializedParams + "' " + settings.getAwsProfileName() + " " + settings.getAwsKeyName() + "\n"
 
     logger.debug("id image: " + imageIdCellCycle)
     if(privateIp != None):

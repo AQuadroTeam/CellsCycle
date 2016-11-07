@@ -6,19 +6,21 @@ from CellCycle.ExtraCycleInterface.ExtraCycle import startExtraCycleListeners
 from threading import Thread
 from CellCycle.AWS import AWSlib
 
-def loadSettingsAndLogger():
+def loadSettingsAndLogger(currentAWSProfile):
     SETTINGSFILEPATH = "./config.txt"
 
     # read settings from config.txt
     settings = SettingsManager().readConfigurationFromFile(SETTINGSFILEPATH)
-
+    if(currentAWSProfile != None):
+        settings.setAwsProfileName(currentProfile["profile_name"])
+        settings.setAwsProfileName(currentProfile["key_pair"])
     # setup logger. to write messages: logger.warning("hello warning"), logger.exception(""), logger.debug("Hi,I'm a bug")
     logger = LoggerHelper(settings).logger
     return settings, logger
 
-def startApplication(startParams):
-    settings, logger = loadSettingsAndLogger()
-    
+def startApplication(startParams, currentAWSProfile):
+    settings, logger = loadSettingsAndLogger(currentAWSProfile)
+
     logger.debug("Starting with params: " + str(startParams))
 
     # start memory task. there's a thread for set/control requests, and n threads for get. getterNumber is a setting
@@ -64,4 +66,8 @@ def exampleFillAndTransfer(settings, logger):
     killProcess(url_setPort_slave)
 
 if __name__ == "__main__":
-    startApplication("Starting from console")
+    import sys
+    currentProfile = {}
+    currentProfile["profile_name"]  = sys.argv[1]
+    currentProfile["key_pair"]  = sys.argv[2]
+    startApplication("Starting from console", currentProfile)

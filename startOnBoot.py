@@ -2,7 +2,10 @@
 import sys
 from json import loads
 serializedParams = sys.argv[1]
+currentProfile = {}
+currentProfile["profile_name"] = sys.argv[2]
+currentProfile["key_pair"] =  sys.argv[3]
 print serializedParams
 params = loads(serializedParams)
 import start
-start.startApplication(params)
+start.startApplication(params, currentProfile)
