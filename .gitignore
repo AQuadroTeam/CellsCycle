@@ -6,6 +6,9 @@ __pycache__/
 # C extensions
 *.so
 
+# AWS Keys
+*.pem
+
 # Distribution / packaging
 .Python
 env/
@@ -14,6 +17,7 @@ develop-eggs/
 dist/
 downloads/
 eggs/
+.idea/
 .eggs/
 lib64/
 parts/
