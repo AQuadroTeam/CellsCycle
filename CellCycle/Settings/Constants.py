@@ -13,3 +13,22 @@ MASTERSETPORT = "MasterSetPort"
 MASTERGETPORT = "MasterGetPort"
 SLAVESETPORT = "SlaveSetPort"
 SLAVEGETPORT = "SlaveGetPort"
+
+# external settings
+CLIENTENTRYPOINTPORT = "ClientEntrypointPort"
+SERVICETHREADNUMBER = "ServiceThreadNumber"
+
+# metrics
+SCALEPERIOD = "ScalePeriod"
+GETSCALEUPLEVEL = "GetScaleUpLevel"
+GETSCALEDOWNLEVEL = "GetScaleDownLevel"
+SETSCALEUPLEVEL = "SetScaleUpLevel"
+SETSCALEDOWNLEVEL = "SetScaleDownLevel"
+
+# AWS
+AWSIMAGEID = "AwsImageId"
+AWSSECURITYGROUP = "AwsSecurityGroup"
+AWSKEYNAME = "AwsKeyName"
+GITBRANCH = "GitBranch"
+STARTFILE = "StartFileRelativePath"
+AWSPROFILENAME = "AwsProfileName"
