@@ -1,10 +1,8 @@
 #! /usr/bin/env python
 from CellCycle.Settings.SettingsManager import SettingsManager
 from CellCycle.Logger.Logger import LoggerHelper
-from CellCycle.MemoryModule.MemoryManagement import startMemoryTask, Command, getRequest, setRequest, killProcess, transferRequest
+from CellCycle.MemoryModule.MemoryManagement import startMemoryTask, getRequest, setRequest, killProcess, transferRequest
 from CellCycle.ExtraCycleInterface.ExtraCycle import startExtraCycleListeners
-from threading import Thread
-from CellCycle.AWS import AWSlib
 
 def loadSettingsAndLogger(currentAWSProfile):
     SETTINGSFILEPATH = "./config.txt"
@@ -26,7 +24,6 @@ def startApplication(startParams, currentAWSProfile):
     # start memory task. there's a thread for set/control requests, and n threads for get. getterNumber is a setting
     url_worker, url_set, url_setPort, url_getPort = startMemoryTask(settings, logger, True)
     url_worker_slave, url_set_slave, url_setPort_slave, url_getPort_slave = startMemoryTask(settings, logger, False)
-
     startExtraCycleListeners(settings, logger)
 
 def exampleFillAndTransfer(settings, logger):
