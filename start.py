@@ -5,27 +5,26 @@ from CellCycle.MemoryModule.MemoryManagement import startMemoryTask, getRequest,
 from CellCycle.ExtraCycleInterface.ExtraCycle import startExtraCycleListeners
 from CellCycle.ChainModule.Generator import Generator
 
-
-def loadSettingsAndLogger(settingsFilePath="./config.txt"):
-    SETTINGSFILEPATH = settingsFilePath
+def loadSettingsAndLogger(currentAWSProfile):
+    SETTINGSFILEPATH = "./config.txt"
 
     # read settings from config.txt
     settings = SettingsManager().readConfigurationFromFile(SETTINGSFILEPATH)
-
+    if(currentAWSProfile != None):
+        settings.setAwsProfileName(currentAWSProfile["profile_name"])
+        settings.setAwsKeyName(currentAWSProfile["key_pair"])
     # setup logger. to write messages: logger.warning("hello warning"), logger.exception(""), logger.debug("Hi,I'm a bug")
     logger = LoggerHelper(settings).logger
     return settings, logger
 
+def startApplication(startParams, currentAWSProfile):
+    settings, logger = loadSettingsAndLogger(currentAWSProfile)
 
-def startApplication(startParams):
-    settings, logger = loadSettingsAndLogger()
-    
     logger.debug("Starting with params: " + str(startParams))
 
     # start memory task. there's a thread for set/control requests, and n threads for get. getterNumber is a setting
     url_worker, url_set, url_setPort, url_getPort = startMemoryTask(settings, logger, True)
     url_worker_slave, url_set_slave, url_setPort_slave, url_getPort_slave = startMemoryTask(settings, logger, False)
-
     startExtraCycleListeners(settings, logger)
 
     # Let's start the list communication part
@@ -70,4 +69,8 @@ def exampleFillAndTransfer(settings, logger):
     killProcess(url_setPort_slave)
 
 if __name__ == "__main__":
-    startApplication("Starting from console")
+    import sys
+    currentProfile = {}
+    currentProfile["profile_name"]  = sys.argv[1]
+    currentProfile["key_pair"]  = sys.argv[2]
+    startApplication("Starting from console", currentProfile)

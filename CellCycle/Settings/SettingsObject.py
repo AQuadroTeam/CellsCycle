@@ -91,12 +91,16 @@ class SettingsObject(object):
         return str(self.configDict[Constants.AWSSECURITYGROUP][0])
     def getAwsKeyName(self):
         return str(self.configDict[Constants.AWSKEYNAME][0])
+    def setAwsKeyName(self,key):
+        self.configDict[Constants.AWSKEYNAME][0] = str(key)
     def getGitBranch(self):
         return str(self.configDict[Constants.GITBRANCH][0])
     def getAwsStartFile(self):
         return str(self.configDict[Constants.STARTFILE][0])
     def getAwsProfileName(self):
         return str(self.configDict[Constants.AWSPROFILENAME][0])
+    def setAwsProfileName(self, name):
+        self.configDict[Constants.AWSPROFILENAME][0] = str(name)
     # end of aws settings
 
     def __str__(self):
