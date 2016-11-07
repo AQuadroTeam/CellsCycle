@@ -119,5 +119,3 @@ def this_is_the_thread_in_action(thread_in_action):
 
 def dictionary_to_string(dictionary):
     return ''.join('{}{}'.format(key, val) for key, val in dictionary.items())
-
-

@@ -60,7 +60,10 @@ def launchApplicationAWS(optionals):
     from start import loadSettingsAndLogger
 
     # needed for aws launch
-    settings, logger = loadSettingsAndLogger()
+    currentProfile = {}
+    currentProfile["profile_name"] = optionals[0]
+    currentProfile["key_pair"] = optionals[1]
+    settings, logger = loadSettingsAndLogger(currentProfile)
 
     # every instance has an element
     params_list = create_instances_parameters()
