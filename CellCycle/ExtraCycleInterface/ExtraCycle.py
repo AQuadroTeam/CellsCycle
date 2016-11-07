@@ -62,7 +62,7 @@ def _manageRequest(logger, settings, socket, command, client):
     setList = [ADD , SET]
     QUIT = "QUIT"
     TRANSFER = "TRANSFER"
-    AWS = "AWS"
+    CELLCYCLE = "CELLCYCLE"
 
     if(command[0].upper() == GET):
         if(command[1] != ""):
@@ -110,19 +110,20 @@ def _manageRequest(logger, settings, socket, command, client):
     elif(command[0].upper() == QUIT):
         _quitHandler(settings, socket, client)
         return
-    elif(command[0].upper() == AWS):
+    elif(command[0].upper() == CELLCYCLE):
         if (len(command) < 2):
             _sendGuide(socket, client)
             return
         KILLYOURSELF = "KILLYOURSELF"
         NEWCELL = "NEWCELL"
-        STOP = "STOP"
-        TERMINATE = "TERMINATE"
+        LOG = "LOG"
 
         operation = command[1]
         params = " ".join(command[2:])
 
         if(operation.upper() == KILLYOURSELF):
+            TERMINATE = "TERMINATE"
+            STOP = "STOP"
             logger.debug("Hello darkness my old friend...")
             if(params.upper() == STOP):
                 _awsKillYourselfStopHandler(settings, logger, socket, client)
@@ -136,6 +137,9 @@ def _manageRequest(logger, settings, socket, command, client):
         elif(operation.upper() == NEWCELL):
             logger.debug("I'm creating a new node on AWS with params: " + str(params))
             _awsCreateCellHandler(settings,logger, socket, client,  params )
+            return
+        elif(operation.upper() == LOG):
+            _log(settings, logger, socket, client)
             return
 
         else:
@@ -159,7 +163,10 @@ def _sendGuide(socket, client):
         "-ADD (ADD <key> <flag> <exp> <byte> <data>)\n"\
         "-GET (SET <key> <data>)\n"\
         "-DELETE (DELETE <key> <data>)\n"\
-        "-AWS (AWS KILLYOURSELF <TERMINATE or STOP>) or (AWS NEWCELL <params>)\n"\
+        "-CELLCYCLE \n"\
+        "\tKILLYOURSELF <TERMINATE or STOP>\n"\
+        "\tNEWCELL <params>\n"\
+        "\tLOG\n"\
         "\nBYE\r\n"
     _send(socket, client, guide)
 
@@ -217,6 +224,10 @@ def _transferHandler(settings, socket, client):
 def _awsCreateCellHandler(settings,logger,  socket, client,  params ):
     _send(socket, client, "SENDING REQUEST TO AMAZON\r\n")
     startInstanceAWS(settings, logger, params)
+
+def _log(settings,logger,  socket, client):
+    from CellCycle.Logger.Logger import getAllLog
+    _send(socket, client, str(getAllLog(settings))+"\nEND OF LOG\r\n")
 
 def _awsKillYourselfStopHandler(settings,logger, socket, client):
     _send(socket, client, "HELLO DARKNESS MY OLD FRIEND...\r\n")
