@@ -20,10 +20,10 @@ def startInstanceAWS(settings, logger, params, privateIp=None):
     userData = "#!/bin/bash\n" \
     "sudo cp /home/ubuntu/.aws /root/ -r\n" \
     "cd /home/ubuntu/git/CellsCycle/\n" \
-    "sudo echo > "+settings.getLogFile()+"\n" \
-    "sudo git checkout "+branch+"  > "+settings.getLogFile()+"\n" \
-    "sudo git fetch --all >> "+settings.getLogFile()+"\n" \
-    "sudo git reset --hard origin/" + branch +" >> "+settings.getLogFile()+"\n" \
+    "sudo echo BEGIN OF LOGFILE > "+settings.getLogFile()+"\n" \
+    "sudo git checkout "+branch+"  >> "+settings.getLogFile()+" 2>&1\n" \
+    "sudo git fetch --all >> "+settings.getLogFile()+" 2>&1\n" \
+    "sudo git reset --hard origin/" + branch +" >> "+settings.getLogFile()+" 2>&1\n" \
     "sudo /usr/bin/python "+ startFile + " '" + serializedParams + "' '" + serializedSettings + "'\n"
 
     logger.debug("id image: " + imageIdCellCycle)

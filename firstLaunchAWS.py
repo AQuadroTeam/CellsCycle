@@ -55,7 +55,7 @@ if __name__ == "__main__":
         currentProfile = {}
         currentProfile["profile_name"]  = sys.argv[1]
         currentProfile["key_pair"]  = sys.argv[2]
-        currentProfile["branch"]  = sys.argv[2]
+        currentProfile["branch"]  = sys.argv[3]
         settings = loadSettings(currentProfile)
 
     launchApplicationAWS(settings)
