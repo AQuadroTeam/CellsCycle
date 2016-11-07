@@ -2,7 +2,9 @@ import boto3
 
 def startInstanceAWS(settings, logger, params, privateIp=None):
     logger.debug("contact amazon")
-    ec2 = boto3.resource('ec2')
+
+    awsProfileName = settings.getAwsProfileName()
+    ec2 = boto3.Session(profile_name=awsProfileName).resource('ec2')
 
     imageIdCellCycle = settings.getAwsImageId()
     keyName = settings.getAwsKeyName()

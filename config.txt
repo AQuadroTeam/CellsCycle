@@ -21,3 +21,4 @@ GitBranch master
 StartFileRelativePath startOnBoot.py
 IntPort 5557
 ExtPort 5558
+AwsProfileName default
