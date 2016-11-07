@@ -45,10 +45,12 @@ def stopThisInstanceAWS(settings, logger):
 
 def terminateInstanceAWS(settings, logger, instanceID):
     logger.debug("contact amazon to terminate : " + instanceID)
-    ec2 = boto3.resource('ec2')
+    awsProfileName = settings.getAwsProfileName()
+    ec2 = boto3.Session(profile_name=awsProfileName).resource('ec2')
     ec2.instances.filter(InstanceIds=[instanceID]).terminate()
 
 def stopInstanceAWS(settings, logger, instanceID):
     logger.debug("contact amazon to stop : " + instanceID)
-    ec2 = boto3.resource('ec2')
+    awsProfileName = settings.getAwsProfileName()
+    ec2 = boto3.Session(profile_name=awsProfileName).resource('ec2')
     ec2.instances.filter(InstanceIds=[instanceID]).stop()
