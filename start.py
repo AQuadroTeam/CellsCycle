@@ -11,7 +11,7 @@ def loadSettingsAndLogger(currentAWSProfile):
     settings = SettingsManager().readConfigurationFromFile(SETTINGSFILEPATH)
     if(currentAWSProfile != None):
         settings.setAwsProfileName(currentProfile["profile_name"])
-        settings.setAwsProfileName(currentProfile["key_pair"])
+        settings.setAwsKeyName(currentProfile["key_pair"])
     # setup logger. to write messages: logger.warning("hello warning"), logger.exception(""), logger.debug("Hi,I'm a bug")
     logger = LoggerHelper(settings).logger
     return settings, logger
