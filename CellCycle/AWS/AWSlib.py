@@ -20,9 +20,9 @@ def startInstanceAWS(settings, logger, params, privateIp=None):
     userData = "#!/bin/bash\n" \
     "sudo cp /home/ubuntu/.aws /root/ -r\n" \
     "cd /home/ubuntu/git/CellsCycle/\n" \
-    "git checkout "+branch+"\n" \
-    "git pull origin "+branch+"\n" \
-    "/usr/bin/python "+ startFile + " '" + serializedParams + "' '" + serializedSettings + "'\n"
+    "sudo git checkout "+branch+"\n" \
+    "sudo git pull origin "+branch+"\n" \
+    "sudo /usr/bin/python "+ startFile + " '" + serializedParams + "' '" + serializedSettings + "'\n"
 
     logger.debug("id image: " + imageIdCellCycle)
     if(privateIp != None):
