@@ -19,4 +19,4 @@ AwsSecurityGroup SSHToAll
 AwsKeyName CellCycleBot
 GitBranch master
 StartFileRelativePath startOnBoot.py
-AwsProfileName andrea_gennusa
+AwsProfileName alessandro_fazio
