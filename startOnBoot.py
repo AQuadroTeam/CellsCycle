@@ -1,11 +1,11 @@
 #!/home/ubuntu/git/CellsCycle/
 import sys
 from json import loads
+from CellCycle.Settings.SettingsObject import SettingsObject
 serializedParams = sys.argv[1]
-currentProfile = {}
-currentProfile["profile_name"] = sys.argv[2]
-currentProfile["key_pair"] =  sys.argv[3]
-print serializedParams
+serializedSettings = sys.argv[2]
+
 params = loads(serializedParams)
+settings = SettingsObject(deserialize = serializedSettings)
 import start
-start.startApplication(params, currentProfile)
+start.startApplication(params, settings)

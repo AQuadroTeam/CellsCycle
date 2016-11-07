@@ -12,15 +12,17 @@ def startInstanceAWS(settings, logger, params, privateIp=None):
     securityGroup = settings.getAwsSecurityGroup()
     startFile = settings.getAwsStartFile()
 
+
     from json import dumps
     serializedParams = dumps(params)
+    serializedSettings = settings.serialize()
 
     userData = "#!/bin/bash\n" \
     "sudo cp /home/ubuntu/.aws /root/ -r\n" \
     "cd /home/ubuntu/git/CellsCycle/\n" \
     "git checkout "+branch+"\n" \
     "git pull origin "+branch+"\n" \
-    "/usr/bin/python "+ startFile + " '" + serializedParams + "' " + settings.getAwsProfileName() + " " + settings.getAwsKeyName() + "\n"
+    "/usr/bin/python "+ startFile + " '" + serializedParams + "' '" + serializedSettings + "'\n"
 
     logger.debug("id image: " + imageIdCellCycle)
     if(privateIp != None):

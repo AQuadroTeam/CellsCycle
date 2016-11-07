@@ -16,8 +16,16 @@ def manualSettings(logFile=None, verbose=False, preallocatedPool=100, slabSize=1
 
 class SettingsObject(object):
 
-    def __init__(self, dict):
+    def __init__(self, dict = None, deserialize=None):
         self.configDict = dict
+        if(deserialize != None):
+            import json
+            self.configDict = json.loads(deserialize)
+
+    def serialize(self):
+        import json
+        return json.dumps(self.configDict)
+
 
     # log settings
     def getLogFile(self):
@@ -86,6 +94,8 @@ class SettingsObject(object):
         self.configDict[Constants.AWSKEYNAME][0] = str(key)
     def getGitBranch(self):
         return str(self.configDict[Constants.GITBRANCH][0])
+    def setGitBranch(self, branch):
+        self.configDict[Constants.GITBRANCH][0] = branch
     def getAwsStartFile(self):
         return str(self.configDict[Constants.STARTFILE][0])
     def getAwsProfileName(self):
