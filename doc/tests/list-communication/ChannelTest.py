@@ -1,7 +1,7 @@
 # This is a test for Internal and External Channels
 from CellCycle.ChainModule.ListCommunication import *
 from start import loadSettingsAndLogger
-from zmq import ZMQError, Again
+from zmq import ZMQError
 from threading import Thread
 from time import sleep
 from CellCycle.ChainModule.Message import Message

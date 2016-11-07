@@ -3,10 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="a1c89ab2-e673-4d5e-b868-5d8c5ef9cde2" name="Default" comment="Added PUB/SUB in Channel Test">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CellCycle/AWS/AWSlib.py" afterPath="$PROJECT_DIR$/CellCycle/AWS/AWSlib.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CellCycle/Settings/Constants.py" afterPath="$PROJECT_DIR$/CellCycle/Settings/Constants.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CellCycle/Settings/SettingsObject.py" afterPath="$PROJECT_DIR$/CellCycle/Settings/SettingsObject.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CellCycle/ChainModule/DeadWriter.py" afterPath="$PROJECT_DIR$/CellCycle/ChainModule/DeadWriter.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config.txt" afterPath="$PROJECT_DIR$/config.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/tests/list-communication/ChannelTest.py" afterPath="$PROJECT_DIR$/doc/tests/list-communication/ChannelTest.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/firstLaunchAWS.py" afterPath="$PROJECT_DIR$/firstLaunchAWS.py" />
     </list>
     <ignored path="CellsCycle.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -43,19 +43,37 @@
         <entry file="file://$PROJECT_DIR$/doc/tests/list-communication/ChannelTest.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="59" column="47" selection-start-line="59" selection-start-column="47" selection-end-line="59" selection-end-column="47" />
-              <folding>
-                <element signature="e#52#105#0" expanded="true" />
-              </folding>
+              <caret line="3" column="24" selection-start-line="3" selection-start-column="24" selection-end-line="3" selection-end-column="24" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="config.txt" pinned="false" current-in-tab="true">
+      <file leaf-file-name="config.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/config.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.66">
-              <caret line="22" column="12" selection-start-line="22" selection-start-column="12" selection-end-line="22" selection-end-column="12" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="23" column="31" selection-start-line="23" selection-start-column="31" selection-end-line="23" selection-end-column="31" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="firstLaunchAWS.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/firstLaunchAWS.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.4857143">
+              <caret line="91" column="0" selection-start-line="91" selection-start-column="0" selection-end-line="91" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AWSlib.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CellCycle/AWS/AWSlib.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="2" column="4" selection-start-line="2" selection-start-column="4" selection-end-line="2" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -65,10 +83,20 @@
         <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/DeadReader.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="77" column="0" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
+              <caret line="143" column="0" selection-start-line="143" selection-start-column="0" selection-end-line="143" selection-end-column="0" />
               <folding>
                 <element signature="e#24#59#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MessagesTest.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/doc/tests/list-communication/MessagesTest.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="15" column="40" selection-start-line="15" selection-start-column="40" selection-end-line="15" selection-end-column="40" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -89,7 +117,7 @@
         <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/DeadWriter.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
+              <caret line="50" column="0" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
               <folding>
                 <element signature="e#24#55#0" expanded="true" />
               </folding>
@@ -150,7 +178,6 @@
         <option value="$PROJECT_DIR$/CellCycle/Settings/Constants.py" />
         <option value="$PROJECT_DIR$/CellCycle/ChainModule/strings.json" />
         <option value="$PROJECT_DIR$/CellCycle/MemoryModule/Cache.py" />
-        <option value="$PROJECT_DIR$/firstLaunchAWS.py" />
         <option value="$PROJECT_DIR$/CellCycle/ChainModule/Generator.py" />
         <option value="$PROJECT_DIR$/startOnBoot.py" />
         <option value="$PROJECT_DIR$/CellCycle/MemoryModule/MemoryManagement.py" />
@@ -163,11 +190,12 @@
         <option value="$PROJECT_DIR$/CellCycle/ChainModule/ListThread.py" />
         <option value="$PROJECT_DIR$/doc/tests/list-communication/MessagesTest.py" />
         <option value="$PROJECT_DIR$/CellCycle/ChainModule/ChainFlow.py" />
-        <option value="$PROJECT_DIR$/CellCycle/ChainModule/DeadWriter.py" />
         <option value="$PROJECT_DIR$/CellCycle/ChainModule/Const.py" />
         <option value="$PROJECT_DIR$/CellCycle/ChainModule/ListCommunication.py" />
-        <option value="$PROJECT_DIR$/doc/tests/list-communication/ChannelTest.py" />
         <option value="$PROJECT_DIR$/config.txt" />
+        <option value="$PROJECT_DIR$/doc/tests/list-communication/ChannelTest.py" />
+        <option value="$PROJECT_DIR$/CellCycle/ChainModule/DeadWriter.py" />
+        <option value="$PROJECT_DIR$/firstLaunchAWS.py" />
       </list>
     </option>
   </component>
@@ -202,8 +230,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -353,7 +381,7 @@
       <recent name="$PROJECT_DIR$/CellCycle/ListThread" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.ChannelTest">
+  <component name="RunManager" selected="Python.firstLaunchAWS">
     <configuration default="false" name="start" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -570,9 +598,9 @@
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.ChannelTest" />
-        <item index="1" class="java.lang.String" itemvalue="Python.MessagesTest" />
-        <item index="2" class="java.lang.String" itemvalue="Python.firstLaunchAWS" />
+        <item index="0" class="java.lang.String" itemvalue="Python.firstLaunchAWS" />
+        <item index="1" class="java.lang.String" itemvalue="Python.ChannelTest" />
+        <item index="2" class="java.lang.String" itemvalue="Python.MessagesTest" />
         <item index="3" class="java.lang.String" itemvalue="Python.Generator" />
         <item index="4" class="java.lang.String" itemvalue="Python.start" />
       </list>
@@ -877,19 +905,19 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32854864" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32854864" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.40063593" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24981412" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39872408" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32854864" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31578946" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32854864" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39872408" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1189,20 +1217,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CellCycle/AWS/AWSlib.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2189781">
-          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/firstLaunchAWS.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="48" column="0" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/CellCycle/MemoryModule/MemoryManagement.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.62530416">
@@ -1280,34 +1294,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/ChainFlow.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="87" column="0" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/doc/tests/list-communication/MessagesTest.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="97" column="0" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/Const.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.6268657">
           <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/DeadWriter.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
-          <folding>
-            <element signature="e#24#55#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1331,30 +1321,70 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/doc/tests/list-communication/MessagesTest.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="15" column="40" selection-start-line="15" selection-start-column="40" selection-end-line="15" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/ChainFlow.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33168316">
+          <caret line="122" column="4" selection-start-line="122" selection-start-column="4" selection-end-line="122" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/DeadWriter.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="50" column="0" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
+          <folding>
+            <element signature="e#24#55#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/DeadReader.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="77" column="0" selection-start-line="77" selection-start-column="0" selection-end-line="77" selection-end-column="0" />
+          <caret line="143" column="0" selection-start-line="143" selection-start-column="0" selection-end-line="143" selection-end-column="0" />
           <folding>
             <element signature="e#24#59#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/doc/tests/list-communication/ChannelTest.py">
+    <entry file="file://$PROJECT_DIR$/config.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="59" column="47" selection-start-line="59" selection-start-column="47" selection-end-line="59" selection-end-column="47" />
-          <folding>
-            <element signature="e#52#105#0" expanded="true" />
-          </folding>
+          <caret line="23" column="31" selection-start-line="23" selection-start-column="31" selection-end-line="23" selection-end-column="31" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config.txt">
+    <entry file="file://$PROJECT_DIR$/CellCycle/AWS/AWSlib.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.66">
-          <caret line="22" column="12" selection-start-line="22" selection-start-column="12" selection-end-line="22" selection-end-column="12" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="2" column="4" selection-start-line="2" selection-start-column="4" selection-end-line="2" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/tests/list-communication/ChannelTest.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="3" column="24" selection-start-line="3" selection-start-column="24" selection-end-line="3" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/firstLaunchAWS.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4857143">
+          <caret line="91" column="0" selection-start-line="91" selection-start-column="0" selection-end-line="91" selection-end-column="0" />
           <folding />
         </state>
       </provider>
