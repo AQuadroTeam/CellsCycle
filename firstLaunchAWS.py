@@ -4,7 +4,10 @@ def launchApplicationAWS(optionals):
     from start import loadSettingsAndLogger
 
     # needed for aws launch
-    settings, logger = loadSettingsAndLogger()
+    currentProfile = {}
+    currentProfile["profile_name"]  = optionals[0]
+    currentProfile["key_pair"]  = optionals[1]
+    settings, logger = loadSettingsAndLogger(currentProfile)
 
     # every instance has an element
     paramsList = []
@@ -17,7 +20,7 @@ def launchApplicationAWS(optionals):
     # 172.31.20.1
     # 172.31.20.2
     # 172.31.20.3
-    
+
     first = {}
     first["prova1"] = "ciao"
     first["prova2"] = "superciao"
