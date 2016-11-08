@@ -18,7 +18,6 @@ class LoggerHelper:
         # this function setups stdout logger and file logger, it's needed!
         self.logger = self.setupLogger()
 
-
     def setupLogger(self):
 
         # get a logger
@@ -52,3 +51,9 @@ class LoggerHelper:
         sys.excepthook = my_handler
 
         return logger
+
+def getAllLog(settings):
+    file = open(settings.getLogFile(), "r")
+    log = file.read()
+    file.close()
+    return log

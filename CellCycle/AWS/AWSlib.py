@@ -12,15 +12,19 @@ def startInstanceAWS(settings, logger, params, privateIp=None):
     securityGroup = settings.getAwsSecurityGroup()
     startFile = settings.getAwsStartFile()
 
+
     from json import dumps
     serializedParams = dumps(params)
+    serializedSettings = settings.serialize()
 
     userData = "#!/bin/bash\n" \
     "sudo cp /home/ubuntu/.aws /root/ -r\n" \
     "cd /home/ubuntu/git/CellsCycle/\n" \
-    "git checkout "+branch+"\n" \
-    "git pull origin "+branch+"\n" \
-    "/usr/bin/python "+ startFile + " '" + serializedParams + "' " + settings.getAwsProfileName() + " " + settings.getAwsKeyName() + "\n"
+    "sudo echo BEGIN OF LOGFILE > "+settings.getLogFile()+"\n" \
+    "sudo git checkout "+branch+"  >> "+settings.getLogFile()+" 2>&1\n" \
+    "sudo git fetch --all >> "+settings.getLogFile()+" 2>&1\n" \
+    "sudo git reset --hard origin/" + branch +" >> "+settings.getLogFile()+" 2>&1\n" \
+    "sudo /usr/bin/python "+ startFile + " '" + serializedParams + "' '" + serializedSettings + "'\n"
 
     logger.debug("id image: " + imageIdCellCycle)
     if(privateIp != None):
@@ -41,10 +45,12 @@ def stopThisInstanceAWS(settings, logger):
 
 def terminateInstanceAWS(settings, logger, instanceID):
     logger.debug("contact amazon to terminate : " + instanceID)
-    ec2 = boto3.resource('ec2')
+    awsProfileName = settings.getAwsProfileName()
+    ec2 = boto3.Session(profile_name=awsProfileName).resource('ec2')
     ec2.instances.filter(InstanceIds=[instanceID]).terminate()
 
 def stopInstanceAWS(settings, logger, instanceID):
     logger.debug("contact amazon to stop : " + instanceID)
-    ec2 = boto3.resource('ec2')
+    awsProfileName = settings.getAwsProfileName()
+    ec2 = boto3.Session(profile_name=awsProfileName).resource('ec2')
     ec2.instances.filter(InstanceIds=[instanceID]).stop()

@@ -55,15 +55,12 @@ def create_instances_parameters():
     return result
 
 
-def launchApplicationAWS(optionals):
+def launchApplicationAWS(settings):
     from CellCycle.AWS.AWSlib import startInstanceAWS
-    from start import loadSettingsAndLogger
+    from start import loadLogger
 
-    # needed for aws launch
-    currentProfile = {}
-    currentProfile["profile_name"] = optionals[0]
-    currentProfile["key_pair"] = optionals[1]
-    settings, logger = loadSettingsAndLogger(currentProfile)
+    # necessary to launch aws instances
+    logger = loadLogger(settings)
 
     # every instance has an element
     params_list = create_instances_parameters()
@@ -95,4 +92,14 @@ def launchApplicationAWS(optionals):
 
 if __name__ == "__main__":
     import sys
-    launchApplicationAWS(sys.argv[1:])
+    from start import loadSettings
+    if len(sys.argv) == 1:
+        settings = loadSettings(currentProfile='default')
+    else:
+        currentProfile = {}
+        currentProfile["profile_name"] = sys.argv[1]
+        currentProfile["key_pair"] = sys.argv[2]
+        currentProfile["branch"] = sys.argv[3]
+        settings = loadSettings(currentProfile)
+
+    launchApplicationAWS(settings)

@@ -5,20 +5,25 @@ from CellCycle.MemoryModule.MemoryManagement import startMemoryTask, getRequest,
 from CellCycle.ExtraCycleInterface.ExtraCycle import startExtraCycleListeners
 from CellCycle.ChainModule.Generator import Generator
 
-def loadSettingsAndLogger(currentAWSProfile):
+def loadSettings(currentProfile):
     SETTINGSFILEPATH = "./config.txt"
 
     # read settings from config.txt
     settings = SettingsManager().readConfigurationFromFile(SETTINGSFILEPATH)
-    if(currentAWSProfile != None):
-        settings.setAwsProfileName(currentAWSProfile["profile_name"])
-        settings.setAwsKeyName(currentAWSProfile["key_pair"])
+    if(currentProfile != None):
+        settings.setAwsProfileName(currentProfile["profile_name"])
+        settings.setAwsKeyName(currentProfile["key_pair"])
+        settings.setGitBranch(currentProfile["branch"])
+    return settings
+
+
+def loadLogger(settings):
     # setup logger. to write messages: logger.warning("hello warning"), logger.exception(""), logger.debug("Hi,I'm a bug")
     logger = LoggerHelper(settings).logger
-    return settings, logger
+    return logger
 
-def startApplication(startParams, currentAWSProfile):
-    settings, logger = loadSettingsAndLogger(currentAWSProfile)
+def startApplication(startParams, settings):
+    logger = loadLogger(settings)
 
     logger.debug("Starting with params: " + str(startParams))
 
@@ -70,7 +75,13 @@ def exampleFillAndTransfer(settings, logger):
 
 if __name__ == "__main__":
     import sys
-    currentProfile = {}
-    currentProfile["profile_name"]  = sys.argv[1]
-    currentProfile["key_pair"]  = sys.argv[2]
-    startApplication("Starting from console", currentProfile)
+    if (len(sys.argv) == 1):
+        settings = loadSettings()
+    else:
+        currentProfile = {}
+        currentProfile["profile_name"]  = sys.argv[1]
+        currentProfile["key_pair"]  = sys.argv[2]
+        currentProfile["branch"] = sys.argv[3]
+        settings = loadSettings(currentProfile)
+
+    startApplication("Starting from console",settings)
