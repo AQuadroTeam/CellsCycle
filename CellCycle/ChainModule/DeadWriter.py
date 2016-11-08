@@ -218,15 +218,8 @@ class DeadWriter (ConsumerThread):
                         if msg.target_id == self.slave.id:
                             self.slave = self.slave_of_slave
                             self.slave_of_slave = self.node_list.get_value(self.slave_of_slave.id).slave
-                            # Send master of master ip
-                            # min_max_key = self.master.get_min_max_key()
                             # Let's resync with our new slave
                             self.logger.debug("resync with {}".format(self.slave.id))
-                            # elf.internal_channel.resync(
-                            #     msg=dumps(self.make_added_node_msg(target_id=self.master.id,
-                            #                                        target_key=min_max_key,
-                            #                                        target_addr=self.master.ip,
-                            #                                        target_slave_id=self.slave.id)))
                             # resync sending the new master of master
                             self.internal_channel.resync(msg=dumps(self.master))
                         if msg.target_id == self.slave_of_slave.id:

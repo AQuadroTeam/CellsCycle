@@ -17,20 +17,11 @@ class DeadReader(ProducerThread):
 
         self.external_channel = ExternalChannel(addr=self.master.ip, port=self.master.ext_port, logger=self.logger)
         self.internal_channel = InternalChannel(addr=self.master.ip, port=self.master.int_port, logger=self.logger)
-        # self.last_dead_node = ''
 
     def run(self):
         self.logger.debug(starting_reader(self.myself.id))
         self.wait_for_a_dead()
         self.logger.debug(exiting_reader(self.myself.id))
-
-    # Why is this function here ???
-    # def set_proper_timeout(self, nodes=DEF_NODES, special_lap=False):
-    #    if special_lap:
-    #        index_timeout = int(self.myself) - 1
-    #        change_timeout = index_timeout % nodes
-    #        node_timeout = (change_timeout + 1)*nodes
-        # else:
 
     # Let's begin the connection between us and our next node
     def init_connection(self):
@@ -61,9 +52,6 @@ class DeadReader(ProducerThread):
         self.external_channel.external_channel_subscribe()
         self.logger.debug("sync completed")
 
-    # def is_dead_message_and_i_am_the_slave(self, message):
-    #     return message.target_id == self.last_dead_node
-
     def change_master(self):
         self.master = self.master_of_master
         self.master_of_master = None
@@ -76,9 +64,6 @@ class DeadReader(ProducerThread):
             self.init_connection()
 
             tempt = 0
-
-            # self.external_channel.wait_ext_message()
-            # self.external_channel.set_rcv_timeo()
             stop = False
 
             while not stop:
@@ -107,24 +92,7 @@ class DeadReader(ProducerThread):
                                                    int_port=self.settings.getIntPort(),
                                                    ext_port=self.settings.getExtPort())
                                 self.init_connection()
-                                # list_communication = self.init_connection()
                             self.logger.debug(new_node_added(message.target_id))
-                        # if self.is_dead_message_and_i_am_the_slave(message):
-                        #     self.last_dead_node = ''
-                            # self.internal_channel.send_int_message()
-                            # self.internal_channel.send_internal_message_client_side(
-                            #     self.make_alive_node_msg(source_flag=INT, target_id=self.myself.id,
-                            #                              target_master_id=self.master.id))
-                            # new_master_of_master = self.internal_channel.wait_int_message(dont_wait=False)
-                            # new_master_of_master = loads(new_master_of_master)
-                            # min_max_key = Node.to_min_max_key_obj(new_master_of_master.target_key)
-                            # new_master_of_master = Node(new_master_of_master.target_id,
-                            # new_master_of_master.target_addr,
-                            #                             ext_port=self.settings.getExtPort(),
-                            #                             int_port=self.settings.getIntPort(),
-                            #                             max_key=min_max_key.max_key, min_key=min_max_key.min_key)
-
-                            # self.change_master_of_master(new_master_of_master=new_master_of_master)
 
                         '''
                         This is a special case, for now we don't consider it
@@ -148,7 +116,6 @@ class DeadReader(ProducerThread):
                     dead_message = self.make_dead_node_msg(target_id=self.master.id, target_addr=self.master.ip,
                                                            target_key=self.master.get_min_max_key(),
                                                            target_master_id=self.master_of_master.id)
-                    # self.last_dead_node = self.master.id
                     '''
                     This is a special case, for now we don't consider it
                     if not (self.masterId in self.node_list):
@@ -162,7 +129,6 @@ class DeadReader(ProducerThread):
                         self.logger.debug(this_is_my_dead_message(self.myself.id, self.master.id,
                                                                   dead_message.printable_message()))
                         tempt += 1
-                    # self.last_dead_node = self.master.id
 
                     self.change_master()
 
@@ -170,19 +136,11 @@ class DeadReader(ProducerThread):
                     self.external_channel.close()
                     self.internal_channel.close()
 
-                    # just subscribe to another publisher for now
-                    '''
+                    # renew channels
+
                     self.internal_channel = InternalChannel(addr=self.master.ip, port=self.master.int_port,
                                                             logger=self.logger)
                     self.external_channel = ExternalChannel(addr=self.master.ip, port=self.master.ext_port,
                                                             logger=self.logger)
-                    self.external_channel.generate_external_channel_client_side()
-                    self.external_channel.external_channel_subscribe()
-                    '''
-                    self.internal_channel = InternalChannel(addr=self.master.ip, port=self.master.int_port,
-                                                            logger=self.logger)
-                    self.external_channel = ExternalChannel(addr=self.master.ip, port=self.master.ext_port,
-                                                            logger=self.logger)
-                    # self.init_connection()
-                    # tempt = 0
+
                     stop = True
