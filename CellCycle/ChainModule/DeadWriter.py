@@ -79,12 +79,16 @@ class DeadWriter (ConsumerThread):
 
     def analyze_message(self, msg):
         # Message from another process or a new node
+        msg = loads(msg)
+
         if is_int_message(msg):
             # Now we have a simple object to handle with
-            msg = loads(msg)
             if is_alive_message(msg):
                 if self.busy_add:
                     self.internal_channel.reply_to_int_message(dumps(self.node_list))
+                elif msg.target_id == self.slave_of_slave.id:
+                    # Perhaps our slave is died
+                    self.internal_channel.reply_to_int_message(NOK)
                 else:
                     # In the future we can add an error code instead of empty msgs
                     self.internal_channel.reply_to_int_message(DIE)
@@ -134,7 +138,7 @@ class DeadWriter (ConsumerThread):
                 self.last_dead_message = msg_to_send
                 # The check for the already self.busy_add == True is missing
                 self.busy_add = True
-                self.remove_from_list(self.master)
+                self.remove_from_list(self.master.id)
 
                 # Change master and master of master
                 self.master = self.master_of_master
@@ -149,9 +153,9 @@ class DeadWriter (ConsumerThread):
         else:
             # Save the origin message just to avoid another conversion, remember
             # that we send strings
-            origin_message = msg
+            origin_message = dumps(msg)
             # Now we have a simple object to handle with
-            msg = loads(msg)
+            # msg = msg
 
             # This is an external message, let's check if it's none of my business
             if is_my_last_add_message(msg, self.last_add_message):
@@ -167,6 +171,8 @@ class DeadWriter (ConsumerThread):
             elif is_my_last_dead_message(msg, self.last_dead_message):
                 # The cycle is over
                 self.last_dead_message = ''
+                self.logger.debug("DEAD CYCLE completed")
+                # TODO restored message
             elif is_my_last_restored_message(msg, self.last_restored_message):
                 # The cycle is over
                 self.last_restored_message = ''
@@ -213,11 +219,16 @@ class DeadWriter (ConsumerThread):
                             self.slave = self.slave_of_slave
                             self.slave_of_slave = self.node_list.get_value(self.slave_of_slave.id).slave
                             # Send master of master ip
-                            min_max_key = self.master.get_min_max_key()
-                            self.internal_channel.resync(msg=self.make_added_node_msg(target_id=self.master.id,
-                                                                                      target_key=min_max_key,
-                                                                                      target_addr=self.master.ip,
-                                                                                      target_slave_id=self.slave.id))
+                            # min_max_key = self.master.get_min_max_key()
+                            # Let's resync with our new slave
+                            self.logger.debug("resync with {}".format(self.slave.id))
+                            # elf.internal_channel.resync(
+                            #     msg=dumps(self.make_added_node_msg(target_id=self.master.id,
+                            #                                        target_key=min_max_key,
+                            #                                        target_addr=self.master.ip,
+                            #                                        target_slave_id=self.slave.id)))
+                            # resync sending the new master of master
+                            self.internal_channel.resync(msg=dumps(self.master))
                         if msg.target_id == self.slave_of_slave.id:
                             self.slave_of_slave = self.node_list.get_value(msg.target_id).slave
                         # No case of master.addr

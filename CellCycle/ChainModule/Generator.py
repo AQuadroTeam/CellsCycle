@@ -25,6 +25,7 @@ MAX_KEY = 'max_key'
 #     parser.add_argument('slave_of_slave', type=list, help='the node\'s slave of slave')
 
 #     return parser.parse_args()
+LOCAL_HOST = '127.0.0.1'
 
 
 class Generator:
@@ -34,8 +35,12 @@ class Generator:
         self.args = json_arg
 
     def _get_node_from_data(self, data):
-        return Node(data[ID], data[IP], self.settings.getIntPort(),
-                    self.settings.getExtPort(), min_key=data[MIN_KEY], max_key=data[MAX_KEY])
+        # return Node(data[ID], data[IP], self.settings.getIntPort(),
+        #             self.settings.getExtPort(), min_key=data[MIN_KEY], max_key=data[MAX_KEY])
+        int_port = "558{}".format(data[IP][len("172.31.20.")])
+        ext_port = "559{}".format(data[IP][len("172.31.20.")])
+        return Node(data[ID], LOCAL_HOST, int_port,
+                    ext_port, min_key=data[MIN_KEY], max_key=data[MAX_KEY])
 
     def create_process_environment(self):
         myself = self.args[MYSELF]
@@ -49,8 +54,8 @@ class Generator:
         slave_of_slave = self.args[SLAVE_OF_SLAVE]
         slave_of_slave = self._get_node_from_data(slave_of_slave)
 
-        thread_reader_name = "Reader {}".format(myself.id)
-        thread_writer_name = "Writer {}".format(myself.id)
+        thread_reader_name = "Reader-{}".format(myself.id)
+        thread_writer_name = "Writer-{}".format(myself.id)
         reader = DeadReader(myself, master, slave, slave_of_slave, master_of_master, self.logger, self.settings,
                             thread_reader_name)
         writer = DeadWriter(myself, master, slave, slave_of_slave, master_of_master, self.logger, self.settings,
@@ -59,6 +64,7 @@ class Generator:
         reader.start()
         writer.start()
 
+        reader.join()
     # unused
     # def create_process(self):
     #     Process(name='ListCommunicationProcess', target=Generator._create_process_environment(self))
@@ -74,6 +80,10 @@ class Parameter:    # unused
         self.master_of_master = master_of_master
 
 
+def gen(l, s, a):
+    generator = Generator(logger=l, settings=s, json_arg=a)
+    generator.create_process_environment()
+
 if __name__ == "__main__":
     from firstLaunchAWS import create_instances_parameters
     from start import loadSettings
@@ -83,5 +93,13 @@ if __name__ == "__main__":
     currentProfile = {"profile_name": "alessandro_fazio", "key_pair": "AWSCellCycle", "branch": "ListUtilities"}
     settings_to_launch = loadSettings(currentProfile=currentProfile)
     logger_to_launch = loadLogger(settings_to_launch)
-    generator = Generator(logger=logger_to_launch, settings=settings_to_launch, json_arg=params[0])
-    generator.create_process_environment()
+
+    jobs = []
+    from multiprocessing import Process
+    for n in xrange(len(params)):
+        p = Process(name="Process-"+str(n), target=gen, args=(logger_to_launch, settings_to_launch, params[n], ))
+        jobs.append(p)
+        p.start()
+
+    # for i in jobs:
+    #     i.join()

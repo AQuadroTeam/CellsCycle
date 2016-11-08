@@ -1,5 +1,6 @@
 from Const import *
 from math import ceil
+from cPickle import dumps
 
 '''There are two standard behaviour for requester to name a new child, depends on name of the Slave node of the creator.
 If the greater whole number of Slave id and Requester id are the same (e.g. 3.1 and 3.999 or 3.4 and 4):
@@ -63,7 +64,10 @@ def msg_msg_random_check(msg1, msg2):
 
 
 def is_equal_message(msg1, msg2):
-    return msg1 == msg2
+    if msg2 != '':
+        return dumps(msg1) == dumps(msg2)
+    else:
+        return False
 
 
 def is_my_last_add_message(msg, last_add_message):
