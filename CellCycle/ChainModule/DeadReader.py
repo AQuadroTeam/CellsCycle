@@ -15,8 +15,8 @@ class DeadReader(ProducerThread):
         self.logger.debug(these_are_my_features_reader(self.myself.id, self.master.id, self.slave.id))
         # We know nothing, no dead_message, no version. We only check if our master replies
 
-        self.external_channel = ExternalChannel(self.master.ip, self.master.ext_port)
-        self.internal_channel = InternalChannel(self.master.ip, self.master.int_port)
+        self.external_channel = ExternalChannel(addr=self.master.ip, port=self.master.ext_port, logger=self.logger)
+        self.internal_channel = InternalChannel(addr=self.master.ip, port=self.master.int_port, logger=self.logger)
         self.last_dead_node = ''
 
     def run(self):

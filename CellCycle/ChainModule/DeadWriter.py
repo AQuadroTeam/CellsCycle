@@ -22,8 +22,8 @@ class DeadWriter (ConsumerThread):
         self.last_dead_message = ''
         self.last_restored_message = ''
 
-        self.external_channel = ExternalChannel(self.myself.ip, self.myself.ext_port)
-        self.internal_channel = InternalChannel(self.myself.ip, self.myself.int_port)
+        self.external_channel = ExternalChannel(addr=self.myself.ip, port=self.myself.ext_port, logger=self.logger)
+        self.internal_channel = InternalChannel(addr=self.myself.ip, port=self.myself.int_port, logger=self.logger)
 
     def run(self):
         self.logger.debug(starting_writer(self.myself.id))

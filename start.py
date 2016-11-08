@@ -22,6 +22,7 @@ def loadLogger(settings):
     logger = LoggerHelper(settings).logger
     return logger
 
+
 def startApplication(startParams, settings):
     logger = loadLogger(settings)
 
@@ -52,7 +53,7 @@ def exampleFillAndTransfer(settings, logger):
     import time
     time.sleep(1)
     import zmq
-    from cPickle import dumps, loads
+    from cPickle import dumps
     from CellCycle.MemoryModule.MemoryManagement import Command, SETCOMMAND
     context = zmq.Context.instance()
     socket = context.socket(zmq.PUSH)
@@ -76,12 +77,12 @@ def exampleFillAndTransfer(settings, logger):
 if __name__ == "__main__":
     import sys
     if (len(sys.argv) == 1):
-        settings = loadSettings()
+        settings = loadSettings(currentProfile="default")
     else:
         currentProfile = {}
-        currentProfile["profile_name"]  = sys.argv[1]
-        currentProfile["key_pair"]  = sys.argv[2]
+        currentProfile["profile_name"] = sys.argv[1]
+        currentProfile["key_pair"] = sys.argv[2]
         currentProfile["branch"] = sys.argv[3]
         settings = loadSettings(currentProfile)
 
-    startApplication("Starting from console",settings)
+    startApplication("Starting from console", settings)
