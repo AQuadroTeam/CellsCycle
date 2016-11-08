@@ -11,8 +11,8 @@ from Message import Message
 
 class ListThread (threading.Thread):
 
-    def __init__(self, myself, master, slave, slave_of_slave, master_of_master, logger, settings):
-        threading.Thread.__init__(self)
+    def __init__(self, myself, master, slave, slave_of_slave, master_of_master, logger, settings, name):
+        threading.Thread.__init__(self, name=name)
 
         self.settings = settings
         self.logger = logger

@@ -49,8 +49,12 @@ class Generator:
         slave_of_slave = self.args[SLAVE_OF_SLAVE]
         slave_of_slave = self._get_node_from_data(slave_of_slave)
 
-        reader = DeadReader(myself, master, slave, slave_of_slave, master_of_master, self.logger, self.settings)
-        writer = DeadWriter(myself, master, slave, slave_of_slave, master_of_master, self.logger, self.settings)
+        thread_reader_name = "Reader {}".format(myself.id)
+        thread_writer_name = "Writer {}".format(myself.id)
+        reader = DeadReader(myself, master, slave, slave_of_slave, master_of_master, self.logger, self.settings,
+                            thread_reader_name)
+        writer = DeadWriter(myself, master, slave, slave_of_slave, master_of_master, self.logger, self.settings,
+                            thread_writer_name)
 
         reader.start()
         writer.start()
