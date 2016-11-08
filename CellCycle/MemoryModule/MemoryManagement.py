@@ -11,6 +11,7 @@ SHUTDOWNCOMMAND = -1
 TRANSFERMEMORY = 2
 NEWMASTER = 3
 TRANSFERCOMPLETE = 4
+NEWSLAVE = 5
 
 def startMemoryTask(settings, logger, master):
 
@@ -64,10 +65,10 @@ def _memoryTask(settings, logger,master, url_setFrontend, url_getFrontend, url_g
         th.start()
 
     slaveSetQueue = Queue.Queue()
-    hostState = HostUrlState()
+    hostState = None
 
     Thread(name='MemoryPerformanceMetricator',target=_memoryMetricatorThread, args=(logger, cache, settings, master, timing)).start()
-    Thread(name='MemorySlaveSetter',target=_setToSlaveThread, args=(logger, cache,master,url_getBackend, slaveSetQueue, hostState)).start()
+    Thread(name='MemorySlaveSetter',target=_setToSlaveThread, args=(logger,settings, cache,master,url_getBackend, slaveSetQueue, hostState)).start()
 
     _setThread(logger, settings, cache,master,url_setFrontend,slaveSetQueue, hostState, timing)
 
@@ -107,10 +108,14 @@ def _proxyThread(logger, master, frontend, backend, url_frontend, url_backend):
     logger.debug("Routing from " + url_frontend + " to " + url_backend)
     zmq.proxy(frontend, backend)
 
-def _setToSlaveThread(logger, cache, master,url, queue, hostState):
+def _setToSlaveThread(logger,settings,  cache, master,url, queue, hostState):
+    import time
+    while (hostState == None):
+        time.sleep(1)
     while True:
+        logger.debug("Start to send to my slave: " + str(hostState.slave.ip))
         objToSend = queue.get()
-        slaveAddress = hostState.getSlaveUrl()
+        slaveAddress = "tcp://"+hostState.slave.ip + ":"+ str(settings.getSlaveSetPort())
         if(slaveAddress != None):
             try:
                 setRequest(slaveAddress, objToSend.key, objToSend.value)
@@ -158,25 +163,32 @@ def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
                     logger.debug("Transfer complete!")
 
             elif command.type == NEWMASTER:
-                logger.warning("master is dead. Recovering...")
-                # import keys of master, from this slave memory
-                thisMasterMemory = "tcp://localhost:"+ str(settings.getMasterSetPort())
-                thisSlaveMemory = "tcp://localhost:"+ str(settings.getSlaveSetPort())
-                newSlaveSlaveMemory =  "tcp://localhost:"+ str(settings.getSlaveSetPort())
-                #TODO: instead of localhost i must have command.optional.newslave.url
-                beginFirst = 0 #TODO: command.optional.thisnode.slave.keys.begin oldone!
-                endFirst = 1 #TODO: command.optional.thisnode.slave.keys.end oldone!
-                transferRequest(thisSlaveMemory, [thisMasterMemory, newSlaveSlaveMemory], beginFirst, endFirst)
+                if(hostState == None):
+                    logger.debug("Configuration of net data: "+ str(hostState))
+                    hostState = command.optional
+                else:
+                    logger.warning("master is dead. Recovering... "+ str(hostState))
+                    hostState = command.optional
+                    # import keys of master, from this slave memory
+                    thisMasterMemory = "tcp://localhost:"+ str(settings.getMasterSetPort())
+                    thisSlaveMemory = "tcp://localhost:"+ str(settings.getSlaveSetPort())
+                    newSlaveSlaveMemory =  "tcp://"+hostState.slave.ip+":"+ str(settings.getSlaveSetPort())
+                    beginFirst = hostsState.myself.min_key #command.optional.thisnode.slave.keys.begin oldone!
+                    endFirst = hostsState.myself.max_key #command.optional.thisnode.slave.keys.end oldone!
+                    transferRequest(thisSlaveMemory, [thisMasterMemory, newSlaveSlaveMemory], beginFirst, endFirst)
 
-                # create new slave memory for this node from new master
-                newMasterMasterMemory = "tcp://"+ "localhost" +":"+ str(settings.getMasterSetPort())
-                #TODO: instead of localhost i must have command.optional.newmaster.url
-                thisSlaveMemory = "tcp://localhost:"+ str(settings.getSlaveSetPort())
-                beginSecond = 0 #TODO: command.optional.newmaster.master.keys.begin
-                endSecond = 1 #TODO: command.optional.newmaster.master.keys.end
-                transferRequest(newMasterMasterMemory,[thisSlaveMemory],  beginSecond, endSecond)
+                    # create new slave memory for this node from new master
+                    newMasterMasterMemory = "tcp://"+ hostState.master.ip +":"+ str(settings.getMasterSetPort())
+                    # instead of localhost i must have command.optional.newmaster.url
+                    thisSlaveMemory = "tcp://localhost:"+ str(settings.getSlaveSetPort())
+                    beginSecond = hostState.master.min_key #command.optional.newmaster.master.keys.begin
+                    endSecond = hostState.master.max_key #command.optional.newmaster.master.keys.end
+                    transferRequest(newMasterMasterMemory,[thisSlaveMemory],  beginSecond, endSecond)
 
-                transferToDoAfter = True
+                    transferToDoAfter = True
+            elif command.type == NEWSLAVE:
+                logger.debug("Slave is dead, new info: "+ str(hostState))
+                hostState = command.optional
 
             elif command.type== TRANSFERCOMPLETE:
                 if(transferToDoAfter):
@@ -198,8 +210,9 @@ def _transfer(dest, dataList, begin, end):
     socketTM.connect(dest)
     for data in dataList:
         if(int(data[0]) >= int(begin) and int(data[0]) <= int(end) ):
-            print "transferring:" +str(data[0]) #it's just for debug TODO to delete
-            socketTM.send(dumps(Command(SETCOMMAND,data[0],data[1].getValue(data[0]))))
+            value = data[1].getValue(data[0])
+            print "transferring:" +str(value) #it's just for debug TODO to delete
+            socketTM.send(dumps(Command(SETCOMMAND,data[0],value)))
     socketTM.send(dumps(Command(TRANSFERCOMPLETE)))
     socketTM.close()
 
@@ -279,6 +292,21 @@ def newMasterRequest(url, hostInformations):
     socket.send(dumps(command))
     socket.close()
 
+"""
+usage:
+    from MemoryModule.MemoryManagement import newSlaveRequest
+    import zmq
+    newSlaveRequest("tcp://localhost:" + str(settings.getMasterSetPort()), hostInformations)
+"""
+def newSlaveRequest(url, hostInformations):
+    context = zmq.Context.instance()
+    socket = context.socket(zmq.PUSH)
+    socket.connect(url)
+    command = Command(NEWSLAVE)
+    command.optional = hostInformations
+    socket.send(dumps(command))
+    socket.close()
+
 def standardnewMasterRequest(settings, hostInformations, host="localhost"):
     url_setPort = "tcp://"+host+":" + str(settings.getMasterSetPort())
     return newMasterRequest(url_setPort, hostInformations)
@@ -318,14 +346,7 @@ class Command(object):
     def __str__(self):
         return "type: "+ str(self.type) + ", key: "+ str(self.key) + ", value: " + str(self.value)
 
-class HostUrlState(object):
-    def __init__(self):
-        self.masterSetUrl = None
-        self.masterGetUrl = None
-        self.slaveSetUrl = None
-        self.slaveGetUrl = None
-    def getSlaveUrl(self):
-        return self.slaveSetUrl
+
 
 # only for benchamrk
 def startMemoryTaskForTrial(preallocatedPool, slabSize, logger, pipe_set, pipe_get):

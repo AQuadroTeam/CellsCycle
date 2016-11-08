@@ -4,7 +4,7 @@ from CellCycle.Logger.Logger import LoggerHelper
 from CellCycle.MemoryModule.MemoryManagement import startMemoryTask, getRequest, setRequest, killProcess, transferRequest
 from CellCycle.ExtraCycleInterface.ExtraCycle import startExtraCycleListeners
 
-def loadSettings(currentProfile):
+def loadSettings(currentProfile=None):
     SETTINGSFILEPATH = "./config.txt"
 
     # read settings from config.txt
