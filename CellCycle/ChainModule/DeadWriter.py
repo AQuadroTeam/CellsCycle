@@ -34,7 +34,7 @@ class DeadWriter (ConsumerThread):
 
         self.internal_channel.generate_internal_channel_server_side()
 
-        self.internal_channel.wait_int_message(dont_wait=False)
+        loads(self.internal_channel.wait_int_message(dont_wait=False))
 
         self.internal_channel.reply_to_int_message(msg=OK)
 

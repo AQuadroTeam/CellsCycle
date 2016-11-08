@@ -6,7 +6,7 @@ from zmq import Again
 from Printer import *
 from ChainFlow import *
 from ListThread import Node
-from cPickle import loads
+from cPickle import loads, dumps
 
 
 class DeadReader(ProducerThread):
@@ -35,8 +35,8 @@ class DeadReader(ProducerThread):
     # Let's begin the connection between us and our next node
     def init_connection(self):
         self.internal_channel.generate_internal_channel_client_side()
-        self.internal_channel.send_internal_message_client_side(
-            self.make_alive_node_msg(source_flag=INT, target_id=self.myself.id, target_master_id=self.master.id))
+        self.internal_channel.send_first_internal_channel_message(
+            dumps(self.make_alive_node_msg(source_flag=INT, target_id=self.myself.id, target_master_id=self.master.id)))
 
         self.internal_channel.wait_int_message(dont_wait=False)
 
