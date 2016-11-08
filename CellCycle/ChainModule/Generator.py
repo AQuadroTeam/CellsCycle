@@ -52,8 +52,8 @@ class Generator:
         reader = DeadReader(myself, master, slave, slave_of_slave, master_of_master, self.logger, self.settings)
         writer = DeadWriter(myself, master, slave, slave_of_slave, master_of_master, self.logger, self.settings)
 
-        reader.run()
-        writer.run()
+        reader.start()
+        writer.start()
 
     # unused
     # def create_process(self):
@@ -68,3 +68,16 @@ class Parameter:    # unused
         self.slave_of_slave = slave_of_slave
         self.master = master
         self.master_of_master = master_of_master
+
+
+if __name__ == "__main__":
+    from firstLaunchAWS import create_instances_parameters
+    from start import loadSettings
+    from start import loadLogger
+
+    params = create_instances_parameters()
+    currentProfile = {"profile_name": "alessandro_fazio", "key_pair": "AWSCellCycle", "branch": "ListUtilities"}
+    settings_to_launch = loadSettings(currentProfile=currentProfile)
+    logger_to_launch = loadLogger(settings_to_launch)
+    generator = Generator(logger=logger_to_launch, settings=settings_to_launch, json_arg=params[0])
+    generator.create_process_environment()

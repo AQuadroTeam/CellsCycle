@@ -151,6 +151,7 @@ class InternalChannel(ListCommunication):
     def __init__(self, addr="*", port="8080", logger=None):
         ListCommunication.__init__(self, addr=addr, port=port, logger=logger)
         self.sync_address = Address(addr, port).complete_address
+        self.logger.debug("new internal channel created with destination {}".format(self.sync_address))
 
     # After generating an external channel we need an internal channel to receive internal messages
     def generate_internal_channel_server_side(self):
@@ -182,7 +183,7 @@ class InternalChannel(ListCommunication):
     def send_int_message(self, msg=b'ALIVE', timeout=TRACKER_INFINITE_TIMEOUT):
 
         try:
-            self.logger.debug('sending message')
+            self.logger.debug('sending message to {}'.format(self.sync_address))
             tracker_object = self.list_communication_channel.send(msg, track=True, copy=False)
             # wait forever
             tracker_object.wait(timeout)

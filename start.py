@@ -6,7 +6,8 @@ from CellCycle.ExtraCycleInterface.ExtraCycle import startExtraCycleListeners
 from CellCycle.ChainModule.Generator import Generator
 
 def loadSettings(currentProfile):
-    SETTINGSFILEPATH = "./config.txt"
+    # SETTINGSFILEPATH = "./config.txt"
+    SETTINGSFILEPATH = "/home/alessandro/git/CellsCycle/config.txt"
 
     # read settings from config.txt
     settings = SettingsManager().readConfigurationFromFile(SETTINGSFILEPATH)
