@@ -54,6 +54,7 @@ class DeadWriter (ConsumerThread):
 
             if tempt < 1:
                 self.logger.debug(send_i_am_alive(self.myself.id, self.slave.id))
+                tempt += 1
 
             self.external_channel.forward(dumps(self.make_alive_node_msg(
                 self.myself.id, self.master.id, source_flag=EXT)))
