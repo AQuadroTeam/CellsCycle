@@ -117,18 +117,18 @@ class ExternalChannel(ListCommunication):
         # self.list_communication_channel.send(data)
 
         try:
-            self.logger.debug('sending message')
+            # self.logger.debug('sending message')
             tracker_object = self.list_communication_channel.send(data, track=True, copy=False)
             # wait forever
             tracker_object.wait(TRACKER_TIMEOUT)
-            self.logger.debug('ok with the message')
+            # self.logger.debug('ok with the message')
         except zmq.error.NotDone:
-            self.logger.debug('Something went wrong with that message')
+            # self.logger.debug('Something went wrong with that message')
             time.sleep(TRY_TIMEOUT)
-            self.logger.debug('Sleep finished')
+            # self.logger.debug('Sleep finished')
             # self.list_communication_channel.close()
         except zmq.ZMQError as a:
-            self.logger.debug(a.strerror)
+            # self.logger.debug(a.strerror)
             self.context.destroy()
             self.context = zmq.Context()
 
@@ -183,18 +183,18 @@ class InternalChannel(ListCommunication):
     def send_int_message(self, msg=b'ALIVE', timeout=TRACKER_INFINITE_TIMEOUT):
 
         try:
-            self.logger.debug('sending message to {}'.format(self.sync_address))
+            # self.logger.debug('sending message to {}'.format(self.sync_address))
             tracker_object = self.list_communication_channel.send(msg, track=True, copy=False)
             # wait forever
             tracker_object.wait(timeout)
-            self.logger.debug('ok with the message')
+            # self.logger.debug('ok with the message')
         except zmq.error.NotDone:
-            self.logger.debug('Something went wrong with that message')
+            # self.logger.debug('Something went wrong with that message')
             time.sleep(TRY_TIMEOUT)
-            self.logger.debug('Sleep finished')
+            # self.logger.debug('Sleep finished')
             # self.list_communication_channel.close()
         except zmq.ZMQError as a:
-            self.logger.debug(a.strerror)
+            # self.logger.debug(a.strerror)
             self.context.destroy()
             self.context = zmq.Context()
             self.generate_internal_channel_client_side()
