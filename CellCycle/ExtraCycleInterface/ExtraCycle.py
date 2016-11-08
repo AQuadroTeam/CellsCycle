@@ -67,7 +67,11 @@ def _manageRequest(logger, settings, socket, command, client):
     if(command[0].upper() == GET):
         if(command[1] != ""):
             key = hashOfKey(command[1])
-            _getHandler(settings, socket, client, key)
+            try:
+                _getHandler(settings, socket, client, key)
+            except Exception as e:
+                logger.warning(str(e) + " for command: " + " ".join(command))
+                _sendError(socket, client)
             return;
         else:
             _sendGuide(socket, client)
