@@ -71,6 +71,8 @@ class DeadReader(ProducerThread):
 
         self.init_connection()
 
+        tempt = 0
+
         while True:
 
             try:
@@ -126,7 +128,9 @@ class DeadReader(ProducerThread):
 
                 self.produce(origin_message)
 
-                self.logger.debug(just_received_new_msg(self.myself.id, self.master.id, origin_message))
+                if tempt < 1:
+                    self.logger.debug(just_received_new_msg(self.myself.id, self.master.id, origin_message))
+                    tempt += 1
 
             except Again:
 
@@ -143,7 +147,9 @@ class DeadReader(ProducerThread):
                 '''
 
                 self.produce(dead_message)
-                self.logger.debug(this_is_my_dead_message(self.myself.id, self.master.id, dead_message))
+                if tempt < 1:
+                    self.logger.debug(this_is_my_dead_message(self.myself.id, self.master.id, dead_message))
+                    tempt += 1
                 self.last_dead_node = self.master.id
 
                 self.change_master()

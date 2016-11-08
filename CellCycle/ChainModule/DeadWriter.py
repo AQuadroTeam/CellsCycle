@@ -49,9 +49,11 @@ class DeadWriter (ConsumerThread):
         # if self.myself.id == '1':
         #    time.sleep(100000000000000000)
 
+        tempt = 0
         while True:
 
-            self.logger.debug(send_i_am_alive(self.myself.id, self.slave.id))
+            if tempt < 1:
+                self.logger.debug(send_i_am_alive(self.myself.id, self.slave.id))
 
             self.external_channel.forward(dumps(self.make_alive_node_msg(
                 self.myself.id, self.master.id, source_flag=EXT)))
@@ -62,12 +64,13 @@ class DeadWriter (ConsumerThread):
                 # Now we have a simple object to handle with
                 self.analyze_message(req_rep_msg)
             except ZMQError:
-                self.logger.debug(nothing_to_receive())
+                # self.logger.debug(nothing_to_receive())
+                pass
 
             item = self.consume()
 
             if item is not None:
-                self.logger.debug(this_is_my_item(self.myself.id, item))
+                # self.logger.debug(this_is_my_item(self.myself.id, item))
                 self.analyze_message(item)
 
             # Sleep for WRITER_TIMEOUT (1 millisecond)
