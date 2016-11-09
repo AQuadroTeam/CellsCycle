@@ -91,6 +91,7 @@ class ListThread (threading.Thread):
         #                               source_flag=INT,
         #                               target_slave_id=self.myself.id)
         msg = Message()
+        msg.source_flag = INT
         msg.version = ''
         msg.priority = ADD
         msg.random = randint(MIN_RANDOM, MAX_RANDOM)
@@ -100,6 +101,7 @@ class ListThread (threading.Thread):
         msg.target_relative_id = ''
         msg.source_id = ''
         channel_to_send.send_first_internal_channel_message(dumps(msg))
+        channel_to_send.wait_int_message(dont_wait=False)
 
     # This function is used by Memory Management Process to notify a new scale up
     # It is just a wrapper
@@ -109,6 +111,7 @@ class ListThread (threading.Thread):
         # return self.make_dead_node_msg(target_id=self.myself.id, target_key=self.myself.key,
         #                                source_flag=INT, target_master_id=self.master.id, target_addr=self.myself.ip)
         msg = Message()
+        msg.source_flag = INT
         msg.version = ''
         msg.priority = DEAD
         msg.random = randint(MIN_RANDOM, MAX_RANDOM)
@@ -118,6 +121,7 @@ class ListThread (threading.Thread):
         msg.target_relative_id = ''
         msg.source_id = ''
         channel_to_send.send_first_internal_channel_message(dumps(msg))
+        channel_to_send.wait_int_message(dont_wait=False)
 
     def make_alive_node_msg(self, target_id, target_master_id, source_flag=INT):
         return self.make_node_msg(source_flag, priority=ALIVE, target_id=target_id, target_addr='',

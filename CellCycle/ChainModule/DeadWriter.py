@@ -7,6 +7,8 @@ from ProdCons import ConsumerThread
 from ChainFlow import *
 from ListThread import Node
 from cPickle import dumps, loads
+from Generator import create_single_process
+from firstLaunchAWS import create_specific_instance_parameters
 
 
 class DeadWriter (ConsumerThread):
@@ -24,6 +26,8 @@ class DeadWriter (ConsumerThread):
 
         self.external_channel = ExternalChannel(addr=self.myself.ip, port=self.myself.ext_port, logger=self.logger)
         self.internal_channel = InternalChannel(addr=self.myself.ip, port=self.myself.int_port, logger=self.logger)
+
+        self.node_to_add = ''
 
     def run(self):
         self.logger.debug(starting_writer(self.myself.id))
@@ -77,6 +81,16 @@ class DeadWriter (ConsumerThread):
             # Sleep for WRITER_TIMEOUT (1 millisecond)
             time.sleep(WRITER_TIMEOUT)
 
+    def wait_the_new_node_and_send_the_list(self):
+
+        msg = loads(self.internal_channel.wait_int_message(dont_wait=False))
+
+        while not(is_int_message(msg) and is_alive_message(msg) and msg.target_id == self.node_to_add):
+            self.internal_channel.reply_to_int_message(NOK)
+            msg = loads(self.internal_channel.wait_int_message(dont_wait=False))
+        # It's the right node
+        self.internal_channel.reply_to_int_message(dumps(self.node_list))
+
     def analyze_message(self, msg):
         # Message from another process or a new node
         msg = loads(msg)
@@ -84,8 +98,8 @@ class DeadWriter (ConsumerThread):
         if is_int_message(msg):
             # Now we have a simple object to handle with
             if is_alive_message(msg):
-                if self.busy_add:
-                    self.internal_channel.reply_to_int_message(dumps(self.node_list))
+                if self.busy_add and msg.target_id == self.node_to_add:
+                    self.internal_channel.reply_to_int_message(NOK)
                 elif msg.target_id == self.slave_of_slave.id:
                     # Perhaps our slave is died
                     self.internal_channel.reply_to_int_message(NOK)
@@ -96,7 +110,11 @@ class DeadWriter (ConsumerThread):
                 if not self.busy_add:
                     self.internal_channel.reply_to_int_message(OK)
                     self.version += 1
-                    msg_to_send = to_external_message(self.version, msg)
+                    msg = self.make_add_node_msg(target_id=compute_son_id(self.myself.id, self.slave.id),
+                                                 target_key=compute_son_key(),
+                                                 source_flag=EXT, target_slave_id=self.slave.id)
+                    # msg_to_send = to_external_message(self.version, msg)
+                    msg_to_send = msg
                     self.last_add_message = msg_to_send
                     self.busy_add = True
                     string_message = dumps(msg_to_send)
@@ -161,21 +179,45 @@ class DeadWriter (ConsumerThread):
             if is_my_last_add_message(msg, self.last_add_message):
                 # The cycle is over
                 # We have to wait for a new node
-                # new_node_id_to_add = compute_son_id(self.myself.id, self.slave.id)
+                new_node_id_to_add = compute_son_id(self.myself.id, self.slave.id)
                 # new_node_keys_to_add = compute_son_key()
-                # new_node_instance_to_add = Node(new_node_id_to_add, None, self.settings.getIntPort(),
-                #                                 self.settings.getExtPort(),
-                #                                 new_node_keys_to_add.min_key, new_node_keys_to_add.max_key)
-                # specific_parameters = [self.master, self.myself, new_node_instance_to_add, self.slave,
-                #                        self.slave_of_slave]
+                new_node_instance_to_add = Node(new_node_id_to_add, None, self.settings.getIntPort(),
+                                                self.settings.getExtPort(),
+                                                '0', '19')
+                specific_parameters = [self.master, self.myself, new_node_instance_to_add, self.slave,
+                                       self.slave_of_slave]
 
                 # startInstanceAWS(self.settings, self.logger, create_specific_instance_parameters(specific_parameters))
                 self.last_add_message = ''
+                self.node_to_add = msg.target_id
+                create_single_process(create_specific_instance_parameters(specific_parameters))
+                # TODO generate_node
             elif is_my_last_added_message(msg, self.last_added_message):
                 # The cycle is over
                 self.last_added_message = ''
                 self.busy_add = False
-                self.internal_channel.reply_to_int_message(dumps(self.node_list))
+
+                min_max_key = Node.to_min_max_key_obj(msg.target_key)
+                node_to_add = Node(msg.target_id, msg.target_addr, self.settings.getIntPort(),
+                                   self.settings.getExtPort(),
+                                   min_max_key.min_key, min_max_key.max_key)
+                target_master = self.node_list.get_value(msg.source_id).target
+                target_slave = self.node_list.get_value(msg.target_relative_id).target
+                # Add the new node in list
+                self.add_in_list(target_node=node_to_add, target_master=target_master,
+                                 target_slave=target_slave)
+
+                target_id = msg.target_id
+                target_master = msg.source_id
+                target_slave = msg.target_relative_id
+
+                # Update the master node, the new master of target_slave is target_id
+                self.change_master_to(target_node=target_slave, target_master=target_id)
+                # Update the slave node, the new master of target_master is target_id
+                self.change_slave_to(target_node=target_master, target_slave=target_id)
+
+                self.wait_the_new_node_and_send_the_list()
+                self.node_to_add = ''
             elif is_my_last_dead_message(msg, self.last_dead_message):
                 # The cycle is over
                 self.last_dead_message = ''

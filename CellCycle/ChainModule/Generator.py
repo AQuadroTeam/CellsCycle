@@ -84,6 +84,12 @@ def gen(l, s, a):
     generator = Generator(logger=l, settings=s, json_arg=a)
     generator.create_process_environment()
 
+
+def create_single_process(new_param):
+    new_process = Process(name="Process-"+str(n), target=gen, args=(logger_to_launch, settings_to_launch, new_param, ))
+    new_process.start()
+
+
 if __name__ == "__main__":
     from firstLaunchAWS import create_instances_parameters
     from start import loadSettings
