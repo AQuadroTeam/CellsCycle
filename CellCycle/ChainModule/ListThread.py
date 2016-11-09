@@ -5,8 +5,8 @@ from Const import *
 from random import randint
 from ChainList import ChainList
 from Printer import this_is_the_thread_in_action
-from ChainFlow import compute_son_id
 from Message import Message
+from cPickle import dumps
 
 
 class ListThread (threading.Thread):
@@ -82,19 +82,42 @@ class ListThread (threading.Thread):
 
     # This function is used by Memory Management Process to notify a new scale up
     # It is just a wrapper
-    def notify_scale_up(self):
-        new_id = compute_son_id(master_id=float(self.myself.id), slave_id=float(self.slave.id))
+    @staticmethod
+    def notify_scale_up(channel_to_send):
+        # new_id = compute_son_id(master_id=float(self.myself.id), slave_id=float(self.slave.id))
         # new_key = compute_son_key()
-        return self.make_add_node_msg(target_id=new_id,
-                                      target_key='{}:{}'.format(self.myself.min_key, self.myself.max_key),
-                                      source_flag=INT,
-                                      target_slave_id=self.myself.id)
+        # return self.make_add_node_msg(target_id=new_id,
+        #                               target_key='{}:{}'.format(self.myself.min_key, self.myself.max_key),
+        #                               source_flag=INT,
+        #                               target_slave_id=self.myself.id)
+        msg = Message()
+        msg.version = ''
+        msg.priority = ADD
+        msg.random = randint(MIN_RANDOM, MAX_RANDOM)
+        msg.target_id = ''
+        msg.target_key = ''
+        msg.target_addr = ''
+        msg.target_relative_id = ''
+        msg.source_id = ''
+        channel_to_send.send_first_internal_channel_message(dumps(msg))
 
     # This function is used by Memory Management Process to notify a new scale up
     # It is just a wrapper
-    def notify_scale_down(self):
-        return self.make_dead_node_msg(target_id=self.myself.id, target_key=self.myself.key,
-                                       source_flag=INT, target_master_id=self.master.id, target_addr=self.myself.ip)
+
+    @staticmethod
+    def notify_scale_down(channel_to_send):
+        # return self.make_dead_node_msg(target_id=self.myself.id, target_key=self.myself.key,
+        #                                source_flag=INT, target_master_id=self.master.id, target_addr=self.myself.ip)
+        msg = Message()
+        msg.version = ''
+        msg.priority = DEAD
+        msg.random = randint(MIN_RANDOM, MAX_RANDOM)
+        msg.target_id = ''
+        msg.target_key = ''
+        msg.target_addr = ''
+        msg.target_relative_id = ''
+        msg.source_id = ''
+        channel_to_send.send_first_internal_channel_message(dumps(msg))
 
     def make_alive_node_msg(self, target_id, target_master_id, source_flag=INT):
         return self.make_node_msg(source_flag, priority=ALIVE, target_id=target_id, target_addr='',

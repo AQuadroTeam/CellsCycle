@@ -180,7 +180,7 @@ class DeadWriter (ConsumerThread):
                 # The cycle is over
                 self.last_dead_message = ''
                 self.logger.debug("DEAD CYCLE completed")
-                # TODO restored message
+                # TODO restored message to test
             elif is_my_last_restored_message(msg, self.last_restored_message):
                 # The cycle is over
                 self.last_restored_message = ''

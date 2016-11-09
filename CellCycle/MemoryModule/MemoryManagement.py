@@ -1,10 +1,12 @@
 import Queue
-from multiprocessing import Process, Pipe
+from multiprocessing import Process
 from cPickle import loads, dumps
 from threading import Thread
 import zmq
 from time import time, sleep
 from CellCycle.MemoryModule.Cache import CacheSlubLRU
+from CellCycle.ChainModule.ListThread import ListThread
+from CellCycle.ChainModule.ListCommunication import InternalChannel
 
 SETCOMMAND = 0
 GETCOMMAND = 1
@@ -82,6 +84,10 @@ def _memoryMetricatorThread(logger, cache, settings, master, timing):
 
         logger.debug("Metricator alive, period: "+ str(period) +"s, getThrLevel: [" +str(getScaleDownLevel) +"," + str(getScaleUpLevel)+ "], setThrLevel: [" + str(setScaleDownLevel) + "," + str(setScaleUpLevel) + "]"  )
 
+        # TODO remove this, this is Andrea's stuff xD
+        internal_channel = InternalChannel(addr='127.0.0.1', port=settings.getIntPort(), logger=logger)
+        internal_channel.generate_internal_channel_client_side()
+
         while True:
             sleep(period)
             setMean = 1.0 - timing["setters"][0].calcMean()
@@ -93,15 +99,17 @@ def _memoryMetricatorThread(logger, cache, settings, master, timing):
             logger.debug("Working time for setters: " + str(setMean) + ", getters (mean): " + str(getMean) )
 
             # scale up needed
-            if(getMean >= getScaleUpLevel or setMean >= setScaleUpLevel):
+            if getMean >= getScaleUpLevel or setMean >= setScaleUpLevel:
                 logger.debug("Requests for scale Up!")
                 # TODO: add call scale up service
+                ListThread.notify_scale_up(internal_channel)
                 # self.list_communication_thread.notify_scale_up()
 
             # scale down needed
-            elif(getMean <= getScaleDownLevel or setMean <= setScaleDownLevel):
+            elif getMean <= getScaleDownLevel or setMean <= setScaleDownLevel:
                 logger.debug("Requests for scale Down!")
                 # TODO: add call scale down service
+                ListThread.notify_scale_down(internal_channel)
                 # self.list_communication_thread.notify_scale_down()
 
 
