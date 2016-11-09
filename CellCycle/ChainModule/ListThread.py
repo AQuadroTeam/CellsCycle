@@ -163,8 +163,9 @@ class Node:
 
     def __init__(self, node_id, ip, int_port, ext_port, min_key, max_key):
         self.id = str(node_id)  # Node ID
-        self.int_addr = '{}:{}'.format(ip, int_port)    # ip:int_port
-        self.ext_addr = '{}:{}'.format(ip, ext_port)    # ip:ext_port
+        if ip is not None:
+            self.int_addr = '{}:{}'.format(ip, int_port)    # ip:int_port
+            self.ext_addr = '{}:{}'.format(ip, ext_port)    # ip:ext_port
         self.min_key = str(min_key)     # Min memory key
         self.max_key = str(max_key)     # Max memory key
         self.ip = ip    # Node IP

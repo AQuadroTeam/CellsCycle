@@ -51,6 +51,8 @@ class DeadReader(ProducerThread):
         self.external_channel.generate_external_channel_client_side()
         self.external_channel.external_channel_subscribe()
         self.logger.debug("sync completed")
+        # newMasterRequest(Address(self.master.ip, self.settings.getMasterSetPort()).complete_address,
+        # self.node_list.get_value(self.master.id))
 
     def change_master(self):
         self.master = self.master_of_master

@@ -55,6 +55,36 @@ def create_instances_parameters():
     return result
 
 
+def create_specific_instance_parameters(specific_nodes):
+
+    list_parameters = []
+
+    for k in specific_nodes:
+        list_parameters.append(_get_parameter(node_id=k.id, private_ip=k.ip, min_key=k.min_key,
+                                              max_key=k.max_key))
+
+    parameter = {"master_of_master": list_parameters[0],
+                 "master": list_parameters[1],
+                 "myself": list_parameters[2],
+                 "slave": list_parameters[3],
+                 "slave_of_slave": list_parameters[4]}
+    # print '-------------------'
+    # print list_parameters[l % list_len]['id']
+    # print list_parameters[(l+1) % list_len]['id']
+    # print list_parameters[(l+2) % list_len]['id']
+    # print list_parameters[(l+3) % list_len]['id']
+    # print list_parameters[(l+4) % list_len]['id']
+    # print '-------------------'
+    # print '-------------------'
+
+    # for k, v in parameter.iteritems():
+    #     print "{}, {}".format(k, v)
+
+    # print '-------------------'
+
+    return parameter
+
+
 def launchApplicationAWS(settings):
     from CellCycle.AWS.AWSlib import startInstanceAWS
     from start import loadLogger

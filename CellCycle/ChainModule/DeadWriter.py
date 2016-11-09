@@ -161,7 +161,15 @@ class DeadWriter (ConsumerThread):
             if is_my_last_add_message(msg, self.last_add_message):
                 # The cycle is over
                 # We have to wait for a new node
-                # Now invoke Amazon's API
+                # new_node_id_to_add = compute_son_id(self.myself.id, self.slave.id)
+                # new_node_keys_to_add = compute_son_key()
+                # new_node_instance_to_add = Node(new_node_id_to_add, None, self.settings.getIntPort(),
+                #                                 self.settings.getExtPort(),
+                #                                 new_node_keys_to_add.min_key, new_node_keys_to_add.max_key)
+                # specific_parameters = [self.master, self.myself, new_node_instance_to_add, self.slave,
+                #                        self.slave_of_slave]
+
+                # startInstanceAWS(self.settings, self.logger, create_specific_instance_parameters(specific_parameters))
                 self.last_add_message = ''
             elif is_my_last_added_message(msg, self.last_added_message):
                 # The cycle is over
