@@ -20,6 +20,7 @@
           <option value="zmq.PUB" />
           <option value="zmq.REQ" />
           <option value="zmq.NOBLOCK" />
+          <option value="str.printable_message" />
         </list>
       </option>
     </inspection_tool>

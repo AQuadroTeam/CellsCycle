@@ -12,7 +12,8 @@ from cPickle import loads, dumps
 class DeadReader(ProducerThread):
     def __init__(self, myself, master, slave, slave_of_slave, master_of_master, logger, settings, name):
         ProducerThread.__init__(self, myself, master, slave, slave_of_slave, master_of_master, logger, settings, name)
-        self.logger.debug(these_are_my_features_reader(self.myself.id, self.master.id, self.slave.id))
+        self.logger.debug(these_are_my_features_reader(self.myself.id, self.master.id, self.slave.id,
+                                                       self.myself.int_port, self.myself.ext_port, self.myself.ip))
         # We know nothing, no dead_message, no version. We only check if our master replies
 
         self.external_channel = ExternalChannel(addr=self.master.ip, port=self.master.ext_port, logger=self.logger)
@@ -22,6 +23,48 @@ class DeadReader(ProducerThread):
         self.logger.debug(starting_reader(self.myself.id))
         self.wait_for_a_dead()
         self.logger.debug(exiting_reader(self.myself.id))
+
+    def retry_until_success(self, msg, times):
+        stop = False
+        while not stop:
+            self.internal_channel.send_first_internal_channel_message(msg)
+
+            rep_msg = self.internal_channel.wait_int_message(dont_wait=False)
+
+            if not (rep_msg == NOK or rep_msg == DIE):
+                rep_msg = loads(rep_msg)
+                if times == 2:
+                    self.node_list = rep_msg
+                stop = True
+            else:
+                self.logger.debug("wrong information at sync time, retry in 0.5 seconds")
+                time.sleep(0.5)
+
+    def new_birth_connection(self):
+        self.logger.debug("new birth sync init")
+        self.myself.ip = "127.0.0.1"
+        self.myself.int_addr = '{}:{}'.format(self.myself.ip, self.myself.int_port)    # ip:int_port
+        self.myself.ext_addr = '{}:{}'.format(self.myself.ip, self.myself.ext_port)    # ip:ext_port
+
+        self.internal_channel.generate_internal_channel_client_side()
+
+        min_max_keys = Node.get_min_max_key(self.myself)
+        new_added_node_message = self.make_added_node_msg(target_id=self.myself.id, target_slave_id=self.slave.id,
+                                                          target_addr=self.myself.ip, target_key=min_max_keys,
+                                                          source_flag=INT, source_id=self.master.id)
+        self.retry_until_success(dumps(new_added_node_message), 1)
+
+        new_alive_node_message = self.make_alive_node_msg(source_flag=INT, target_id=self.myself.id,
+                                                          target_master_id=self.master.id)
+        self.retry_until_success(dumps(new_alive_node_message), 2)
+
+        self.logger.debug("new accepted by master {}".format(self.master.id))
+
+        self.external_channel.generate_external_channel_client_side()
+        self.external_channel.external_channel_subscribe()
+        self.logger.debug("new birth sync completed")
+        # newMasterRequest(Address(self.master.ip, self.settings.getMasterSetPort()).complete_address,
+        # self.node_list.get_value(self.master.id))
 
     # Let's begin the connection between us and our next node
     def init_connection(self):
@@ -61,9 +104,14 @@ class DeadReader(ProducerThread):
     def change_master_of_master(self, new_master_of_master):
         self.master_of_master = new_master_of_master
 
+    # TODO absolutely to change, this is an hardcoded test
     def wait_for_a_dead(self):
         while True:
-            self.init_connection()
+            if self.myself.int_port is not '5586':
+                self.logger.debug("my IP is not none : {}".format(self.myself.ip))
+                self.init_connection()
+            else:
+                self.new_birth_connection()
 
             tempt = 0
             stop = False
@@ -89,11 +137,22 @@ class DeadReader(ProducerThread):
 
                                 min_max_key = Node.to_min_max_key_obj(message.target_key)
                                 self.master_of_master = self.master
+                                # self.master = Node(node_id=message.target_id, ip=message.target_addr,
+                                #                    min_key=min_max_key.min_key, max_key=min_max_key.max_key,
+                                #                    int_port=self.settings.getIntPort(),
+                                #                    ext_port=self.settings.getExtPort())
                                 self.master = Node(node_id=message.target_id, ip=message.target_addr,
                                                    min_key=min_max_key.min_key, max_key=min_max_key.max_key,
-                                                   int_port=self.settings.getIntPort(),
-                                                   ext_port=self.settings.getExtPort())
-                                self.init_connection()
+                                                   int_port="5586",
+                                                   ext_port="5596")
+                                self.external_channel.close()
+                                self.internal_channel.close()
+                                self.internal_channel = InternalChannel(addr=self.master.ip, port=self.master.int_port,
+                                                                        logger=self.logger)
+                                self.external_channel = ExternalChannel(addr=self.master.ip, port=self.master.ext_port,
+                                                                        logger=self.logger)
+                                stop = True
+
                             self.logger.debug(new_node_added(message.target_id))
 
                         '''
@@ -108,10 +167,10 @@ class DeadReader(ProducerThread):
 
                         self.produce(origin_message)
 
-                        if tempt < 1:
-                            self.logger.debug(just_received_new_msg(self.myself.id, self.master.id,
-                                                                    message.printable_message()))
-                            tempt += 1
+                        # if tempt < 1:
+                        # self.logger.debug(just_received_new_msg(self.myself.id, self.master.id,
+                        #                                         message.printable_message()))
+                        #     tempt += 1
 
                 except Again:
 

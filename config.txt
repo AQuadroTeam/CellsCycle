@@ -10,10 +10,10 @@ SlaveGetPort 5553
 ServiceThreadNumber 4
 ClientEntrypointPort 5555
 ScalePeriod 60
-GetScaleUpLevel 0.5
-GetScaleDownLevel 0.001
-SetScaleUpLevel 0.5
-SetScaleDownLevel 0.001
+GetScaleUpLevel 1
+GetScaleDownLevel 0
+SetScaleUpLevel 1
+SetScaleDownLevel 0
 AwsImageId ami-a643b8c9
 AwsSecurityGroup SSHToAll
 AwsKeyName AWSCellCycle

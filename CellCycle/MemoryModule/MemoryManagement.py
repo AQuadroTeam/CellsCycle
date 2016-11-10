@@ -190,6 +190,8 @@ def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
 
             elif command.type== TRANSFERCOMPLETE:
                 if(transferToDoAfter):
+                    # TODO call the list communication for added or recovered
+                    # open new socket
                     #avvertire gestore ciclo che E finito recovery TODO:
                     logger.warning("new master state recovery: DONE")
                     #do something with command and hostState

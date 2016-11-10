@@ -5,7 +5,7 @@ from binascii import crc32
 from CellCycle.MemoryModule.MemoryManagement import standardKillRequest, standardSlaveSetRequest, standardSlaveGetRequest, standardTransferRequest, standardMasterSetRequest, standardMasterGetRequest
 from CellCycle.AWS.AWSlib import *
 
-def startExtraCycleListeners(settings, logger):
+def startExtraCycleListeners(settings, logger, list_manager=None):
     threadNumber = settings.getServiceThreadNumber()
     port = settings.getClientEntrypointPort()
 
@@ -21,7 +21,7 @@ def startExtraCycleListeners(settings, logger):
     queue = Queue()
 
     for i in range(threadNumber):
-        th = Thread(name='ServiceEntrypointThread',target=_serviceThread, args=(settings, logger, url_Frontend, socket, queue))
+        th = Thread(name='ServiceEntrypointThread',target=_serviceThread, args=(settings, logger, url_Frontend, socket, queue, list_manager))
         th.start()
 
     Thread(name='ServiceEntrypointRouterThread',target=_receiverThread, args=(logger, socket, queue)).start()
@@ -36,7 +36,7 @@ def _receiverThread(logger, socket, queue):
             logger.error(str(e))
             return
 
-def _serviceThread(settings, logger, url_Backend,socket,queue):
+def _serviceThread(settings, logger, url_Backend,socket,queue, list_manager):
     logger.debug("Listening for clients on " + url_Backend)
     while True:
         try:
@@ -49,12 +49,12 @@ def _serviceThread(settings, logger, url_Backend,socket,queue):
             command = message.split()
             try:
                 logger.debug("Received command: " + str(command))
-                _manageRequest(logger, settings, socket, command, client)
+                _manageRequest(logger, settings, socket, command, client, list_manager)
             except Exception as e:
                 logger.warning("Error for client: "+ str(client) +", error:"+ str(e) + ". command: " + message)
 
 
-def _manageRequest(logger, settings, socket, command, client):
+def _manageRequest(logger, settings, socket, command, client, list_manager):
     GET = "GET"
     ADD = "ADD"
     DELETE = "DELETE"
@@ -67,7 +67,7 @@ def _manageRequest(logger, settings, socket, command, client):
     if(command[0].upper() == GET):
         if(command[1] != ""):
             key = hashOfKey(command[1])
-            _getHandler(settings, socket, client, key)
+            _getHandler(settings, socket, client, key, list_manager)
             return;
         else:
             _sendGuide(socket, client)
@@ -78,7 +78,7 @@ def _manageRequest(logger, settings, socket, command, client):
     if(command[0].upper() == DELETE):
         if(command[1] != ""):
             key = hashOfKey(command[1])
-            _deleteHandler(settings, socket, client, key)
+            _deleteHandler(settings, socket, client, key, list_manager)
             return;
         else:
             _sendGuide(socket, client)
@@ -101,7 +101,7 @@ def _manageRequest(logger, settings, socket, command, client):
                 return
 
             try:
-                _setHandler(settings, socket,client, key, flag, exp, byte, value)
+                _setHandler(settings, socket,client, key, flag, exp, byte, value, list_manager)
             except Exception as e:
                 logger.warning(str(e) + " for command: " + " ".join(command))
                 _sendError(socket, client)
@@ -174,33 +174,40 @@ def _sendError(socket, client):
     error = "ERROR\r\n"
     _send(socket, client, error)
 
-def _setHandler(settings, socket,client, key, flag, exp, byte, value):
+def _setHandler(settings, socket,client, key, flag, exp, byte, value, list_manager):
     #add flag to stored data
-    value = '{:010d}'.format(int(flag)) + value;
+    value = '{:010d}'.format(int(flag)) + value
+    # TODO host = list_manager.get_ip_for_key(key)
     #get server node
     #hosts = getNodesForKey(key)
-    #standardMasterGetRequest(settings, key, hosts[0].ip)
+    #returnValue =standardMasterSetRequest(settings, key,value, hosts[0].ip)
+    # TODO comment this line
     returnValue = standardMasterSetRequest(settings, key, value)
 
     returnString = "STORED\r\n"
     _send(socket, client, returnString)
 
-def _deleteHandler(settings, socket,client, key):
+def _deleteHandler(settings, socket,client, key, list_manager):
+    #TODO host = list_manager.get_ip_for_key(key)
     #get server node
     #hosts = getNodesForKey(key)
-    #standardMasterGetRequest(settings, key, hosts[0].ip)
+    #returnValue =standardMasterGetRequest(settings, key, hosts[0].ip)
+    # TODO comment this line
     returnValue = standardMasterSetRequest(settings, key, None)
     returnString = "DELETED\r\n"
     _send(socket, client, returnString)
 
 
-def _getHandler(settings, socket, client, key):
+def _getHandler(settings, socket, client, key, list_manager):
+    #TODO host = list_manager.get_ip_for_key(key)
     #get server nodes and choose
     #hosts = getNodesForKey(key)
     #if(random()>0.5):
-    #   standardMasterGetRequest(settings, key, hosts[0].ip)
+    #   returnValue =standardMasterGetRequest(settings, key, hosts[0].ip)
     #else:
-    #   standardSlaveGetRequest(settings, key, hosts[1].ip)
+    #   returnValue =standardSlaveGetRequest(settings, key, hosts[1].ip)
+    #
+    # TODO comment this line
     returnValue = standardMasterGetRequest(settings, key)
     returnValue = returnValue if returnValue!=None else ""
 

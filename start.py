@@ -32,11 +32,13 @@ def startApplication(startParams, settings):
     # start memory task. there's a thread for set/control requests, and n threads for get. getterNumber is a setting
     url_worker, url_set, url_setPort, url_getPort = startMemoryTask(settings, logger, True)
     url_worker_slave, url_set_slave, url_setPort_slave, url_getPort_slave = startMemoryTask(settings, logger, False)
-    startExtraCycleListeners(settings, logger)
 
     # Let's start the list communication part
     generator = Generator(logger=logger, settings=settings, json_arg=startParams)
     generator.create_process_environment()
+    # writer_instance = generator.create_process_environment()
+    startExtraCycleListeners(settings, logger)
+    # startExtraCycleListeners(settings, logger, writer_instance)
 
 
 def exampleFillAndTransfer(settings, logger):

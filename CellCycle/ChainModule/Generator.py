@@ -1,8 +1,9 @@
 #! /usr/bin/env python
 
-from ListThread import Node
+from ListThread import Node, ListThread
 from DeadReader import DeadReader
 from DeadWriter import DeadWriter
+from time import sleep
 
 MYSELF = 'myself'
 MASTER = 'master'
@@ -34,7 +35,8 @@ class Generator:
         self.settings = settings
         self.args = json_arg
 
-    def _get_node_from_data(self, data):
+    @staticmethod
+    def _get_node_from_data(data):
         # return Node(data[ID], data[IP], self.settings.getIntPort(),
         #             self.settings.getExtPort(), min_key=data[MIN_KEY], max_key=data[MAX_KEY])
         int_port = "558{}".format(data[IP][len("172.31.20.")])
@@ -64,7 +66,16 @@ class Generator:
         reader.start()
         writer.start()
 
+        # FIXME This part is just to test add node cycle
+        # sleep(5)
+        # if myself.id == "1" or myself.id == "2" or myself.id == "3":
+        # from threading import Thread
+        # new_scale_up_thread = Thread(name="ScaleUpThread", target=scale_up_thread, args=(myself, self.logger,))
+        # new_scale_up_thread.start()
+
         reader.join()
+
+        # TODO return writer instance
     # unused
     # def create_process(self):
     #     Process(name='ListCommunicationProcess', target=Generator._create_process_environment(self))
@@ -80,13 +91,29 @@ class Parameter:    # unused
         self.master_of_master = master_of_master
 
 
+def scale_up_thread(a, l):
+    from CellCycle.ChainModule.ListCommunication import InternalChannel
+
+    # myself = Generator._get_node_from_data(a[MYSELF])
+    internal_channel = InternalChannel(addr='127.0.0.1', port=a.int_port, logger=l)
+    internal_channel.generate_internal_channel_client_side()
+
+    # if myself.int_port == 1:
+    while True:
+        ListThread.notify_scale_up(internal_channel)
+        sleep(5)
+    # else:
+    #     while True:
+    #         sleep(5)
+
+
 def gen(l, s, a):
     generator = Generator(logger=l, settings=s, json_arg=a)
     generator.create_process_environment()
 
 
-def create_single_process(new_param):
-    new_process = Process(name="Process-"+str(n), target=gen, args=(logger_to_launch, settings_to_launch, new_param, ))
+def create_single_process(l, s, a):
+    new_process = Process(name="Process-"+str(n), target=gen, args=(l, s, a, ))
     new_process.start()
 
 

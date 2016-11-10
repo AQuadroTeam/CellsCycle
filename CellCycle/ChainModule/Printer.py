@@ -10,14 +10,16 @@ def format_k_args(string_to_format, k):
     return string_to_format.format(*k)
 
 
-def these_are_my_features_writer(myself_id, master_id, slave_id):
-    k = [myself_id, master_id, slave_id]
-    return format_k_args("These are my features: (Writer {}) Master ID : {} , SlaveID: {}", k)
+def these_are_my_features_writer(myself_id, master_id, slave_id, int_port, ext_port, ip):
+    k = [myself_id, master_id, slave_id, int_port, ext_port, ip]
+    return format_k_args("These are my features: (Writer {}) Master ID : {} , SlaveID: {}, IntPort {}, ExtPort {}, "
+                         "IP {}", k)
 
 
-def these_are_my_features_reader(myself_id, master_id, slave_id):
-    k = [myself_id, master_id, slave_id]
-    return format_k_args("These are my features: (Reader {}) Master ID : {} , SlaveID: {}", k)
+def these_are_my_features_reader(myself_id, master_id, slave_id, int_port, ext_port, ip):
+    k = [myself_id, master_id, slave_id, int_port, ext_port, ip]
+    return format_k_args("These are my features: (Reader {}) Master ID : {} , SlaveID: {}, IntPort {}, ExtPort {}, "
+                         "IP {}", k)
 
 
 def starting_writer(node_id):
@@ -57,7 +59,7 @@ def i_am_dead_goodbye(myself_id):
 
 def new_node_added(myself_id):
     k = [myself_id]
-    return format_k_args('New node added, i\'m Reader {}', k)
+    return format_k_args('New node added, it\'s Reader {}', k)
 
 
 def just_received_new_msg(myself_id, master_id, message):

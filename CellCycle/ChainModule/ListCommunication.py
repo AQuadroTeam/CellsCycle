@@ -151,18 +151,20 @@ class InternalChannel(ListCommunication):
     def __init__(self, addr="*", port="8080", logger=None):
         ListCommunication.__init__(self, addr=addr, port=port, logger=logger)
         self.sync_address = Address(addr, port).complete_address
-        self.logger.debug("new internal channel created with destination {}".format(self.sync_address))
+        # self.logger.debug("new internal channel created with destination {}".format(self.sync_address))
 
     # After generating an external channel we need an internal channel to receive internal messages
     def generate_internal_channel_server_side(self):
         # ###################
         self.open_rep_socket()
+        self.logger.debug("new internal channel server created with destination {}".format(self.sync_address))
 
     # As a client we generate an internal channel first to notify our existence to the next node,
     # then to send other internal messages
     # The correct flow to synchronize should be : generate_internal_channel_client_side -> first_sync
     def generate_internal_channel_client_side(self, sync_addr=None):
         self.open_req_socket(sync_addr)
+        self.logger.debug("new internal channel client created with destination {}".format(self.sync_address))
 
     def wait_int_message(self, dont_wait=True):
         if dont_wait:

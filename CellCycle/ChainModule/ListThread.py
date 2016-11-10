@@ -47,11 +47,30 @@ class ListThread (threading.Thread):
         self.node_list.add_node(target_node=target_node, target_master=target_master,
                                 target_slave=target_slave)
 
+    def change_parents(self, node_to_add):
+        master_check = float(self.myself.id) > float(node_to_add.id) > float(self.master.id)
+        slave_check = float(self.slave.id) > float(node_to_add.id) > float(self.myself.id)
+        master_of_master_check = float(self.master.id) > float(node_to_add.id) > float(self.master_of_master.id)
+        slave_of_slave_check = float(self.slave_of_slave.id) > float(node_to_add.id) > float(self.slave.id)
+
+        if master_check:
+            self.master = node_to_add
+            self.logger.debug("my master is changed, now is {}".format(self.master.id))
+        elif master_of_master_check:
+            self.master_of_master = node_to_add
+            self.logger.debug("my master_of_master is changed, now is {}".format(self.master_of_master.id))
+        elif slave_check:
+            self.slave = node_to_add
+            self.logger.debug("my slave is changed, now is {}".format(self.slave.id))
+        elif slave_of_slave_check:
+            self.slave_of_slave = node_to_add
+            self.logger.debug("my slave_of_slave is changed, now is {}".format(self.slave_of_slave.id))
+
     def change_slave_to(self, target_node, target_slave):
         result = self.node_list.get_value(target_node)
         target_node = result.target
         target_master = result.master
-        target_slave = self.node_list.get_value(target_slave)
+        target_slave = self.node_list.get_value(target_slave).target
 
         self.node_list.add_node(target_node=target_node, target_master=target_master,
                                 target_slave=target_slave)
@@ -60,13 +79,13 @@ class ListThread (threading.Thread):
         result = self.node_list.get_value(target_node)
         target_node = result.target
         target_slave = result.slave
-        target_master = self.node_list.get_value(target_master)
+        target_master = self.node_list.get_value(target_master).target
 
         self.node_list.add_node(target_node=target_node, target_master=target_master,
                                 target_slave=target_slave)
 
     def make_node_msg(self, source_flag=INT, version='', priority='', target_id='', target_addr='', target_key='',
-                      target_relative=''):
+                      target_relative='', source_id=''):
         msg = Message()
         msg.source_flag = source_flag
         msg.version = version
@@ -76,8 +95,10 @@ class ListThread (threading.Thread):
         msg.target_key = target_key
         msg.target_addr = target_addr
         msg.target_relative_id = target_relative
-        msg.source_id = self.myself.id
-
+        if source_id == '':
+            msg.source_id = self.myself.id
+        else:
+            msg.source_id = source_id
         return msg
 
     # This function is used by Memory Management Process to notify a new scale up
@@ -127,10 +148,12 @@ class ListThread (threading.Thread):
         return self.make_node_msg(source_flag, priority=ALIVE, target_id=target_id, target_addr='',
                                   target_relative=target_master_id)
 
-    def make_added_node_msg(self, target_id, target_addr, target_key, source_flag=INT, target_slave_id=''):
-        return self.make_node_msg(source_flag=source_flag, priority=ADDED, target_id=target_id, target_addr=target_addr,
+    def make_added_node_msg(self, target_id, target_addr, target_key, source_flag=INT, target_slave_id='',
+                            source_id=''):
+        return self.make_node_msg(source_flag=source_flag, priority=ADDED, target_id=target_id,
+                                  target_addr=target_addr,
                                   target_key=target_key,
-                                  target_relative=target_slave_id)
+                                  target_relative=target_slave_id, source_id=source_id)
 
     def make_add_node_msg(self, target_id, target_key, source_flag=INT, target_slave_id=''):
         return self.make_node_msg(source_flag=source_flag, priority=ADD, target_id=target_id, target_addr='',
@@ -154,10 +177,10 @@ class ListThread (threading.Thread):
             self.slave_of_slave.id == target_id
 
     def is_my_new_master(self, message):
-        return self.myself.id > message.target_id > self.master.id
+        return float(self.myself.id) > float(message.target_id) > float(self.master.id)
 
     def is_my_new_slave(self, message):
-        return self.myself.id < message.target_id < self.slave.id
+        return float(self.myself.id) < float(message.target_id) < float(self.slave.id)
 
     # Remove an obsolete node from the list
     def remove_from_list(self, target_id):
@@ -190,7 +213,7 @@ class Node:
 
     def __init__(self, node_id, ip, int_port, ext_port, min_key, max_key):
         self.id = str(node_id)  # Node ID
-        if ip is not None:
+        if ip is not '':
             self.int_addr = '{}:{}'.format(ip, int_port)    # ip:int_port
             self.ext_addr = '{}:{}'.format(ip, ext_port)    # ip:ext_port
         self.min_key = str(min_key)     # Min memory key
@@ -206,6 +229,9 @@ class Node:
     def to_min_max_key_obj(min_max_string):
         min_max_split = min_max_string.split(':')
         return Key(min_max_split[0], min_max_split[1])
+
+    def print_values(self):
+        return ''.join('{}, {}\n'.format(key, val) for key, val in self.__dict__.items())
 
 
 class Key:

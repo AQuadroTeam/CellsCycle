@@ -43,6 +43,9 @@ class ChainList:
     def is_in_list(self, key):
         return key in self.dictionary
 
+    def print_list(self):
+        return ''.join('Node {}, {}\n'.format(key, val.print_value()) for key, val in self.dictionary.items())
+
 
 class ListKey:
 
@@ -62,3 +65,27 @@ class ListValue:
 
     def add_slave(self, target):
         self.slave = target
+
+    def print_value(self):
+        # return ''.join('Node :\n {}\n'.format(u) for u in [self.target.id, self.master.id,
+        #                                                    self.slave.id])
+        # if self.slave is None:
+        #     slave_to_print = 'None'
+        # else:
+        #     slave_to_print = self.slave.id
+        # if self.master is None:
+        #     master_to_print = 'None'
+        # else:
+        #     master_to_print = self.master.id
+
+        # target_to_print = self.target.print_values()
+        # master_to_print = self.master.print_values()
+        # slave_to_print = self.slave.print_values()
+        target_to_print = self.target.id
+        master_to_print = self.master.id
+        slave_to_print = self.slave.id
+
+        return 'Node : myself {}, master {}, slave {}\n'.format(target_to_print, master_to_print, slave_to_print)
+        # return 'Node : myself {}, master {}, slave {}\n'.format(target_to_print, master_to_print, slave_to_print)
+
+
