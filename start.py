@@ -5,7 +5,7 @@ from CellCycle.MemoryModule.MemoryManagement import startMemoryTask, getRequest,
 from CellCycle.ExtraCycleInterface.ExtraCycle import startExtraCycleListeners
 from CellCycle.ChainModule.Generator import Generator
 
-def loadSettings(currentProfile):
+def loadSettings(currentProfile=None):
     # SETTINGSFILEPATH = "./config.txt"
     SETTINGSFILEPATH = "/home/alessandro/git/CellsCycle/config.txt"
 
