@@ -12,6 +12,7 @@ TRANSFERMEMORY = 2
 NEWMASTER = 3
 TRANSFERCOMPLETE = 4
 NEWSLAVE = 5
+NEWSTART = 6
 
 def startMemoryTask(settings, logger, master):
 
@@ -186,12 +187,32 @@ def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
                     transferRequest(newMasterMasterMemory,[thisSlaveMemory],  beginSecond, endSecond)
 
                     transferToDoAfter = True
+
             elif command.type == NEWSLAVE:
                 logger.debug("Slave is dead, new info: "+ str(hostState))
                 hostState = command.optional
 
+            elif command.type == NEWSTART:
+                logger.debug("Memory needs to be configured, first bootup of this memory node, new info: "+ str(hostState))
+                hostState = command.optional
+                # import keys of master
+                thisMasterMemory = "tcp://localhost:"+ str(settings.getMasterSetPort())
+                thisSlaveMemory = "tcp://localhost:"+ str(settings.getSlaveSetPort())
+                masterMasterMemory =  "tcp://"+hostState.master.ip+":"+ str(settings.getMasterSetPort())
+
+                beginFirst = hostsState.myself.min_key #command.optional.thisnode.slave.keys.begin oldone!
+                endFirst = hostsState.myself.max_key #command.optional.thisnode.slave.keys.end oldone!
+
+                beginSlave = hostsState.master.min_key #command.optional.thisnode.slave.keys.begin oldone!
+                endSlave = hostsState.master.max_key #command.optional.thisnode.slave.keys.end oldone!
+
+                transferRequest(masterMasterMemory, thisMasterMemory, beginFirst, endFirst)
+                transferRequest(masterMasterMemory, thisSlaveMemory, beginSlave, endSlave)
+
+                transferToDoAfter = True
+
             elif command.type== TRANSFERCOMPLETE:
-                if(transferToDoAfter):
+                if(transferToDoAfter and master):
                     #avvertire gestore ciclo che E finito recovery TODO:
                     logger.warning("new master state recovery: DONE")
                     #do something with command and hostState
@@ -209,10 +230,11 @@ def _transfer(dest, dataList, begin, end):
 
     socketTM.connect(dest)
     for data in dataList:
-        if(int(data[0]) >= int(begin) and int(data[0]) <= int(end) ):
-            value = data[1].getValue(data[0])
+        key = int(data[0])
+        if(key >= int(begin) and  key <= int(end) ):
+            value = data[1].getValue(key)
             print "transferring:" +str(value) #it's just for debug TODO to delete
-            socketTM.send(dumps(Command(SETCOMMAND,data[0],value)))
+            socketTM.send(dumps(Command(SETCOMMAND,key,value)))
     socketTM.send(dumps(Command(TRANSFERCOMPLETE)))
     socketTM.close()
 
@@ -303,6 +325,21 @@ def newSlaveRequest(url, hostInformations):
     socket = context.socket(zmq.PUSH)
     socket.connect(url)
     command = Command(NEWSLAVE)
+    command.optional = hostInformations
+    socket.send(dumps(command))
+    socket.close()
+
+"""
+usage:
+    from MemoryModule.MemoryManagement import newStartRequest
+    import zmq
+    newStartRequest("tcp://localhost:" + str(settings.getMasterSetPort()), hostInformations)
+"""
+def newStartRequest(url, hostInformations):
+    context = zmq.Context.instance()
+    socket = context.socket(zmq.PUSH)
+    socket.connect(url)
+    command = Command(NEWSTART)
     command.optional = hostInformations
     socket.send(dumps(command))
     socket.close()
