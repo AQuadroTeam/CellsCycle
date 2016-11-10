@@ -24,6 +24,12 @@ class DeadReader(ProducerThread):
         self.wait_for_a_dead()
         self.logger.debug(exiting_reader(self.myself.id))
 
+    def new_start_request(self):
+        pass
+        # memory_object = MemoryObject(self.master_of_master, self.master, self.myself, self.slave,
+        # self.slave_of_slave)
+        # newStartRequest("tcp://localhost:" + str(settings.getMasterSetPort()), memory_object)
+
     def retry_until_success(self, msg, times):
         stop = False
         while not stop:
@@ -45,6 +51,9 @@ class DeadReader(ProducerThread):
         self.myself.ip = "127.0.0.1"
         self.myself.int_addr = '{}:{}'.format(self.myself.ip, self.myself.int_port)    # ip:int_port
         self.myself.ext_addr = '{}:{}'.format(self.myself.ip, self.myself.ext_port)    # ip:ext_port
+
+        self.new_start_request()
+        # TODO receive FINISHED from memory module
 
         self.internal_channel.generate_internal_channel_client_side()
 
@@ -104,12 +113,13 @@ class DeadReader(ProducerThread):
     def change_master_of_master(self, new_master_of_master):
         self.master_of_master = new_master_of_master
 
-    # TODO absolutely to change, this is an hardcoded test
+    # TODO this is an hardcoded test, we need canonicals check
     def wait_for_a_dead(self):
         while True:
-            if self.myself.int_port is not '5586':
+            if self.canonical_check():
                 self.logger.debug("my IP is not none : {}".format(self.myself.ip))
                 self.init_connection()
+
             else:
                 self.new_birth_connection()
 

@@ -63,10 +63,6 @@ class ListCommunication:
         self.logger.debug(closing_socket_with(self.complete_address))
         # self.list_communication_channel.disconnect(self.completeAddress)
 
-    # TODO notify_dead_node
-    def notify_dead_node(self, settings, message):
-        pass
-
     @staticmethod
     def store_data(data, file_path):
         with open(file_path, 'w+') as f:
@@ -128,7 +124,7 @@ class ExternalChannel(ListCommunication):
             # self.logger.debug('Sleep finished')
             # self.list_communication_channel.close()
         except zmq.ZMQError as a:
-            # self.logger.debug(a.strerror)
+            self.logger.debug(a.strerror)
             self.context.destroy()
             self.context = zmq.Context()
 

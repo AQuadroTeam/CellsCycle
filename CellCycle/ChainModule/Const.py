@@ -27,6 +27,7 @@ ALIVE = '0'
 
 # List communication
 DEFAULT_ADDR = '127.0.0.1'
+CANONICAL_ADDR = ["172.31.20.1", "172.31.20.2", "172.31.20.3", "172.31.20.4", "172.31.20.5"]
 
 # ACK/NACK
 NOK = 'NOK'

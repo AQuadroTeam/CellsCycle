@@ -30,9 +30,15 @@ class DeadWriter (ConsumerThread):
         self.last_seen_priority = '0'
         self.last_seen_version = '0'
 
-        # TODO remove this
+        # TODO remove this and replace with canonicals check
+        # if self.canonical_check():
         if self.myself.ip is '':
+            # We are a new machine
             self.myself.ip = "127.0.0.1"
+        else:
+            # Let's begin with the memory part, this is the case of first boot
+            self.new_master_request()
+
         self.external_channel = ExternalChannel(addr=self.myself.ip, port=self.myself.ext_port, logger=self.logger)
         self.internal_channel = InternalChannel(addr=self.myself.ip, port=self.myself.int_port, logger=self.logger)
 
@@ -47,6 +53,21 @@ class DeadWriter (ConsumerThread):
         self.last_seen_version = msg.version
         self.last_seen_priority = msg.priority
         self.last_seen_random = msg.random
+
+    def new_master_request(self):
+        pass
+        # master_of_master_to_send = self.node_list.get_value(self.master_of_master.id).master
+        # memory_object = MemoryObject(master_of_master_to_send, self.master_of_master, self.master,
+        # self.myself, self.slave)
+        # newMasterRequest("tcp://localhost:" + str(self.settings.getMasterSetPort()), memory_object)
+
+    def new_slave_request(self):
+        pass
+        # slave_of_slave_to_send = self.node_list.get_value(self.slave_of_slave.id).slave
+        # memory_object = MemoryObject(self.master, self.myself, self.slave,
+        # self.slave_of_slave, slave_of_slave_to_send)
+        # newSlaveRequest("tcp://localhost:" + str(self.settings.getMasterSetPort()), memory_object)
+        # TODO need getSlaveSetPort ?
 
     def writer_behavior(self):
 
@@ -162,6 +183,10 @@ class DeadWriter (ConsumerThread):
                 # if i am the target just DIE
                 if msg.target_id == self.myself.id:
                     exit(0)
+                    # TODO replace with terminate instance
+
+                # Notify to the memory module
+                self.new_master_request()
                 self.version += 1
                 msg_to_send = to_external_message(self.version, msg)
                 string_message = dumps(msg_to_send)
@@ -179,10 +204,6 @@ class DeadWriter (ConsumerThread):
 
                 # Now update the list
                 self.update_list(self.myself.id, self.master.id, self.slave.id)
-
-                # notify memory process about the new node
-                # TODO notify memory module
-                self.internal_channel.notify_dead_node(settings=self.settings, message=self.master_of_master)
 
         else:
             # self.logger.debug(just_received_new_msg(self.myself.id, self.master.id,
@@ -206,13 +227,14 @@ class DeadWriter (ConsumerThread):
                 specific_parameters = [self.master, self.myself, new_node_instance_to_add, self.slave,
                                        self.slave_of_slave]
 
-                # startInstanceAWS(self.settings, self.logger, create_specific_instance_parameters(specific_parameters))
                 self.last_add_message = ''
                 self.node_to_add = msg.target_id
+                # startInstanceAWS(self.settings, self.logger, create_specific_instance_parameters(specific_parameters))
+                self.new_slave_request()
+                # TODO generate node with startInstanceAWS
                 create_single_process(l=self.logger, s=self.settings,
                                       a=create_specific_instance_parameters(specific_parameters))
                 self.logger.debug("ADD CYCLE completed")
-                # TODO generate_node
             elif is_my_last_added_message(msg, self.last_added_message):
                 # The cycle is over
                 self.last_added_message = ''

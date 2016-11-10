@@ -39,6 +39,7 @@ class Generator:
     def _get_node_from_data(data):
         # return Node(data[ID], data[IP], self.settings.getIntPort(),
         #             self.settings.getExtPort(), min_key=data[MIN_KEY], max_key=data[MAX_KEY])
+        # TODO remove this to deploy
         int_port = "558{}".format(data[IP][len("172.31.20.")])
         ext_port = "559{}".format(data[IP][len("172.31.20.")])
         return Node(data[ID], LOCAL_HOST, int_port,

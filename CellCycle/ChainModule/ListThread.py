@@ -24,7 +24,6 @@ class ListThread (threading.Thread):
         self.busy_add = False
 
         self.node_list = ChainList()
-        # TODO this is for just 5 nodes
         self.add_in_list(myself, master, slave)
         self.add_in_list(master, master_of_master, myself)
         self.add_in_list(slave, myself, slave_of_slave)
@@ -35,6 +34,10 @@ class ListThread (threading.Thread):
 
     def run(self):
         self.logger.debug(this_is_the_thread_in_action(self.myself.id))
+
+    def canonical_check(self):
+        return self.myself.int_port is not '5586'
+        # return self.myself.ip not in CANONICAL_ADDR
 
     def add_in_list(self, target_node, target_master, target_slave):
         self.node_list.add_node(target_node, target_master, target_slave)
