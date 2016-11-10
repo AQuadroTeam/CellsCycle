@@ -157,7 +157,6 @@ def _manageRequest(logger, settings, socket, command, client, list_manager):
         return
 
 
-
 def _send(socket, client, data):
     socket.send_multipart([client,data])
 

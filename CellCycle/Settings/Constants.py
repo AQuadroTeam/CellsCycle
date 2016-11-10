@@ -28,6 +28,7 @@ SETSCALEDOWNLEVEL = "SetScaleDownLevel"
 # List Communication Ports
 EXTPORT = "ExtPort"
 INTPORT = "IntPort"
+MEMORYOBJECTPORT = "MemoryObjectPort"
 
 # AWS
 AWSIMAGEID = "AwsImageId"

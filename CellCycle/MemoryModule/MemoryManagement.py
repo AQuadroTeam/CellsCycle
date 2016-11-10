@@ -224,6 +224,10 @@ def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
             elif command.type == TRANSFERCOMPLETE:
                 if(transferToDoAfter and master):
                     # TODO call the list communication for added or recovered
+                    # internal_channel = InternalChannel(addr="localhost", port=settings.getMemoryObjectPort(), logger=logger)
+                    # internal_channel.generate_internal_channel_client_side()
+                    # internal_channel.send_first_internal_channel_message(message="FINISHED")
+                    # internal_channel.wait_int_message(dont_wait=False)
                     #avvertire gestore ciclo che E finito recovery TODO:
                     logger.warning("new master state recovery: DONE")
                     #do something with command and hostState
