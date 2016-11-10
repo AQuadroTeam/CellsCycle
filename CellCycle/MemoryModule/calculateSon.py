@@ -11,14 +11,15 @@ and generate a new random number between two ids, using high value numbers,
 hoping there wont be consecutive ids (this solution can be easily avoided with our method).
 '''
 def calculateSonId(masterId , slaveId):
-    assert(masterId < slaveId)
-
     import math
     masterGreaterWholeNumber = math.ceil(masterId)
     if (masterGreaterWholeNumber == masterId):
         masterGreaterWholeNumber += 1
 
     slaveGreaterWholeNumber = math.ceil(slaveId)
+
+	if(slaveId < masterId):
+		return masterGreaterWholeNumber + 1
 
     if(masterGreaterWholeNumber == slaveGreaterWholeNumber ):
         return float(masterId + (slaveId - masterId)/2.0)
