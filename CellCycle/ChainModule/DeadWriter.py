@@ -185,8 +185,6 @@ class DeadWriter (ConsumerThread):
                     exit(0)
                     # TODO replace with terminate instance
 
-                # Notify to the memory module
-                self.new_master_request()
                 self.version += 1
                 msg_to_send = to_external_message(self.version, msg)
                 string_message = dumps(msg_to_send)
@@ -268,6 +266,13 @@ class DeadWriter (ConsumerThread):
                 # The cycle is over
                 self.last_dead_message = ''
                 self.logger.debug("DEAD CYCLE completed")
+                # Notify to the memory module
+                self.new_master_request()
+                # internal_channel_on_the_fly = InternalChannel(addr="localhost", port=settings.getMemoryObjectPort(),
+                #  logger=logger)
+                # internal_channel_on_the_fly.generate_internal_channel_server_side()
+                # internal_channel_on_the_fly.wait_int_message(dont_wait=False)
+                # internal_channel_on_the_fly.reply_to_int_message(OK)
                 # TODO restored message to test
             elif is_my_last_restored_message(msg, self.last_restored_message):
                 # The cycle is over
@@ -296,6 +301,15 @@ class DeadWriter (ConsumerThread):
                             self.slave_of_slave = self.node_list.get_value(self.slave_of_slave.id).slave
                             # Let's resync with our new slave
                             self.logger.debug("resync with {}".format(self.slave.id))
+
+                            # TODO notify the memory module
+                            self.new_slave_request()
+                            # internal_channel_on_the_fly = InternalChannel(addr="localhost",
+                            # port=settings.getMemoryObjectPort(),
+                            # logger=logger)
+                            # internal_channel_on_the_fly.generate_internal_channel_server_side()
+                            # internal_channel_on_the_fly.wait_int_message(dont_wait=False)
+                            # internal_channel_on_the_fly.reply_to_int_message(OK)
                             # resync sending the new master of master
                             self.internal_channel.resync(msg=dumps(self.master))
                         if msg.target_id == self.slave_of_slave.id:

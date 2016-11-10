@@ -53,7 +53,11 @@ class DeadReader(ProducerThread):
         self.myself.ext_addr = '{}:{}'.format(self.myself.ip, self.myself.ext_port)    # ip:ext_port
 
         self.new_start_request()
-        # TODO receive FINISHED from memory module
+        # TODO wait for added ?
+        # internal_channel_on_the_fly = InternalChannel(addr="localhost", port=settings.getMemoryObjectPort(), logger=logger)
+        # internal_channel_on_the_fly.generate_internal_channel_server_side()
+        # internal_channel_on_the_fly.wait_int_message(dont_wait=False)
+        # internal_channel_on_the_fly.reply_to_int_message(OK)
 
         self.internal_channel.generate_internal_channel_client_side()
 
