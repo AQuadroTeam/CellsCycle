@@ -2,7 +2,9 @@
 from CellCycle.AWS.AWSlib import startInstanceAWS, terminateThisInstanceAWS
 from CellCycle.ChainModule.MemoryObject import MemoryObject
 from CellCycle.ChainModule.Message import InformationMessage
+from CellCycle.KeyCalcManager import keyCalcToCreateANewNode
 from CellCycle.MemoryModule.MemoryManagement import newMasterRequest, newSlaveRequest
+from CellCycle.MemoryModule.calculateSon import calculateSonId
 from ListCommunication import *
 from Printer import *
 from zmq import ZMQError
@@ -384,11 +386,14 @@ class DeadWriter (ConsumerThread):
                 self.logger.debug("LAST ADD message")
                 # The cycle is over
                 # We have to wait for a new node
-                new_node_id_to_add = str(compute_son_id(float(self.myself.id), float(self.slave.id)))
-                # new_node_keys_to_add = compute_son_key()
+                memory_obj = MemoryObject(self.master_of_master, self.master, self.myself,
+                                          self.slave, self.slave_of_slave)
+                new_min_max_key = keyCalcToCreateANewNode(memory_obj)
+
+                new_node_id_to_add = str(calculateSonId(float(self.myself.id), float(self.slave.id)))
                 new_node_instance_to_add = Node(new_node_id_to_add, None, self.settings.getIntPort(),
                                                 self.settings.getExtPort(),
-                                                '0', '19')
+                                                new_min_max_key.min_key, new_min_max_key.max_key)
                 specific_parameters = [self.master, self.myself, new_node_instance_to_add, self.slave,
                                        self.slave_of_slave]
 
