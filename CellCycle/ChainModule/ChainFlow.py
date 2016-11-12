@@ -124,6 +124,10 @@ def check_message_priority(msg, priority):
     return msg.priority == priority
 
 
+def is_inproc_message(msg):
+    return check_message_priority(msg, IN_PROC)
+
+
 def is_alive_message(msg):
     return check_message_priority(msg, ALIVE)
 

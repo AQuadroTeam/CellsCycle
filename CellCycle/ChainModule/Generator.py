@@ -42,8 +42,9 @@ class Generator:
         # TODO remove this to deploy
         int_port = "558{}".format(data[IP][len("172.31.20.")])
         ext_port = "559{}".format(data[IP][len("172.31.20.")])
+        memory_port = "557{}".format(data[IP][len("172.31.20.")])
         return Node(data[ID], LOCAL_HOST, int_port,
-                    ext_port, min_key=data[MIN_KEY], max_key=data[MAX_KEY])
+                    ext_port, min_key=data[MIN_KEY], max_key=data[MAX_KEY], memory_port=memory_port)
 
     def create_process_environment(self):
         myself = self.args[MYSELF]
@@ -59,20 +60,26 @@ class Generator:
 
         thread_reader_name = "Reader-{}".format(myself.id)
         thread_writer_name = "Writer-{}".format(myself.id)
-        reader = DeadReader(myself, master, slave, slave_of_slave, master_of_master, self.logger, self.settings,
-                            thread_reader_name)
         writer = DeadWriter(myself, master, slave, slave_of_slave, master_of_master, self.logger, self.settings,
                             thread_writer_name)
+        reader = DeadReader(myself, master, slave, slave_of_slave, master_of_master, self.logger, self.settings,
+                            thread_reader_name, writer)
 
         reader.start()
         writer.start()
 
+        from threading import Thread
+
         # FIXME This part is just to test add node cycle
-        # sleep(5)
-        # if myself.id == "1" or myself.id == "2" or myself.id == "3":
-        # from threading import Thread
-        # new_scale_up_thread = Thread(name="ScaleUpThread", target=scale_up_thread, args=(myself, self.logger,))
-        # new_scale_up_thread.start()
+        sleep(5)
+        if myself.id == "1" or myself.id == "2" or myself.id == "3":
+            # from threading import Thread
+            new_scale_up_thread = Thread(name="ScaleUpThread", target=scale_up_thread, args=(myself, self.logger,))
+            new_scale_up_thread.start()
+
+        # FIXME This part is just to test dead node cycle
+        new_scale_down_thread = Thread(name="ScaleDownThread", target=scale_down_thread, args=(myself, self.logger,))
+        new_scale_down_thread.start()
 
         reader.join()
 
@@ -92,6 +99,25 @@ class Parameter:    # unused
         self.master_of_master = master_of_master
 
 
+def scale_down_thread(a, l):
+    from CellCycle.ChainModule.ListCommunication import InternalChannel
+    internal_channel_server = InternalChannel(addr='127.0.0.1', port=a.memory_port, logger=l)
+    internal_channel_server.generate_internal_channel_server_side()
+    internal_channel_server.wait_int_message(dont_wait=False)
+    internal_channel_server.reply_to_int_message("OK")
+
+    # myself = Generator._get_node_from_data(a[MYSELF])
+    internal_channel = InternalChannel(addr='127.0.0.1', port=a.int_port, logger=l)
+    internal_channel.generate_internal_channel_client_side()
+
+    # if myself.int_port == 1:
+
+    ListThread.notify_restored(internal_channel)
+    # else:
+    #     while True:
+    #         sleep(5)
+
+
 def scale_up_thread(a, l):
     from CellCycle.ChainModule.ListCommunication import InternalChannel
 
@@ -99,10 +125,10 @@ def scale_up_thread(a, l):
     internal_channel = InternalChannel(addr='127.0.0.1', port=a.int_port, logger=l)
     internal_channel.generate_internal_channel_client_side()
 
-    # if myself.int_port == 1:
-    while True:
-        ListThread.notify_scale_up(internal_channel)
-        sleep(5)
+    # while True:
+    ListThread.notify_scale_up(internal_channel)
+    #     sleep(5)
+
     # else:
     #     while True:
     #         sleep(5)

@@ -1,5 +1,5 @@
 #! /usr/bin/env python
-
+from CellCycle.ChainModule.Message import InformationMessage
 from ListCommunication import *
 from Printer import *
 from zmq import ZMQError
@@ -30,14 +30,19 @@ class DeadWriter (ConsumerThread):
         self.last_seen_priority = '0'
         self.last_seen_version = '0'
 
+        self.dead_cycle_finished = False
+        self.last_dead_node = None
+
         # TODO remove this and replace with canonicals check
         # if self.canonical_check():
         if self.myself.ip is '':
             # We are a new machine
             self.myself.ip = "127.0.0.1"
-        else:
+        # TODO remove this comment to deploy
+        # else:
             # Let's begin with the memory part, this is the case of first boot
-            self.new_master_request()
+
+            # self.new_master_request()
 
         self.external_channel = ExternalChannel(addr=self.myself.ip, port=self.myself.ext_port, logger=self.logger)
         self.internal_channel = InternalChannel(addr=self.myself.ip, port=self.myself.int_port, logger=self.logger)
@@ -49,13 +54,34 @@ class DeadWriter (ConsumerThread):
         self.writer_behavior()
         self.logger(exiting_writer(self.myself.id))
 
+    def set_list(self, new_list):
+        self.node_list = new_list
+
+    def set_version(self, new_version):
+        self.version = new_version
+
+    def set_last_seen_version(self, new_last_seen_version):
+        self.last_seen_version = new_last_seen_version
+
+    def set_last_seen_priority(self, new_last_seen_priority):
+        self.last_seen_priority = new_last_seen_priority
+
+    def set_last_seen_random(self, new_last_seen_random):
+        self.last_seen_random = new_last_seen_random
+
     def update_last_seen(self, msg):
         self.last_seen_version = msg.version
         self.last_seen_priority = msg.priority
         self.last_seen_random = msg.random
 
     def new_master_request(self):
-        pass
+        internal_channel_on_the_fly = InternalChannel(addr="127.0.0.1", port=self.myself.memory_port,
+                                                      logger=self.logger)
+        internal_channel_on_the_fly.generate_internal_channel_client_side()
+        internal_channel_on_the_fly.send_first_internal_channel_message("NEED RESTORED")
+        internal_channel_on_the_fly.wait_int_message(dont_wait=False)
+
+        # TODO remove above, this is the right code
         # master_of_master_to_send = self.node_list.get_value(self.master_of_master.id).master
         # memory_object = MemoryObject(master_of_master_to_send, self.master_of_master, self.master,
         # self.myself, self.slave)
@@ -67,7 +93,128 @@ class DeadWriter (ConsumerThread):
         # memory_object = MemoryObject(self.master, self.myself, self.slave,
         # self.slave_of_slave, slave_of_slave_to_send)
         # newSlaveRequest("tcp://localhost:" + str(self.settings.getMasterSetPort()), memory_object)
-        # TODO need getSlaveSetPort ?
+
+    def consider_add_message(self, msg, origin_message):
+        relatives_check = self.is_one_of_my_relatives(msg.source_id)
+        # The ADD cycle isn't over or i'm not interested in adding new nodes
+        someone_beats_me = self.last_add_message != '' and self.node_to_add == ''
+        if someone_beats_me:
+            self.busy_add = False
+            self.logger.debug("i've just asked for scale up, but this node beats me : {}".
+                              format(msg.source_id))
+        if relatives_check and not self.busy_add:
+            self.busy_add = True
+            self.update_last_seen(msg)
+            self.version = max(int(msg.version) + 1, self.version)
+            self.external_channel.forward(origin_message)
+            self.logger.debug("is relative and not busy, new version {} and MSG\n{}".
+                              format(str(self.version), msg.printable_message()))
+        elif not relatives_check:
+            # self.busy_add = True
+            self.update_last_seen(msg)
+            self.version = max(int(msg.version) + 1, self.version)
+            self.external_channel.forward(origin_message)
+            self.logger.debug("not one of relatives, new version {} and MSG\n{}".
+                              format(str(self.version), msg.printable_message()))
+        else:
+            self.logger.debug("my version is still {}, no forward and MSG\n{}".
+                              format(str(self.version), msg.printable_message()))
+
+    def consider_restored_message(self, msg, origin_message):
+        relatives_check = self.is_one_of_my_relatives(msg.source_id)
+        if relatives_check:
+            self.busy_add = False
+        self.update_last_seen(msg)
+        self.version = max(int(msg.version) + 1, self.version)
+        self.external_channel.forward(origin_message)
+        self.logger.debug("forwarding this RESTORED message\n{}".format(msg.printable_message()))
+
+    def consider_dead_message(self, msg, origin_message):
+        target_id = msg.target_id
+        target_master = msg.target_relative_id
+        target_slave = msg.source_id
+
+        # Update the target ID
+        self.update_list(target_node=target_id, target_master=target_master, target_slave=target_slave)
+        # Update the master node, the new master of target_slave is target_master
+        self.change_master_to(target_node=target_slave, target_master=target_master)
+        # Update the slave node, the new slave of target_master is target_slave
+        self.change_slave_to(target_node=target_master, target_slave=target_slave)
+
+        # if this node is one of my relatives, let's update our static attributes
+        if msg.target_id == self.slave.id:
+            self.slave = self.slave_of_slave
+            self.slave_of_slave = self.node_list.get_value(self.slave_of_slave.id).slave
+            # Let's resync with our new slave
+            self.logger.debug("resync with {}".format(self.slave.id))
+
+            # TODO notify the memory module, no response necessary
+            self.new_slave_request()
+            # internal_channel_on_the_fly = InternalChannel(addr="localhost",
+            # port=settings.getMemoryObjectPort(),
+            # logger=logger)
+            # internal_channel_on_the_fly.generate_internal_channel_server_side()
+            # internal_channel_on_the_fly.wait_int_message(dont_wait=False)
+            # internal_channel_on_the_fly.reply_to_int_message(OK)
+            # resync sending the new master of master
+            self.internal_channel.resync(msg=dumps(self.master))
+        if msg.target_id == self.slave_of_slave.id:
+            self.slave_of_slave = self.node_list.get_value(msg.target_id).slave
+        # No case of master.addr
+        if msg.target_id == self.master_of_master.id:
+            self.master_of_master = self.node_list.get_value(msg.target_id).master
+        if self.is_one_of_my_relatives(msg.target_id):
+            self.busy_add = True
+            self.logger.debug("now i'm busy : {} is DEAD".format(msg.target_id))
+            # if i'm involved i have to be busy
+        self.remove_from_list(msg.target_id)
+        self.update_last_seen(msg)
+        self.version = max(int(msg.version) + 1, self.version)
+        self.external_channel.forward(origin_message)
+        self.logger.debug("forwarding this DEAD message\n{}".format(msg.printable_message()))
+
+    def consider_added_message(self, msg, origin_message):
+        self.logger.debug("my version is {}, uuu we have a new NODE\n{}".
+                          format(str(self.version), msg.printable_message()))
+        min_max_key = Node.to_min_max_key_obj(msg.target_key)
+        # TODO remove comments to deploy
+        added_int_port = "558{}".format(msg.target_id) if msg.target_id in ["1", "2", "3", "4", "5"] else "5586"
+        added_ext_port = "559{}".format(msg.target_id) if msg.target_id in ["1", "2", "3", "4", "5"] else "5596"
+
+        node_to_add = Node(msg.target_id, msg.target_addr, added_int_port,
+                           added_ext_port,
+                           min_max_key.min_key, min_max_key.max_key)
+        self.logger.debug("adding in list this node\n{}".format(node_to_add.print_values()))
+
+        # node_to_add = Node(msg.target_id, msg.target_addr, self.settings.getIntPort(),
+        #                    self.settings.getExtPort(),
+        #                    min_max_key.min_key, min_max_key.max_key)
+        target_master = self.node_list.get_value(msg.source_id).target
+        target_slave = self.node_list.get_value(msg.target_relative_id).target
+        # Add the new node in list
+        self.add_in_list(target_node=node_to_add, target_master=target_master,
+                         target_slave=target_slave)
+
+        target_id = msg.target_id
+        target_master = msg.source_id
+        target_slave = msg.target_relative_id
+
+        # Update the master node, the new master of target_slave is target_id
+        self.change_master_to(target_node=target_slave, target_master=target_id)
+        # Update the slave node, the new master of target_master is target_id
+        self.change_slave_to(target_node=target_master, target_slave=target_id)
+
+        self.logger.debug("this is my new list\n{}".format(self.node_list.print_list()))
+
+        relatives_check = self.is_one_of_my_relatives(msg.source_id)
+        if relatives_check:
+            self.busy_add = False
+            self.change_parents(node_to_add)
+            self.logger.debug("welcome new relative! now i am able to receive new scale ups")
+
+        self.update_last_seen(msg)
+        self.version = max(int(msg.version) + 1, self.version)
+        self.external_channel.forward(origin_message)
 
     def writer_behavior(self):
 
@@ -87,6 +234,7 @@ class DeadWriter (ConsumerThread):
         # Just a check for dead nodes
         # if self.myself.id == '1':
         #    time.sleep(100000000000000000)
+        self.logger.debug("this is my list\n{}".format(self.node_list.print_list()))
 
         tempt = 0
         while True:
@@ -124,7 +272,12 @@ class DeadWriter (ConsumerThread):
             self.internal_channel.reply_to_int_message(NOK)
             msg = loads(self.internal_channel.wait_int_message(dont_wait=False))
         # It's the right node
-        self.internal_channel.reply_to_int_message(dumps(self.node_list))
+        information_message = InformationMessage(node_list=self.node_list, version=self.version,
+                                                 last_seen_version=self.last_seen_version,
+                                                 last_seen_priority=self.last_seen_priority,
+                                                 last_seen_random=self.last_seen_random)
+
+        self.internal_channel.reply_to_int_message(dumps(information_message))
 
     def analyze_message(self, msg):
         # Message from another process or a new node
@@ -132,10 +285,14 @@ class DeadWriter (ConsumerThread):
 
         if is_int_message(msg):
             # Now we have a simple object to handle with
+            # if msg == "FINISHED" and self.dead_cycle_finished:
+            if is_inproc_message(msg):
+                self.node_list = msg.list
             if is_alive_message(msg):
                 if self.busy_add and msg.target_id == self.node_to_add:
                     self.internal_channel.reply_to_int_message(NOK)
                 elif msg.target_id == self.slave_of_slave.id:
+                    self.logger.debug("slave {} is DEAD, waiting for DEAD message".format(self.slave.id))
                     # Perhaps our slave is died
                     self.internal_channel.reply_to_int_message(NOK)
                 else:
@@ -144,7 +301,7 @@ class DeadWriter (ConsumerThread):
             if is_add_message(msg):
                 if not self.busy_add:
                     self.internal_channel.reply_to_int_message(OK)
-                    self.version += 1
+                    # self.version += 1
                     msg = self.make_add_node_msg(target_id=str(compute_son_id(float(self.myself.id),
                                                                               float(self.slave.id))),
                                                  target_key="0:19",
@@ -158,7 +315,18 @@ class DeadWriter (ConsumerThread):
                 else:
                     # I'm busy, retry later if you want to add a new node
                     self.internal_channel.reply_to_int_message(NOK)
-            if is_restored_message(msg):
+            if is_restored_message(msg) and self.dead_cycle_finished:
+                self.dead_cycle_finished = False
+                self.internal_channel.reply_to_int_message(OK)
+                min_max_key = Node.get_min_max_key(self.last_dead_node)
+                msg = self.make_restored_node_msg(target_id=self.last_dead_node.id, target_key=min_max_key,
+                                                  target_addr=self.last_dead_node.ip, source_flag=EXT,
+                                                  target_master_id=self.master.id)
+                self.version += 1
+                msg = to_external_message(self.version, msg)
+                self.last_restored_message = msg
+                self.external_channel.forward(dumps(msg))
+                '''
                 if not self.busy_add:
                     self.internal_channel.reply_to_int_message(NOK)
                 else:
@@ -168,6 +336,7 @@ class DeadWriter (ConsumerThread):
                     self.last_restored_message = msg_to_send
                     string_message = dumps(msg_to_send)
                     self.external_channel.forward(string_message)
+                '''
             if is_added_message(msg):
                 if not self.busy_add:
                     self.internal_channel.reply_to_int_message(NOK)
@@ -185,7 +354,7 @@ class DeadWriter (ConsumerThread):
                     exit(0)
                     # TODO replace with terminate instance
 
-                self.version += 1
+                # self.version += 1
                 msg_to_send = to_external_message(self.version, msg)
                 string_message = dumps(msg_to_send)
                 self.external_channel.forward(string_message)
@@ -194,6 +363,7 @@ class DeadWriter (ConsumerThread):
                 self.busy_add = True
                 self.logger.debug("now i'm busy : my master is DEAD")
 
+                self.last_dead_node = self.master
                 self.remove_from_list(self.master.id)
 
                 # Change master and master of master
@@ -240,9 +410,17 @@ class DeadWriter (ConsumerThread):
                 self.logger.debug("the cycle is over, now i am able to accept scale up requests")
 
                 min_max_key = Node.to_min_max_key_obj(msg.target_key)
-                node_to_add = Node(msg.target_id, msg.target_addr, self.settings.getIntPort(),
-                                   self.settings.getExtPort(),
+                added_int_port = "558{}".format(msg.target_id) if msg.target_id in ["1", "2", "3", "4", "5"] else "5586"
+                added_ext_port = "559{}".format(msg.target_id) if msg.target_id in ["1", "2", "3", "4", "5"] else "5596"
+
+                node_to_add = Node(msg.target_id, msg.target_addr, added_int_port,
+                                   added_ext_port,
                                    min_max_key.min_key, min_max_key.max_key)
+                self.logger.debug("adding this node in list\n{}".format(node_to_add.print_values()))
+
+                # node_to_add = Node(msg.target_id, msg.target_addr, self.settings.getIntPort(),
+                #                    self.settings.getExtPort(),
+                #                    min_max_key.min_key, min_max_key.max_key)
                 target_master = self.node_list.get_value(msg.source_id).target
                 target_slave = self.node_list.get_value(msg.target_relative_id).target
                 # Add the new node in list
@@ -268,17 +446,13 @@ class DeadWriter (ConsumerThread):
                 self.logger.debug("DEAD CYCLE completed")
                 # Notify to the memory module
                 self.new_master_request()
-                # internal_channel_on_the_fly = InternalChannel(addr="localhost", port=settings.getMemoryObjectPort(),
-                #  logger=logger)
-                # internal_channel_on_the_fly.generate_internal_channel_server_side()
-                # internal_channel_on_the_fly.wait_int_message(dont_wait=False)
-                # internal_channel_on_the_fly.reply_to_int_message(OK)
-                # TODO restored message to test
+                self.dead_cycle_finished = True
             elif is_my_last_restored_message(msg, self.last_restored_message):
                 # The cycle is over
                 self.last_restored_message = ''
                 self.busy_add = False
-                self.logger.debug("the node is restored, now i am able to receive scale up requests")
+                self.logger.debug("RESTORED CYCLE completed, now i am able to receive scale up requests, "
+                                  "this is my list\n{}".format(self.node_list.print_list()))
             else:
                 if msg_variable_version_check(msg, self.version):
 
@@ -291,9 +465,9 @@ class DeadWriter (ConsumerThread):
                         # Update the target ID
                         self.update_list(target_node=target_id, target_master=target_master, target_slave=target_slave)
                         # Update the master node, the new master of target_slave is target_master
-                        self.change_master_to(target_node=target_slave, target_master=target_id)
+                        self.change_master_to(target_node=target_slave, target_master=target_master)
                         # Update the slave node, the new slave of target_master is target_slave
-                        self.change_slave_to(target_node=target_master, target_slave=target_id)
+                        self.change_slave_to(target_node=target_master, target_slave=target_slave)
 
                         # if this node is one of my relatives, let's update our static attributes
                         if msg.target_id == self.slave.id:
@@ -302,11 +476,11 @@ class DeadWriter (ConsumerThread):
                             # Let's resync with our new slave
                             self.logger.debug("resync with {}".format(self.slave.id))
 
-                            # TODO notify the memory module
+                            # TODO notify the memory module, no response necessary
                             self.new_slave_request()
                             # internal_channel_on_the_fly = InternalChannel(addr="localhost",
                             # port=settings.getMemoryObjectPort(),
-                            # logger=logger)
+                            # logger=logger
                             # internal_channel_on_the_fly.generate_internal_channel_server_side()
                             # internal_channel_on_the_fly.wait_int_message(dont_wait=False)
                             # internal_channel_on_the_fly.reply_to_int_message(OK)
@@ -323,8 +497,9 @@ class DeadWriter (ConsumerThread):
                             # if i'm involved i have to be busy
                         self.remove_from_list(msg.target_id)
                         self.update_last_seen(msg)
-                        self.version = int(msg.version) + 1
+                        self.version = max(int(msg.version) + 1, self.version)
                         self.external_channel.forward(origin_message)
+                        self.logger.debug("forwarding this DEAD message\n{}".format(msg.printable_message()))
                     elif is_add_message(msg):
                         check_to_consider_add_message = (self.last_add_message != '' and
                                                          version_random_priority_check(msg, self.last_add_message))\
@@ -340,14 +515,14 @@ class DeadWriter (ConsumerThread):
                             if relatives_check and not self.busy_add:
                                 self.busy_add = True
                                 self.update_last_seen(msg)
-                                self.version = int(msg.version) + 1
+                                self.version = max(int(msg.version) + 1, self.version)
                                 self.external_channel.forward(origin_message)
                                 self.logger.debug("is relative and not busy, new version {} and MSG\n{}".
                                                   format(str(self.version), msg.printable_message()))
                             elif not relatives_check:
                                 # self.busy_add = True
                                 self.update_last_seen(msg)
-                                self.version = int(msg.version) + 1
+                                self.version = max(int(msg.version) + 1, self.version)
                                 self.external_channel.forward(origin_message)
                                 self.logger.debug("not one of relatives, new version {} and MSG\n{}".
                                                   format(str(self.version), msg.printable_message()))
@@ -362,9 +537,18 @@ class DeadWriter (ConsumerThread):
                             self.logger.debug("my version is {}, uuu we have a new NODE\n{}".
                                               format(str(self.version), msg.printable_message()))
                             min_max_key = Node.to_min_max_key_obj(msg.target_key)
-                            node_to_add = Node(msg.target_id, msg.target_addr, self.settings.getIntPort(),
-                                               self.settings.getExtPort(),
+                            # TODO remove this to deploy
+                            # node_to_add = Node(msg.target_id, msg.target_addr, self.settings.getIntPort(),
+                            #                    self.settings.getExtPort(),
+                            #                    min_max_key.min_key, min_max_key.max_key)
+                            added_int_port = "558{}".format(msg.target_id) if msg.target_id in ["1", "2", "3", "4", "5"] else "5586"
+                            added_ext_port = "559{}".format(msg.target_id) if msg.target_id in ["1", "2", "3", "4", "5"] else "5596"
+
+                            node_to_add = Node(msg.target_id, msg.target_addr, added_int_port,
+                                               added_ext_port,
                                                min_max_key.min_key, min_max_key.max_key)
+                            self.logger.debug("adding this node in list\n{}".format(node_to_add.print_values()))
+
                             target_master = self.node_list.get_value(msg.source_id).target
                             target_slave = self.node_list.get_value(msg.target_relative_id).target
                             # Add the new node in list
@@ -380,6 +564,8 @@ class DeadWriter (ConsumerThread):
                             # Update the slave node, the new master of target_master is target_id
                             self.change_slave_to(target_node=target_master, target_slave=target_id)
 
+                            self.logger.debug("this is my new list\n{}".format(self.node_list))
+
                             relatives_check = self.is_one_of_my_relatives(msg.source_id)
                             if relatives_check:
                                 self.busy_add = False
@@ -387,22 +573,23 @@ class DeadWriter (ConsumerThread):
                                 self.logger.debug("welcome new relative! now i am able to receive new scale ups")
 
                             self.update_last_seen(msg)
-                            self.version = int(msg.version) + 1
+                            self.version = max(int(msg.version) + 1, self.version)
                             self.external_channel.forward(origin_message)
                     elif is_restored_message(msg):
                         relatives_check = self.is_one_of_my_relatives(msg.source_id)
                         if relatives_check:
                             self.busy_add = False
                         self.update_last_seen(msg)
-                        self.version = int(msg.version) + 1
+                        self.version = max(int(msg.version) + 1, self.version)
                         self.external_channel.forward(origin_message)
+                        self.logger.debug("forwarding this RESTORED message\n{}".format(msg.printable_message()))
 
                     # Let's begin our selfish control, but first we want to have a rest just to have a small delay
                     # This control is necessary to understand if our messages were kicked out from the list cycle
                     time.sleep(1)
                     if self.last_dead_message != '' and version_random_priority_check(msg, self.last_dead_message):
                         self.update_last_seen(msg)
-                        self.version = int(msg.version) + 1
+                        self.version = max(int(msg.version) + 1, self.version)
                         self.last_dead_message.version = self.version
                         string_message = dumps(self.last_dead_message)
                         self.external_channel.forward(string_message)
@@ -414,7 +601,7 @@ class DeadWriter (ConsumerThread):
                                 self.last_add_message = ''
                             else:
                                 self.update_last_seen(msg)
-                                self.version = int(msg.version) + 1
+                                self.version = max(int(msg.version) + 1, self.version)
                                 self.last_add_message.version = self.version
                                 string_message = dumps(self.last_add_message)
                                 self.logger.debug("this message MUST be resent \n" +
@@ -427,7 +614,7 @@ class DeadWriter (ConsumerThread):
 
                     if self.last_added_message != '' and version_random_priority_check(msg, self.last_added_message):
                         self.update_last_seen(msg)
-                        self.version = int(msg.version) + 1
+                        self.version = max(int(msg.version) + 1, self.version)
                         self.last_added_message.version = self.version
                         string_message = dumps(self.last_added_message)
                         self.external_channel.forward(string_message)
@@ -435,18 +622,28 @@ class DeadWriter (ConsumerThread):
                     if self.last_restored_message != '' and \
                             version_random_priority_check(msg, self.last_restored_message):
                         self.update_last_seen(msg)
-                        self.version = int(msg.version) + 1
+                        self.version = max(int(msg.version) + 1, self.version)
                         self.last_restored_message.version = self.version
                         string_message = dumps(self.last_restored_message)
                         self.external_channel.forward(string_message)
                 elif int(msg.version) == int(self.last_seen_version):
-                    if int(self.last_seen_priority) > int(msg.priority):
+                    if int(self.last_seen_priority) < int(msg.priority):
                         self.last_seen_random = msg.random
-                        self.logger.debug("this message from {} can be forwarded due to higher priority than {}\n[}".
+                        self.logger.debug("this message from {} can be forwarded due to higher priority than {}\n{}".
                                           format(msg.source_id, self.last_seen_priority, msg.printable_message()))
                         self.last_seen_priority = msg.priority
-                        self.external_channel.forward(dumps(msg))
-                    elif int(self.last_seen_priority) < int(msg.priority):
+                        # self.external_channel.forward(dumps(msg))
+                        if is_added_message(msg):
+                            self.consider_added_message(msg, dumps(msg))
+                        # elif is_add_message(msg):
+                        #     self.consider_add_message(msg, dumps(msg))
+                        elif is_dead_message(msg):
+                            self.consider_dead_message(msg, dumps(msg))
+                        # elif is_restored_message(msg):
+                        #     self.consider_restored_message(msg, dumps(msg))
+                        else:
+                            self.external_channel.forward(dumps(msg))
+                    elif int(self.last_seen_priority) > int(msg.priority):
                         self.logger.debug("this message from {} can't be forwarded due to lower priority than {}\n{}".
                                           format(msg.source_id, self.last_seen_priority, msg.printable_message()))
                     elif int(self.last_seen_priority) == int(msg.priority):
@@ -454,7 +651,17 @@ class DeadWriter (ConsumerThread):
                             self.logger.debug("this message from {} can be forwarded due to higher random than {}\n{}".
                                               format(msg.source_id, self.last_seen_random, msg.printable_message()))
                             self.last_seen_random = msg.random
-                            self.external_channel.forward(dumps(msg))
+                            # self.external_channel.forward(dumps(msg))
+                            if is_added_message(msg):
+                                self.consider_added_message(msg, dumps(msg))
+                            # elif is_add_message(msg):
+                            #     self.consider_add_message(msg, dumps(msg))
+                            elif is_dead_message(msg):
+                                self.consider_dead_message(msg, dumps(msg))
+                            else:
+                                self.external_channel.forward(dumps(msg))
+                            # elif is_restored_message(msg):
+                            #     self.consider_restored_message(msg, dumps(msg))
                         else:
                             self.logger.debug("this message from {} can't be forwarded due to lower random than {}\n{}".
                                               format(msg.source_id, self.last_seen_random, msg.printable_message()))
@@ -489,15 +696,17 @@ class Generator:
 
             int_port = "5586"
             ext_port = "5596"
+            memory_port = "5576"
             return Node(data[ID], '', int_port,
-                        ext_port, min_key=data[MIN_KEY], max_key=data[MAX_KEY])
+                        ext_port, min_key=data[MIN_KEY], max_key=data[MAX_KEY], memory_port=memory_port)
         else:
             # int_port = "558{}".format(len("172.31.20."))
             # ext_port = "559{}".format(len("172.31.20."))
             int_port = "558{}".format(data[ID])
             ext_port = "559{}".format(data[ID])
+            memory_port = "557{}".format(data[ID])
             return Node(data[ID], data[IP], int_port,
-                        ext_port, min_key=data[MIN_KEY], max_key=data[MAX_KEY])
+                        ext_port, min_key=data[MIN_KEY], max_key=data[MAX_KEY], memory_port=memory_port)
 
     def create_process_environment(self):
         myself = self.args[MYSELF]
@@ -514,18 +723,33 @@ class Generator:
         thread_reader_name = "Reader-{}".format(myself.id)
         thread_writer_name = "Writer-{}".format(myself.id)
 
-        reader = DeadReader(myself, master, slave, slave_of_slave, master_of_master, self.logger, self.settings,
-                            thread_reader_name)
         writer = DeadWriter(myself, master, slave, slave_of_slave, master_of_master, self.logger, self.settings,
                             thread_writer_name)
+        reader = DeadReader(myself, master, slave, slave_of_slave, master_of_master, self.logger, self.settings,
+                            thread_reader_name, writer)
 
         reader.start()
         writer.start()
+
+        time.sleep(5)
+        if myself.id not in ["1", "2", "3", "4", "5"]:
+            from threading import Thread
+            new_scale_up_thread = Thread(name="NewInstanceThread", target=new_instance_thread, args=(myself,
+                                                                                                     self.logger,))
+            new_scale_up_thread.start()
 
         reader.join()
     # unused
     # def create_process(self):
     #     Process(name='ListCommunicationProcess', target=Generator._create_process_environment(self))
+
+
+def new_instance_thread(a, l):
+    internal_channel = InternalChannel(addr='127.0.0.1', port=a.memory_port, logger=l)
+    internal_channel.generate_internal_channel_client_side()
+    time.sleep(2)
+    internal_channel.send_first_internal_channel_message(message="FINISHED")
+    internal_channel.wait_int_message(dont_wait=False)
 
 
 def gen(l, s, a):

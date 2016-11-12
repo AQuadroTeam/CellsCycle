@@ -24,6 +24,7 @@ RESTORED = '3'
 ADDED = '2'
 ADD = '1'
 ALIVE = '0'
+IN_PROC = '-1'
 
 # List communication
 DEFAULT_ADDR = '127.0.0.1'

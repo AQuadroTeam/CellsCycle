@@ -4,7 +4,9 @@
       <w>addr</w>
       <w>dont</w>
       <w>fazio</w>
+      <w>inproc</w>
       <w>nack</w>
+      <w>proc</w>
       <w>rcvtimeo</w>
       <w>recv</w>
       <w>resync</w>

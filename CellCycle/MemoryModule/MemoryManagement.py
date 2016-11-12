@@ -139,6 +139,12 @@ def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
     socket = context.socket(zmq.PULL)
     socket.bind(url)
 
+    internal_channel_added = InternalChannel(addr="localhost", port=settings.getMemoryObjectPort(), logger=logger)
+    internal_channel_added.generate_internal_channel_client_side()
+
+    internal_channel_restored = InternalChannel(addr="localhost", port=settings.getIntPort(), logger=logger)
+    internal_channel_restored.generate_internal_channel_client_side()
+
     transferToDoAfter = False
 
     if master:
@@ -197,6 +203,7 @@ def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
                     transferRequest(newMasterMasterMemory,[thisSlaveMemory],  beginSecond, endSecond)
 
                     transferToDoAfter = True
+                    transferType = NEWMASTER
 
             elif command.type == NEWSLAVE:
                 logger.debug("Slave is dead, new info: "+ str(hostState))
@@ -220,14 +227,16 @@ def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
                 transferRequest(masterMasterMemory, thisSlaveMemory, beginSlave, endSlave)
 
                 transferToDoAfter = True
+                transferType = NEWSTART
 
             elif command.type == TRANSFERCOMPLETE:
                 if(transferToDoAfter and master):
                     # TODO call the list communication for added or recovered
-                    # internal_channel = InternalChannel(addr="localhost", port=settings.getMemoryObjectPort(), logger=logger)
-                    # internal_channel.generate_internal_channel_client_side()
-                    # internal_channel.send_first_internal_channel_message(message="FINISHED")
-                    # internal_channel.wait_int_message(dont_wait=False)
+                    if transferType == NEWSTART:
+                        internal_channel_added.send_first_internal_channel_message(message="FINISHED")
+                        internal_channel_added.wait_int_message(dont_wait=False)
+                    elif transferType == NEWMASTER:
+                        ListThread.notify_restored(internal_channel_restored)
                     #avvertire gestore ciclo che E finito recovery TODO:
                     logger.warning("new master state recovery: DONE")
                     #do something with command and hostState

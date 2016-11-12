@@ -5,7 +5,7 @@ from Const import *
 from random import randint
 from ChainList import ChainList
 from Printer import this_is_the_thread_in_action
-from Message import Message
+from Message import Message, InProcMessage
 from cPickle import dumps
 
 
@@ -104,6 +104,21 @@ class ListThread (threading.Thread):
             msg.source_id = source_id
         return msg
 
+    @staticmethod
+    def notify_restored(channel_to_send):
+        msg = Message()
+        msg.source_flag = INT
+        msg.version = ''
+        msg.priority = RESTORED
+        msg.random = randint(MIN_RANDOM, MAX_RANDOM)
+        msg.target_id = ''
+        msg.target_key = ''
+        msg.target_addr = ''
+        msg.target_relative_id = ''
+        msg.source_id = ''
+        channel_to_send.send_first_internal_channel_message(message=dumps(msg))
+        channel_to_send.wait_int_message(dont_wait=False)
+
     # This function is used by Memory Management Process to notify a new scale up
     # It is just a wrapper
     @staticmethod
@@ -147,6 +162,17 @@ class ListThread (threading.Thread):
         channel_to_send.send_first_internal_channel_message(dumps(msg))
         channel_to_send.wait_int_message(dont_wait=False)
 
+    def notify_list(self, channel_to_send):
+        # return self.make_dead_node_msg(target_id=self.myself.id, target_key=self.myself.key,
+        #                                source_flag=INT, target_master_id=self.master.id, target_addr=self.myself.ip)
+        msg = InProcMessage()
+        msg.source_flag = INT
+        msg.list = self.node_list
+        msg.priority = IN_PROC
+        self.logger.debug("sending list to {}".format(self.myself.id))
+        channel_to_send.send_first_internal_channel_message(dumps(msg))
+        channel_to_send.wait_int_message(dont_wait=False)
+
     def make_alive_node_msg(self, target_id, target_master_id, source_flag=INT):
         return self.make_node_msg(source_flag, priority=ALIVE, target_id=target_id, target_addr='',
                                   target_relative=target_master_id)
@@ -178,6 +204,9 @@ class ListThread (threading.Thread):
             self.master.id == target_id or \
             self.slave.id == target_id or \
             self.slave_of_slave.id == target_id
+
+    def is_my_new_master_of_master(self, message):
+        return float(self.master.id) > float(message.target_id) > float(self.master_of_master.id)
 
     def is_my_new_master(self, message):
         return float(self.myself.id) > float(message.target_id) > float(self.master.id)
@@ -214,7 +243,7 @@ class ListThread (threading.Thread):
 
 class Node:
 
-    def __init__(self, node_id, ip, int_port, ext_port, min_key, max_key):
+    def __init__(self, node_id, ip, int_port, ext_port, min_key, max_key, memory_port=''):
         self.id = str(node_id)  # Node ID
         if ip is not '':
             self.int_addr = '{}:{}'.format(ip, int_port)    # ip:int_port
@@ -224,6 +253,7 @@ class Node:
         self.ip = ip    # Node IP
         self.int_port = int_port    # Node internal channel's port
         self.ext_port = ext_port    # Node external channel's port
+        self.memory_port = memory_port
 
     def get_min_max_key(self):
         return "{}:{}".format(self.min_key, self.max_key)
