@@ -35,7 +35,7 @@ class DeadWriter (ConsumerThread):
 
         # TODO remove this and replace with canonicals check
         # if self.canonical_check():
-        if self.myself.ip is '':
+        if self.myself.ip is None:
             # We are a new machine
             self.myself.ip = "127.0.0.1"
         # TODO remove this comment to deploy

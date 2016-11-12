@@ -7,6 +7,7 @@ from ChainList import ChainList
 from Printer import this_is_the_thread_in_action
 from Message import Message, InProcMessage
 from cPickle import dumps
+from socket import getfqdn, gethostbyname
 
 
 class ListThread (threading.Thread):
@@ -23,6 +24,12 @@ class ListThread (threading.Thread):
         self.master_of_master = master_of_master
         self.busy_add = False
 
+        if self.myself.ip is None:
+            ip = gethostbyname(getfqdn())
+            self.myself.ip = ip
+            self.int_addr = '{}:{}'.format(ip, self.myself.int_port)    # ip:int_port
+            self.ext_addr = '{}:{}'.format(ip, self.myself.ext_port)    # ip:int_port
+
         self.node_list = ChainList()
         self.add_in_list(myself, master, slave)
         self.add_in_list(master, master_of_master, myself)
@@ -36,8 +43,7 @@ class ListThread (threading.Thread):
         self.logger.debug(this_is_the_thread_in_action(self.myself.id))
 
     def canonical_check(self):
-        return self.myself.int_port in ["172.31.20.1", "172.31.20.2", "172.31.20.3", "172.31.20.4", "172.31.20.5"]
-        # return self.myself.ip not in CANONICAL_ADDR
+        return self.myself.ip in CANONICAL_ADDR
 
     def add_in_list(self, target_node, target_master, target_slave):
         self.node_list.add_node(target_node, target_master, target_slave)
@@ -245,7 +251,7 @@ class Node:
 
     def __init__(self, node_id, ip, int_port, ext_port, min_key, max_key, memory_port=''):
         self.id = str(node_id)  # Node ID
-        if ip is not '':
+        if ip is not None:
             self.int_addr = '{}:{}'.format(ip, int_port)    # ip:int_port
             self.ext_addr = '{}:{}'.format(ip, ext_port)    # ip:ext_port
         self.min_key = str(min_key)     # Min memory key
