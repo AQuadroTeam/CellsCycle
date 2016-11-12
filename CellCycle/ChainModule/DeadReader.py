@@ -170,19 +170,11 @@ class DeadReader(ProducerThread):
 
                                 min_max_key = Node.to_min_max_key_obj(message.target_key)
                                 self.master_of_master = self.master
-                                # self.master = Node(node_id=message.target_id, ip=message.target_addr,
-                                #                    min_key=min_max_key.min_key, max_key=min_max_key.max_key,
-                                #                    int_port=self.settings.getIntPort(),
-                                #                    ext_port=self.settings.getExtPort())
-                                added_int_port = "558{}".format(message.target_id) if \
-                                    message.target_id in ["1", "2", "3", "4", "5"] else "5586"
-                                added_ext_port = "559{}".format(message.target_id) if \
-                                    message.target_id in ["1", "2", "3", "4", "5"] else "5596"
-
                                 self.master = Node(node_id=message.target_id, ip=message.target_addr,
                                                    min_key=min_max_key.min_key, max_key=min_max_key.max_key,
-                                                   int_port=added_int_port,
-                                                   ext_port=added_ext_port)
+                                                   int_port=self.settings.getIntPort(),
+                                                   ext_port=self.settings.getExtPort())
+
                                 self.logger.debug("added node as new master\n{}".format(self.master.print_values()))
                                 self.external_channel.close()
                                 self.internal_channel.close()
@@ -196,19 +188,11 @@ class DeadReader(ProducerThread):
                                 # self.external_channel.close()
 
                                 min_max_key = Node.to_min_max_key_obj(message.target_key)
-                                # self.master = Node(node_id=message.target_id, ip=message.target_addr,
-                                #                    min_key=min_max_key.min_key, max_key=min_max_key.max_key,
-                                #                    int_port=self.settings.getIntPort(),
-                                #                    ext_port=self.settings.getExtPort())
-                                added_int_port = "558{}".format(message.target_id) if \
-                                    message.target_id in ["1", "2", "3", "4", "5"] else "5586"
-                                added_ext_port = "559{}".format(message.target_id) if \
-                                    message.target_id in ["1", "2", "3", "4", "5"] else "5596"
-
                                 self.master_of_master = Node(node_id=message.target_id, ip=message.target_addr,
                                                              min_key=min_max_key.min_key, max_key=min_max_key.max_key,
-                                                             int_port=added_int_port,
-                                                             ext_port=added_ext_port)
+                                                             int_port=self.settings.getIntPort(),
+                                                             ext_port=self.settings.getExtPort())
+
                                 self.logger.debug("added node as new master_of_master\n{}".format(
                                     self.master.print_values()))
                                 self.external_channel.close()

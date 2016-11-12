@@ -36,7 +36,7 @@ class ListThread (threading.Thread):
         self.logger.debug(this_is_the_thread_in_action(self.myself.id))
 
     def canonical_check(self):
-        return self.myself.int_port is not '5586'
+        return self.myself.int_port in ["172.31.20.1", "172.31.20.2", "172.31.20.3", "172.31.20.4", "172.31.20.5"]
         # return self.myself.ip not in CANONICAL_ADDR
 
     def add_in_list(self, target_node, target_master, target_slave):

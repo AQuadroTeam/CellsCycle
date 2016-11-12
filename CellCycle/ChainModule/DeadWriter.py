@@ -1,4 +1,5 @@
 #! /usr/bin/env python
+from CellCycle.AWS.AWSlib import startInstanceAWS
 from CellCycle.ChainModule.Message import InformationMessage
 from ListCommunication import *
 from Printer import *
@@ -8,7 +9,6 @@ from ChainFlow import *
 from ListThread import Node
 from cPickle import dumps, loads
 from firstLaunchAWS import create_specific_instance_parameters
-from DeadReader import DeadReader
 
 
 class DeadWriter (ConsumerThread):
@@ -177,18 +177,11 @@ class DeadWriter (ConsumerThread):
         self.logger.debug("my version is {}, uuu we have a new NODE\n{}".
                           format(str(self.version), msg.printable_message()))
         min_max_key = Node.to_min_max_key_obj(msg.target_key)
-        # TODO remove comments to deploy
-        added_int_port = "558{}".format(msg.target_id) if msg.target_id in ["1", "2", "3", "4", "5"] else "5586"
-        added_ext_port = "559{}".format(msg.target_id) if msg.target_id in ["1", "2", "3", "4", "5"] else "5596"
-
-        node_to_add = Node(msg.target_id, msg.target_addr, added_int_port,
-                           added_ext_port,
+        node_to_add = Node(msg.target_id, msg.target_addr, self.settings.getIntPort(),
+                           self.settings.getExtPort(),
                            min_max_key.min_key, min_max_key.max_key)
         self.logger.debug("adding in list this node\n{}".format(node_to_add.print_values()))
 
-        # node_to_add = Node(msg.target_id, msg.target_addr, self.settings.getIntPort(),
-        #                    self.settings.getExtPort(),
-        #                    min_max_key.min_key, min_max_key.max_key)
         target_master = self.node_list.get_value(msg.source_id).target
         target_slave = self.node_list.get_value(msg.target_relative_id).target
         # Add the new node in list
@@ -389,19 +382,16 @@ class DeadWriter (ConsumerThread):
                 # We have to wait for a new node
                 new_node_id_to_add = str(compute_son_id(float(self.myself.id), float(self.slave.id)))
                 # new_node_keys_to_add = compute_son_key()
-                new_node_instance_to_add = Node(new_node_id_to_add, "172.31.20.6", '5586',
-                                                '5596',
+                new_node_instance_to_add = Node(new_node_id_to_add, None, self.settings.getIntPort(),
+                                                self.settings.getExtPort(),
                                                 '0', '19')
                 specific_parameters = [self.master, self.myself, new_node_instance_to_add, self.slave,
                                        self.slave_of_slave]
 
                 self.last_add_message = ''
                 self.node_to_add = msg.target_id
-                # startInstanceAWS(self.settings, self.logger, create_specific_instance_parameters(specific_parameters))
+                startInstanceAWS(self.settings, self.logger, create_specific_instance_parameters(specific_parameters))
                 self.new_slave_request()
-                # TODO generate node with startInstanceAWS
-                create_single_process(l=self.logger, s=self.settings,
-                                      a=create_specific_instance_parameters(specific_parameters))
                 self.logger.debug("ADD CYCLE completed")
             elif is_my_last_added_message(msg, self.last_added_message):
                 # The cycle is over
@@ -410,17 +400,12 @@ class DeadWriter (ConsumerThread):
                 self.logger.debug("the cycle is over, now i am able to accept scale up requests")
 
                 min_max_key = Node.to_min_max_key_obj(msg.target_key)
-                added_int_port = "558{}".format(msg.target_id) if msg.target_id in ["1", "2", "3", "4", "5"] else "5586"
-                added_ext_port = "559{}".format(msg.target_id) if msg.target_id in ["1", "2", "3", "4", "5"] else "5596"
 
-                node_to_add = Node(msg.target_id, msg.target_addr, added_int_port,
-                                   added_ext_port,
+                node_to_add = Node(msg.target_id, msg.target_addr, self.settings.getIntPort(),
+                                   self.settings.getExtPort(),
                                    min_max_key.min_key, min_max_key.max_key)
                 self.logger.debug("adding this node in list\n{}".format(node_to_add.print_values()))
 
-                # node_to_add = Node(msg.target_id, msg.target_addr, self.settings.getIntPort(),
-                #                    self.settings.getExtPort(),
-                #                    min_max_key.min_key, min_max_key.max_key)
                 target_master = self.node_list.get_value(msg.source_id).target
                 target_slave = self.node_list.get_value(msg.target_relative_id).target
                 # Add the new node in list
@@ -537,16 +522,10 @@ class DeadWriter (ConsumerThread):
                             self.logger.debug("my version is {}, uuu we have a new NODE\n{}".
                                               format(str(self.version), msg.printable_message()))
                             min_max_key = Node.to_min_max_key_obj(msg.target_key)
-                            # TODO remove this to deploy
-                            # node_to_add = Node(msg.target_id, msg.target_addr, self.settings.getIntPort(),
-                            #                    self.settings.getExtPort(),
-                            #                    min_max_key.min_key, min_max_key.max_key)
-                            added_int_port = "558{}".format(msg.target_id) if msg.target_id in ["1", "2", "3", "4", "5"] else "5586"
-                            added_ext_port = "559{}".format(msg.target_id) if msg.target_id in ["1", "2", "3", "4", "5"] else "5596"
-
-                            node_to_add = Node(msg.target_id, msg.target_addr, added_int_port,
-                                               added_ext_port,
+                            node_to_add = Node(msg.target_id, msg.target_addr, self.settings.getIntPort(),
+                                               self.settings.getExtPort(),
                                                min_max_key.min_key, min_max_key.max_key)
+
                             self.logger.debug("adding this node in list\n{}".format(node_to_add.print_values()))
 
                             target_master = self.node_list.get_value(msg.source_id).target
@@ -667,98 +646,3 @@ class DeadWriter (ConsumerThread):
                                               format(msg.source_id, self.last_seen_random, msg.printable_message()))
                 else:
                     self.logger.debug("this message will never be forwarded :\n"+msg.printable_message())
-
-
-LOCAL_HOST = '127.0.0.1'
-MYSELF = 'myself'
-MASTER = 'master'
-SLAVE = 'slave'
-MASTER_OF_MASTER = 'master_of_master'
-SLAVE_OF_SLAVE = 'slave_of_slave'
-
-ID = 'id'
-IP = 'ip'
-MIN_KEY = 'min_key'
-MAX_KEY = 'max_key'
-
-
-class Generator:
-    def __init__(self, logger, settings, json_arg):
-        self.logger = logger
-        self.settings = settings
-        self.args = json_arg
-
-    def _get_node_from_data(self, data):
-        # return Node(data[ID], data[IP], self.settings.getIntPort(),
-        #             self.settings.getExtPort(), min_key=data[MIN_KEY], max_key=data[MAX_KEY])
-
-        if data[IP] == "172.31.20.6":
-
-            int_port = "5586"
-            ext_port = "5596"
-            memory_port = "5576"
-            return Node(data[ID], '', int_port,
-                        ext_port, min_key=data[MIN_KEY], max_key=data[MAX_KEY], memory_port=memory_port)
-        else:
-            # int_port = "558{}".format(len("172.31.20."))
-            # ext_port = "559{}".format(len("172.31.20."))
-            int_port = "558{}".format(data[ID])
-            ext_port = "559{}".format(data[ID])
-            memory_port = "557{}".format(data[ID])
-            return Node(data[ID], data[IP], int_port,
-                        ext_port, min_key=data[MIN_KEY], max_key=data[MAX_KEY], memory_port=memory_port)
-
-    def create_process_environment(self):
-        myself = self.args[MYSELF]
-        myself = self._get_node_from_data(myself)
-        master = self.args[MASTER]
-        master = self._get_node_from_data(master)
-        slave = self.args[SLAVE]
-        slave = self._get_node_from_data(slave)
-        master_of_master = self.args[MASTER_OF_MASTER]
-        master_of_master = self._get_node_from_data(master_of_master)
-        slave_of_slave = self.args[SLAVE_OF_SLAVE]
-        slave_of_slave = self._get_node_from_data(slave_of_slave)
-
-        thread_reader_name = "Reader-{}".format(myself.id)
-        thread_writer_name = "Writer-{}".format(myself.id)
-
-        writer = DeadWriter(myself, master, slave, slave_of_slave, master_of_master, self.logger, self.settings,
-                            thread_writer_name)
-        reader = DeadReader(myself, master, slave, slave_of_slave, master_of_master, self.logger, self.settings,
-                            thread_reader_name, writer)
-
-        reader.start()
-        writer.start()
-
-        time.sleep(5)
-        if myself.id not in ["1", "2", "3", "4", "5"]:
-            from threading import Thread
-            new_scale_up_thread = Thread(name="NewInstanceThread", target=new_instance_thread, args=(myself,
-                                                                                                     self.logger,))
-            new_scale_up_thread.start()
-
-        reader.join()
-    # unused
-    # def create_process(self):
-    #     Process(name='ListCommunicationProcess', target=Generator._create_process_environment(self))
-
-
-def new_instance_thread(a, l):
-    internal_channel = InternalChannel(addr='127.0.0.1', port=a.memory_port, logger=l)
-    internal_channel.generate_internal_channel_client_side()
-    time.sleep(2)
-    internal_channel.send_first_internal_channel_message(message="FINISHED")
-    internal_channel.wait_int_message(dont_wait=False)
-
-
-def gen(l, s, a):
-    generator = Generator(logger=l, settings=s, json_arg=a)
-    generator.create_process_environment()
-
-
-def create_single_process(l, s, a):
-    l.debug("CREATING NEW PROCESS")
-    from multiprocessing import Process
-    new_process = Process(name="Process-NewBorn", target=gen, args=(l, s, a, ))
-    new_process.start()
