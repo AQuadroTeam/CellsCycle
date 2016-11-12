@@ -1,6 +1,8 @@
 #! /usr/bin/env python
-from CellCycle.AWS.AWSlib import startInstanceAWS
+from CellCycle.AWS.AWSlib import startInstanceAWS, terminateThisInstanceAWS
+from CellCycle.ChainModule.MemoryObject import MemoryObject
 from CellCycle.ChainModule.Message import InformationMessage
+from CellCycle.MemoryModule.MemoryManagement import newMasterRequest, newSlaveRequest
 from ListCommunication import *
 from Printer import *
 from zmq import ZMQError
@@ -33,16 +35,9 @@ class DeadWriter (ConsumerThread):
         self.dead_cycle_finished = False
         self.last_dead_node = None
 
-        # TODO remove this and replace with canonicals check
-        # if self.canonical_check():
-        if self.myself.ip is None:
-            # We are a new machine
-            self.myself.ip = "127.0.0.1"
-        # TODO remove this comment to deploy
-        # else:
+        if self.canonical_check():
             # Let's begin with the memory part, this is the case of first boot
-
-            # self.new_master_request()
+            self.new_master_request()
 
         self.external_channel = ExternalChannel(addr=self.myself.ip, port=self.myself.ext_port, logger=self.logger)
         self.internal_channel = InternalChannel(addr=self.myself.ip, port=self.myself.int_port, logger=self.logger)
@@ -75,24 +70,23 @@ class DeadWriter (ConsumerThread):
         self.last_seen_random = msg.random
 
     def new_master_request(self):
-        internal_channel_on_the_fly = InternalChannel(addr="127.0.0.1", port=self.myself.memory_port,
-                                                      logger=self.logger)
-        internal_channel_on_the_fly.generate_internal_channel_client_side()
-        internal_channel_on_the_fly.send_first_internal_channel_message("NEED RESTORED")
-        internal_channel_on_the_fly.wait_int_message(dont_wait=False)
+        # internal_channel_on_the_fly = InternalChannel(addr="127.0.0.1", port=self.myself.memory_port,
+        #                                               logger=self.logger)
+        # internal_channel_on_the_fly.generate_internal_channel_client_side()
+        # internal_channel_on_the_fly.send_first_internal_channel_message("NEED RESTORED")
+        # internal_channel_on_the_fly.wait_int_message(dont_wait=False)
 
         # TODO remove above, this is the right code
-        # master_of_master_to_send = self.node_list.get_value(self.master_of_master.id).master
-        # memory_object = MemoryObject(master_of_master_to_send, self.master_of_master, self.master,
-        # self.myself, self.slave)
-        # newMasterRequest("tcp://localhost:" + str(self.settings.getMasterSetPort()), memory_object)
+        master_of_master_to_send = self.node_list.get_value(self.master_of_master.id).master
+        memory_object = MemoryObject(master_of_master_to_send, self.master_of_master, self.master,
+                                     self.myself, self.slave)
+        newMasterRequest("tcp://localhost:" + str(self.settings.getMasterSetPort()), memory_object)
 
     def new_slave_request(self):
-        pass
-        # slave_of_slave_to_send = self.node_list.get_value(self.slave_of_slave.id).slave
-        # memory_object = MemoryObject(self.master, self.myself, self.slave,
-        # self.slave_of_slave, slave_of_slave_to_send)
-        # newSlaveRequest("tcp://localhost:" + str(self.settings.getMasterSetPort()), memory_object)
+        slave_of_slave_to_send = self.node_list.get_value(self.slave_of_slave.id).slave
+        memory_object = MemoryObject(self.master, self.myself, self.slave,
+                                     self.slave_of_slave, slave_of_slave_to_send)
+        newSlaveRequest("tcp://localhost:" + str(self.settings.getMasterSetPort()), memory_object)
 
     def consider_add_message(self, msg, origin_message):
         relatives_check = self.is_one_of_my_relatives(msg.source_id)
@@ -279,8 +273,6 @@ class DeadWriter (ConsumerThread):
         if is_int_message(msg):
             # Now we have a simple object to handle with
             # if msg == "FINISHED" and self.dead_cycle_finished:
-            if is_inproc_message(msg):
-                self.node_list = msg.list
             if is_alive_message(msg):
                 if self.busy_add and msg.target_id == self.node_to_add:
                     self.internal_channel.reply_to_int_message(NOK)
@@ -344,8 +336,7 @@ class DeadWriter (ConsumerThread):
             if is_dead_message(msg):
                 # if i am the target just DIE
                 if msg.target_id == self.myself.id:
-                    exit(0)
-                    # TODO replace with terminate instance
+                    terminateThisInstanceAWS(settings=self.settings, logger=self.logger)
 
                 # self.version += 1
                 msg_to_send = to_external_message(self.version, msg)

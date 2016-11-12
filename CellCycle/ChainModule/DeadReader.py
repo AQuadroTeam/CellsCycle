@@ -178,7 +178,7 @@ class DeadReader(ProducerThread):
                                 self.external_channel = ExternalChannel(addr=self.master.ip, port=self.master.ext_port,
                                                                         logger=self.logger)
                                 stop = True
-                            if self.is_my_new_master_of_master(message):
+                            elif self.is_my_new_master_of_master(message):
                                 # This is the part when i connect to another publisher
 
                                 min_max_key = Node.to_min_max_key_obj(message.target_key)
