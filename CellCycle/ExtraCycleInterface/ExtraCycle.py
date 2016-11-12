@@ -180,23 +180,25 @@ def _sendError(socket, client):
 def _setHandler(settings, socket,client, key, flag, exp, byte, value, list_manager):
     #add flag to stored data
     value = '{:010d}'.format(int(flag)) + value
-    # TODO host = list_manager.get_ip_for_key(key)
+    # TODO check this line
+    host = list_manager.node_list.find_memory_key(key)
     #get server node
     #hosts = getNodesForKey(key)
-    #returnValue =standardMasterSetRequest(settings, key,value, hosts[0].ip)
-    # TODO comment this line
-    returnValue = standardMasterSetRequest(settings, key, value)
+    returnValue =standardMasterSetRequest(settings, key, value, host.target.ip)
+    # TODO commented this line
+    # returnValue = standardMasterSetRequest(settings, key, value)
 
     returnString = "STORED\r\n"
     _send(socket, client, returnString)
 
 def _deleteHandler(settings, socket,client, key, list_manager):
-    #TODO host = list_manager.get_ip_for_key(key)
+    #TODO check this line
+    host = list_manager.node_list.find_memory_key(key)
     #get server node
     #hosts = getNodesForKey(key)
-    #returnValue =standardMasterGetRequest(settings, key, hosts[0].ip)
-    # TODO comment this line
-    returnValue = standardMasterSetRequest(settings, key, None)
+    returnValue =standardMasterGetRequest(settings, key, host.target.ip)
+    # TODO commented this line
+    # returnValue = standardMasterSetRequest(settings, key, None)
     returnString = "DELETED\r\n"
     _send(socket, client, returnString)
 

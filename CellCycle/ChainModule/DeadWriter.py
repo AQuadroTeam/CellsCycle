@@ -37,7 +37,7 @@ class DeadWriter (ConsumerThread):
 
         if self.canonical_check():
             # Let's begin with the memory part, this is the case of first boot
-            self.new_master_request()
+            self.first_boot_new_master_request()
 
         self.external_channel = ExternalChannel(addr=self.myself.ip, port=self.myself.ext_port, logger=self.logger)
         self.internal_channel = InternalChannel(addr=self.myself.ip, port=self.myself.int_port, logger=self.logger)
@@ -76,11 +76,25 @@ class DeadWriter (ConsumerThread):
         # internal_channel_on_the_fly.send_first_internal_channel_message("NEED RESTORED")
         # internal_channel_on_the_fly.wait_int_message(dont_wait=False)
 
-        # TODO remove above, this is the right code
+        # remove above, this is the right code
         master_of_master_to_send = self.node_list.get_value(self.master_of_master.id).master
         memory_object = MemoryObject(master_of_master_to_send, self.master_of_master, self.master,
                                      self.myself, self.slave)
         newMasterRequest("tcp://localhost:" + str(self.settings.getMasterSetPort()), memory_object)
+
+    def first_boot_new_master_request(self):
+        # internal_channel_on_the_fly = InternalChannel(addr="127.0.0.1", port=self.myself.memory_port,
+        #                                               logger=self.logger)
+        # internal_channel_on_the_fly.generate_internal_channel_client_side()
+        # internal_channel_on_the_fly.send_first_internal_channel_message("NEED RESTORED")
+        # internal_channel_on_the_fly.wait_int_message(dont_wait=False)
+
+        # remove above, this is the right code
+        master_of_master_to_send = self.master_of_master
+        memory_object = MemoryObject(master_of_master_to_send, self.master, self.myself,
+                                     self.slave, self.slave_of_slave)
+        newMasterRequest("tcp://localhost:" + str(self.settings.getMasterSetPort()), memory_object)
+        self.internal_channel.wait_int_message(dont_wait=False)
 
     def new_slave_request(self):
         slave_of_slave_to_send = self.node_list.get_value(self.slave_of_slave.id).slave
@@ -272,7 +286,6 @@ class DeadWriter (ConsumerThread):
 
         if is_int_message(msg):
             # Now we have a simple object to handle with
-            # if msg == "FINISHED" and self.dead_cycle_finished:
             if is_alive_message(msg):
                 if self.busy_add and msg.target_id == self.node_to_add:
                     self.internal_channel.reply_to_int_message(NOK)

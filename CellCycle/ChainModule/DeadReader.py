@@ -38,9 +38,12 @@ class DeadReader(ProducerThread):
         self.logger.debug(exiting_reader(self.myself.id))
 
     def new_start_request(self):
-        pass
-        # memory_object = MemoryObject(self.master_of_master, self.master, self.myself, self.slave, self.slave_of_slave)
-        # newStartRequest("tcp://localhost:" + str(self.settings.getMasterSetPort()), memory_object)
+        memory_object = MemoryObject(self.master_of_master, self.master, self.myself, self.slave, self.slave_of_slave)
+        newStartRequest("tcp://localhost:" + str(self.settings.getMasterSetPort()), memory_object)
+        # wait for added by memory module
+        self.internal_channel_memory.generate_internal_channel_server_side()
+        self.internal_channel_memory.wait_int_message(dont_wait=False)
+        self.internal_channel_memory.reply_to_int_message(OK)
 
     def retry_until_success(self, msg, times):
         stop = False
@@ -69,10 +72,6 @@ class DeadReader(ProducerThread):
         self.logger.debug("new birth sync init")
 
         self.new_start_request()
-        # wait for added by memory module
-        self.internal_channel_memory.generate_internal_channel_server_side()
-        self.internal_channel_memory.wait_int_message(dont_wait=False)
-        self.internal_channel_memory.reply_to_int_message(OK)
 
         self.internal_channel.generate_internal_channel_client_side()
 
@@ -250,7 +249,8 @@ class DeadReader(ProducerThread):
 
                     stop = True
                     # TODO wait restored message
-                    # internal_channel_on_the_fly = InternalChannel(addr="localhost", port=settings.getMemoryObjectPort(),
+                    # internal_channel_on_the_fly =
+                    # InternalChannel(addr="localhost", port=settings.getMemoryObjectPort(),
                     #  logger=logger
                     # internal_channel_on_the_fly.generate_internal_channel_server_side()
                     # internal_channel_on_the_fly.wait_int_message(dont_wait=False)

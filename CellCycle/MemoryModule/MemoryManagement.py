@@ -86,7 +86,7 @@ def _memoryMetricatorThread(logger, cache, settings, master, timing):
 
         logger.debug("Metricator alive, period: "+ str(period) +"s, getThrLevel: [" +str(getScaleDownLevel) +"," + str(getScaleUpLevel)+ "], setThrLevel: [" + str(setScaleDownLevel) + "," + str(setScaleUpLevel) + "]"  )
 
-        # TODO remove this, this is Andrea's stuff xD
+        # this channel is necessary to send scale up/down requests
         internal_channel = InternalChannel(addr='127.0.0.1', port=settings.getIntPort(), logger=logger)
         internal_channel.generate_internal_channel_client_side()
 
@@ -103,14 +103,14 @@ def _memoryMetricatorThread(logger, cache, settings, master, timing):
             # scale up needed
             if getMean >= getScaleUpLevel or setMean >= setScaleUpLevel:
                 logger.debug("Requests for scale Up!")
-                # TODO: add call scale up service
+                # call scale up service
                 ListThread.notify_scale_up(internal_channel)
                 # self.list_communication_thread.notify_scale_up()
 
             # scale down needed
             elif getMean <= getScaleDownLevel or setMean <= setScaleDownLevel:
                 logger.debug("Requests for scale Down!")
-                # TODO: add call scale down service
+                # Tcall scale down service
                 ListThread.notify_scale_down(internal_channel)
                 # self.list_communication_thread.notify_scale_down()
 
@@ -230,8 +230,8 @@ def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
                 transferType = NEWSTART
 
             elif command.type == TRANSFERCOMPLETE:
-                if(transferToDoAfter and master):
-                    # TODO call the list communication for added or recovered
+                if transferToDoAfter and master:
+                    # call the list communication for added or recovered
                     if transferType == NEWSTART:
                         internal_channel_added.send_first_internal_channel_message(message="FINISHED")
                         internal_channel_added.wait_int_message(dont_wait=False)
