@@ -302,7 +302,7 @@ class DeadWriter (ConsumerThread):
                 if not self.busy_add:
                     self.internal_channel.reply_to_int_message(OK)
                     # self.version += 1
-                    msg = self.make_add_node_msg(target_id=str(compute_son_id(float(self.myself.id),
+                    msg = self.make_add_node_msg(target_id=str(calculateSonId(float(self.myself.id),
                                                                               float(self.slave.id))),
                                                  target_key="0:19",
                                                  source_flag=INT, target_slave_id=self.slave.id)
