@@ -4,6 +4,7 @@ from Queue import Queue
 from binascii import crc32
 from CellCycle.MemoryModule.MemoryManagement import standardKillRequest, standardSlaveSetRequest, standardSlaveGetRequest, standardTransferRequest, standardMasterSetRequest, standardMasterGetRequest
 from CellCycle.AWS.AWSlib import *
+from random import random
 
 def startExtraCycleListeners(settings, logger, list_manager=None):
     threadNumber = settings.getServiceThreadNumber()
@@ -208,6 +209,7 @@ def _deleteHandler(settings, socket,client, key, list_manager):
 def _getHandler(settings, socket, client, key, list_manager):
     #TODO host = list_manager.get_ip_for_key(key)
     #get server nodes and choose
+
     host = list_manager.node_list.find_memory_key(key)
     if(random()>0.5):
        returnValue =standardMasterGetRequest(settings, key, host.target.ip)
