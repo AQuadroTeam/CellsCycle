@@ -29,14 +29,15 @@ class ListCommunication:
         #     self.sync_address = Address(addr, '5564').complete_address
 
     def open_sub_socket(self):
-        self.list_communication_channel = self.context.socket(zmq.SUB)
+        self.list_communication_channel = self.context.socket(zmq.PULL)
         # This is necessary because a subscriber needs a timeout for updates
         self.set_rcv_timeo()
 
         # self.external_channel.RCVTIMEO = MAX_RCVTIMEO
 
     def open_pub_socket(self):
-        self.list_communication_channel = self.context.socket(zmq.PUB)
+        self.list_communication_channel = self.context.socket(zmq.PUSH)
+        self.set_snd_timeo()
 
     def open_rep_socket(self, sync_addr=None):
         # Socket to receive signals
@@ -116,8 +117,7 @@ class ExternalChannel(ListCommunication):
 
         try:
             # self.logger.debug('sending message')
-            tracker_object = self.list_communication_channel.send(data, track=True, copy=False)
-            tracker_object.wait(TRACKER_TIMEOUT)
+            self.list_communication_channel.send(data)
             self.logger.debug('ok with the message')
         except zmq.NotDone:
             # time.sleep(TRY_TIMEOUT)
@@ -138,7 +138,6 @@ class ExternalChannel(ListCommunication):
         if port is not None:
             self.complete_address = '{}:{}'.format(addr, port)
         self.list_communication_channel.connect(self.complete_address)
-        self.list_communication_channel.setsockopt(zmq.SUBSCRIBE, b'')
 
         # #############################
 
