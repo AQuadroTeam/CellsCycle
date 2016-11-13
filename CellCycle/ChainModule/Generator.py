@@ -84,6 +84,7 @@ class Generator:
         reader.join()
 
         # TODO return writer instance
+        return writer
     # unused
     # def create_process(self):
     #     Process(name='ListCommunicationProcess', target=Generator._create_process_environment(self))

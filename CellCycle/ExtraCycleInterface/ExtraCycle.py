@@ -9,7 +9,7 @@ def startExtraCycleListeners(settings, logger, list_manager=None):
     threadNumber = settings.getServiceThreadNumber()
     port = settings.getClientEntrypointPort()
 
-    logger.debug("list_manager : " + str(list_manager))
+    logger.debug("list_manager received by ExtraCycle listeners : " + str(list_manager))
 
     # prepare socket urls
     url_Frontend = "tcp://*:" + str(port)
