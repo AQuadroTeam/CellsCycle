@@ -1,12 +1,13 @@
 # This is a test for Internal and External Channels
 from CellCycle.ChainModule.ListCommunication import *
-from start import loadSettingsAndLogger
-from zmq import ZMQError
-from threading import Thread
+from zmq import ZMQError, Again
 from time import sleep
 from CellCycle.ChainModule.Message import Message
 from CellCycle.ChainModule.Const import *
 from cPickle import loads, dumps
+from multiprocessing import Process
+
+from start import loadSettings, loadLogger
 
 
 def client_behavior(settings, logger):
@@ -39,6 +40,15 @@ def client_behavior(settings, logger):
     logger.debug(loads(external_channel.wait_ext_message()).printable_message())
 
     logger.debug("try_to_connect TEST COMPLETED")
+
+    stop = False
+    while not stop:
+        try:
+            logger.debug(loads(external_channel.wait_ext_message()).printable_message())
+            sleep(1)
+        except Again:
+            logger.debug("my master is DEAD")
+            stop = True
 
 
 def server_behavior(settings, logger):
@@ -73,13 +83,25 @@ def server_behavior(settings, logger):
 
     logger.debug("try_to_connect TEST COMPLETED")
 
+    stop = False
+    while not stop:
+        try:
+            external_channel.forward(dumps(message))
+            sleep(1)
+        except zmq.Again:
+            stop = True
+
 CONFIG_PATH = "/home/alessandro/git/CellsCycle/config.txt"
 
-loaded_settings, loaded_logger = loadSettingsAndLogger(CONFIG_PATH)
+loaded_settings = loadSettings()
+loaded_logger = loadLogger(settings=loaded_settings)
 
-reader = Thread(name='Reader', target=client_behavior, args=[loaded_settings, loaded_logger])
-writer = Thread(name='Writer', target=server_behavior, args=[loaded_settings, loaded_logger])
+reader = Process(name='Reader', target=client_behavior, args=[loaded_settings, loaded_logger])
+writer = Process(name='Writer', target=server_behavior, args=[loaded_settings, loaded_logger])
 
 reader.start()
 sleep(3)
 writer.start()
+
+sleep(5)
+reader.terminate()

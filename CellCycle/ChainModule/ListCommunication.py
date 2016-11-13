@@ -57,6 +57,9 @@ class ListCommunication:
     def set_rcv_timeo(self, timeout=MAX_RCVTIMEO):
         self.list_communication_channel.RCVTIMEO = timeout
 
+    def set_snd_timeo(self, timeout=MAX_RCVTIMEO):
+        self.list_communication_channel.SNDTIMEO = timeout
+
     def close(self):
         self.list_communication_channel.close()
         self.context.destroy()
@@ -110,19 +113,20 @@ class ExternalChannel(ListCommunication):
 
     # Forward a new external message like a router
     def forward(self, data):
-        # self.list_communication_channel.send(data)
 
         try:
             # self.logger.debug('sending message')
             tracker_object = self.list_communication_channel.send(data, track=True, copy=False)
-            # wait forever
             tracker_object.wait(TRACKER_TIMEOUT)
-            # self.logger.debug('ok with the message')
-        except zmq.error.NotDone:
-            # self.logger.debug('Something went wrong with that message')
-            time.sleep(TRY_TIMEOUT)
-            # self.logger.debug('Sleep finished')
-            # self.list_communication_channel.close()
+            self.logger.debug('ok with the message')
+        except zmq.NotDone:
+            # time.sleep(TRY_TIMEOUT)
+            self.logger.debug('my recipient is dead')
+            self.list_communication_channel.close()
+        except zmq.Again:
+            self.logger.debug('my recipient is dead')
+            self.list_communication_channel.close()
+            raise zmq.Again
         except zmq.ZMQError as a:
             self.logger.debug(a.strerror)
             self.context.destroy()
@@ -186,7 +190,7 @@ class InternalChannel(ListCommunication):
             # wait forever
             tracker_object.wait(timeout)
             # self.logger.debug('ok with the message')
-        except zmq.error.NotDone:
+        except zmq.NotDone:
             self.logger.debug('Something went wrong with that message')
             time.sleep(TRY_TIMEOUT)
             # self.logger.debug('Sleep finished')
