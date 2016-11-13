@@ -9,6 +9,8 @@ def startExtraCycleListeners(settings, logger, list_manager=None):
     threadNumber = settings.getServiceThreadNumber()
     port = settings.getClientEntrypointPort()
 
+    logger.debug("list_manager : " + str(list_manager))
+
     # prepare socket urls
     url_Frontend = "tcp://*:" + str(port)
 
@@ -68,7 +70,7 @@ def _manageRequest(logger, settings, socket, command, client, list_manager):
         if(command[1] != ""):
             key = hashOfKey(command[1])
             try:
-                _getHandler(settings, socket, client, key)
+                _getHandler(settings, socket, client, key, list_manager)
             except Exception as e:
                 logger.warning(str(e) + " for command: " + " ".join(command))
                 _sendError(socket, client)
@@ -164,7 +166,7 @@ def _sendGuide(socket, client):
     guide = "ERROR\r\nSUPPORTED OPERATIONS:\n"\
         "-SET (SET <key> <flag> <exp> <byte> <data>)\n"\
         "-ADD (ADD <key> <flag> <exp> <byte> <data>)\n"\
-        "-GET (SET <key> <data>)\n"\
+        "-GET (GET <key>)\n"\
         "-DELETE (DELETE <key> <data>)\n"\
         "-CELLCYCLE \n"\
         "\tKILLYOURSELF <TERMINATE or STOP>\n"\
@@ -206,14 +208,14 @@ def _deleteHandler(settings, socket,client, key, list_manager):
 def _getHandler(settings, socket, client, key, list_manager):
     #TODO host = list_manager.get_ip_for_key(key)
     #get server nodes and choose
-    #hosts = getNodesForKey(key)
-    #if(random()>0.5):
-    #   returnValue =standardMasterGetRequest(settings, key, hosts[0].ip)
-    #else:
-    #   returnValue =standardSlaveGetRequest(settings, key, hosts[1].ip)
+    host = list_manager.node_list.find_memory_key(key)
+    if(random()>0.5):
+       returnValue =standardMasterGetRequest(settings, key, host.target.ip)
+    else:
+       returnValue =standardSlaveGetRequest(settings, key, host.target.ip)
     #
-    # TODO comment this line
-    returnValue = standardMasterGetRequest(settings, key)
+    # TODO replace else ip with slave ip
+    #returnValue = standardMasterGetRequest(settings, key)
     returnValue = returnValue if returnValue!=None else ""
 
     if(len(returnValue)>=10):

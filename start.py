@@ -7,7 +7,7 @@ from CellCycle.ChainModule.Generator import Generator
 
 def loadSettings(currentProfile=None):
     # SETTINGSFILEPATH = "./config.txt"
-    SETTINGSFILEPATH = "/home/alessandro/git/CellsCycle/config.txt"
+    SETTINGSFILEPATH = "./config.txt"
 
     # read settings from config.txt
     settings = SettingsManager().readConfigurationFromFile(SETTINGSFILEPATH)
@@ -35,7 +35,7 @@ def startApplication(startParams, settings):
 
     # Let's start the list communication part
     generator = Generator(logger=logger, settings=settings, json_arg=startParams)
-    generator.create_process_environment()
+    writer_instance  = generator.create_process_environment()
     # writer_instance = generator.create_process_environment()
     startExtraCycleListeners(settings, logger, list_manager=generator.get_writer())
 
