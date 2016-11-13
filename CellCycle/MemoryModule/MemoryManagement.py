@@ -139,11 +139,12 @@ def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
     socket = context.socket(zmq.PULL)
     socket.bind(url)
 
-    internal_channel_added = InternalChannel(addr="localhost", port=settings.getMemoryObjectPort(), logger=logger)
-    internal_channel_added.generate_internal_channel_client_side()
+    if master:
+        internal_channel_added = InternalChannel(addr="localhost", port=settings.getMemoryObjectPort(), logger=logger)
+        internal_channel_added.generate_internal_channel_client_side()
 
-    internal_channel_restored = InternalChannel(addr="localhost", port=settings.getIntPort(), logger=logger)
-    internal_channel_restored.generate_internal_channel_client_side()
+        internal_channel_restored = InternalChannel(addr="localhost", port=settings.getIntPort(), logger=logger)
+        internal_channel_restored.generate_internal_channel_client_side()
 
     transferToDoAfter = False
 
@@ -222,12 +223,15 @@ def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
 
                 beginSlave = hostState.master.min_key #command.optional.thisnode.slave.keys.begin oldone!
                 endSlave = hostState.master.max_key #command.optional.thisnode.slave.keys.end oldone!
+                try:
+                    transferRequest(masterMasterMemory, thisMasterMemory, beginFirst, endFirst)
+                    transferRequest(masterMasterMemory, thisSlaveMemory, beginSlave, endSlave)
 
-                transferRequest(masterMasterMemory, thisMasterMemory, beginFirst, endFirst)
-                transferRequest(masterMasterMemory, thisSlaveMemory, beginSlave, endSlave)
+                    transferToDoAfter = True
+                    transferType = NEWSTART
+                except Exception as e:
+                    logger.warning(str(e))
 
-                transferToDoAfter = True
-                transferType = NEWSTART
 
             elif command.type == TRANSFERCOMPLETE:
                 if transferToDoAfter and master:

@@ -71,7 +71,7 @@ def _manageRequest(logger, settings, socket, command, client, list_manager):
         if(command[1] != ""):
             key = hashOfKey(command[1])
             try:
-                _getHandler(settings, socket, client, key, list_manager)
+                _getHandler(settings, logger,socket, client, key, list_manager)
             except Exception as e:
                 logger.warning(str(e) + " for command: " + " ".join(command))
                 _sendError(socket, client)
@@ -108,7 +108,7 @@ def _manageRequest(logger, settings, socket, command, client, list_manager):
                 return
 
             try:
-                _setHandler(settings, socket,client, key, flag, exp, byte, value, list_manager)
+                _setHandler(settings, logger,socket,client, key, flag, exp, byte, value, list_manager)
             except Exception as e:
                 logger.warning(str(e) + " for command: " + " ".join(command))
                 _sendError(socket, client)
@@ -180,7 +180,7 @@ def _sendError(socket, client):
     error = "ERROR\r\n"
     _send(socket, client, error)
 
-def _setHandler(settings, socket,client, key, flag, exp, byte, value, list_manager):
+def _setHandler(settings,logger, socket,client, key, flag, exp, byte, value, list_manager):
     #add flag to stored data
     value = '{:010d}'.format(int(flag)) + value
     # TODO check this line
@@ -206,11 +206,12 @@ def _deleteHandler(settings, socket,client, key, list_manager):
     _send(socket, client, returnString)
 
 
-def _getHandler(settings, socket, client, key, list_manager):
+def _getHandler(settings,logger, socket, client, key, list_manager):
     #TODO host = list_manager.get_ip_for_key(key)
     #get server nodes and choose
 
     host = list_manager.node_list.find_memory_key(key)
+
     if(random()>0.5):
        returnValue =standardMasterGetRequest(settings, key, host.target.ip)
     else:
