@@ -388,7 +388,7 @@ class DeadWriter (ConsumerThread):
                 # We have to wait for a new node
                 memory_obj = MemoryObject(self.master_of_master, self.master, self.myself,
                                           self.slave, self.slave_of_slave)
-                new_min_max_key = keyCalcToCreateANewNode(memory_obj)
+                new_min_max_key = keyCalcToCreateANewNode(memory_obj).newNode
 
                 new_node_id_to_add = str(calculateSonId(float(self.myself.id), float(self.slave.id)))
                 new_node_instance_to_add = Node(new_node_id_to_add, None, self.settings.getIntPort(),
@@ -407,6 +407,8 @@ class DeadWriter (ConsumerThread):
                 self.last_added_message = ''
                 self.busy_add = False
                 self.logger.debug("the cycle is over, now i am able to accept scale up requests")
+
+                self.distribute_keys()
 
                 min_max_key = Node.to_min_max_key_obj(msg.target_key)
 
