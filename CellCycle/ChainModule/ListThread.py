@@ -87,6 +87,26 @@ class ListThread (threading.Thread):
         self.node_list.add_node(target_node=target_node, target_master=target_master,
                                 target_slave=target_slave)
 
+    def get_memory_obj_from_new_node(self, msg):
+        if self.is_my_new_master_of_master(msg):
+            mm_m = self.node_list.get_value(self.master_of_master.id).master
+            mm_mm = self.node_list.get_value(mm_m.id).master
+            mem = MemoryObject(mm_mm, mm_m, self.master_of_master, self.master, self.myself)
+            return keyCalcToCreateANewNode(mem)
+        elif self.is_my_new_master(msg):
+            mm_m = self.node_list.get_value(self.master_of_master.id).master
+            mem = MemoryObject(mm_m, self.master_of_master, self.master, self.myself, self.slave)
+            return keyCalcToCreateANewNode(mem)
+        elif self.is_my_new_slave(msg):
+            mem = MemoryObject(self.master_of_master, self.master, self.myself, self.slave, self.slave_of_slave)
+            return keyCalcToCreateANewNode(mem)
+        elif self.is_my_new_slave_of_slave(msg):
+            ss_s = self.node_list.get_value(self.slave_of_slave.id).slave
+            mem = MemoryObject(self.master, self.myself, self.slave, self.slave_of_slave, ss_s)
+            return keyCalcToCreateANewNode(mem)
+        else:
+            return None
+
     # This function assume that we have at least 4 nodes
     # This function assume that we have just updated the list
     def distribute_my_own_keys(self, mm, new_node):

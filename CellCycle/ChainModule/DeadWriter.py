@@ -186,6 +186,12 @@ class DeadWriter (ConsumerThread):
     def consider_added_message(self, msg, origin_message):
         self.logger.debug("my version is {}, uuu we have a new NODE\n{}".
                           format(str(self.version), msg.printable_message()))
+
+        new_memory_obj = self.get_memory_obj_from_new_node(msg)
+
+        # before creating adding the new node to the list let's update the old keys
+        self.change_keys_to(msg.source_id)
+
         min_max_key = Node.to_min_max_key_obj(msg.target_key)
         node_to_add = Node(msg.target_id, msg.target_addr, self.settings.getIntPort(),
                            self.settings.getExtPort(),
@@ -213,6 +219,8 @@ class DeadWriter (ConsumerThread):
         if relatives_check:
             self.busy_add = False
             self.change_parents(node_to_add)
+            if new_memory_obj is not None:
+                self.distribute_my_own_keys(new_memory_obj, node_to_add)
             self.logger.debug("welcome new relative! now i am able to receive new scale ups")
 
         self.update_last_seen(msg)
@@ -302,9 +310,13 @@ class DeadWriter (ConsumerThread):
                 if not self.busy_add:
                     self.internal_channel.reply_to_int_message(OK)
                     # self.version += 1
+                    memory_obj = MemoryObject(self.master_of_master, self.master, self.myself,
+                                              self.slave, self.slave_of_slave)
+                    new_min_max_key = keyCalcToCreateANewNode(memory_obj).newNode
+                    min_max_key_string = "{}:{}".format(str(new_min_max_key.min_key), str(new_min_max_key.max_key))
                     msg = self.make_add_node_msg(target_id=str(calculateSonId(float(self.myself.id),
                                                                               float(self.slave.id))),
-                                                 target_key="0:19",
+                                                 target_key=min_max_key_string,
                                                  source_flag=INT, target_slave_id=self.slave.id)
                     msg_to_send = to_external_message(self.version, msg)
                     self.last_add_message = msg_to_send
@@ -408,8 +420,12 @@ class DeadWriter (ConsumerThread):
                 self.busy_add = False
                 self.logger.debug("the cycle is over, now i am able to accept scale up requests")
 
-                self.distribute_keys()
+                new_memory_obj = self.get_memory_obj_from_new_node(msg)
 
+                # before creating adding the new node to the list let's update the old keys
+                self.change_keys_to(msg.source_id)
+
+                # now we can add the new node
                 min_max_key = Node.to_min_max_key_obj(msg.target_key)
 
                 node_to_add = Node(msg.target_id, msg.target_addr, self.settings.getIntPort(),
@@ -433,8 +449,10 @@ class DeadWriter (ConsumerThread):
                 self.change_slave_to(target_node=target_master, target_slave=target_id)
 
                 self.wait_the_new_node_and_send_the_list()
-                self.node_to_add = ''
                 self.change_parents(node_to_add)
+                if new_memory_obj is not None:
+                    self.distribute_my_own_keys(new_memory_obj, node_to_add)
+                self.node_to_add = ''
                 self.logger.debug("ADDED CYCLE completed, this is my list\n{}".format(self.node_list.print_list()))
             elif is_my_last_dead_message(msg, self.last_dead_message):
                 # The cycle is over
@@ -532,6 +550,12 @@ class DeadWriter (ConsumerThread):
                         if check_to_consider_added_message:
                             self.logger.debug("my version is {}, uuu we have a new NODE\n{}".
                                               format(str(self.version), msg.printable_message()))
+
+                            new_memory_obj = self.get_memory_obj_from_new_node(msg)
+
+                            # before creating adding the new node to the list let's update the old keys
+                            self.change_keys_to(msg.source_id)
+
                             min_max_key = Node.to_min_max_key_obj(msg.target_key)
                             node_to_add = Node(msg.target_id, msg.target_addr, self.settings.getIntPort(),
                                                self.settings.getExtPort(),
@@ -560,6 +584,8 @@ class DeadWriter (ConsumerThread):
                             if relatives_check:
                                 self.busy_add = False
                                 self.change_parents(node_to_add)
+                                if new_memory_obj is not None:
+                                    self.distribute_my_own_keys(new_memory_obj, node_to_add)
                                 self.logger.debug("welcome new relative! now i am able to receive new scale ups")
 
                             self.update_last_seen(msg)
