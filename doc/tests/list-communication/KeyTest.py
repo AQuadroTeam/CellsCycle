@@ -76,11 +76,11 @@ def dead_check():
     settings_to_launch = loadSettings(currentProfile=currentProfile)
     logger_to_launch = loadLogger(settings_to_launch)
 
-    n1 = Node("1", "172.10.1.1", settings_to_launch.getIntPort(), settings_to_launch.getExtPort(), "0", "19")
+    n1 = Node("1", "172.10.1.1", settings_to_launch.getIntPort(), settings_to_launch.getExtPort(), "12", "19")
     n2 = Node("2", "172.10.1.2", settings_to_launch.getIntPort(), settings_to_launch.getExtPort(), "20", "39")
     n3 = Node("3", "172.10.1.3", settings_to_launch.getIntPort(), settings_to_launch.getExtPort(), "40", "59")
     n4 = Node("4", "172.10.1.4", settings_to_launch.getIntPort(), settings_to_launch.getExtPort(), "60", "79")
-    n5 = Node("5", "172.10.1.5", settings_to_launch.getIntPort(), settings_to_launch.getExtPort(), "80", "99")
+    n5 = Node("5", "172.10.1.5", settings_to_launch.getIntPort(), settings_to_launch.getExtPort(), "80", "11")
 
     i3 = ListThread(master_of_master=n1, master=n2, myself=n3, slave=n4, slave_of_slave=n5, logger=logger_to_launch,
                     settings=settings_to_launch, name=n3.id)
@@ -90,8 +90,6 @@ def dead_check():
                     settings=settings_to_launch, name=n5.id)
     i1 = ListThread(master_of_master=n4, master=n5, myself=n1, slave=n2, slave_of_slave=n3, logger=logger_to_launch,
                     settings=settings_to_launch, name=n1.id)
-    i2 = ListThread(master_of_master=n5, master=n1, myself=n2, slave=n3, slave_of_slave=n4, logger=logger_to_launch,
-                    settings=settings_to_launch, name=n2.id)
 
     '''
     logger_to_launch.debug("########## BEFORE ADD ############")
@@ -122,4 +120,4 @@ def dead_check():
     i4.print_relatives()
     i5.print_relatives()
 
-dead_check()
+    logger_to_launch.debug("this is the ip found {}".format((i1.node_list.find_memory_key(0)).target.ip))
