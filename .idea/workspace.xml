@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="5b06431c-a9f7-40fe-9fcc-c5b9c9a54961" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CellCycle/ChainModule/DeadWriter.py" afterPath="$PROJECT_DIR$/CellCycle/ChainModule/DeadWriter.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CellCycle/ChainModule/ListThread.py" afterPath="$PROJECT_DIR$/CellCycle/ChainModule/ListThread.py" />
     </list>
     <ignored path="CellsCycle.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -105,7 +103,7 @@
         <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/ListThread.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="-2.39">
-              <caret line="79" column="12" selection-start-line="79" selection-start-column="12" selection-end-line="79" selection-end-column="12" />
+              <caret line="79" column="0" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
               <folding>
                 <element signature="e#24#40#0" expanded="true" />
               </folding>
@@ -522,7 +520,13 @@
       <option name="project" value="LOCAL" />
       <updated>1479000123034</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Added change_added_keys, change_dead_keys, distribute_my_own_keys, change_parents_from_list&#10;&#10;The function change_parents_from_list is easier and the securest way to update parents because it takes info directly from the list updated">
+      <created>1479002750341</created>
+      <option name="number" value="00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1479002750341</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <option name="createChangelist" value="false" />
     <option name="createBranch" value="false" />
     <servers />
@@ -559,7 +563,8 @@
     <MESSAGE value="Added new key , id functions to create a node" />
     <MESSAGE value="Added change_keys_to and distributed_my_own_keys to update the list" />
     <MESSAGE value="Added support to update keys in list and in self attributes when a new node is added" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added support to update keys in list and in self attributes when a new node is added" />
+    <MESSAGE value="Added change_added_keys, change_dead_keys, distribute_my_own_keys, change_parents_from_list&#10;&#10;The function change_parents_from_list is easier and the securest way to update parents because it takes info directly from the list updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added change_added_keys, change_dead_keys, distribute_my_own_keys, change_parents_from_list&#10;&#10;The function change_parents_from_list is easier and the securest way to update parents because it takes info directly from the list updated" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -727,7 +732,7 @@
     <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/ListThread.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-2.39">
-          <caret line="79" column="12" selection-start-line="79" selection-start-column="12" selection-end-line="79" selection-end-column="12" />
+          <caret line="79" column="0" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
           <folding>
             <element signature="e#24#40#0" expanded="true" />
           </folding>
