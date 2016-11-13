@@ -140,6 +140,8 @@ class DeadWriter (ConsumerThread):
         self.logger.debug("forwarding this RESTORED message\n{}".format(msg.printable_message()))
 
     def consider_dead_message(self, msg, origin_message):
+        # TODO check that this is the right order to update the list
+        self.change_dead_keys_to(msg.source_id)
         target_id = msg.target_id
         target_master = msg.target_relative_id
         target_slave = msg.source_id
@@ -158,7 +160,7 @@ class DeadWriter (ConsumerThread):
             # Let's resync with our new slave
             self.logger.debug("resync with {}".format(self.slave.id))
 
-            # TODO notify the memory module, no response necessary
+            # notify the memory module, no response necessary
             self.new_slave_request()
             # internal_channel_on_the_fly = InternalChannel(addr="localhost",
             # port=settings.getMemoryObjectPort(),
@@ -178,6 +180,7 @@ class DeadWriter (ConsumerThread):
             self.logger.debug("now i'm busy : {} is DEAD".format(msg.target_id))
             # if i'm involved i have to be busy
         self.remove_from_list(msg.target_id)
+        self.change_parents_from_list()
         self.update_last_seen(msg)
         self.version = max(int(msg.version) + 1, self.version)
         self.external_channel.forward(origin_message)
@@ -472,6 +475,7 @@ class DeadWriter (ConsumerThread):
 
                     # Check if the node is DEAD
                     if is_dead_message(msg):
+                        self.change_dead_keys_to(msg.source_id)
                         target_id = msg.target_id
                         target_master = msg.target_relative_id
                         target_slave = msg.source_id
@@ -510,6 +514,7 @@ class DeadWriter (ConsumerThread):
                             self.logger.debug("now i'm busy : {} is DEAD".format(msg.target_id))
                             # if i'm involved i have to be busy
                         self.remove_from_list(msg.target_id)
+                        self.change_parents_from_list()
                         self.update_last_seen(msg)
                         self.version = max(int(msg.version) + 1, self.version)
                         self.external_channel.forward(origin_message)

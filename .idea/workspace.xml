@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="5b06431c-a9f7-40fe-9fcc-c5b9c9a54961" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CellCycle/ChainModule/DeadWriter.py" afterPath="$PROJECT_DIR$/CellCycle/ChainModule/DeadWriter.py" />
     </list>
     <ignored path="CellsCycle.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -23,11 +24,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="DeadWriter.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="DeadWriter.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/DeadWriter.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="449" column="0" selection-start-line="449" selection-start-column="0" selection-end-line="449" selection-end-column="0" />
+            <state vertical-scroll-proportion="-0.6566667">
+              <caret line="142" column="68" selection-start-line="142" selection-start-column="68" selection-end-line="142" selection-end-column="68" />
               <folding>
                 <element signature="e#23#98#0" expanded="true" />
               </folding>
@@ -99,11 +100,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ListThread.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ListThread.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/ListThread.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.39">
-              <caret line="79" column="0" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="170" column="0" selection-start-line="170" selection-start-column="0" selection-end-line="170" selection-end-column="0" />
               <folding>
                 <element signature="e#24#40#0" expanded="true" />
               </folding>
@@ -526,7 +527,13 @@
       <option name="project" value="LOCAL" />
       <updated>1479002750341</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Added change_added_keys, change_dead_keys, distribute_my_own_keys, change_parents_from_list&#10;&#10;The function change_parents_from_list is easier and the securest way to update parents because it takes info directly from the list updated">
+      <created>1479002778964</created>
+      <option name="number" value="00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1479002778964</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <option name="createChangelist" value="false" />
     <option name="createBranch" value="false" />
     <servers />
@@ -719,22 +726,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/DeadWriter.py">
+    <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/ListThread.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="449" column="0" selection-start-line="449" selection-start-column="0" selection-end-line="449" selection-end-column="0" />
+          <caret line="170" column="0" selection-start-line="170" selection-start-column="0" selection-end-line="170" selection-end-column="0" />
           <folding>
-            <element signature="e#23#98#0" expanded="true" />
+            <element signature="e#24#40#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/ListThread.py">
+    <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/DeadWriter.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.39">
-          <caret line="79" column="0" selection-start-line="79" selection-start-column="0" selection-end-line="79" selection-end-column="0" />
+        <state vertical-scroll-proportion="-0.6566667">
+          <caret line="142" column="68" selection-start-line="142" selection-start-column="68" selection-end-line="142" selection-end-column="68" />
           <folding>
-            <element signature="e#24#40#0" expanded="true" />
+            <element signature="e#23#98#0" expanded="true" />
           </folding>
         </state>
       </provider>
