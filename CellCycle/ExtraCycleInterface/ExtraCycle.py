@@ -68,7 +68,7 @@ def _manageRequest(logger, settings, socket, command, client, list_manager):
         if(command[1] != ""):
             key = hashOfKey(command[1])
             try:
-                _getHandler(settings, socket, client, key)
+                _getHandler(settings, socket, client, key, list_manager)
             except Exception as e:
                 logger.warning(str(e) + " for command: " + " ".join(command))
                 _sendError(socket, client)
