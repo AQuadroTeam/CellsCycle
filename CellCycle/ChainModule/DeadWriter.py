@@ -93,6 +93,8 @@ class DeadWriter (ConsumerThread):
                                      self.slave, self.slave_of_slave)
         newMasterRequest("tcp://localhost:" + str(self.settings.getMasterSetPort()), memory_object)
 
+        '''
+        This is commented because at first boot we don't receive any answer from memory module
         rec_msg = loads(self.internal_channel.wait_int_message(dont_wait=False))
 
         while not is_restored_message(rec_msg):
@@ -103,6 +105,7 @@ class DeadWriter (ConsumerThread):
         self.internal_channel.reply_to_int_message(msg=NOK)
 
         self.logger.debug("memory module finished, let's start writer behavior")
+        '''
 
     def new_slave_request(self):
         slave_of_slave_to_send = self.node_list.get_value(self.slave_of_slave.id).slave
