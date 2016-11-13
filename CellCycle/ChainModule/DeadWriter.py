@@ -187,10 +187,10 @@ class DeadWriter (ConsumerThread):
         self.logger.debug("my version is {}, uuu we have a new NODE\n{}".
                           format(str(self.version), msg.printable_message()))
 
-        new_memory_obj = self.get_memory_obj_from_new_node(msg)
+        # new_memory_obj = self.get_memory_obj_from_new_node(msg)
 
         # before creating adding the new node to the list let's update the old keys
-        self.change_keys_to(msg.source_id)
+        self.change_added_keys_to(msg.source_id)
 
         min_max_key = Node.to_min_max_key_obj(msg.target_key)
         node_to_add = Node(msg.target_id, msg.target_addr, self.settings.getIntPort(),
@@ -218,9 +218,9 @@ class DeadWriter (ConsumerThread):
         relatives_check = self.is_one_of_my_relatives(msg.source_id)
         if relatives_check:
             self.busy_add = False
-            self.change_parents(node_to_add)
-            if new_memory_obj is not None:
-                self.distribute_my_own_keys(new_memory_obj, node_to_add)
+            self.change_parents_from_list()
+            # if new_memory_obj is not None:
+            #     self.distribute_my_own_added_keys(new_memory_obj, node_to_add)
             self.logger.debug("welcome new relative! now i am able to receive new scale ups")
 
         self.update_last_seen(msg)
@@ -420,10 +420,10 @@ class DeadWriter (ConsumerThread):
                 self.busy_add = False
                 self.logger.debug("the cycle is over, now i am able to accept scale up requests")
 
-                new_memory_obj = self.get_memory_obj_from_new_node(msg)
+                # new_memory_obj = self.get_memory_obj_from_new_node(msg)
 
                 # before creating adding the new node to the list let's update the old keys
-                self.change_keys_to(msg.source_id)
+                self.change_added_keys_to(msg.source_id)
 
                 # now we can add the new node
                 min_max_key = Node.to_min_max_key_obj(msg.target_key)
@@ -449,9 +449,9 @@ class DeadWriter (ConsumerThread):
                 self.change_slave_to(target_node=target_master, target_slave=target_id)
 
                 self.wait_the_new_node_and_send_the_list()
-                self.change_parents(node_to_add)
-                if new_memory_obj is not None:
-                    self.distribute_my_own_keys(new_memory_obj, node_to_add)
+                self.change_parents_from_list()
+                # if new_memory_obj is not None:
+                #     self.distribute_my_own_added_keys(new_memory_obj, node_to_add)
                 self.node_to_add = ''
                 self.logger.debug("ADDED CYCLE completed, this is my list\n{}".format(self.node_list.print_list()))
             elif is_my_last_dead_message(msg, self.last_dead_message):
@@ -551,10 +551,10 @@ class DeadWriter (ConsumerThread):
                             self.logger.debug("my version is {}, uuu we have a new NODE\n{}".
                                               format(str(self.version), msg.printable_message()))
 
-                            new_memory_obj = self.get_memory_obj_from_new_node(msg)
+                            # new_memory_obj = self.get_memory_obj_from_new_node(msg)
 
                             # before creating adding the new node to the list let's update the old keys
-                            self.change_keys_to(msg.source_id)
+                            self.change_added_keys_to(msg.source_id)
 
                             min_max_key = Node.to_min_max_key_obj(msg.target_key)
                             node_to_add = Node(msg.target_id, msg.target_addr, self.settings.getIntPort(),
@@ -583,9 +583,9 @@ class DeadWriter (ConsumerThread):
                             relatives_check = self.is_one_of_my_relatives(msg.source_id)
                             if relatives_check:
                                 self.busy_add = False
-                                self.change_parents(node_to_add)
-                                if new_memory_obj is not None:
-                                    self.distribute_my_own_keys(new_memory_obj, node_to_add)
+                                self.change_parents_from_list()
+                                # if new_memory_obj is not None:
+                                # self.distribute_my_own_added_keys(new_memory_obj, node_to_add)
                                 self.logger.debug("welcome new relative! now i am able to receive new scale ups")
 
                             self.update_last_seen(msg)

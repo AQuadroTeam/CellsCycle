@@ -3,7 +3,7 @@
 import threading
 
 from CellCycle.ChainModule.MemoryObject import MemoryObject
-from CellCycle.KeyCalcManager import keyCalcToCreateANewNode
+from CellCycle.KeyCalcManager import keyCalcToCreateANewNode, keyCalcWhenMasterDies
 from Const import *
 from random import randint
 from ChainList import ChainList
@@ -78,6 +78,20 @@ class ListThread (threading.Thread):
             self.slave_of_slave = node_to_add
             self.logger.debug("my slave_of_slave is changed, now is {}".format(self.slave_of_slave.id))
 
+    # This function is the same as change_parents but more secure because takes info from the list
+    def change_parents_from_list(self):
+        result = self.node_list.get_value(self.myself.id)
+        myself = result.target
+        master = result.master
+        slave = result.slave
+        master_of_master = self.node_list.get_value(master.id).master
+        slave_of_slave = self.node_list.get_value(slave.id).slave
+        self.myself = myself
+        self.slave = slave
+        self.master = master
+        self.master_of_master = master_of_master
+        self.slave_of_slave = slave_of_slave
+
     def change_slave_to(self, target_node, target_slave):
         result = self.node_list.get_value(target_node)
         target_node = result.target
@@ -109,7 +123,7 @@ class ListThread (threading.Thread):
 
     # This function assume that we have at least 4 nodes
     # This function assume that we have just updated the list
-    def distribute_my_own_keys(self, mm, new_node):
+    def distribute_my_own_added_keys(self, mm, new_node):
         if self.slave.id == new_node.id:
             self.master_of_master.change_keys(mm.master_of_master.min_key, mm.master_of_master.max_key)
             self.master.change_keys(mm.master.min_key, mm.master.max_key)
@@ -126,9 +140,26 @@ class ListThread (threading.Thread):
                 self.slave.change_keys(mm.myself.min_key, mm.myself.max_key)
                 self.myself.change_keys(mm.master_of_master.min_key, mm.master_of_master.max_key)
 
+    def distribute_my_own_dead_keys(self, mm, new_node):
+        if self.slave.id == new_node.id:
+            self.master_of_master.change_keys(mm.myself.min_key, mm.master_of_master.max_key)
+            self.master.change_keys(mm.master.min_key, mm.master.max_key)
+            self.myself.change_keys(mm.myself.min_key, mm.myself.max_key)
+            self.slave_of_slave.change_keys(mm.slave.min_key, mm.slave.max_key)
+        elif self.master.id == new_node.id:
+            self.master_of_master.change_keys(mm.myself.min_key, mm.myself.max_key)
+            self.myself.change_keys(mm.slave.min_key, mm.slave.max_key)
+            self.slave.change_keys(mm.slave_of_slave.min_key, mm.slave_of_slave.max_key)
+        elif self.master_of_master.id == new_node.id:
+                self.master.change_keys(mm.slave.min_key, mm.slave.max_key)
+                self.myself.change_keys(mm.slave_of_slave.min_key, mm.slave_of_slave.max_key)
+        elif self.slave_of_slave.id == new_node.id:
+                self.slave.change_keys(mm.myself.min_key, mm.myself.max_key)
+                self.myself.change_keys(mm.master_of_master.min_key, mm.master_of_master.max_key)
+
     # This function search for a node in the list and changes all the 5 keys
     # This function must be called before the update of the list
-    def change_keys_to(self, target_node):
+    def change_added_keys_to(self, target_node):
         result = self.node_list.get_value(target_node)
         myself_to_change = result.target
         master_to_change = result.master
@@ -151,6 +182,31 @@ class ListThread (threading.Thread):
 
         self.node_list.add_node(myself_to_change, master_to_change, slave_to_change)
         self.node_list.add_node(master_to_change, master_of_master_to_change, myself_to_change)
+        self.node_list.add_node(slave_to_change, myself_to_change, slave_of_slave_to_change)
+        self.node_list.add_node(master_of_master_to_change, master_of_master_result.master, master_to_change)
+        self.node_list.add_node(slave_of_slave_to_change, slave_to_change, slave_of_slave_result.slave)
+
+    def change_dead_keys_to(self, target_node):
+        result = self.node_list.get_value(target_node)
+        myself_to_change = result.target
+        master_to_change = result.master
+        slave_to_change = result.slave
+        master_of_master_result = self.node_list.get_value(master_to_change.id)
+        master_of_master_to_change = master_of_master_result.target
+        slave_of_slave_result = self.node_list.get_value(slave_to_change.id)
+        slave_of_slave_to_change = slave_of_slave_result.target
+
+        memory_obj = MemoryObject(master_of_master_to_change, master_to_change, myself_to_change,
+                                  slave_to_change, slave_of_slave_to_change)
+
+        mm = keyCalcWhenMasterDies(memory_obj)
+
+        myself_to_change.change_keys(mm.myself.min_key, mm.myself.max_key)
+        slave_to_change.change_keys(mm.slave.min_key, mm.slave.max_key)
+        master_of_master_to_change.change_keys(mm.master_of_master.min_key, mm.master_of_master.max_key)
+        slave_of_slave_to_change.change_keys(mm.slave_of_slave.min_key, mm.slave_of_slave.max_key)
+
+        self.node_list.add_node(myself_to_change, master_to_change, slave_to_change)
         self.node_list.add_node(slave_to_change, myself_to_change, slave_of_slave_to_change)
         self.node_list.add_node(master_of_master_to_change, master_of_master_result.master, master_to_change)
         self.node_list.add_node(slave_of_slave_to_change, slave_to_change, slave_of_slave_result.slave)
