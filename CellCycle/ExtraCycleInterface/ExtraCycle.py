@@ -206,14 +206,14 @@ def _deleteHandler(settings, socket,client, key, list_manager):
 def _getHandler(settings, socket, client, key, list_manager):
     #TODO host = list_manager.get_ip_for_key(key)
     #get server nodes and choose
-    #hosts = getNodesForKey(key)
-    #if(random()>0.5):
-    #   returnValue =standardMasterGetRequest(settings, key, hosts[0].ip)
-    #else:
-    #   returnValue =standardSlaveGetRequest(settings, key, hosts[1].ip)
+    host = list_manager.node_list.find_memory_key(key)
+    if(random()>0.5):
+       returnValue =standardMasterGetRequest(settings, key, host.target.ip)
+    else:
+       returnValue =standardSlaveGetRequest(settings, key, host.target.ip)
     #
-    # TODO comment this line
-    returnValue = standardMasterGetRequest(settings, key)
+    # TODO replace else ip with slave ip
+    #returnValue = standardMasterGetRequest(settings, key)
     returnValue = returnValue if returnValue!=None else ""
 
     if(len(returnValue)>=10):
