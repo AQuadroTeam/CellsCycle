@@ -3,7 +3,6 @@
 from ListThread import Node, ListThread
 from DeadReader import DeadReader
 from DeadWriter import DeadWriter
-from time import sleep
 
 MYSELF = 'myself'
 MASTER = 'master'
@@ -34,17 +33,24 @@ class Generator:
         self.logger = logger
         self.settings = settings
         self.args = json_arg
+        self._writer = None
+        self._reader = None
 
     def _get_node_from_data(self, data):
         return Node(data[ID], data[IP], self.settings.getIntPort(),
                     self.settings.getExtPort(), min_key=data[MIN_KEY], max_key=data[MAX_KEY],
                     memory_port=self.settings.getMemoryObjectPort())
-        # TODO remove this to deploy
-        # int_port = "558{}".format(data[IP][len("172.31.20.")])
-        # ext_port = "559{}".format(data[IP][len("172.31.20.")])
-        # memory_port = "557{}".format(data[IP][len("172.31.20.")])
-        # return Node(data[ID], LOCAL_HOST, int_port,
-        #             ext_port, min_key=data[MIN_KEY], max_key=data[MAX_KEY], memory_port=memory_port)
+
+    def get_reader(self):
+        return self._reader
+
+    def get_writer(self):
+        return self._writer
+
+    def start_reader_writer(self):
+        self._reader.start()
+        self._writer.start()
+        self._reader.join()
 
     def create_process_environment(self):
         myself = self.args[MYSELF]
@@ -65,12 +71,8 @@ class Generator:
         reader = DeadReader(myself, master, slave, slave_of_slave, master_of_master, self.logger, self.settings,
                             thread_reader_name, writer)
 
-        reader.start()
-        writer.start()
-
-        reader.join()
-
-        # TODO return writer instance
+        self._reader = reader
+        self._writer = writer
 
 
 class Parameter:    # unused
@@ -120,7 +122,8 @@ def scale_up_thread(a, l):
 
 def gen(l, s, a):
     generator = Generator(logger=l, settings=s, json_arg=a)
-    generator.create_process_environment()
+    writer = generator.create_process_environment()
+    writer.join()
 
 
 def create_single_process(l, s, a):

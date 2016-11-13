@@ -37,8 +37,9 @@ def startApplication(startParams, settings):
     generator = Generator(logger=logger, settings=settings, json_arg=startParams)
     generator.create_process_environment()
     # writer_instance = generator.create_process_environment()
-    startExtraCycleListeners(settings, logger)
-    # startExtraCycleListeners(settings, logger, writer_instance)
+    startExtraCycleListeners(settings, logger, list_manager=generator.get_writer())
+
+    generator.start_reader_writer()
 
 
 def exampleFillAndTransfer(settings, logger):

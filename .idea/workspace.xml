@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5b06431c-a9f7-40fe-9fcc-c5b9c9a54961" name="Default" comment="Added KeyTest, test_update, test_remove in ListThread.&#10;Fixed bug in change_dead_keys, change_added_keys">
+    <list default="true" id="5b06431c-a9f7-40fe-9fcc-c5b9c9a54961" name="Default" comment="Added support for">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc/tests/list-communication/KeyTest.py" afterPath="$PROJECT_DIR$/doc/tests/list-communication/KeyTest.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CellCycle/ChainModule/Generator.py" afterPath="$PROJECT_DIR$/CellCycle/ChainModule/Generator.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/start.py" afterPath="$PROJECT_DIR$/start.py" />
     </list>
     <ignored path="CellsCycle.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -28,8 +29,10 @@
         <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/Generator.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="51" column="34" selection-start-line="51" selection-start-column="34" selection-end-line="51" selection-end-column="34" />
-              <folding />
+              <caret line="142" column="0" selection-start-line="142" selection-start-column="0" selection-end-line="142" selection-end-column="0" />
+              <folding>
+                <element signature="e#24#63#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -38,7 +41,17 @@
         <entry file="file://$PROJECT_DIR$/firstLaunchAWS.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="20" column="42" selection-start-line="20" selection-start-column="42" selection-end-line="23" selection-end-column="93" />
+              <caret line="127" column="9" selection-start-line="127" selection-start-column="9" selection-end-line="127" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="start.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/start.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.5025381">
+              <caret line="40" column="0" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -56,11 +69,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Message.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/Message.py">
+      <file leaf-file-name="ExtraCycle.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CellCycle/ExtraCycleInterface/ExtraCycle.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+              <caret line="7" column="4" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -98,38 +111,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MemoryObject.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/MemoryObject.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="15" column="25" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="25" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="KeyCalcManager.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/CellCycle/KeyCalcManager.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="KeyTest.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/doc/tests/list-communication/KeyTest.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="2.7434554">
-              <caret line="121" column="0" selection-start-line="121" selection-start-column="0" selection-end-line="121" selection-end-column="0" />
-              <folding>
-                <element signature="e#0#46#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
@@ -150,12 +131,13 @@
         <option value="$PROJECT_DIR$/CellCycle/MemoryModule/MemoryManagement.py" />
         <option value="$PROJECT_DIR$/CellCycle/ChainModule/ChainFlow.py" />
         <option value="$PROJECT_DIR$/CellCycle/ChainModule/ChainList.py" />
-        <option value="$PROJECT_DIR$/CellCycle/ChainModule/Generator.py" />
         <option value="$PROJECT_DIR$/CellCycle/ChainModule/DeadWriter.py" />
         <option value="$PROJECT_DIR$/CellCycle/KeyCalcManager.py" />
         <option value="$PROJECT_DIR$/CellCycle/ChainModule/MemoryObject.py" />
         <option value="$PROJECT_DIR$/CellCycle/ChainModule/ListThread.py" />
         <option value="$PROJECT_DIR$/doc/tests/list-communication/KeyTest.py" />
+        <option value="$PROJECT_DIR$/CellCycle/ChainModule/Generator.py" />
+        <option value="$PROJECT_DIR$/start.py" />
       </list>
     </option>
   </component>
@@ -291,24 +273,7 @@
       <pane id="Scratches" />
     </panes>
   </component>
-  <component name="RunManager" selected="Python.KeyTest">
-    <configuration default="false" name="PairServer" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/CellCycle" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="CellsCycle" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/CellCycle/PairServer.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="Python.firstLaunchAWS">
     <configuration default="false" name="PairClient" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -373,6 +338,23 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="CellsCycle" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/doc/tests/list-communication/KeyTest.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <method />
+    </configuration>
+    <configuration default="false" name="firstLaunchAWS" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="CellsCycle" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/firstLaunchAWS.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <method />
@@ -500,19 +482,19 @@
       <method />
     </configuration>
     <list size="5">
-      <item index="0" class="java.lang.String" itemvalue="Python.PairServer" />
-      <item index="1" class="java.lang.String" itemvalue="Python.PairClient" />
-      <item index="2" class="java.lang.String" itemvalue="Python.Generator" />
-      <item index="3" class="java.lang.String" itemvalue="Python.start" />
-      <item index="4" class="java.lang.String" itemvalue="Python.KeyTest" />
+      <item index="0" class="java.lang.String" itemvalue="Python.PairClient" />
+      <item index="1" class="java.lang.String" itemvalue="Python.Generator" />
+      <item index="2" class="java.lang.String" itemvalue="Python.start" />
+      <item index="3" class="java.lang.String" itemvalue="Python.KeyTest" />
+      <item index="4" class="java.lang.String" itemvalue="Python.firstLaunchAWS" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Python.KeyTest" />
-        <item index="1" class="java.lang.String" itemvalue="Python.start" />
-        <item index="2" class="java.lang.String" itemvalue="Python.Generator" />
-        <item index="3" class="java.lang.String" itemvalue="Python.PairClient" />
-        <item index="4" class="java.lang.String" itemvalue="Python.PairServer" />
+        <item index="0" class="java.lang.String" itemvalue="Python.firstLaunchAWS" />
+        <item index="1" class="java.lang.String" itemvalue="Python.KeyTest" />
+        <item index="2" class="java.lang.String" itemvalue="Python.start" />
+        <item index="3" class="java.lang.String" itemvalue="Python.Generator" />
+        <item index="4" class="java.lang.String" itemvalue="Python.PairClient" />
       </list>
     </recent_temporary>
   </component>
@@ -527,77 +509,11 @@
       <option name="number" value="Default" />
       <updated>1478986608152</updated>
     </task>
-    <task id="LOCAL-00001" summary="newStart newMaster newSlave functions">
-      <created>1478986580010</created>
-      <option name="number" value="00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1478989623067</updated>
-    </task>
     <task active="true" id="LOCAL-00002" summary="compute id and key">
       <created>1478986644434</created>
       <option name="number" value="00002" />
       <option name="project" value="LOCAL" />
       <updated>1479033684078</updated>
-    </task>
-    <task id="LOCAL-00003" summary="check find_memory_key None return and interval">
-      <created>1478987302562</created>
-      <option name="number" value="00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1479032966344</updated>
-    </task>
-    <task id="LOCAL-00004" summary="Added first_boot_new_master to wait memory module at first boot">
-      <created>1478988849629</created>
-      <option name="number" value="00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1478988849629</updated>
-    </task>
-    <task id="LOCAL-00005" summary="Added new key , id functions to create a node">
-      <created>1478989433348</created>
-      <option name="number" value="00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1478989433348</updated>
-    </task>
-    <task id="LOCAL-00006" summary="Added new key , id functions to create a node">
-      <created>1478989490771</created>
-      <option name="number" value="00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1478989490771</updated>
-    </task>
-    <task id="LOCAL-00007" summary="Added change_keys_to and distributed_my_own_keys to update the list">
-      <created>1478997205094</created>
-      <option name="number" value="00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1478997205094</updated>
-    </task>
-    <task id="LOCAL-00008" summary="Added support to update keys in list and in self attributes when a new node is added">
-      <created>1479000123034</created>
-      <option name="number" value="00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1479000123034</updated>
-    </task>
-    <task id="LOCAL-00009" summary="Added change_added_keys, change_dead_keys, distribute_my_own_keys, change_parents_from_list&#10;&#10;The function change_parents_from_list is easier and the securest way to update parents because it takes info directly from the list updated">
-      <created>1479002750341</created>
-      <option name="number" value="00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1479002750341</updated>
-    </task>
-    <task id="LOCAL-00010" summary="Added change_added_keys, change_dead_keys, distribute_my_own_keys, change_parents_from_list&#10;&#10;The function change_parents_from_list is easier and the securest way to update parents because it takes info directly from the list updated">
-      <created>1479002778964</created>
-      <option name="number" value="00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1479002778964</updated>
-    </task>
-    <task id="LOCAL-00011" summary="Added support for update the list with the right keys">
-      <created>1479003037642</created>
-      <option name="number" value="00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1479003037642</updated>
-    </task>
-    <task id="LOCAL-00012" summary="Fixed find_memory_key bug with a closed cycle">
-      <created>1479003408728</created>
-      <option name="number" value="00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1479003408728</updated>
     </task>
     <task id="LOCAL-00013" summary="return writer instance">
       <created>1479033679388</created>
@@ -605,13 +521,7 @@
       <option name="project" value="LOCAL" />
       <updated>1479033683876</updated>
     </task>
-    <task id="LOCAL-00014" summary="Added KeyTest, test_update, test_remove in ListThread.&#10;Fixed bug in change_dead_keys, change_added_keys">
-      <created>1479041941785</created>
-      <option name="number" value="00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1479041941785</updated>
-    </task>
-    <option name="localTasksCounter" value="15" />
+    <option name="localTasksCounter" value="16" />
     <option name="createChangelist" value="false" />
     <option name="createBranch" value="false" />
     <servers />
@@ -636,9 +546,9 @@
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32854864" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32854864" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3476874" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.53907496" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24981412" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32854864" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -669,7 +579,8 @@
     <MESSAGE value="Added support for update the list with the right keys" />
     <MESSAGE value="Fixed find_memory_key bug with a closed cycle" />
     <MESSAGE value="Added KeyTest, test_update, test_remove in ListThread.&#10;Fixed bug in change_dead_keys, change_added_keys" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added KeyTest, test_update, test_remove in ListThread.&#10;Fixed bug in change_dead_keys, change_added_keys" />
+    <MESSAGE value="Checked find_memory_key with strange situations" />
+    <option name="LAST_COMMIT_MESSAGE" value="Checked find_memory_key with strange situations" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -791,26 +702,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/start.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/CellCycle/Settings/Constants.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CellCycle/ExtraCycleInterface/ExtraCycle.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="158" column="0" selection-start-line="158" selection-start-column="0" selection-end-line="158" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -860,14 +755,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/firstLaunchAWS.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="20" column="42" selection-start-line="20" selection-start-column="42" selection-end-line="23" selection-end-column="93" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/Message.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -876,28 +763,52 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/Generator.py">
+    <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/MemoryObject.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="51" column="34" selection-start-line="51" selection-start-column="34" selection-end-line="51" selection-end-column="34" />
+        <state vertical-scroll-proportion="0.43455496">
+          <caret line="15" column="25" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/DeadWriter.py">
+    <entry file="file://$PROJECT_DIR$/CellCycle/KeyCalcManager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="5.75">
-          <caret line="141" column="8" selection-start-line="141" selection-start-column="8" selection-end-line="141" selection-end-column="8" />
+        <state vertical-scroll-proportion="0.61256546">
+          <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/doc/tests/list-communication/KeyTest.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.15183246">
+          <caret line="66" column="24" selection-start-line="66" selection-start-column="24" selection-end-line="66" selection-end-column="24" />
           <folding>
-            <element signature="e#23#98#0" expanded="true" />
+            <element signature="e#0#46#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/MemoryObject.py">
+    <entry file="file://$PROJECT_DIR$/CellCycle/ExtraCycleInterface/ExtraCycle.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="15" column="25" selection-start-line="15" selection-start-column="25" selection-end-line="15" selection-end-column="25" />
+          <caret line="7" column="4" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/DeadReader.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="105" column="0" selection-start-line="105" selection-start-column="0" selection-end-line="105" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/ChainList.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="28" column="8" selection-start-line="28" selection-start-column="8" selection-end-line="28" selection-end-column="8" />
           <folding />
         </state>
       </provider>
@@ -912,37 +823,39 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/DeadReader.py">
+    <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/DeadWriter.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="105" column="0" selection-start-line="105" selection-start-column="0" selection-end-line="105" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CellCycle/KeyCalcManager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="13" column="0" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/ChainList.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="28" column="8" selection-start-line="28" selection-start-column="8" selection-end-line="28" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/doc/tests/list-communication/KeyTest.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.7434554">
-          <caret line="121" column="0" selection-start-line="121" selection-start-column="0" selection-end-line="121" selection-end-column="0" />
+        <state vertical-scroll-proportion="5.75">
+          <caret line="141" column="8" selection-start-line="141" selection-start-column="8" selection-end-line="141" selection-end-column="8" />
           <folding>
-            <element signature="e#0#46#0" expanded="true" />
+            <element signature="e#23#98#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CellCycle/ChainModule/Generator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="142" column="0" selection-start-line="142" selection-start-column="0" selection-end-line="142" selection-end-column="0" />
+          <folding>
+            <element signature="e#24#63#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/firstLaunchAWS.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="127" column="9" selection-start-line="127" selection-start-column="9" selection-end-line="127" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/start.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5025381">
+          <caret line="40" column="0" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
