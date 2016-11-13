@@ -206,7 +206,7 @@ def _deleteHandler(settings, socket,client, key, list_manager):
 
 
 def _getHandler(settings, socket, client, key, list_manager):
-    #TODO host = list_manager.get_ip_for_key(key)
+    from random import random
     #get server nodes and choose
     host = list_manager.node_list.find_memory_key(key)
     if(random()>0.5):
