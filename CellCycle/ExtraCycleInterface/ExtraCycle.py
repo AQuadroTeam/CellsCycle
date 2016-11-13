@@ -164,7 +164,7 @@ def _sendGuide(socket, client):
     guide = "ERROR\r\nSUPPORTED OPERATIONS:\n"\
         "-SET (SET <key> <flag> <exp> <byte> <data>)\n"\
         "-ADD (ADD <key> <flag> <exp> <byte> <data>)\n"\
-        "-GET (SET <key> <data>)\n"\
+        "-GET (GET <key>)\n"\
         "-DELETE (DELETE <key> <data>)\n"\
         "-CELLCYCLE \n"\
         "\tKILLYOURSELF <TERMINATE or STOP>\n"\
