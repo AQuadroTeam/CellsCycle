@@ -92,8 +92,16 @@ class DeadWriter (ConsumerThread):
         memory_object = MemoryObject(master_of_master_to_send, self.master, self.myself,
                                      self.slave, self.slave_of_slave)
         newMasterRequest("tcp://localhost:" + str(self.settings.getMasterSetPort()), memory_object)
-        self.internal_channel.wait_int_message(dont_wait=False)
-        
+
+        rec_msg = loads(self.internal_channel.wait_int_message(dont_wait=False))
+
+        while not is_restored_message(rec_msg):
+            self.logger.debug("probably my slave is waiting for sync, but i am waiting memory module")
+            rec_msg = loads(self.internal_channel.wait_int_message(dont_wait=False))
+
+        # This is necessary not to confuse with the dead reader reply
+        self.internal_channel.reply_to_int_message(msg=NOK)
+
         self.logger.debug("memory module finished, let's start writer behavior")
 
     def new_slave_request(self):
@@ -138,7 +146,6 @@ class DeadWriter (ConsumerThread):
         self.logger.debug("forwarding this RESTORED message\n{}".format(msg.printable_message()))
 
     def consider_dead_message(self, msg, origin_message):
-        # TODO check that this is the right order to update the list
         self.change_dead_keys_to(msg.source_id)
         target_id = msg.target_id
         target_master = msg.target_relative_id
@@ -496,7 +503,7 @@ class DeadWriter (ConsumerThread):
                             # Let's resync with our new slave
                             self.logger.debug("resync with {}".format(self.slave.id))
 
-                            # TODO notify the memory module, no response necessary
+                            # notify the memory module, no response necessary
                             self.new_slave_request()
                             # internal_channel_on_the_fly = InternalChannel(addr="localhost",
                             # port=settings.getMemoryObjectPort(),
