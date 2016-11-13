@@ -45,6 +45,16 @@ class ListThread (threading.Thread):
     def run(self):
         self.logger.debug(this_is_the_thread_in_action(self.myself.id))
 
+    def print_relatives(self):
+        rel = [self.myself, self.master, self.master_of_master, self.slave, self.slave_of_slave]
+        to_print = ["myself", "master", "master_of_master", "slave", "slave_of_slave"]
+        str_to_print = ''
+        for x in xrange(len(rel)):
+            key = to_print[x]
+            val = rel[x]
+            str_to_print += 'Node {}, id {}, keys {}\n'.format(key, val.id, val.get_min_max_key())
+        self.logger.debug(str_to_print)
+
     def canonical_check(self):
         return self.myself.ip in CANONICAL_ADDR
 
@@ -164,9 +174,11 @@ class ListThread (threading.Thread):
         myself_to_change = result.target
         master_to_change = result.master
         slave_to_change = result.slave
-        master_of_master_result = self.node_list.get_value(master_to_change.id)
+        master_of_master_result = self.node_list.get_value(master_to_change.id).master
+        master_of_master_result = self.node_list.get_value(master_of_master_result.id)
         master_of_master_to_change = master_of_master_result.target
-        slave_of_slave_result = self.node_list.get_value(slave_to_change.id)
+        slave_of_slave_result = self.node_list.get_value(slave_to_change.id).slave
+        slave_of_slave_result = self.node_list.get_value(slave_of_slave_result.id)
         slave_of_slave_to_change = slave_of_slave_result.target
 
         memory_obj = MemoryObject(master_of_master_to_change, master_to_change, myself_to_change,
@@ -174,16 +186,31 @@ class ListThread (threading.Thread):
 
         mm = keyCalcToCreateANewNode(memory_obj)
 
+        self.logger.debug("i'm {}, these are my nodes to compute keys\n{}".
+                          format(self.myself.id, memory_obj.print_elements()))
+        self.logger.debug("i'm {}, these are my computed keys\n{}".format(self.myself.id, mm.print_computed_keys()))
+
         myself_to_change.change_keys(mm.myself.min_key, mm.myself.max_key)
         master_to_change.change_keys(mm.master.min_key, mm.master.max_key)
         slave_to_change.change_keys(mm.slave.min_key, mm.slave.max_key)
         master_of_master_to_change.change_keys(mm.master_of_master.min_key, mm.master_of_master.max_key)
         slave_of_slave_to_change.change_keys(mm.slave_of_slave.min_key, mm.slave_of_slave.max_key)
 
+        self.logger.debug("i'm {}".format(self.myself.id))
+        self.logger.debug("adding this node in list, id: {}, master: {}, slave: {}".
+                          format(myself_to_change.id, master_to_change.id, slave_to_change.id))
         self.node_list.add_node(myself_to_change, master_to_change, slave_to_change)
+        self.logger.debug("adding this node in list, id: {}, master: {}, slave: {}".
+                          format(master_to_change.id, master_of_master_to_change.id, myself_to_change.id))
         self.node_list.add_node(master_to_change, master_of_master_to_change, myself_to_change)
+        self.logger.debug("adding this node in list, id: {}, master: {}, slave: {}".
+                          format(slave_to_change.id, myself_to_change.id, slave_of_slave_to_change.id))
         self.node_list.add_node(slave_to_change, myself_to_change, slave_of_slave_to_change)
+        self.logger.debug("adding this node in list, id: {}, master: {}, slave: {}".
+                          format(master_of_master_to_change.id, master_of_master_result.master.id, master_to_change.id))
         self.node_list.add_node(master_of_master_to_change, master_of_master_result.master, master_to_change)
+        self.logger.debug("adding this node in list, id: {}, master: {}, slave: {}".
+                          format(slave_of_slave_to_change.id, slave_to_change.id, slave_of_slave_result.slave.id))
         self.node_list.add_node(slave_of_slave_to_change, slave_to_change, slave_of_slave_result.slave)
 
     def change_dead_keys_to(self, target_node):
@@ -191,9 +218,11 @@ class ListThread (threading.Thread):
         myself_to_change = result.target
         master_to_change = result.master
         slave_to_change = result.slave
-        master_of_master_result = self.node_list.get_value(master_to_change.id)
+        master_of_master_result = self.node_list.get_value(master_to_change.id).master
+        master_of_master_result = self.node_list.get_value(master_of_master_result.id)
         master_of_master_to_change = master_of_master_result.target
-        slave_of_slave_result = self.node_list.get_value(slave_to_change.id)
+        slave_of_slave_result = self.node_list.get_value(slave_to_change.id).slave
+        slave_of_slave_result = self.node_list.get_value(slave_of_slave_result.id)
         slave_of_slave_to_change = slave_of_slave_result.target
 
         memory_obj = MemoryObject(master_of_master_to_change, master_to_change, myself_to_change,
@@ -375,6 +404,53 @@ class ListThread (threading.Thread):
             return node_result.target.ip
         else:
             return None
+
+    def test_update(self, source_id, target_relative_id, node_to_add):
+        target_master = self.node_list.get_value(source_id).target
+        target_slave = self.node_list.get_value(target_relative_id).target
+        # Add the new node in list
+        self.add_in_list(target_node=node_to_add, target_master=target_master,
+                         target_slave=target_slave)
+
+        target_master = source_id
+        target_slave = target_relative_id
+
+        # Update the master node, the new master of target_slave is target_id
+        self.change_master_to(target_node=target_slave, target_master=node_to_add.id)
+        # Update the slave node, the new master of target_master is target_id
+        self.change_slave_to(target_node=target_master, target_slave=node_to_add.id)
+
+        self.logger.debug("this is my new list\n{}".format(self.node_list.print_list()))
+
+    def test_remove(self, target_id, source_id, target_relative_id):
+        self.change_dead_keys_to(source_id)
+        target_id = target_id
+        target_master = target_relative_id
+        target_slave = source_id
+
+        # Update the target ID
+        self.update_list(target_node=target_id, target_master=target_master, target_slave=target_slave)
+        # Update the master node, the new master of target_slave is target_master
+        self.change_master_to(target_node=target_slave, target_master=target_master)
+        # Update the slave node, the new slave of target_master is target_slave
+        self.change_slave_to(target_node=target_master, target_slave=target_slave)
+
+        # if this node is one of my relatives, let's update our static attributes
+        if target_id == self.slave.id:
+            self.slave = self.slave_of_slave
+            self.slave_of_slave = self.node_list.get_value(self.slave_of_slave.id).slave
+
+        if target_id == self.slave_of_slave.id:
+            self.slave_of_slave = self.node_list.get_value(target_id).slave
+        # No case of master.addr
+        if target_id == self.master_of_master.id:
+            self.master_of_master = self.node_list.get_value(target_id).master
+        if self.is_one_of_my_relatives(target_id):
+            self.busy_add = True
+            self.logger.debug("now i'm busy : {} is DEAD".format(target_id))
+            # if i'm involved i have to be busy
+        self.remove_from_list(target_id)
+        self.logger.debug("this is my new list\n{}".format(self.node_list.print_list()))
 
 
 class Node:

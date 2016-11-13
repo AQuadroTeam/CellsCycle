@@ -93,6 +93,9 @@ class SetOfNodes(object):
         "slave : " + str(self.slave) + "\n" \
         "slave of slave : " + str(self.slave_of_slave) + "\n"
 
+    def print_computed_keys(self):
+        return ''.join('{}, {}\n'.format(key, str(val)) for key, val in self.__dict__.items())
+
 
 def tryInput():
     master_of_master = Node((32,63))
@@ -101,7 +104,7 @@ def tryInput():
     slave = Node((80,95))
     slave_of_slave = Node((96,111))
 
-    return SetOfNodes(myself, master ,slave, master_of_master, slave_of_slave)
+    return SetOfNodes(myself, master, slave, master_of_master, slave_of_slave)
 
 
 def tryBadInput():

@@ -35,16 +35,16 @@ class Generator:
         self.settings = settings
         self.args = json_arg
 
-    @staticmethod
-    def _get_node_from_data(data):
-        # return Node(data[ID], data[IP], self.settings.getIntPort(),
-        #             self.settings.getExtPort(), min_key=data[MIN_KEY], max_key=data[MAX_KEY])
+    def _get_node_from_data(self, data):
+        return Node(data[ID], data[IP], self.settings.getIntPort(),
+                    self.settings.getExtPort(), min_key=data[MIN_KEY], max_key=data[MAX_KEY],
+                    memory_port=self.settings.getMemoryObjectPort())
         # TODO remove this to deploy
-        int_port = "558{}".format(data[IP][len("172.31.20.")])
-        ext_port = "559{}".format(data[IP][len("172.31.20.")])
-        memory_port = "557{}".format(data[IP][len("172.31.20.")])
-        return Node(data[ID], LOCAL_HOST, int_port,
-                    ext_port, min_key=data[MIN_KEY], max_key=data[MAX_KEY], memory_port=memory_port)
+        # int_port = "558{}".format(data[IP][len("172.31.20.")])
+        # ext_port = "559{}".format(data[IP][len("172.31.20.")])
+        # memory_port = "557{}".format(data[IP][len("172.31.20.")])
+        # return Node(data[ID], LOCAL_HOST, int_port,
+        #             ext_port, min_key=data[MIN_KEY], max_key=data[MAX_KEY], memory_port=memory_port)
 
     def create_process_environment(self):
         myself = self.args[MYSELF]
@@ -68,25 +68,9 @@ class Generator:
         reader.start()
         writer.start()
 
-        from threading import Thread
-
-        # FIXME This part is just to test add node cycle
-        sleep(5)
-        if myself.id == "1" or myself.id == "2" or myself.id == "3":
-            # from threading import Thread
-            new_scale_up_thread = Thread(name="ScaleUpThread", target=scale_up_thread, args=(myself, self.logger,))
-            new_scale_up_thread.start()
-
-        # FIXME This part is just to test dead node cycle
-        new_scale_down_thread = Thread(name="ScaleDownThread", target=scale_down_thread, args=(myself, self.logger,))
-        new_scale_down_thread.start()
-
         reader.join()
 
         # TODO return writer instance
-    # unused
-    # def create_process(self):
-    #     Process(name='ListCommunicationProcess', target=Generator._create_process_environment(self))
 
 
 class Parameter:    # unused

@@ -583,7 +583,7 @@ class DeadWriter (ConsumerThread):
                             # Update the slave node, the new master of target_master is target_id
                             self.change_slave_to(target_node=target_master, target_slave=target_id)
 
-                            self.logger.debug("this is my new list\n{}".format(self.node_list))
+                            self.logger.debug("this is my new list\n{}".format(self.node_list.print_list()))
 
                             relatives_check = self.is_one_of_my_relatives(msg.source_id)
                             if relatives_check:
@@ -688,3 +688,4 @@ class DeadWriter (ConsumerThread):
                                               format(msg.source_id, self.last_seen_random, msg.printable_message()))
                 else:
                     self.logger.debug("this message will never be forwarded :\n"+msg.printable_message())
+
