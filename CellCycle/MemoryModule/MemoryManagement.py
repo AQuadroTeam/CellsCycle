@@ -296,8 +296,8 @@ def getRequest(url, key):
     socket = context.socket(zmq.REQ)
     socket.connect(url)
 
-    socket.forward(dumps(Command(GETCOMMAND, key)))
-    v = loads(socket.wait_ext_message())
+    socket.send(dumps(Command(GETCOMMAND, key)))
+    v = loads(socket.recv())
     socket.close()
     return v
 
@@ -306,7 +306,7 @@ def setRequest(url, key, value):
     socket = context.socket(zmq.PUSH)
     socket.connect(url)
 
-    socket.forward(dumps(Command(SETCOMMAND, key, value)))
+    socket.send(dumps(Command(SETCOMMAND, key, value)))
     socket.close()
 
 def killProcess(url):
@@ -314,7 +314,7 @@ def killProcess(url):
     socket = context.socket(zmq.PUSH)
     socket.connect(url)
 
-    socket.forward(dumps(Command(SHUTDOWNCOMMAND)))
+    socket.send(dumps(Command(SHUTDOWNCOMMAND)))
     socket.close()
 
 def transferRequest(url, dest, begin, end):
