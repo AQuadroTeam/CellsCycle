@@ -37,10 +37,6 @@ class DeadWriter (ConsumerThread):
         self.dead_cycle_finished = False
         self.last_dead_node = None
 
-        if self.canonical_check():
-            # Let's begin with the memory part, this is the case of first boot
-            self.first_boot_new_master_request()
-
         self.external_channel = ExternalChannel(addr=self.myself.ip, port=self.myself.ext_port, logger=self.logger)
         self.internal_channel = InternalChannel(addr=self.myself.ip, port=self.myself.int_port, logger=self.logger)
 
@@ -233,6 +229,10 @@ class DeadWriter (ConsumerThread):
     def writer_behavior(self):
 
         self.internal_channel.generate_internal_channel_server_side()
+
+        if self.canonical_check():
+            # Let's begin with the memory part, this is the case of first boot
+            self.first_boot_new_master_request()
 
         loads(self.internal_channel.wait_int_message(dont_wait=False))
 
