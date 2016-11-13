@@ -8,20 +8,21 @@ def _get_parameter(node_id, private_ip, min_key, max_key):
 
 
 def create_instances_parameters():
-
-    first = _get_parameter(node_id="1", private_ip="172.31.20.1", min_key="0", max_key="19")
+    n = 5
+    keyInt = 2**32-1/n
+    first = _get_parameter(node_id="1", private_ip="172.31.20.1", min_key="0", max_key=str(keyInt-1))
     # parameter["master_of_master"] = first
 
-    second = _get_parameter(node_id="2", private_ip="172.31.20.2", min_key="20", max_key="39")
+    second = _get_parameter(node_id="2", private_ip="172.31.20.2", min_key=str(keyInt), max_key=str(2*keyInt-1))
     # parameter["master"] = second
 
-    third = _get_parameter(node_id="3", private_ip="172.31.20.3", min_key="40", max_key="59")
+    third = _get_parameter(node_id="3", private_ip="172.31.20.3", min_key=str(2*keyInt), max_key=str(3*keyInt-1))
     # parameter["myself"] = third
 
-    fourth = _get_parameter(node_id="4", private_ip="172.31.20.4", min_key="60", max_key="79")
+    fourth = _get_parameter(node_id="4", private_ip="172.31.20.4", min_key=str(3*keyInt), max_key=str(4*keyInt-1))
     # parameter["slave"] = fourth
 
-    fifth = _get_parameter(node_id="5", private_ip="172.31.20.5", min_key="80", max_key="99")
+    fifth = _get_parameter(node_id="5", private_ip="172.31.20.5", min_key=str(4*keyInt), max_key=str(5*keyInt-1))
     # parameter["slave_of_slave"] = fifth
 
     list_parameters = [first, second, third, fourth, fifth]
