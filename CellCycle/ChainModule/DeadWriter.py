@@ -93,6 +93,8 @@ class DeadWriter (ConsumerThread):
                                      self.slave, self.slave_of_slave)
         newMasterRequest("tcp://localhost:" + str(self.settings.getMasterSetPort()), memory_object)
         self.internal_channel.wait_int_message(dont_wait=False)
+        
+        self.logger.debug("memory module finished, let's start writer behavior")
 
     def new_slave_request(self):
         slave_of_slave_to_send = self.node_list.get_value(self.slave_of_slave.id).slave
