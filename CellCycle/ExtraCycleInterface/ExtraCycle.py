@@ -187,7 +187,8 @@ def _setHandler(settings,logger, socket,client, key, flag, exp, byte, value, lis
     host = list_manager.node_list.find_memory_key(key)
     #get server node
     #hosts = getNodesForKey(key)
-    returnValue =standardMasterSetRequest(settings, key, value, host.target.ip)
+    logger.debug("for key: " + str(key)+" , node is: " + str(host.target.ip))
+    returnValue =standardMasterSetRequest(settings, key, value, "127.0.0.1")
     # TODO commented this line
     # returnValue = standardMasterSetRequest(settings, key, value)
 
@@ -199,6 +200,7 @@ def _deleteHandler(settings, socket,client, key, list_manager):
     host = list_manager.node_list.find_memory_key(key)
     #get server node
     #hosts = getNodesForKey(key)
+
     returnValue =standardMasterGetRequest(settings, key, host.target.ip)
     # TODO commented this line
     # returnValue = standardMasterSetRequest(settings, key, None)
@@ -211,7 +213,7 @@ def _getHandler(settings,logger, socket, client, key, list_manager):
     #get server nodes and choose
 
     host = list_manager.node_list.find_memory_key(key)
-
+    logger.debug("for key: " + str(key)+" , node is: " + str(host.target.ip))
     if(random()>0.5):
        returnValue =standardMasterGetRequest(settings, key, host.target.ip)
     else:
