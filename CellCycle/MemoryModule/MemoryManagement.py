@@ -120,16 +120,16 @@ def _proxyThread(logger, master, frontend, backend, url_frontend, url_backend):
     zmq.proxy(frontend, backend)
 
 def _setToSlaveThread(logger,settings,  cache, master,url, queue, hostState):
-    if(master):
+    if(not master):
         return
     import time
-    while (hostState == None):
-        logger.debug("cannot send to slave, net info: "+ str(hostState))
+    while (hostState["current"] == None):
+        logger.debug("cannot send to slave, net info: "+ str(hostState["current"]))
         time.sleep(1)
     while True:
 
         objToSend = queue.get()
-        slaveAddress = "tcp://"+hostState.slave.ip + ":"+ str(settings.getSlaveSetPort())
+        slaveAddress = "tcp://"+hostState["current"].slave.ip + ":"+ str(settings.getSlaveSetPort())
         if(settings.isVerbose()):
             logger.debug("send current key to slave: " + str(slaveAddress))
         if(slaveAddress != None):
