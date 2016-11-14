@@ -68,7 +68,10 @@ def _memoryTask(settings, logger,master, url_setFrontend, url_getFrontend, url_g
 
     slaveSetQueue = Queue.Queue()
     hostState = None
-
+Start
+Stop
+Reboot
+Terminate
     Thread(name='MemoryPerformanceMetricator',target=_memoryMetricatorThread, args=(logger, cache, settings, master, timing)).start()
     Thread(name='MemorySlaveSetter',target=_setToSlaveThread, args=(logger,settings, cache,master,url_getBackend, slaveSetQueue, hostState)).start()
 
@@ -122,6 +125,7 @@ def _proxyThread(logger, master, frontend, backend, url_frontend, url_backend):
 def _setToSlaveThread(logger,settings,  cache, master,url, queue, hostState):
     import time
     while (hostState == None):
+        logger.debug("cannot send to slave, net info: "+ str(hostState))
         time.sleep(1)
     while True:
 
@@ -185,8 +189,9 @@ def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
 
             elif command.type == NEWMASTER:
                 if(hostState == None):
-                    logger.debug("Configuration of net data: "+ str(hostState))
                     hostState = command.optional
+                    logger.debug("Configuration of net data: "+ str(hostState))
+
                 else:
                     logger.warning("master is dead. Recovering... "+ str(hostState))
                     hostState = command.optional
