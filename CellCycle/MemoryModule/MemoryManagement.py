@@ -124,9 +124,11 @@ def _setToSlaveThread(logger,settings,  cache, master,url, queue, hostState):
     while (hostState == None):
         time.sleep(1)
     while True:
-        logger.debug("Start to send to my slave: " + str(hostState.slave.ip))
+
         objToSend = queue.get()
         slaveAddress = "tcp://"+hostState.slave.ip + ":"+ str(settings.getSlaveSetPort())
+        if(settings.isVerbose()):
+            logger.debug("send current key to slave: " + str(slaveAddress))
         if(slaveAddress != None):
             try:
                 setRequest(slaveAddress, objToSend.key, objToSend.value)
@@ -160,6 +162,8 @@ def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
             if master:
                 timing["setters"][0].startWorking()
 
+            if(settings.isVerbose()):
+                logger.debug("received set command: " + str(command))
             #logger.debug("received set command: " + str(command))
             if command.type == SETCOMMAND:
                 queue.put(Command(command.type, command.key, command.value))
@@ -278,6 +282,9 @@ def _getThread(index, logger,settings, cache, master, url, timing):
             command = loads(socket.recv())
             if master:
                 timing["getters"][index].startWorking()
+
+            if(settings.isVerbose()):
+                logger.debug("received get command: " + str(command))
 
             #logger.debug( "received get command: " + str(command))
             if command.type == GETCOMMAND:

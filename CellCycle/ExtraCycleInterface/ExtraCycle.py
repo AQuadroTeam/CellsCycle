@@ -70,7 +70,7 @@ def _manageRequest(logger, settings, socket, command, client, list_manager):
         if(command[1] != ""):
             key = hashOfKey(command[1])
             try:
-                _getHandler(settings, socket, client, key, list_manager)
+                _getHandler(settings, logger, socket, client, key, list_manager)
             except Exception as e:
                 logger.warning(str(e) + " for command: " + " ".join(command))
                 _sendError(socket, client)
@@ -84,7 +84,7 @@ def _manageRequest(logger, settings, socket, command, client, list_manager):
     if(command[0].upper() == DELETE):
         if(command[1] != ""):
             key = hashOfKey(command[1])
-            _deleteHandler(settings, socket, client, key, list_manager)
+            _deleteHandler(settings,logger, socket, client, key, list_manager)
             return;
         else:
             _sendGuide(socket, client)
@@ -107,7 +107,7 @@ def _manageRequest(logger, settings, socket, command, client, list_manager):
                 return
 
             try:
-                _setHandler(settings, socket,client, key, flag, exp, byte, value, list_manager)
+                _setHandler(settings, logger, socket,client, key, flag, exp, byte, value, list_manager)
             except Exception as e:
                 logger.warning(str(e) + " for command: " + " ".join(command))
                 _sendError(socket, client)
@@ -167,7 +167,7 @@ def _sendGuide(socket, client):
         "-SET (SET <key> <flag> <exp> <byte> <data>)\n"\
         "-ADD (ADD <key> <flag> <exp> <byte> <data>)\n"\
         "-GET (GET <key>)\n"\
-        "-DELETE (DELETE <key> <data>)\n"\
+        "-DELETE (DELETE <key>)\n"\
         "-CELLCYCLE \n"\
         "\tKILLYOURSELF <TERMINATE or STOP>\n"\
         "\tNEWCELL <params>\n"\
@@ -179,13 +179,15 @@ def _sendError(socket, client):
     error = "ERROR\r\n"
     _send(socket, client, error)
 
-def _setHandler(settings, socket,client, key, flag, exp, byte, value, list_manager):
+def _setHandler(settings, logger, socket,client, key, flag, exp, byte, value, list_manager):
     #add flag to stored data
     value = '{:010d}'.format(int(flag)) + value
     # TODO check this line
     host = list_manager.node_list.find_memory_key(key)
     #get server node
     #hosts = getNodesForKey(key)
+    if(settings.isVerbose()):
+        logger.debug("sending set request to " + str(host.target.ip))
     returnValue =standardMasterSetRequest(settings, key, value, host.target.ip)
     # TODO commented this line
     # returnValue = standardMasterSetRequest(settings, key, value)
@@ -193,11 +195,13 @@ def _setHandler(settings, socket,client, key, flag, exp, byte, value, list_manag
     returnString = "STORED\r\n"
     _send(socket, client, returnString)
 
-def _deleteHandler(settings, socket,client, key, list_manager):
+def _deleteHandler(settings, logger, socket,client, key, list_manager):
     #TODO check this line
     host = list_manager.node_list.find_memory_key(key)
     #get server node
     #hosts = getNodesForKey(key)
+    if(settings.isVerbose()):
+        logger.debug("sending delete request to " + str(host.target.ip))
     returnValue =standardMasterGetRequest(settings, key, host.target.ip)
     # TODO commented this line
     # returnValue = standardMasterSetRequest(settings, key, None)
@@ -205,14 +209,18 @@ def _deleteHandler(settings, socket,client, key, list_manager):
     _send(socket, client, returnString)
 
 
-def _getHandler(settings, socket, client, key, list_manager):
+def _getHandler(settings,logger,  socket, client, key, list_manager):
     from random import random
     #get server nodes and choose
     host = list_manager.node_list.find_memory_key(key)
     if(random()>0.5):
-       returnValue =standardMasterGetRequest(settings, key, host.target.ip)
+        if(settings.isVerbose()):
+            logger.debug("sending get request to master " + str(host.target.ip))
+        returnValue =standardMasterGetRequest(settings, key, host.target.ip)
     else:
-       returnValue =standardSlaveGetRequest(settings, key, host.target.ip)
+        if(settings.isVerbose()):
+            logger.debug("sending get request to slave" + str(host.target.ip))
+        returnValue =standardSlaveGetRequest(settings, key, host.target.ip)
     #
     # TODO replace else ip with slave ip
     #returnValue = standardMasterGetRequest(settings, key)
