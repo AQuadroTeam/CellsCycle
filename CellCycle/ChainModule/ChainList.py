@@ -28,8 +28,17 @@ class ChainList:
     #     return None
     def find_memory_key(self, key_to_find):
         for v in self.dictionary.itervalues():
-            if int(v.target.min_key) <= key_to_find <= int(v.target.max_key):
-                return v
+            if int(v.target.min_key) > int(v.target.max_key):
+                min_key = int(v.target.min_key)
+                max_key = int(v.target.max_key)
+                first_test = min_key <= key_to_find < float("inf")
+                second_test = 0 <= key_to_find <= max_key
+                # This is the case in which we close the cycle
+                if first_test or second_test:
+                    return v
+            else:
+                if int(v.target.min_key) <= key_to_find <= int(v.target.max_key):
+                    return v
         return None
 
     # Returns a value with a key as parameter

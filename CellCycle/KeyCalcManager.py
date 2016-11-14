@@ -12,7 +12,6 @@ def keyCalcToCreateANewNode(oldInfo):
     oldSlave_of_slavePair = _getPairFromObject(oldSlave_of_slave)
     oldMaster_of_masterPair = _getPairFromObject(oldMaster_of_master)
 
-
     newNode = Node(_spliceKeys(oldMyselfPair)[1])
     master = Node(oldMasterPair)
     slave = Node(oldSlavePair)
@@ -62,9 +61,11 @@ def _spliceKeys(pair):
     secondPair = (str(int(firstPair[1])+1), str(_max))
     return firstPair, secondPair
 
+
 def _joinKeys(firstPair, secondPair):
     
     return (str(firstPair[0]), str(secondPair[1]))
+
 
 class Node(object):
     def __init__(self, pair):
@@ -72,6 +73,7 @@ class Node(object):
         self.max_key = pair[1]
     def __str__(self):
         return "("+str(self.min_key)+","+str(self.max_key)+")"
+
 
 class SetOfNodes(object):
     def __init__(self, myself, master, slave, master_of_master, slave_of_slave, newNode=None):
@@ -91,6 +93,10 @@ class SetOfNodes(object):
         "slave : " + str(self.slave) + "\n" \
         "slave of slave : " + str(self.slave_of_slave) + "\n"
 
+    def print_computed_keys(self):
+        return ''.join('{}, {}\n'.format(key, str(val)) for key, val in self.__dict__.items())
+
+
 def tryInput():
     master_of_master = Node((32,63))
     master = Node((64,71))
@@ -98,7 +104,8 @@ def tryInput():
     slave = Node((80,95))
     slave_of_slave = Node((96,111))
 
-    return SetOfNodes(myself, master ,slave, master_of_master, slave_of_slave)
+    return SetOfNodes(myself, master, slave, master_of_master, slave_of_slave)
+
 
 def tryBadInput():
     master_of_master = Node((72,79))
