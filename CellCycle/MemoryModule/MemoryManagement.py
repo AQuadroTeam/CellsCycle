@@ -67,7 +67,8 @@ def _memoryTask(settings, logger,master, url_setFrontend, url_getFrontend, url_g
         th.start()
 
     slaveSetQueue = Queue.Queue()
-    hostState = None
+    hostState = {}
+    hostState["current"] = None
     Thread(name='MemoryPerformanceMetricator',target=_memoryMetricatorThread, args=(logger, cache, settings, master, timing)).start()
     Thread(name='MemorySlaveSetter',target=_setToSlaveThread, args=(logger,settings, cache,master,url_getBackend, slaveSetQueue, hostState)).start()
 
@@ -187,49 +188,49 @@ def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
                     logger.debug("Transfer complete!")
 
             elif command.type == NEWMASTER:
-                if(hostState == None):
-                    hostState = command.optional
-                    logger.debug("Configuration of net data: "+ str(hostState))
+                if(hostState["current"] == None):
+                    hostState["current"] = command.optional
+                    logger.debug("Configuration of net data: "+ str(hostState["current"]))
 
                 else:
-                    logger.warning("master is dead. Recovering... "+ str(hostState))
-                    hostState = command.optional
+                    logger.warning("master is dead. Recovering... "+ str(hostState["current"]))
+                    hostState["current"] = command.optional
                     # import keys of master, from this slave memory
                     thisMasterMemory = "tcp://localhost:"+ str(settings.getMasterSetPort())
                     thisSlaveMemory = "tcp://localhost:"+ str(settings.getSlaveSetPort())
-                    newSlaveSlaveMemory =  "tcp://"+hostState.slave.ip+":"+ str(settings.getSlaveSetPort())
-                    beginFirst = hostState.myself.min_key #command.optional.thisnode.slave.keys.begin oldone!
-                    endFirst = hostState.myself.max_key #command.optional.thisnode.slave.keys.end oldone!
+                    newSlaveSlaveMemory =  "tcp://"+hostState["current"].slave.ip+":"+ str(settings.getSlaveSetPort())
+                    beginFirst = hostState["current"].myself.min_key #command.optional.thisnode.slave.keys.begin oldone!
+                    endFirst = hostState["current"].myself.max_key #command.optional.thisnode.slave.keys.end oldone!
                     transferRequest(thisSlaveMemory, [thisMasterMemory, newSlaveSlaveMemory], beginFirst, endFirst)
 
                     # create new slave memory for this node from new master
-                    newMasterMasterMemory = "tcp://"+ hostState.master.ip +":"+ str(settings.getMasterSetPort())
+                    newMasterMasterMemory = "tcp://"+ hostState["current"].master.ip +":"+ str(settings.getMasterSetPort())
                     # instead of localhost i must have command.optional.newmaster.url
                     thisSlaveMemory = "tcp://localhost:"+ str(settings.getSlaveSetPort())
-                    beginSecond = hostState.master.min_key #command.optional.newmaster.master.keys.begin
-                    endSecond = hostState.master.max_key #command.optional.newmaster.master.keys.end
+                    beginSecond = hostState["current"].master.min_key #command.optional.newmaster.master.keys.begin
+                    endSecond = hostState["current"].master.max_key #command.optional.newmaster.master.keys.end
                     transferRequest(newMasterMasterMemory,[thisSlaveMemory],  beginSecond, endSecond)
 
                     transferToDoAfter = True
                     transferType = NEWMASTER
 
             elif command.type == NEWSLAVE:
-                logger.debug("Slave is dead, new info: "+ str(hostState))
-                hostState = command.optional
+                logger.debug("Slave is dead, new info: "+ str(hostState["current"]))
+                hostState["current"] = command.optional
 
             elif command.type == NEWSTART:
-                logger.debug("Memory needs to be configured, first bootup of this memory node, new info: "+ str(hostState))
-                hostState = command.optional
+                logger.debug("Memory needs to be configured, first bootup of this memory node, new info: "+ str(hostState["current"]))
+                hostState["current"] = command.optional
                 # import keys of master
                 thisMasterMemory = "tcp://localhost:"+ str(settings.getMasterSetPort())
                 thisSlaveMemory = "tcp://localhost:"+ str(settings.getSlaveSetPort())
-                masterMasterMemory =  "tcp://"+hostState.master.ip+":"+ str(settings.getMasterSetPort())
+                masterMasterMemory =  "tcp://"+hostState["current"].master.ip+":"+ str(settings.getMasterSetPort())
 
-                beginFirst = hostState.myself.min_key #command.optional.thisnode.slave.keys.begin oldone!
-                endFirst = hostState.myself.max_key #command.optional.thisnode.slave.keys.end oldone!
+                beginFirst = hostState["current"].myself.min_key #command.optional.thisnode.slave.keys.begin oldone!
+                endFirst = hostState["current"].myself.max_key #command.optional.thisnode.slave.keys.end oldone!
 
-                beginSlave = hostState.master.min_key #command.optional.thisnode.slave.keys.begin oldone!
-                endSlave = hostState.master.max_key #command.optional.thisnode.slave.keys.end oldone!
+                beginSlave = hostState["current"].master.min_key #command.optional.thisnode.slave.keys.begin oldone!
+                endSlave = hostState["current"].master.max_key #command.optional.thisnode.slave.keys.end oldone!
 
                 transferRequest(masterMasterMemory, thisMasterMemory, beginFirst, endFirst)
                 transferRequest(masterMasterMemory, thisSlaveMemory, beginSlave, endSlave)
