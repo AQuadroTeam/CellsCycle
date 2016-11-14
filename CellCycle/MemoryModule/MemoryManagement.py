@@ -119,6 +119,8 @@ def _proxyThread(logger, master, frontend, backend, url_frontend, url_backend):
     zmq.proxy(frontend, backend)
 
 def _setToSlaveThread(logger,settings,  cache, master,url, queue, hostState):
+    if(master):
+        return
     import time
     while (hostState == None):
         logger.debug("cannot send to slave, net info: "+ str(hostState))
@@ -166,7 +168,8 @@ def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
                 logger.debug("received set command: " + str(command))
             #logger.debug("received set command: " + str(command))
             if command.type == SETCOMMAND:
-                queue.put(Command(command.type, command.key, command.value))
+                if(master):
+                    queue.put(Command(command.type, command.key, command.value))
                 cache.set(command.key, command.value)
             elif command.type == SHUTDOWNCOMMAND:
                 logger.debug("shutdown command")
