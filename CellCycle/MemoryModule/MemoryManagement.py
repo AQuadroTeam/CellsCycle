@@ -68,10 +68,6 @@ def _memoryTask(settings, logger,master, url_setFrontend, url_getFrontend, url_g
 
     slaveSetQueue = Queue.Queue()
     hostState = None
-Start
-Stop
-Reboot
-Terminate
     Thread(name='MemoryPerformanceMetricator',target=_memoryMetricatorThread, args=(logger, cache, settings, master, timing)).start()
     Thread(name='MemorySlaveSetter',target=_setToSlaveThread, args=(logger,settings, cache,master,url_getBackend, slaveSetQueue, hostState)).start()
 
