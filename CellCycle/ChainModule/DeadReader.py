@@ -72,7 +72,7 @@ class DeadReader(ProducerThread):
         self.myself.ext_addr = '{}:{}'.format(self.myself.ip, self.myself.ext_port)    # ip:ext_port
 
         self.new_start_request()
-        # TODO wait for added
+        # wait for added
         self.internal_channel_memory.generate_internal_channel_server_side()
         self.internal_channel_memory.wait_int_message(dont_wait=False)
         self.internal_channel_memory.reply_to_int_message(OK)
@@ -130,12 +130,10 @@ class DeadReader(ProducerThread):
 
     def change_master(self):
         self.master = self.master_of_master
-        self.master_of_master = None
 
     def change_master_of_master(self, new_master_of_master):
         self.master_of_master = new_master_of_master
 
-    # TODO this is an hardcoded test, we need canonicals check
     def wait_for_a_dead(self):
         first_step = True
         while True:
@@ -146,7 +144,6 @@ class DeadReader(ProducerThread):
                 self.logger.debug("my IP is not none : {}".format(self.myself.ip))
                 self.init_connection()
 
-            tempt = 0
             stop = False
 
             while not stop:
@@ -158,15 +155,10 @@ class DeadReader(ProducerThread):
                     message = loads(message)
 
                     if not is_alive_message(message):
-                        if is_dead_and_i_am_the_target(message, self.myself.id):
-                            self.logger.debug(i_am_dead_goodbye(self.myself))
-                            self.external_channel.close()
-                            exit(1)
 
                         if is_added_message(message):
                             if self.is_my_new_master(message):
                                 # This is the part when i connect to another publisher
-                                # self.external_channel.close()
 
                                 min_max_key = Node.to_min_max_key_obj(message.target_key)
                                 self.master_of_master = self.master
@@ -193,7 +185,6 @@ class DeadReader(ProducerThread):
                                 stop = True
                             if self.is_my_new_master_of_master(message):
                                 # This is the part when i connect to another publisher
-                                # self.external_channel.close()
 
                                 min_max_key = Node.to_min_max_key_obj(message.target_key)
                                 # self.master = Node(node_id=message.target_id, ip=message.target_addr,
@@ -221,41 +212,9 @@ class DeadReader(ProducerThread):
 
                             self.logger.debug(new_node_added(message.target_id))
 
-                        '''
-                        This is a special case, for now we don't consider it
-                        if not is_in_list(message,self.node_list):
-                            if message[2] == PRIORITY_DEAD:
-                                self.logger.debug('Hey you are not in the list!')
-                            else:
-                                self.logger.
-                                debug('Hey ' + message[11] + ' you are not in the list! You are supposed to be dead!')
-                        '''
-
                         self.produce(origin_message)
 
-                        # if tempt < 1:
-                        # self.logger.debug(just_received_new_msg(self.myself.id, self.master.id,
-                        #                                         message.printable_message()))
-                        #     tempt += 1
-
                 except Again:
-
-                    dead_message = self.make_dead_node_msg(target_id=self.master.id, target_addr=self.master.ip,
-                                                           target_key=self.master.get_min_max_key(),
-                                                           target_master_id=self.master_of_master.id)
-                    '''
-                    This is a special case, for now we don't consider it
-                    if not (self.masterId in self.node_list):
-                        self.logger.debug('Probably i missed something')
-                        exit(1)
-                    else:
-                    '''
-
-                    self.produce(dumps(dead_message))
-                    if tempt < 1:
-                        self.logger.debug(this_is_my_dead_message(self.myself.id, self.master.id,
-                                                                  dead_message.printable_message()))
-                        tempt += 1
 
                     self.change_master()
 
@@ -271,9 +230,3 @@ class DeadReader(ProducerThread):
                                                             logger=self.logger)
 
                     stop = True
-                    # TODO wait restored message
-                    # internal_channel_on_the_fly = InternalChannel(addr="localhost", port=settings.getMemoryObjectPort(),
-                    #  logger=logger
-                    # internal_channel_on_the_fly.generate_internal_channel_server_side()
-                    # internal_channel_on_the_fly.wait_int_message(dont_wait=False)
-                    # internal_channel_on_the_fly.reply_to_int_message(OK)

@@ -132,8 +132,8 @@ class ListThread (threading.Thread):
         msg = Message()
         msg.source_flag = INT
         msg.version = ''
-        msg.priority = ADD
-        msg.random = randint(MIN_RANDOM, MAX_RANDOM)
+        msg.priority = SCALE_UP
+        msg.random = ''
         msg.target_id = ''
         msg.target_key = ''
         msg.target_addr = ''
@@ -152,24 +152,13 @@ class ListThread (threading.Thread):
         msg = Message()
         msg.source_flag = INT
         msg.version = ''
-        msg.priority = DEAD
-        msg.random = randint(MIN_RANDOM, MAX_RANDOM)
+        msg.priority = SCALE_DOWN
+        msg.random = ''
         msg.target_id = ''
         msg.target_key = ''
         msg.target_addr = ''
         msg.target_relative_id = ''
         msg.source_id = ''
-        channel_to_send.send_first_internal_channel_message(dumps(msg))
-        channel_to_send.wait_int_message(dont_wait=False)
-
-    def notify_list(self, channel_to_send):
-        # return self.make_dead_node_msg(target_id=self.myself.id, target_key=self.myself.key,
-        #                                source_flag=INT, target_master_id=self.master.id, target_addr=self.myself.ip)
-        msg = InProcMessage()
-        msg.source_flag = INT
-        msg.list = self.node_list
-        msg.priority = IN_PROC
-        self.logger.debug("sending list to {}".format(self.myself.id))
         channel_to_send.send_first_internal_channel_message(dumps(msg))
         channel_to_send.wait_int_message(dont_wait=False)
 
@@ -204,6 +193,17 @@ class ListThread (threading.Thread):
             self.master.id == target_id or \
             self.slave.id == target_id or \
             self.slave_of_slave.id == target_id
+
+    def is_one_of_my_r_of_r(self, target_id):
+        mm_result = self.node_list.get_value(self.master_of_master.id).master
+        mmm_result = self.node_list.get_value(mm_result.id).master
+        ss_result = self.node_list.get_value(self.slave_of_slave.id).slave
+        sss_result = self.node_list.get_value(ss_result.id).slave
+
+        return mm_result.id == target_id or \
+            mmm_result.id == target_id or \
+            ss_result.id == target_id or \
+            sss_result.id == target_id
 
     def is_my_new_master_of_master(self, message):
         return float(self.master.id) > float(message.target_id) > float(self.master_of_master.id)
