@@ -50,7 +50,8 @@ class ListThread (threading.Thread):
         self.node_list.add_node(target_node=target_node, target_master=target_master,
                                 target_slave=target_slave)
 
-    def change_parents(self, node_to_add):
+    def change_parents(self):
+        """
         master_check = float(self.myself.id) > float(node_to_add.id) > float(self.master.id)
         slave_check = float(self.slave.id) > float(node_to_add.id) > float(self.myself.id)
         master_of_master_check = float(self.master.id) > float(node_to_add.id) > float(self.master_of_master.id)
@@ -68,6 +69,17 @@ class ListThread (threading.Thread):
         elif slave_of_slave_check:
             self.slave_of_slave = node_to_add
             self.logger.debug("my slave_of_slave is changed, now is {}".format(self.slave_of_slave.id))
+        """
+        my = self.node_list.get_value(self.myself.id)
+        m = my.master
+        s = my.slave
+        mm = self.node_list.get_value(m.id).master
+        ss = self.node_list.get_value(s.id).slave
+
+        self.master = m
+        self.slave = s
+        self.master_of_master = mm
+        self.slave_of_slave = ss
 
     def change_slave_to(self, target_node, target_slave):
         result = self.node_list.get_value(target_node)

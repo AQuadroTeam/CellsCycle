@@ -309,8 +309,11 @@ class DeadWriter (ConsumerThread):
 
         if relatives_check or r_of_r_check:
             self.transition_table.change_state("added_or_pa")
-            self.change_parents(node_to_add)
-            self.logger.debug("welcome new relative! now i am able to receive new scale ups")
+            # this was the old version self.change_parents(node_to_add)
+            self.change_parents()
+            self.logger.debug("welcome new relative! now i am able to receive new scale ups, relatives:\n"
+                              "{}, {}, {}, {}, {}".format(self.master_of_master.id, self.master.id, self.myself.id,
+                                                          self.slave.id, self.slave_of_slave.id))
 
         self.forward_message(origin_message)
         self.logger.debug("forwarding this ADDED message\n{}".format(msg.printable_message()))
@@ -381,7 +384,8 @@ class DeadWriter (ConsumerThread):
     def forward_message(self, origin_message):
         try:
             self.external_channel.forward(origin_message)
-        except zmq.Again:
+        except zmq.Again as a:
+            self.logger_debug("my slave is DEAD " + a.message)
             dead_message = self.make_dead_node_msg(target_id=self.master.id, target_addr=self.master.ip,
                                                    target_key=self.master.get_min_max_key(),
                                                    target_master_id=self.master_of_master.id)
@@ -389,13 +393,11 @@ class DeadWriter (ConsumerThread):
                 self.first_time = False
             else:
                 self.version = int(self.last_seen_version) + 1
+            # TODO generate a new channel to the slave_of_slave
             msg_to_send = to_external_message(self.version, dead_message)
             string_message = dumps(msg_to_send)
             self.external_channel.forward(string_message)
             self.last_dead_message = msg_to_send
-            # The check for the already self.busy_add == True is missing
-            self.busy_add = True
-            self.logger.debug("now i'm busy : my master is DEAD")
 
             self.last_dead_node = self.slave
             self.remove_from_list(self.slave.id)
@@ -524,7 +526,7 @@ class DeadWriter (ConsumerThread):
                     self.change_slave_to(target_node=target_master, target_slave=target_id)
 
                     self.wait_the_new_node_and_send_the_list()
-                    self.change_parents(node_to_add)
+                    self.change_parents()
 
             if is_scale_down_message(msg):
                 exit(0)

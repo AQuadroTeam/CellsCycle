@@ -120,7 +120,8 @@ class DeadReader(ProducerThread):
             else:
                 stop = True
 
-        self.logger.debug("accepted by master {}".format(self.master.id))
+        self.logger.debug("accepted by master {}, achieved new master_of_master id {}"
+                          .format(self.master.id, self.master_of_master.id))
 
         self.external_channel.generate_external_channel_client_side()
         self.external_channel.external_channel_subscribe()
@@ -184,8 +185,7 @@ class DeadReader(ProducerThread):
                                                                         logger=self.logger)
                                 stop = True
                             if self.is_my_new_master_of_master(message):
-                                # This is the part when i connect to another publisher
-
+                                # TODO change this part to deploy
                                 min_max_key = Node.to_min_max_key_obj(message.target_key)
                                 # self.master = Node(node_id=message.target_id, ip=message.target_addr,
                                 #                    min_key=min_max_key.min_key, max_key=min_max_key.max_key,
@@ -201,14 +201,7 @@ class DeadReader(ProducerThread):
                                                              int_port=added_int_port,
                                                              ext_port=added_ext_port)
                                 self.logger.debug("added node as new master_of_master\n{}".format(
-                                    self.master.print_values()))
-                                self.external_channel.close()
-                                self.internal_channel.close()
-                                self.internal_channel = InternalChannel(addr=self.master.ip, port=self.master.int_port,
-                                                                        logger=self.logger)
-                                self.external_channel = ExternalChannel(addr=self.master.ip, port=self.master.ext_port,
-                                                                        logger=self.logger)
-                                stop = True
+                                    self.master_of_master.print_values()))
 
                             self.logger.debug(new_node_added(message.target_id))
 
