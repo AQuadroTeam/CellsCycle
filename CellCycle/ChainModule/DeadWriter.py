@@ -141,7 +141,7 @@ class DeadWriter (ConsumerThread):
         relatives_check = self.is_one_of_my_relatives(msg.source_id)
         r_of_r_check = self.is_one_of_my_r_of_r(msg.source_id)
         # The ADD cycle isn't over or i'm not interested in adding new nodes
-        someone_beats_me = self.last_add_message != ''
+        someone_beats_me = not self.transition_table.get_current_state().can_scale_up()
 
         if relatives_check:
             if someone_beats_me:
@@ -191,7 +191,7 @@ class DeadWriter (ConsumerThread):
         r_of_r_check = dead_to_check == "mmm" or dead_to_check == "mmmm" or \
             dead_to_check == "sss" or dead_to_check == "ssss"
 
-        someone_beats_me = self.last_restore_message != ''
+        someone_beats_me = not self.transition_table.get_current_state().can_scale_up()
 
         if relatives_check:
             if someone_beats_me:
