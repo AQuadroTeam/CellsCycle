@@ -393,7 +393,9 @@ class DeadWriter (ConsumerThread):
                 self.first_time = False
             else:
                 self.version = int(self.last_seen_version) + 1
-            # TODO generate a new channel to the slave_of_slave
+            # generate a new channel to the slave_of_slave
+            self.internal_channel.resync(msg=self.master_of_master.id)
+
             msg_to_send = to_external_message(self.version, dead_message)
             string_message = dumps(msg_to_send)
             self.external_channel.forward(string_message)
@@ -529,8 +531,9 @@ class DeadWriter (ConsumerThread):
                     self.change_parents()
 
             if is_scale_down_message(msg):
-                exit(0)
-                # TODO replace with terminate instance
+                if self.transition_table.get_current_state().can_scale_down():
+                    exit(0)
+                # TODO replace with terminate instance and check for reply
         else:
             # self.logger.debug(just_received_new_msg(self.myself.id, self.master.id,
             #                                         msg.printable_message()))
@@ -570,9 +573,25 @@ class DeadWriter (ConsumerThread):
                 self.logger.debug("ADDED CYCLE completed, this is my list\n{}".format(self.node_list.print_list()))
             elif is_my_last_dead_message(msg, self.last_dead_message):
                 # The cycle is over
+                restore_message = self.make_restore_node_msg(target_id=msg.target_id,
+                                                             target_addr=msg.target_addr,
+                                                             target_key=msg.target_key,
+                                                             target_master_id=msg.target_master_id)
+
+                msg_to_send = to_external_message(self.version, restore_message)
+
+                self.last_restore_message = msg_to_send
                 self.last_dead_message = ''
                 self.logger.debug("DEAD CYCLE completed")
-                # TODO add restore message
+
+                string_message = dumps(msg_to_send)
+                if self.transition_table.get_current_state().can_restore():
+                    self.update_and_forward_message(msg_to_send, string_message, source=INT)
+                    if not self.transition_table.get_current_state().can_scale_up():
+                        self.transition_table.change_state("pad_and_ps")
+                    else:
+                        self.transition_table.change_state("pas")
+
             elif is_my_last_restore_message(msg, self.last_restore_message):
                 # The cycle is over
                 self.last_restore_message = ''

@@ -11,6 +11,7 @@ class State(object):
         self._can_pass_restore = None
         self._can_scale_up = None
         self._can_scale_down = None
+        self._can_restore = None
 
     def __str__(self):
         return "I am in state {}".format(self.__class__.__name__)
@@ -20,6 +21,9 @@ class State(object):
 
     def can_pass_restore(self):
         return self._can_pass_restore
+
+    def can_restore(self):
+        return self._can_restore
 
     def can_scale_up(self):
         return self._can_scale_up
@@ -57,6 +61,7 @@ class Free(State):
         self._can_pass_restore = True
         self._can_scale_up = True
         self._can_scale_down = True
+        self._can_restore = True
 
     def from_busy_add_ps(self):
         self.target_instance.logger_debug(str(self))
@@ -82,6 +87,7 @@ class BusyAddPS(State):
         self._can_pass_restore = True
         self._can_scale_up = False
         self._can_scale_down = False
+        self._can_restore = True
 
     def from_busy_add_ps(self):
         self.target_instance.logger_debug(str(self))
@@ -110,6 +116,7 @@ class BusyAddPL(State):
         self._can_pass_restore = True
         self._can_scale_up = False
         self._can_scale_down = False
+        self._can_restore = True
 
     def from_busy_add_ps(self):
         self.target_instance.logger_debug(str(self))
@@ -138,6 +145,7 @@ class BusyDeadPL(State):
         self._can_pass_restore = True    # This means that we can pass r_of_r requests
         self._can_scale_up = False
         self._can_scale_down = False
+        self._can_restore = False
 
     def from_busy_add_ps(self):
         self.target_instance.logger_debug(str(self))
@@ -164,6 +172,11 @@ class BusyDeadPS(State):
         self._can_pass_restore = True    # This means that we can pass r_of_r requests
         self._can_scale_up = False
         self._can_scale_down = False
+        self._can_restore = False
+
+    # This function is necessary if we are the originators of the DEAD message
+    def flip_restore(self):
+        self._can_restore = not self._can_restore
 
     def from_busy_add_ps(self):
         self.target_instance.logger_debug(str(self))

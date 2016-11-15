@@ -195,6 +195,12 @@ class ListThread (threading.Thread):
                                   target_key=target_key,
                                   target_relative=target_master_id)
 
+    def make_restore_node_msg(self, target_id, target_addr, target_key, source_flag=INT, target_master_id=''):
+        return self.make_node_msg(source_flag=source_flag, priority=RESTORE, target_id=target_id,
+                                  target_addr=target_addr,
+                                  target_key=target_key,
+                                  target_relative=target_master_id)
+
     def make_restored_node_msg(self, target_id, target_addr, target_key, source_flag=INT, target_master_id=''):
         return self.make_node_msg(source_flag=source_flag, priority=RESTORED,
                                   target_id=target_id, target_addr=target_addr,
