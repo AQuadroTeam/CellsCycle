@@ -36,12 +36,14 @@ class DeadWriter (ConsumerThread):
         self.restore_cycle_finished = False
         self.last_dead_node = None
         self.deads = DeadList()
+        self.first_time = True
 
         # TODO remove this and replace with canonicals check
         # if self.canonical_check():
         if self.myself.ip is '':
             # We are a new machine
             self.myself.ip = "127.0.0.1"
+            self.first_time = False
         # TODO remove this comment to deploy
         # else:
             # Let's begin with the memory part, this is the case of first boot
@@ -72,6 +74,9 @@ class DeadWriter (ConsumerThread):
 
     def get_list(self):
         return self.node_list
+
+    def logger_debug(self, msg):
+        return self.logger.debug(msg)
 
     def set_list(self, new_list):
         self.node_list = new_list
@@ -296,7 +301,7 @@ class DeadWriter (ConsumerThread):
         # Update the slave node, the new master of target_master is target_id
         self.change_slave_to(target_node=target_master, target_slave=target_id)
 
-        self.logger.debug("this is my new list\n{}".format(self.node_list))
+        self.logger.debug("this is my new list\n{}".format(self.node_list.print_list()))
 
         relatives_check = self.is_one_of_my_relatives(msg.source_id)
         r_of_r_check = self.is_one_of_my_r_of_r(msg.source_id)
@@ -379,7 +384,10 @@ class DeadWriter (ConsumerThread):
             dead_message = self.make_dead_node_msg(target_id=self.master.id, target_addr=self.master.ip,
                                                    target_key=self.master.get_min_max_key(),
                                                    target_master_id=self.master_of_master.id)
-            self.version = int(self.last_seen_version) + 1
+            if self.first_time:
+                self.first_time = False
+            else:
+                self.version = int(self.last_seen_version) + 1
             msg_to_send = to_external_message(self.version, dead_message)
             string_message = dumps(msg_to_send)
             self.external_channel.forward(string_message)
@@ -447,7 +455,10 @@ class DeadWriter (ConsumerThread):
                 can_scale_up = self.transition_table.get_current_state().can_scale_up()
                 if can_scale_up:
                     self.internal_channel.reply_to_int_message(OK)
-                    self.version = int(self.last_seen_version) + 1
+                    if self.first_time:
+                        self.first_time = False
+                    else:
+                        self.version = int(self.last_seen_version) + 1
                     msg = self.make_add_node_msg(target_id=str(compute_son_id(float(self.myself.id),
                                                                               float(self.slave.id))),
                                                  target_key="0:19",
@@ -555,6 +566,7 @@ class DeadWriter (ConsumerThread):
                 # The cycle is over
                 self.last_dead_message = ''
                 self.logger.debug("DEAD CYCLE completed")
+                # TODO add restore message
             elif is_my_last_restore_message(msg, self.last_restore_message):
                 # The cycle is over
                 self.last_restore_message = ''
@@ -570,28 +582,35 @@ class DeadWriter (ConsumerThread):
                 self.logger.debug("RESTORED CYCLE completed, now i am able to receive scale up requests, "
                                   "this is my list\n{}".format(self.node_list.print_list()))
             else:
-                if msg_variable_version_check(msg, self.last_seen_version):
-                    self.consider_message(msg, origin_message, test="v")
-
-                elif int(msg.version) == int(self.last_seen_version):
-                    if int(self.last_seen_priority) < int(msg.priority):
+                if is_neutral_message(msg):
+                    if int(msg.version) >= int(self.last_seen_version):
                         self.consider_message(msg, origin_message)
-                        self.logger.debug("this message from {} can be forwarded due to higher priority than {}\n{}".
-                                          format(msg.source_id, self.last_seen_priority, msg.printable_message()))
-                    elif int(self.last_seen_priority) > int(msg.priority):
-                        self.logger.debug("this message from {} can't be forwarded due to lower priority than {}\n{}".
-                                          format(msg.source_id, self.last_seen_priority, msg.printable_message()))
-                    elif int(self.last_seen_priority) == int(msg.priority):
-                        if int(self.last_seen_random) < int(msg.random):
-                            self.consider_message(msg, origin_message)
-                            self.logger.debug("this message from {} can be forwarded due to higher random than {}\n{}".
-                                              format(msg.source_id, self.last_seen_random, msg.printable_message()))
-                        else:
-                            self.logger.debug("this message from {} can't be forwarded due to lower random than {}\n{}".
-                                              format(msg.source_id, self.last_seen_random, msg.printable_message()))
                 else:
-                    self.logger.debug("this message will never be forwarded due to lower "
-                                      "last seen version:\n"+msg.printable_message())
+                    if msg_variable_version_check(msg, self.last_seen_version):
+                        self.consider_message(msg, origin_message, test="v")
+                    elif int(msg.version) == int(self.last_seen_version):
+                        if int(self.last_seen_priority) < int(msg.priority):
+                            self.consider_message(msg, origin_message)
+                            self.logger.debug("this message from {} can be forwarded"
+                                              " due to higher priority than {}\n{}".
+                                              format(msg.source_id, self.last_seen_priority, msg.printable_message()))
+                        elif int(self.last_seen_priority) > int(msg.priority):
+                            self.logger.debug("this message from {} can't be forwarded "
+                                              "due to lower priority than {}\n{}".
+                                              format(msg.source_id, self.last_seen_priority, msg.printable_message()))
+                        elif int(self.last_seen_priority) == int(msg.priority):
+                            if int(self.last_seen_random) < int(msg.random):
+                                self.consider_message(msg, origin_message)
+                                self.logger.debug("this message from {} can be forwarded "
+                                                  "due to higher random than {}\n{}".
+                                                  format(msg.source_id, self.last_seen_random, msg.printable_message()))
+                            else:
+                                self.logger.debug("this message from {} can't be forwarded"
+                                                  " due to lower random than {}\n{}".
+                                                  format(msg.source_id, self.last_seen_random, msg.printable_message()))
+                    else:
+                        self.logger.debug("this message will never be forwarded due to lower "
+                                          "last seen version:\n"+msg.printable_message())
 
 
 LOCAL_HOST = '127.0.0.1'

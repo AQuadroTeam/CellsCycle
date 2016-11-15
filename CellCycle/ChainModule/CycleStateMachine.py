@@ -59,16 +59,16 @@ class Free(State):
         self._can_scale_down = True
 
     def from_busy_add_ps(self):
-        print str(self)
+        self.target_instance.logger_debug(str(self))
 
     def from_busy_add_pl(self):
-        print str(self)
+        self.target_instance.logger_debug(str(self))
 
     def from_busy_dead_ps(self):
-        print str(self)
+        self.target_instance.logger_debug(str(self))
 
     def from_busy_dead_pl(self):
-        print str(self)
+        self.target_instance.logger_debug(str(self))
 
     def from_free(self):
         raise StrangeState()
@@ -84,22 +84,22 @@ class BusyAddPS(State):
         self._can_scale_down = False
 
     def from_busy_add_ps(self):
-        print str(self)
+        self.target_instance.logger_debug(str(self))
         self.target_instance.clear_last_add_message()
 
     def from_busy_add_pl(self):
-        print str(self)
+        self.target_instance.logger_debug(str(self))
 
     def from_busy_dead_ps(self):
-        print str(self)
+        self.target_instance.logger_debug(str(self))
         raise StrangeState()
 
     def from_busy_dead_pl(self):
-        print str(self)
+        self.target_instance.logger_debug(str(self))
         raise StrangeState()
 
     def from_free(self):
-        print str(self)
+        self.target_instance.logger_debug(str(self))
 
 
 class BusyAddPL(State):
@@ -112,22 +112,22 @@ class BusyAddPL(State):
         self._can_scale_down = False
 
     def from_busy_add_ps(self):
-        print str(self)
+        self.target_instance.logger_debug(str(self))
         self.target_instance.clear_last_add_message()
 
     def from_busy_add_pl(self):
-        print str(self)
+        self.target_instance.logger_debug(str(self))
 
     def from_busy_dead_ps(self):
-        print str(self)
+        self.target_instance.logger_debug(str(self))
         raise StrangeState()
 
     def from_busy_dead_pl(self):
-        print str(self)
+        self.target_instance.logger_debug(str(self))
         raise StrangeState()
 
     def from_free(self):
-        print str(self)
+        self.target_instance.logger_debug(str(self))
 
 
 class BusyDeadPL(State):
@@ -140,20 +140,20 @@ class BusyDeadPL(State):
         self._can_scale_down = False
 
     def from_busy_add_ps(self):
-        print str(self)
+        self.target_instance.logger_debug(str(self))
         self.target_instance.clear_last_add_message()
 
     def from_busy_add_pl(self):
-        print str(self)
+        self.target_instance.logger_debug(str(self))
 
     def from_busy_dead_ps(self):
-        print str(self)
+        self.target_instance.logger_debug(str(self))
 
     def from_busy_dead_pl(self):
-        print str(self)
+        self.target_instance.logger_debug(str(self))
 
     def from_free(self):
-        print str(self)
+        self.target_instance.logger_debug(str(self))
 
 
 class BusyDeadPS(State):
@@ -166,20 +166,20 @@ class BusyDeadPS(State):
         self._can_scale_down = False
 
     def from_busy_add_ps(self):
-        print str(self)
+        self.target_instance.logger_debug(str(self))
         self.target_instance.clear_last_add_message()
 
     def from_busy_add_pl(self):
-        print str(self)
+        self.target_instance.logger_debug(str(self))
 
     def from_busy_dead_ps(self):
-        print str(self)
+        self.target_instance.logger_debug(str(self))
 
     def from_busy_dead_pl(self):
-        print str(self)
+        self.target_instance.logger_debug(str(self))
 
     def from_free(self):
-        print str(self)
+        self.target_instance.logger_debug(str(self))
 
 
 class TransitionTable(object):

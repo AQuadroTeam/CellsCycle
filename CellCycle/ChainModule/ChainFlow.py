@@ -159,6 +159,11 @@ def is_restored_message(msg):
 def is_dead_message(msg):
     return check_message_priority(msg, DEAD)
 
+
+def is_neutral_message(msg):
+    return check_message_priority(msg, DEAD) or check_message_priority(msg, ADDED) or \
+           check_message_priority(msg, RESTORED)
+
 # Check Dead Stuff
 
 
