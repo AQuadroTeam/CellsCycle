@@ -216,8 +216,8 @@ def _getHandler(settings,logger,  socket, client, key, list_manager):
     slaveHost = masterHost.slave
     if(random()>0.5):
         if(settings.isVerbose()):
-            logger.debug("sending get request to master " + str(masterHost.ip))
-        returnValue =standardMasterGetRequest(settings, key, masterHost.ip)
+            logger.debug("sending get request to master " + str(masterHost.target.ip))
+        returnValue =standardMasterGetRequest(settings, key, masterHost.target.ip)
     else:
         if(settings.isVerbose()):
             logger.debug("sending get request to slave" + str(slaveHost.ip))
