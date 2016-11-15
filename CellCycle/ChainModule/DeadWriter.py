@@ -137,7 +137,7 @@ class DeadWriter (ConsumerThread):
         # self.slave_of_slave, slave_of_slave_to_send)
         # newSlaveRequest("tcp://localhost:" + str(self.settings.getMasterSetPort()), memory_object)
 
-    def consider_add_message(self, msg, origin_message):
+    def consider_add_message(self, msg, origin_message, test="r"):
         relatives_check = self.is_one_of_my_relatives(msg.source_id)
         r_of_r_check = self.is_one_of_my_r_of_r(msg.source_id)
         # The ADD cycle isn't over or i'm not interested in adding new nodes
@@ -158,6 +158,8 @@ class DeadWriter (ConsumerThread):
             else:
                 self.transition_table.change_state("pal")
         else:
+            if test == "r":
+                self.transition_table.change_state("added_or_pa")
             self.logger.debug("none of my relatives : {}".
                               format(msg.source_id))
 
@@ -180,7 +182,7 @@ class DeadWriter (ConsumerThread):
         self.forward_message(origin_message)
         self.logger.debug("forwarding this RESTORED message\n{}".format(msg.printable_message()))
 
-    def consider_restore_message(self, msg, origin_message):
+    def consider_restore_message(self, msg, origin_message, test="r"):
         dead_to_check = self.deads.get_value(msg.target_id)
 
         relatives_check = dead_to_check == "master" or dead_to_check == "slave" or \
@@ -206,6 +208,8 @@ class DeadWriter (ConsumerThread):
             else:
                 self.transition_table.change_state("pdl")
         else:
+            if test == "r":
+                self.transition_table.change_state("restored_or_pa")
             self.logger.debug("none of my relatives : {}".
                               format(msg.source_id))
 
@@ -251,10 +255,11 @@ class DeadWriter (ConsumerThread):
         else:
             self.deads.add_in_list(msg.target_id, "None")
 
-        if self.is_one_of_my_relatives(msg.target_id):
-            self.transition_table.change_state("pad_and_ps")
-        if self.is_one_of_my_r_of_r(msg.target_id):
-            self.transition_table.change_state("pad_and_pl")
+        can_scale_up = self.transition_table.get_current_state().can_scale_up()
+        if self.is_one_of_my_relatives(msg.target_id) and can_scale_up:
+            self.transition_table.change_state("pas")
+        if self.is_one_of_my_r_of_r(msg.target_id) and can_scale_up:
+            self.transition_table.change_state("pal")
 
         self.remove_from_list(msg.target_id)
         self.update_and_forward_message(msg, origin_message)
@@ -397,18 +402,24 @@ class DeadWriter (ConsumerThread):
             # Update the slave node, the new slave of target_master is target_slave
             self.change_slave_to(target_node=self.myself.id, target_slave=self.slave.id)
 
+            can_scale_up = self.transition_table.get_current_state().can_scale_up()
+            if can_scale_up:
+                self.transition_table.change_state("pds")
+            else:
+                self.transition_table.change_state("pad_and_ps")
+
     def update_and_forward_message(self, msg, origin_message):
         self.update_last_seen(msg)
         self.version = int(self.last_seen_version) + 1
         self.forward_message(origin_message)
 
-    def consider_message(self, msg, origin_message):
+    def consider_message(self, msg, origin_message, test="r"):
         if is_dead_message(msg):
             self.consider_dead_message(msg, origin_message)
         if is_restore_message(msg):
-            self.consider_restore_message(msg, origin_message)
+            self.consider_restore_message(msg, origin_message, test)
         elif is_add_message(msg):
-            self.consider_add_message(msg, origin_message)
+            self.consider_add_message(msg, origin_message, test)
         elif is_added_message(msg):
             self.consider_added_message(msg, origin_message)
         elif is_restored_message(msg):
@@ -560,7 +571,7 @@ class DeadWriter (ConsumerThread):
                                   "this is my list\n{}".format(self.node_list.print_list()))
             else:
                 if msg_variable_version_check(msg, self.last_seen_version):
-                    self.consider_message(msg, origin_message)
+                    self.consider_message(msg, origin_message, test="v")
 
                 elif int(msg.version) == int(self.last_seen_version):
                     if int(self.last_seen_priority) < int(msg.priority):

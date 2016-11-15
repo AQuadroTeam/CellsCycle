@@ -161,5 +161,8 @@ if __name__ == "__main__":
         jobs.append(p)
         p.start()
 
+    sleep(6)
+    jobs[0].terminate()
+
     # for i in jobs:
     #     i.join()
