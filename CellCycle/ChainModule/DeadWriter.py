@@ -117,8 +117,9 @@ class DeadWriter (ConsumerThread):
     def get_last_restored_message(self):
         return self.last_restored_message
 
-    def update_last_seen(self, msg):
-        self.last_seen_version = msg.version
+    def update_last_seen(self, msg, source=EXT):
+        if source == EXT:
+            self.last_seen_version = msg.version
         self.last_seen_priority = msg.priority
         self.last_seen_random = msg.random
 
@@ -416,8 +417,8 @@ class DeadWriter (ConsumerThread):
             else:
                 self.transition_table.change_state("pad_and_ps")
 
-    def update_and_forward_message(self, msg, origin_message):
-        self.update_last_seen(msg)
+    def update_and_forward_message(self, msg, origin_message, source=EXT):
+        self.update_last_seen(msg, source)
         self.version = int(self.last_seen_version) + 1
         self.forward_message(origin_message)
 
@@ -468,7 +469,7 @@ class DeadWriter (ConsumerThread):
                     self.transition_table.change_state("pas")
                     self.logger.debug("now i'm busy : ScaleUpThread asked to scale up")
                     string_message = dumps(msg_to_send)
-                    self.forward_message(string_message)
+                    self.update_and_forward_message(msg=msg_to_send, origin_message=string_message, source=INT)
                 else:
                     # I'm busy, retry later if you want to add a new node
                     self.internal_channel.reply_to_int_message(NOK)
@@ -495,6 +496,36 @@ class DeadWriter (ConsumerThread):
                     string_message = dumps(msg_to_send)
                     # we send a notice to the next node
                     self.forward_message(string_message)
+                    # and now we add the new node
+                    min_max_key = Node.to_min_max_key_obj(msg.target_key)
+                    added_int_port = "558{}".format(msg.target_id) if msg.target_id in \
+                        ["1", "2", "3", "4", "5"] else "5586"
+                    added_ext_port = "559{}".format(msg.target_id) if msg.target_id in \
+                        ["1", "2", "3", "4", "5"] else "5596"
+
+                    node_to_add = Node(msg.target_id, msg.target_addr, added_int_port,
+                                       added_ext_port,
+                                       min_max_key.min_key, min_max_key.max_key)
+                    self.logger.debug("adding this node in list\n{}".format(node_to_add.print_values()))
+
+                    target_master = self.node_list.get_value(msg.source_id).target
+                    target_slave = self.node_list.get_value(msg.target_relative_id).target
+                    # Add the new node in list
+                    self.add_in_list(target_node=node_to_add, target_master=target_master,
+                                     target_slave=target_slave)
+
+                    target_id = msg.target_id
+                    target_master = msg.source_id
+                    target_slave = msg.target_relative_id
+
+                    # Update the master node, the new master of target_slave is target_id
+                    self.change_master_to(target_node=target_slave, target_master=target_id)
+                    # Update the slave node, the new master of target_master is target_id
+                    self.change_slave_to(target_node=target_master, target_slave=target_id)
+
+                    self.wait_the_new_node_and_send_the_list()
+                    self.change_parents(node_to_add)
+
             if is_scale_down_message(msg):
                 exit(0)
                 # TODO replace with terminate instance
@@ -534,33 +565,6 @@ class DeadWriter (ConsumerThread):
                 # Now i'm free
                 self.transition_table.change_state("added_or_pa")
                 self.logger.debug("the cycle is over, now i am able to accept scale up requests")
-
-                min_max_key = Node.to_min_max_key_obj(msg.target_key)
-                added_int_port = "558{}".format(msg.target_id) if msg.target_id in ["1", "2", "3", "4", "5"] else "5586"
-                added_ext_port = "559{}".format(msg.target_id) if msg.target_id in ["1", "2", "3", "4", "5"] else "5596"
-
-                node_to_add = Node(msg.target_id, msg.target_addr, added_int_port,
-                                   added_ext_port,
-                                   min_max_key.min_key, min_max_key.max_key)
-                self.logger.debug("adding this node in list\n{}".format(node_to_add.print_values()))
-
-                target_master = self.node_list.get_value(msg.source_id).target
-                target_slave = self.node_list.get_value(msg.target_relative_id).target
-                # Add the new node in list
-                self.add_in_list(target_node=node_to_add, target_master=target_master,
-                                 target_slave=target_slave)
-
-                target_id = msg.target_id
-                target_master = msg.source_id
-                target_slave = msg.target_relative_id
-
-                # Update the master node, the new master of target_slave is target_id
-                self.change_master_to(target_node=target_slave, target_master=target_id)
-                # Update the slave node, the new master of target_master is target_id
-                self.change_slave_to(target_node=target_master, target_slave=target_id)
-
-                self.wait_the_new_node_and_send_the_list()
-                self.change_parents(node_to_add)
                 self.logger.debug("ADDED CYCLE completed, this is my list\n{}".format(self.node_list.print_list()))
             elif is_my_last_dead_message(msg, self.last_dead_message):
                 # The cycle is over
@@ -590,20 +594,20 @@ class DeadWriter (ConsumerThread):
                         self.consider_message(msg, origin_message, test="v")
                     elif int(msg.version) == int(self.last_seen_version):
                         if int(self.last_seen_priority) < int(msg.priority):
-                            self.consider_message(msg, origin_message)
                             self.logger.debug("this message from {} can be forwarded"
                                               " due to higher priority than {}\n{}".
                                               format(msg.source_id, self.last_seen_priority, msg.printable_message()))
+                            self.consider_message(msg, origin_message)
                         elif int(self.last_seen_priority) > int(msg.priority):
                             self.logger.debug("this message from {} can't be forwarded "
                                               "due to lower priority than {}\n{}".
                                               format(msg.source_id, self.last_seen_priority, msg.printable_message()))
                         elif int(self.last_seen_priority) == int(msg.priority):
                             if int(self.last_seen_random) < int(msg.random):
-                                self.consider_message(msg, origin_message)
                                 self.logger.debug("this message from {} can be forwarded "
                                                   "due to higher random than {}\n{}".
                                                   format(msg.source_id, self.last_seen_random, msg.printable_message()))
+                                self.consider_message(msg, origin_message)
                             else:
                                 self.logger.debug("this message from {} can't be forwarded"
                                                   " due to lower random than {}\n{}".
