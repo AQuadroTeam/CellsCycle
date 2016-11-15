@@ -56,10 +56,10 @@ class DeadWriter (ConsumerThread):
         # Prepare to add transition table
 
         transition_table_param = {"Free": [None, "pas", "pal", "pdl", "pds"],
-                                  "BusyAddPS": ["added_or_pa", None, "paa_and_pl", "pad_and_pl", "pad_and_ps"],
-                                  "BusyAddPL": ["added_or_pa", "paa_and_ps", None, "pad_and_pl", "pad_and_ps"],
-                                  "BusyDeadPL": ["restored_or_pa", None, None, None, "pad_and_ps"],
-                                  "BusyDeadPS": ["restored_or_pa", None, None, "pad_and_pl", None]}
+                                  "BusyAddPS": ["added_or_pa", "paa_and_ps", "paa_and_pl", "pad_and_pl", "pad_and_ps"],
+                                  "BusyAddPL": ["added_or_pa", "paa_and_ps", "paa_and_pl", "pad_and_pl", "pad_and_ps"],
+                                  "BusyDeadPL": ["restored_or_pa", None, None, "pad_and_pl", "pad_and_ps"],
+                                  "BusyDeadPS": ["restored_or_pa", None, None, "pad_and_pl", "pad_and_ps"]}
 
         states_param = ["Free", "BusyAddPS", "BusyAddPL", "BusyDeadPL", "BusyDeadPS"]
 
