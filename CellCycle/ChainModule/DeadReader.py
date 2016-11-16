@@ -209,6 +209,7 @@ class DeadReader(ProducerThread):
 
                 except Again:
 
+                    self.logger.debug("my master {} is dead".format(self.master.id))
                     self.change_master()
 
                     # This is the part when i connect to another publisher

@@ -104,7 +104,11 @@ def scale_down_thread(a, l):
     internal_channel_server = InternalChannel(addr='127.0.0.1', port=a.memory_port, logger=l)
     internal_channel_server.generate_internal_channel_server_side()
     internal_channel_server.wait_int_message(dont_wait=False)
-    internal_channel_server.reply_to_int_message("OK")
+    # internal_channel_server.reply_to_int_message("OK")
+
+    l.debug("computing new keys")
+    sleep(5)
+    l.debug("keys computed")
 
     # myself = Generator._get_node_from_data(a[MYSELF])
     internal_channel = InternalChannel(addr='127.0.0.1', port=a.int_port, logger=l)

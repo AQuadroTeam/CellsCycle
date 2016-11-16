@@ -128,8 +128,8 @@ class DeadWriter (ConsumerThread):
                                                       logger=self.logger)
         internal_channel_on_the_fly.generate_internal_channel_client_side()
         internal_channel_on_the_fly.send_first_internal_channel_message("NEED RESTORED")
-        internal_channel_on_the_fly.wait_int_message(dont_wait=False)
-        internal_channel_on_the_fly.close()
+        # internal_channel_on_the_fly.wait_int_message(dont_wait=False)
+        # internal_channel_on_the_fly.close()
 
         # TODO remove above, this is the right code
         # master_of_master_to_send = self.node_list.get_value(self.master_of_master.id).master
@@ -269,7 +269,7 @@ class DeadWriter (ConsumerThread):
             self.transition_table.change_state("pal")
 
         self.remove_from_list(msg.target_id)
-        self.update_and_forward_message(msg, origin_message)
+        self.forward_message(origin_message)
         self.logger.debug("forwarding this DEAD message\n{}".format(msg.printable_message()))
 
     def consider_added_message(self, msg, origin_message):
@@ -387,9 +387,9 @@ class DeadWriter (ConsumerThread):
             self.external_channel.forward(origin_message)
         except zmq.Again as a:
             self.logger_debug("my slave is DEAD " + a.message)
-            dead_message = self.make_dead_node_msg(target_id=self.master.id, target_addr=self.master.ip,
-                                                   target_key=self.master.get_min_max_key(),
-                                                   target_master_id=self.master_of_master.id)
+            dead_message = self.make_dead_node_msg(target_id=self.slave.id, target_addr=self.slave.ip,
+                                                   target_key=self.slave.get_min_max_key(),
+                                                   target_master_id=self.myself.id)
             # if self.first_time:
             #     self.first_time = False
             # else:
@@ -418,9 +418,9 @@ class DeadWriter (ConsumerThread):
 
             can_scale_up = self.transition_table.get_current_state().can_scale_up()
             if can_scale_up:
-                self.transition_table.change_state("pds")
+                self.transition_table.change_state("pas")
             else:
-                self.transition_table.change_state("pad_and_ps")
+                self.transition_table.change_state("paa_and_ps")
 
     def update_and_forward_message(self, msg, origin_message, source=EXT):
         self.update_last_seen(msg, source)
@@ -480,12 +480,16 @@ class DeadWriter (ConsumerThread):
                     self.internal_channel.reply_to_int_message(NOK)
             if is_memory_request_finished_message(msg):
                 self.internal_channel.reply_to_int_message(OK)
+                self.logger.debug("MEMORY REQUEST finished")
+
                 internal_channel_on_the_fly = InternalChannel(addr=self.master.ip, port=self.master.int_port,
                                                               logger=self.logger)
                 internal_channel_on_the_fly.generate_internal_channel_client_side()
                 self.notify_restored(internal_channel_on_the_fly)
                 internal_channel_on_the_fly.close()
             if is_memory_request_started_message(msg):
+                self.internal_channel.reply_to_int_message(msg=OK)
+                self.logger.debug("MEMORY REQUEST started")
                 # Start memory module process
                 self.new_master_request()
             if is_restored_message(msg) and self.restore_cycle_finished:
@@ -494,7 +498,7 @@ class DeadWriter (ConsumerThread):
                 min_max_key = Node.get_min_max_key(self.last_dead_node)
                 msg = self.make_restored_node_msg(target_id=self.last_dead_node.id, target_key=min_max_key,
                                                   target_addr=self.last_dead_node.ip, source_flag=EXT,
-                                                  target_master_id=self.master.id)
+                                                  target_master_id=self.myself.id)
                 self.version = int(self.last_seen_version) + 1
                 msg = to_external_message(self.version, msg)
                 self.last_restored_message = msg
@@ -587,7 +591,7 @@ class DeadWriter (ConsumerThread):
                 restore_message = self.make_restore_node_msg(target_id=msg.target_id,
                                                              target_addr=msg.target_addr,
                                                              target_key=msg.target_key,
-                                                             target_master_id=msg.target_master_id)
+                                                             target_master_id=self.master.id)
 
                 msg_to_send = to_external_message(self.version, restore_message)
 
