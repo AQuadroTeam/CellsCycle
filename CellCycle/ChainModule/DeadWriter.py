@@ -144,7 +144,7 @@ class DeadWriter (ConsumerThread):
         # self.slave_of_slave, slave_of_slave_to_send)
         # newSlaveRequest("tcp://localhost:" + str(self.settings.getMasterSetPort()), memory_object)
 
-    def consider_add_message(self, msg, origin_message, test="r"):
+    def consider_add_message(self, msg, origin_message):
         relatives_check = self.is_one_of_my_relatives(msg.source_id)
         r_of_r_check = self.is_one_of_my_r_of_r(msg.source_id)
         # The ADD cycle isn't over or i'm not interested in adding new nodes
@@ -165,8 +165,8 @@ class DeadWriter (ConsumerThread):
             else:
                 self.transition_table.change_state("pal")
         else:
-            if test == "r":
-                self.transition_table.change_state("added_or_pa")
+            #   if test == "r":
+            #     self.transition_table.change_state("added_or_pa")
             self.logger.debug("none of my relatives : {}".
                               format(msg.source_id))
 
@@ -189,7 +189,7 @@ class DeadWriter (ConsumerThread):
         self.forward_message(origin_message)
         self.logger.debug("forwarding this RESTORED message\n{}".format(msg.printable_message()))
 
-    def consider_restore_message(self, msg, origin_message, test="r"):
+    def consider_restore_message(self, msg, origin_message):
         dead_to_check = self.deads.get_value(msg.target_id)
 
         relatives_check = dead_to_check == "master" or dead_to_check == "slave" or \
@@ -215,8 +215,8 @@ class DeadWriter (ConsumerThread):
             else:
                 self.transition_table.change_state("pdl")
         else:
-            if test == "r":
-                self.transition_table.change_state("restored_or_pa")
+            # if test == "r":
+            #     self.transition_table.change_state("restored_or_pa")
             self.logger.debug("none of my relatives : {}".
                               format(msg.source_id))
 
@@ -427,13 +427,13 @@ class DeadWriter (ConsumerThread):
         self.version = int(self.last_seen_version) + 1
         self.forward_message(origin_message)
 
-    def consider_message(self, msg, origin_message, test="r"):
+    def consider_message(self, msg, origin_message):
         if is_dead_message(msg):
             self.consider_dead_message(msg, origin_message)
         if is_restore_message(msg):
-            self.consider_restore_message(msg, origin_message, test)
+            self.consider_restore_message(msg, origin_message)
         elif is_add_message(msg):
-            self.consider_add_message(msg, origin_message, test)
+            self.consider_add_message(msg, origin_message)
         elif is_added_message(msg):
             self.consider_added_message(msg, origin_message)
         elif is_restored_message(msg):
@@ -628,9 +628,9 @@ class DeadWriter (ConsumerThread):
                     if int(msg.version) >= int(self.last_seen_version):
                         self.consider_message(msg, origin_message)
                 else:
-                    if msg_variable_version_check(msg, self.last_seen_version):
-                        self.consider_message(msg, origin_message, test="v")
-                    elif int(msg.version) == int(self.last_seen_version):
+                    # if msg_variable_version_check(msg, self.last_seen_version):
+                    #     self.consider_message(msg, origin_message, test="v")
+                    if int(msg.version) >= int(self.last_seen_version):
                         if int(self.last_seen_priority) < int(msg.priority):
                             self.logger.debug("this message from {} can be forwarded"
                                               " due to higher priority than {}\n{}".

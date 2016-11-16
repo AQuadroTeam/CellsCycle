@@ -71,11 +71,11 @@ class Generator:
         from threading import Thread
 
         # FIXME This part is just to test add node cycle
-        sleep(5)
-        if myself.id == "1" or myself.id == "2" or myself.id == "3":
+        # sleep(5)
+        # if myself.id == "1" or myself.id == "2" or myself.id == "3":
             # from threading import Thread
-            new_scale_up_thread = Thread(name="ScaleUpThread", target=scale_up_thread, args=(myself, self.logger,))
-            new_scale_up_thread.start()
+        #     new_scale_up_thread = Thread(name="ScaleUpThread", target=scale_up_thread, args=(myself, self.logger,))
+        #     new_scale_up_thread.start()
 
         # FIXME This part is just to test dead node cycle
         new_scale_down_thread = Thread(name="ScaleDownThread", target=scale_down_thread, args=(myself, self.logger,))
@@ -161,8 +161,8 @@ if __name__ == "__main__":
         jobs.append(p)
         p.start()
 
-    # sleep(6)
-    # jobs[0].terminate()
+    sleep(3)
+    jobs[0].terminate()
 
     # for i in jobs:
     #     i.join()

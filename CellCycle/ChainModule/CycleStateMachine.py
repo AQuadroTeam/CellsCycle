@@ -74,15 +74,23 @@ class Free(State):
 
     def from_busy_add_ps(self):
         self.target_instance.logger_debug(str(self))
+        self.target_instance.set_last_seen_priority('0')
+        self.target_instance.set_last_seen_random('0')
 
     def from_busy_add_pl(self):
         self.target_instance.logger_debug(str(self))
+        self.target_instance.set_last_seen_priority('0')
+        self.target_instance.set_last_seen_random('0')
 
     def from_busy_dead_ps(self):
         self.target_instance.logger_debug(str(self))
+        self.target_instance.set_last_seen_priority('0')
+        self.target_instance.set_last_seen_random('0')
 
     def from_busy_dead_pl(self):
         self.target_instance.logger_debug(str(self))
+        self.target_instance.set_last_seen_priority('0')
+        self.target_instance.set_last_seen_random('0')
 
     def from_free(self):
         raise StrangeState()
