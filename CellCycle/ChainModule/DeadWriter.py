@@ -210,14 +210,14 @@ class DeadWriter (ConsumerThread):
         if relatives_check:
             if someone_beats_me:
                 self.transition_table.change_state("pad_and_ps")
-                self.logger.debug("i've just asked for restore, but this node beats me : {}".
+                self.logger.debug("this node has just gained privilege to restore : {}".
                                   format(msg.source_id))
             else:
                 self.transition_table.change_state("pds")
         elif r_of_r_check:
             if someone_beats_me:
                 self.transition_table.change_state("pad_and_pl")
-                self.logger.debug("i've just asked for restore, but this node beats me : {}".
+                self.logger.debug("this node has just gained privilege to restore : {}".
                                   format(msg.source_id))
             else:
                 self.transition_table.change_state("pdl")
