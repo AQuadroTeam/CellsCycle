@@ -132,6 +132,14 @@ def is_restore_message(msg):
     return check_message_priority(msg, RESTORE)
 
 
+def is_memory_request_started_message(msg):
+    return check_message_priority(msg, MEMORY_REQUEST_STARTED)
+
+
+def is_memory_request_finished_message(msg):
+    return check_message_priority(msg, MEMORY_REQUEST_FINISHED)
+
+
 def is_scale_up_message(msg):
     return check_message_priority(msg, SCALE_UP)
 

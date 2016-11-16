@@ -6,15 +6,20 @@ class State(object):
                             "BusyAddPS": self.from_busy_add_ps,
                             "BusyAddPL": self.from_busy_add_pl,
                             "BusyDeadPS": self.from_busy_dead_ps,
-                            "BusyDeadPL": self.from_busy_dead_pl}
+                            "BusyDeadPL": self.from_busy_dead_pl,
+                            "MemoryRequest": self.from_memory_request}
         self._can_pass_add = None
         self._can_pass_restore = None
         self._can_scale_up = None
         self._can_scale_down = None
         self._can_restore = None
+        self._ext_locked = None
 
     def __str__(self):
         return "I am in state {}".format(self.__class__.__name__)
+
+    def ext_locked(self):
+        return self._ext_locked
 
     def can_pass_add(self):
         return self._can_pass_add
@@ -52,6 +57,9 @@ class State(object):
     def from_free(self):
         pass
 
+    def from_memory_request(self):
+        pass
+
 
 class Free(State):
 
@@ -62,6 +70,7 @@ class Free(State):
         self._can_scale_up = True
         self._can_scale_down = True
         self._can_restore = True
+        self._ext_locked = False
 
     def from_busy_add_ps(self):
         self.target_instance.logger_debug(str(self))
@@ -76,6 +85,10 @@ class Free(State):
         self.target_instance.logger_debug(str(self))
 
     def from_free(self):
+        raise StrangeState()
+
+    def from_memory_request(self):
+        self.target_instance.logger_debug(str(self))
         raise StrangeState()
 
 
@@ -88,6 +101,7 @@ class BusyAddPS(State):
         self._can_scale_up = False
         self._can_scale_down = False
         self._can_restore = True
+        self._ext_locked = False
 
     def from_busy_add_ps(self):
         self.target_instance.logger_debug(str(self))
@@ -106,6 +120,10 @@ class BusyAddPS(State):
 
     def from_free(self):
         self.target_instance.logger_debug(str(self))
+
+    def from_memory_request(self):
+        self.target_instance.logger_debug(str(self))
+        raise StrangeState()
 
 
 class BusyAddPL(State):
@@ -117,6 +135,7 @@ class BusyAddPL(State):
         self._can_scale_up = False
         self._can_scale_down = False
         self._can_restore = True
+        self._ext_locked = False
 
     def from_busy_add_ps(self):
         self.target_instance.logger_debug(str(self))
@@ -135,6 +154,10 @@ class BusyAddPL(State):
 
     def from_free(self):
         self.target_instance.logger_debug(str(self))
+
+    def from_memory_request(self):
+        self.target_instance.logger_debug(str(self))
+        raise StrangeState()
 
 
 class BusyDeadPL(State):
@@ -146,6 +169,7 @@ class BusyDeadPL(State):
         self._can_scale_up = False
         self._can_scale_down = False
         self._can_restore = False
+        self._ext_locked = False
 
     def from_busy_add_ps(self):
         self.target_instance.logger_debug(str(self))
@@ -163,6 +187,10 @@ class BusyDeadPL(State):
     def from_free(self):
         self.target_instance.logger_debug(str(self))
 
+    def from_memory_request(self):
+        self.target_instance.logger_debug(str(self))
+        raise StrangeState()
+
 
 class BusyDeadPS(State):
 
@@ -173,6 +201,7 @@ class BusyDeadPS(State):
         self._can_scale_up = False
         self._can_scale_down = False
         self._can_restore = False
+        self._ext_locked = False
 
     # This function is necessary if we are the originators of the DEAD message
     def flip_restore(self):
@@ -193,6 +222,48 @@ class BusyDeadPS(State):
 
     def from_free(self):
         self.target_instance.logger_debug(str(self))
+
+    def from_memory_request(self):
+        self.target_instance.logger_debug(str(self))
+
+
+class MemoryRequest(State):
+
+    def __init__(self, target_instance):
+        super(MemoryRequest, self).__init__(target_instance)
+        self._can_pass_add = False       # This means that we cannot pass r_of_r requests
+        self._can_pass_restore = False    # This means that we cannot pass r_of_r requests
+        self._can_scale_up = False
+        self._can_scale_down = False
+        self._can_restore = False
+        self._ext_locked = True
+
+    # This function is necessary if we are the originators of the DEAD message
+    def flip_restore(self):
+        self._can_restore = not self._can_restore
+
+    def from_busy_add_ps(self):
+        self.target_instance.logger_debug(str(self))
+        raise StrangeState()
+
+    def from_busy_add_pl(self):
+        self.target_instance.logger_debug(str(self))
+        raise StrangeState()
+
+    def from_busy_dead_ps(self):
+        self.target_instance.logger_debug(str(self))
+
+    def from_busy_dead_pl(self):
+        self.target_instance.logger_debug(str(self))
+        raise StrangeState()
+
+    def from_free(self):
+        self.target_instance.logger_debug(str(self))
+        raise StrangeState()
+
+    def from_memory_request(self):
+        self.target_instance.logger_debug(str(self))
+        raise StrangeState()
 
 
 class TransitionTable(object):
@@ -254,11 +325,14 @@ if __name__ == "__name__":
 
     # dict_state = {0: "Free", 1: "BusyAddPS", 2: "BusyAddPL", 3: "BusyDeadPL", 4: "BusyDeadPS"}
 
-    transition_table_param = {"Free": [None, "pas", "pal", "pdl", "pds"],
-                              "BusyAddPS": ["added_or_pa", "paa_and_ps", "paa_and_pl", "pad_and_pl", "pad_and_ps"],
-                              "BusyAddPL": ["added_or_pa", "paa_and_ps", "paa_and_pl", "pad_and_pl", "pad_and_ps"],
-                              "BusyDeadPL": ["restored_or_pa", None, None, "pad_and_pl", "pad_and_ps"],
-                              "BusyDeadPS": ["restored_or_pa", None, None, "pad_and_pl", "pad_and_ps"]}
+    transition_table_param = {"Free": [None, "pas", "pal", "pdl", "pds", None],
+                              "BusyAddPS": ["added_or_pa", "paa_and_ps", "paa_and_pl", "pad_and_pl", "pad_and_ps",
+                                            None],
+                              "BusyAddPL": ["added_or_pa", "paa_and_ps", "paa_and_pl", "pad_and_pl", "pad_and_ps",
+                                            None],
+                              "BusyDeadPL": ["restored_or_pa", None, None, "pad_and_pl", "pad_and_ps", None],
+                              "BusyDeadPS": ["restored_or_pa", None, None, "pad_and_pl", "pad_and_ps", "m_started"],
+                              "MemoryRequest": [None, None, None, None, None, "m_finished"]}
 
     states_param = ["Free", "BusyAddPS", "BusyAddPL", "BusyDeadPL", "BusyDeadPS"]
     # mapping_to_do = {"S1:S2": "pas", "S2:S3": "pal", "S3:S1": ""}

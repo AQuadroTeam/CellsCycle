@@ -117,6 +117,36 @@ class ListThread (threading.Thread):
         return msg
 
     @staticmethod
+    def notify_memory_request_finished(channel_to_send):
+        msg = Message()
+        msg.source_flag = INT
+        msg.version = ''
+        msg.priority = MEMORY_REQUEST_FINISHED
+        msg.random = randint(MIN_RANDOM, MAX_RANDOM)
+        msg.target_id = ''
+        msg.target_key = ''
+        msg.target_addr = ''
+        msg.target_relative_id = ''
+        msg.source_id = ''
+        channel_to_send.send_first_internal_channel_message(message=dumps(msg))
+        channel_to_send.wait_int_message(dont_wait=False)
+
+    @staticmethod
+    def notify_memory_request_started(channel_to_send):
+        msg = Message()
+        msg.source_flag = INT
+        msg.version = ''
+        msg.priority = MEMORY_REQUEST_STARTED
+        msg.random = randint(MIN_RANDOM, MAX_RANDOM)
+        msg.target_id = ''
+        msg.target_key = ''
+        msg.target_addr = ''
+        msg.target_relative_id = ''
+        msg.source_id = ''
+        channel_to_send.send_first_internal_channel_message(message=dumps(msg))
+        channel_to_send.wait_int_message(dont_wait=False)
+
+    @staticmethod
     def notify_restored(channel_to_send):
         msg = Message()
         msg.source_flag = INT

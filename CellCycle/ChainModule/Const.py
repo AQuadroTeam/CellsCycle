@@ -25,8 +25,10 @@ RESTORED = '3'
 ADDED = '2'
 ADD = '1'
 ALIVE = '0'
-SCALE_UP = '-1'
-SCALE_DOWN = '-2'
+MEMORY_REQUEST_STARTED = '-1'
+MEMORY_REQUEST_FINISHED = '-2'
+SCALE_UP = '-3'
+SCALE_DOWN = '-4'
 
 
 # List communication

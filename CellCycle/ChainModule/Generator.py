@@ -112,7 +112,7 @@ def scale_down_thread(a, l):
 
     # if myself.int_port == 1:
 
-    ListThread.notify_restored(internal_channel)
+    ListThread.notify_memory_request_finished(internal_channel)
     # else:
     #     while True:
     #         sleep(5)

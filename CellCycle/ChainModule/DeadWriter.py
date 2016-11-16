@@ -129,12 +129,13 @@ class DeadWriter (ConsumerThread):
         internal_channel_on_the_fly.generate_internal_channel_client_side()
         internal_channel_on_the_fly.send_first_internal_channel_message("NEED RESTORED")
         internal_channel_on_the_fly.wait_int_message(dont_wait=False)
+        internal_channel_on_the_fly.close()
 
         # TODO remove above, this is the right code
         # master_of_master_to_send = self.node_list.get_value(self.master_of_master.id).master
         # memory_object = MemoryObject(master_of_master_to_send, self.master_of_master, self.master,
         # self.myself, self.slave)
-        # newMasterRequest("tcp://localhost:" + str(self.settings.getMasterSetPort()), memory_object)
+        # loads(newMasterRequest("tcp://localhost:" + str(self.settings.getMasterSetPort()), memory_object))
 
     def new_slave_request(self):
         pass
@@ -477,6 +478,16 @@ class DeadWriter (ConsumerThread):
                 else:
                     # I'm busy, retry later if you want to add a new node
                     self.internal_channel.reply_to_int_message(NOK)
+            if is_memory_request_finished_message(msg):
+                self.internal_channel.reply_to_int_message(OK)
+                internal_channel_on_the_fly = InternalChannel(addr=self.master.ip, port=self.master.int_port,
+                                                              logger=self.logger)
+                internal_channel_on_the_fly.generate_internal_channel_client_side()
+                self.notify_restored(internal_channel_on_the_fly)
+                internal_channel_on_the_fly.close()
+            if is_memory_request_started_message(msg):
+                # Start memory module process
+                self.new_master_request()
             if is_restored_message(msg) and self.restore_cycle_finished:
                 self.restore_cycle_finished = False
                 self.internal_channel.reply_to_int_message(OK)
@@ -596,9 +607,15 @@ class DeadWriter (ConsumerThread):
                 # The cycle is over
                 self.last_restore_message = ''
                 self.logger.debug("RESTORE CYCLE completed")
-                # Notify to the memory module
-                self.new_master_request()
                 self.restore_cycle_finished = True
+                # Notify to the memory module
+                self.new_slave_request()
+                # Allow the slave to perform the memory request
+                internal_channel_on_the_fly = InternalChannel(addr=self.slave.ip, port=self.slave.int_port,
+                                                              logger=self.logger)
+                internal_channel_on_the_fly.generate_internal_channel_client_side()
+                self.notify_memory_request_started(internal_channel_on_the_fly)
+                internal_channel_on_the_fly.close()
             elif is_my_last_restored_message(msg, self.last_restored_message):
                 # The cycle is over
                 self.last_dead_node = None
