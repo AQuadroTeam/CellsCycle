@@ -36,14 +36,14 @@ class DeadWriter (ConsumerThread):
         self.restore_cycle_finished = False
         self.last_dead_node = None
         self.deads = DeadList()
-        self.first_time = True
+        # self.first_time = True
 
         # TODO remove this and replace with canonicals check
         # if self.canonical_check():
         if self.myself.ip is '':
             # We are a new machine
             self.myself.ip = "127.0.0.1"
-            self.first_time = False
+            # self.first_time = False
         # TODO remove this comment to deploy
         # else:
             # Let's begin with the memory part, this is the case of first boot
@@ -390,10 +390,10 @@ class DeadWriter (ConsumerThread):
             dead_message = self.make_dead_node_msg(target_id=self.master.id, target_addr=self.master.ip,
                                                    target_key=self.master.get_min_max_key(),
                                                    target_master_id=self.master_of_master.id)
-            if self.first_time:
-                self.first_time = False
-            else:
-                self.version = int(self.last_seen_version) + 1
+            # if self.first_time:
+            #     self.first_time = False
+            # else:
+            self.version = int(self.last_seen_version) + 1
             # generate a new channel to the slave_of_slave
             self.internal_channel.resync(msg=self.master_of_master.id)
 
@@ -461,10 +461,10 @@ class DeadWriter (ConsumerThread):
                 can_scale_up = self.transition_table.get_current_state().can_scale_up()
                 if can_scale_up:
                     self.internal_channel.reply_to_int_message(OK)
-                    if self.first_time:
-                        self.first_time = False
-                    else:
-                        self.version = int(self.last_seen_version) + 1
+                    # if self.first_time:
+                    #     self.first_time = False
+                    # else:
+                    self.version = int(self.last_seen_version) + 1
                     msg = self.make_add_node_msg(target_id=str(compute_son_id(float(self.myself.id),
                                                                               float(self.slave.id))),
                                                  target_key="0:19",
