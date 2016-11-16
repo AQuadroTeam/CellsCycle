@@ -13,13 +13,13 @@ class State(object):
         self._can_scale_up = None
         self._can_scale_down = None
         self._can_restore = None
-        self._ext_locked = None
+        self._can_accept_new_birth = None
 
     def __str__(self):
         return "I am in state {}".format(self.__class__.__name__)
 
-    def ext_locked(self):
-        return self._ext_locked
+    def can_accept_new_birth(self):
+        return self._can_accept_new_birth
 
     def can_pass_add(self):
         return self._can_pass_add
@@ -70,7 +70,7 @@ class Free(State):
         self._can_scale_up = True
         self._can_scale_down = True
         self._can_restore = True
-        self._ext_locked = False
+        self._can_accept_new_birth = True
 
     def from_busy_add_ps(self):
         self.target_instance.logger_debug(str(self))
@@ -109,7 +109,7 @@ class BusyAddPS(State):
         self._can_scale_up = False
         self._can_scale_down = False
         self._can_restore = True
-        self._ext_locked = False
+        self._can_accept_new_birth = True
 
     def from_busy_add_ps(self):
         self.target_instance.logger_debug(str(self))
@@ -143,7 +143,7 @@ class BusyAddPL(State):
         self._can_scale_up = False
         self._can_scale_down = False
         self._can_restore = True
-        self._ext_locked = False
+        self._can_accept_new_birth = True
 
     def from_busy_add_ps(self):
         self.target_instance.logger_debug(str(self))
@@ -177,7 +177,7 @@ class BusyDeadPL(State):
         self._can_scale_up = False
         self._can_scale_down = False
         self._can_restore = False
-        self._ext_locked = False
+        self._can_accept_new_birth = False
 
     def from_busy_add_ps(self):
         self.target_instance.logger_debug(str(self))
@@ -209,7 +209,7 @@ class BusyDeadPS(State):
         self._can_scale_up = False
         self._can_scale_down = False
         self._can_restore = False
-        self._ext_locked = False
+        self._can_accept_new_birth = False
 
     # This function is necessary if we are the originators of the DEAD message
     def flip_restore(self):
@@ -244,7 +244,7 @@ class MemoryRequest(State):
         self._can_scale_up = False
         self._can_scale_down = False
         self._can_restore = False
-        self._ext_locked = True
+        self._can_accept_new_birth = False
 
     # This function is necessary if we are the originators of the DEAD message
     def flip_restore(self):

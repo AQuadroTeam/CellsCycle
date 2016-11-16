@@ -193,7 +193,8 @@ class DeadWriter (ConsumerThread):
                 self.transition_table.change_state("pds")
 
         self.deads.remove_from_list(msg.target_id)
-        self.logger.debug("forwarding this RESTORED message\n{}".format(msg.printable_message()))
+        self.logger.debug("forwarding this RESTORED message\n{}\nThis is my new list\n{}".
+                          format(msg.printable_message(), self.node_list.print_list()))
 
     def consider_restore_message(self, msg, origin_message):
         dead_to_check = self.deads.get_value(msg.target_id)
@@ -231,8 +232,8 @@ class DeadWriter (ConsumerThread):
 
     def consider_dead_message(self, msg, origin_message):
         target_id = msg.target_id
-        target_master = msg.target_relative_id
-        target_slave = msg.source_id
+        target_slave = msg.target_relative_id
+        target_master = msg.source_id
 
         # Update the target ID
         self.update_list(target_node=target_id, target_master=target_master, target_slave=target_slave)
@@ -315,7 +316,9 @@ class DeadWriter (ConsumerThread):
         r_of_r_check = self.is_one_of_my_r_of_r(msg.source_id)
 
         if relatives_check or r_of_r_check:
-            self.transition_table.change_state("added_or_pa")
+            # TODO is this really SAFE ? Allow old added messages? you can remove the below if
+            if not self.transition_table.get_current_state().can_scale_up():
+                self.transition_table.change_state("added_or_pa")
             # this was the old version self.change_parents(node_to_add)
             self.change_parents()
             self.logger.debug("welcome new relative! now i am able to receive new scale ups, relatives:\n"
@@ -393,9 +396,10 @@ class DeadWriter (ConsumerThread):
             self.external_channel.forward(origin_message)
         except zmq.Again as a:
             self.logger_debug("my slave is DEAD " + a.message)
+            # TODO This signature is wrong, change target_master_id in target_slave_id
             dead_message = self.make_dead_node_msg(target_id=self.slave.id, target_addr=self.slave.ip,
                                                    target_key=self.slave.get_min_max_key(),
-                                                   target_master_id=self.myself.id)
+                                                   target_master_id=self.slave_of_slave.id)
             # if self.first_time:
             #     self.first_time = False
             # else:
@@ -510,11 +514,11 @@ class DeadWriter (ConsumerThread):
                 self.last_restored_message = msg
                 self.forward_message(dumps(msg))
             if is_added_message(msg):
-                can_scale_up = self.transition_table.get_current_state().can_scale_up()
-                if can_scale_up and self.node_to_add == '':
+                can_accept_new_birth = self.transition_table.get_current_state().can_accept_new_birth()
+                if (not can_accept_new_birth) or (not self.node_to_add != ''):
                     self.internal_channel.reply_to_int_message(NOK)
                 else:
-                    self.internal_channel.reply_to_int_message(dumps(self.node_list))
+                    # self.internal_channel.reply_to_int_message(dumps(self.node_list))
                     self.version = int(self.last_seen_version) + 1
                     msg_to_send = to_external_message(self.version, msg)
                     self.last_added_message = msg_to_send
@@ -598,7 +602,9 @@ class DeadWriter (ConsumerThread):
                 self.last_added_message = ''
                 self.node_to_add = ''
                 # Now i'm free
-                self.transition_table.change_state("added_or_pa")
+                # TODO is this really safe? allow old added messages?
+                if not self.transition_table.get_current_state().can_scale_up():
+                    self.transition_table.change_state("added_or_pa")
                 self.logger.debug("the cycle is over, now i am able to accept scale up requests")
                 self.logger.debug("ADDED CYCLE completed, this is my list\n{}".format(self.node_list.print_list()))
             elif is_my_last_dead_message(msg, self.last_dead_message):
