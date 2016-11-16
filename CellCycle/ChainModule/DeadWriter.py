@@ -1,5 +1,5 @@
 #! /usr/bin/env python
-from CellCycle.ChainModule.Message import InformationMessage
+from Message import InformationMessage
 from ListCommunication import *
 from Printer import *
 from zmq import ZMQError
@@ -182,11 +182,17 @@ class DeadWriter (ConsumerThread):
         r_of_r_check = dead_to_check == "mmm" or dead_to_check == "mmmm" or \
             dead_to_check == "sss" or dead_to_check == "ssss"
 
+        self.forward_message(origin_message)
+
         if relatives_check or r_of_r_check:
             self.transition_table.change_state("restored_or_pa")
+            if self.last_restore_message != '' and self.transition_table.get_current_state().can_restore():
+                msg_to_send = self.last_restore_message
+                string_message = dumps(msg_to_send)
+                self.update_and_forward_message(msg=msg_to_send, origin_message=string_message, source=INT)
+                self.transition_table.change_state("pds")
 
         self.deads.remove_from_list(msg.target_id)
-        self.forward_message(origin_message)
         self.logger.debug("forwarding this RESTORED message\n{}".format(msg.printable_message()))
 
     def consider_restore_message(self, msg, origin_message):
@@ -505,7 +511,7 @@ class DeadWriter (ConsumerThread):
                 self.forward_message(dumps(msg))
             if is_added_message(msg):
                 can_scale_up = self.transition_table.get_current_state().can_scale_up()
-                if can_scale_up:
+                if can_scale_up and self.node_to_add == '':
                     self.internal_channel.reply_to_int_message(NOK)
                 else:
                     self.internal_channel.reply_to_int_message(dumps(self.node_list))
@@ -541,8 +547,16 @@ class DeadWriter (ConsumerThread):
                     self.change_master_to(target_node=target_slave, target_master=target_id)
                     # Update the slave node, the new master of target_master is target_id
                     self.change_slave_to(target_node=target_master, target_slave=target_id)
+                    # It's the right node
+                    information_message = InformationMessage(node_list=self.node_list, version=self.version,
+                                                             last_seen_version=self.last_seen_version,
+                                                             last_seen_priority=self.last_seen_priority,
+                                                             last_seen_random=self.last_seen_random)
 
-                    self.wait_the_new_node_and_send_the_list()
+                    self.internal_channel.reply_to_int_message(dumps(information_message))
+
+                    # TODO change if it doesn't work
+                    # self.wait_the_new_node_and_send_the_list()
                     self.change_parents()
 
             if is_scale_down_message(msg):
@@ -582,6 +596,7 @@ class DeadWriter (ConsumerThread):
             elif is_my_last_added_message(msg, self.last_added_message):
                 # The cycle is over
                 self.last_added_message = ''
+                self.node_to_add = ''
                 # Now i'm free
                 self.transition_table.change_state("added_or_pa")
                 self.logger.debug("the cycle is over, now i am able to accept scale up requests")
@@ -605,7 +620,7 @@ class DeadWriter (ConsumerThread):
                     if not self.transition_table.get_current_state().can_scale_up():
                         self.transition_table.change_state("pad_and_ps")
                     else:
-                        self.transition_table.change_state("pas")
+                        self.transition_table.change_state("pds")
 
             elif is_my_last_restore_message(msg, self.last_restore_message):
                 # The cycle is over

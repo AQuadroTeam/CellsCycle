@@ -1,6 +1,4 @@
 #! /usr/bin/env python
-from CellCycle.ChainModule.MemoryObject import MemoryObject
-from CellCycle.MemoryModule.MemoryManagement import newStartRequest
 from ProdCons import ProducerThread
 from ListCommunication import *
 from zmq import Again
@@ -36,6 +34,21 @@ class DeadReader(ProducerThread):
         # memory_object = MemoryObject(self.master_of_master, self.master, self.myself, self.slave, self.slave_of_slave)
         # newStartRequest("tcp://localhost:" + str(self.settings.getMasterSetPort()), memory_object)
 
+    def update_birth_information(self, rep_msg):
+        self.node_list = rep_msg.node_list
+        self.writer_instance.set_list(self.node_list)
+        # internal_channel_to_send_list = InternalChannel(addr='127.0.0.1', port=self.myself.int_port,
+        #                                                 logger=self.logger)
+        # internal_channel_to_send_list.generate_internal_channel_client_side()
+        # self.notify_list(internal_channel_to_send_list)
+        # internal_channel_to_send_list.close()
+
+        self.logger.debug("received the new list\n{}".format(self.node_list.print_list()))
+        self.writer_instance.set_version(rep_msg.version)
+        self.writer_instance.set_last_seen_version(rep_msg.last_seen_version)
+        self.writer_instance.set_last_seen_priority(rep_msg.last_seen_priority)
+        self.writer_instance.set_last_seen_random(rep_msg.last_seen_random)
+
     def retry_until_success(self, msg, times):
         stop = False
         while not stop:
@@ -46,20 +59,8 @@ class DeadReader(ProducerThread):
             if not (rep_msg == NOK or rep_msg == DIE):
                 rep_msg = loads(rep_msg)
                 if times == 2:
-                    self.node_list = rep_msg.node_list
-                    self.writer_instance.set_list(self.node_list)
-                    # internal_channel_to_send_list = InternalChannel(addr='127.0.0.1', port=self.myself.int_port,
-                    #                                                 logger=self.logger)
-                    # internal_channel_to_send_list.generate_internal_channel_client_side()
-                    # self.notify_list(internal_channel_to_send_list)
-                    # internal_channel_to_send_list.close()
-
-                    self.logger.debug("received the new list\n{}".format(self.node_list.print_list()))
-                    self.writer_instance.set_version(rep_msg.version)
-                    self.writer_instance.set_last_seen_version(rep_msg.last_seen_version)
-                    self.writer_instance.set_last_seen_priority(rep_msg.last_seen_priority)
-                    self.writer_instance.set_last_seen_random(rep_msg.last_seen_random)
-
+                    # not necessary
+                    self.update_birth_information(rep_msg)
                 stop = True
             else:
                 self.logger.debug("wrong information at sync time, retry in 0.5 seconds")
@@ -83,11 +84,13 @@ class DeadReader(ProducerThread):
         new_added_node_message = self.make_added_node_msg(target_id=self.myself.id, target_slave_id=self.slave.id,
                                                           target_addr=self.myself.ip, target_key=min_max_keys,
                                                           source_flag=INT, source_id=self.master.id)
-        self.retry_until_success(dumps(new_added_node_message), 1)
+        self.retry_until_success(dumps(new_added_node_message), 2)
 
-        new_alive_node_message = self.make_alive_node_msg(source_flag=INT, target_id=self.myself.id,
-                                                          target_master_id=self.master.id)
-        self.retry_until_success(dumps(new_alive_node_message), 2)
+        #        rep_msg = self.internal_channel.wait_int_message(dont_wait=False)
+        #        self.update_birth_information(rep_msg)
+        # new_alive_node_message = self.make_alive_node_msg(source_flag=INT, target_id=self.myself.id,
+        #                                                   target_master_id=self.master.id)
+        # self.retry_until_success(dumps(new_alive_node_message), 2)
 
         self.logger.debug("new accepted by master {}".format(self.master.id))
 
