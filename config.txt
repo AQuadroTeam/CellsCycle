@@ -1,5 +1,5 @@
 LogFile logFile.txt
-Verbose True
+Verbose False
 PreallocatedPool  300000000
 SlabSize 1000000
 GetterThreadNumber 2
