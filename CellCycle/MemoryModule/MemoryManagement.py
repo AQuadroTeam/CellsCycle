@@ -67,8 +67,8 @@ def _memoryTask(settings, logger,master, url_setFrontend, url_getFrontend, url_g
         th.start()
 
     slaveSetQueue = Queue.Queue()
-    hostState = None
-
+    hostState = {}
+    hostState["current"] = None
     Thread(name='MemoryPerformanceMetricator',target=_memoryMetricatorThread, args=(logger, cache, settings, master, timing)).start()
     Thread(name='MemorySlaveSetter',target=_setToSlaveThread, args=(logger,settings, cache,master,url_getBackend, slaveSetQueue, hostState)).start()
 
@@ -86,7 +86,7 @@ def _memoryMetricatorThread(logger, cache, settings, master, timing):
 
         logger.debug("Metricator alive, period: "+ str(period) +"s, getThrLevel: [" +str(getScaleDownLevel) +"," + str(getScaleUpLevel)+ "], setThrLevel: [" + str(setScaleDownLevel) + "," + str(setScaleUpLevel) + "]"  )
 
-        # TODO remove this, this is Andrea's stuff xD
+        # this channel is necessary to send scale up/down requests
         internal_channel = InternalChannel(addr='127.0.0.1', port=settings.getIntPort(), logger=logger)
         internal_channel.generate_internal_channel_client_side()
 
@@ -103,14 +103,14 @@ def _memoryMetricatorThread(logger, cache, settings, master, timing):
             # scale up needed
             if getMean >= getScaleUpLevel or setMean >= setScaleUpLevel:
                 logger.debug("Requests for scale Up!")
-                # TODO: add call scale up service
+                # call scale up service
                 ListThread.notify_scale_up(internal_channel)
                 # self.list_communication_thread.notify_scale_up()
 
             # scale down needed
             elif getMean <= getScaleDownLevel or setMean <= setScaleDownLevel:
                 logger.debug("Requests for scale Down!")
-                # TODO: add call scale down service
+                # Tcall scale down service
                 ListThread.notify_scale_down(internal_channel)
                 # self.list_communication_thread.notify_scale_down()
 
@@ -120,13 +120,18 @@ def _proxyThread(logger, master, frontend, backend, url_frontend, url_backend):
     zmq.proxy(frontend, backend)
 
 def _setToSlaveThread(logger,settings,  cache, master,url, queue, hostState):
+    if(not master):
+        return
     import time
-    while (hostState == None):
+    while (hostState["current"] == None):
+        logger.debug("cannot send to slave, net info: "+ str(hostState["current"]))
         time.sleep(1)
     while True:
-        logger.debug("Start to send to my slave: " + str(hostState.slave.ip))
+
         objToSend = queue.get()
-        slaveAddress = "tcp://"+hostState.slave.ip + ":"+ str(settings.getSlaveSetPort())
+        slaveAddress = "tcp://"+hostState["current"].slave.ip + ":"+ str(settings.getSlaveSetPort())
+        if(settings.isVerbose()):
+            logger.debug("send current key to slave: " + str(slaveAddress))
         if(slaveAddress != None):
             try:
                 setRequest(slaveAddress, objToSend.key, objToSend.value)
@@ -160,9 +165,12 @@ def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
             if master:
                 timing["setters"][0].startWorking()
 
+            if(settings.isVerbose()):
+                logger.debug("received set command: " + str(command))
             #logger.debug("received set command: " + str(command))
             if command.type == SETCOMMAND:
-                queue.put(Command(command.type, command.key, command.value))
+                if(master):
+                    queue.put(Command(command.type, command.key, command.value))
                 cache.set(command.key, command.value)
             elif command.type == SHUTDOWNCOMMAND:
                 logger.debug("shutdown command")
@@ -180,48 +188,49 @@ def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
                     logger.debug("Transfer complete!")
 
             elif command.type == NEWMASTER:
-                if(hostState == None):
-                    logger.debug("Configuration of net data: "+ str(hostState))
-                    hostState = command.optional
+                if(hostState["current"] == None):
+                    hostState["current"] = command.optional
+                    logger.debug("Configuration of net data: "+ str(hostState["current"]))
+
                 else:
-                    logger.warning("master is dead. Recovering... "+ str(hostState))
-                    hostState = command.optional
+                    logger.warning("master is dead. Recovering... "+ str(hostState["current"]))
+                    hostState["current"] = command.optional
                     # import keys of master, from this slave memory
                     thisMasterMemory = "tcp://localhost:"+ str(settings.getMasterSetPort())
                     thisSlaveMemory = "tcp://localhost:"+ str(settings.getSlaveSetPort())
-                    newSlaveSlaveMemory =  "tcp://"+hostState.slave.ip+":"+ str(settings.getSlaveSetPort())
-                    beginFirst = hostState.myself.min_key #command.optional.thisnode.slave.keys.begin oldone!
-                    endFirst = hostState.myself.max_key #command.optional.thisnode.slave.keys.end oldone!
+                    newSlaveSlaveMemory =  "tcp://"+hostState["current"].slave.ip+":"+ str(settings.getSlaveSetPort())
+                    beginFirst = hostState["current"].myself.min_key #command.optional.thisnode.slave.keys.begin oldone!
+                    endFirst = hostState["current"].myself.max_key #command.optional.thisnode.slave.keys.end oldone!
                     transferRequest(thisSlaveMemory, [thisMasterMemory, newSlaveSlaveMemory], beginFirst, endFirst)
 
                     # create new slave memory for this node from new master
-                    newMasterMasterMemory = "tcp://"+ hostState.master.ip +":"+ str(settings.getMasterSetPort())
+                    newMasterMasterMemory = "tcp://"+ hostState["current"].master.ip +":"+ str(settings.getMasterSetPort())
                     # instead of localhost i must have command.optional.newmaster.url
                     thisSlaveMemory = "tcp://localhost:"+ str(settings.getSlaveSetPort())
-                    beginSecond = hostState.master.min_key #command.optional.newmaster.master.keys.begin
-                    endSecond = hostState.master.max_key #command.optional.newmaster.master.keys.end
+                    beginSecond = hostState["current"].master.min_key #command.optional.newmaster.master.keys.begin
+                    endSecond = hostState["current"].master.max_key #command.optional.newmaster.master.keys.end
                     transferRequest(newMasterMasterMemory,[thisSlaveMemory],  beginSecond, endSecond)
 
                     transferToDoAfter = True
                     transferType = NEWMASTER
 
             elif command.type == NEWSLAVE:
-                logger.debug("Slave is dead, new info: "+ str(hostState))
-                hostState = command.optional
+                logger.debug("Slave is dead, new info: "+ str(hostState["current"]))
+                hostState["current"] = command.optional
 
             elif command.type == NEWSTART:
-                logger.debug("Memory needs to be configured, first bootup of this memory node, new info: "+ str(hostState))
-                hostState = command.optional
+                logger.debug("Memory needs to be configured, first bootup of this memory node, new info: "+ str(hostState["current"]))
+                hostState["current"] = command.optional
                 # import keys of master
                 thisMasterMemory = "tcp://localhost:"+ str(settings.getMasterSetPort())
                 thisSlaveMemory = "tcp://localhost:"+ str(settings.getSlaveSetPort())
-                masterMasterMemory =  "tcp://"+hostState.master.ip+":"+ str(settings.getMasterSetPort())
+                masterMasterMemory =  "tcp://"+hostState["current"].master.ip+":"+ str(settings.getMasterSetPort())
 
-                beginFirst = hostState.myself.min_key #command.optional.thisnode.slave.keys.begin oldone!
-                endFirst = hostState.myself.max_key #command.optional.thisnode.slave.keys.end oldone!
+                beginFirst = hostState["current"].myself.min_key #command.optional.thisnode.slave.keys.begin oldone!
+                endFirst = hostState["current"].myself.max_key #command.optional.thisnode.slave.keys.end oldone!
 
-                beginSlave = hostState.master.min_key #command.optional.thisnode.slave.keys.begin oldone!
-                endSlave = hostState.master.max_key #command.optional.thisnode.slave.keys.end oldone!
+                beginSlave = hostState["current"].master.min_key #command.optional.thisnode.slave.keys.begin oldone!
+                endSlave = hostState["current"].master.max_key #command.optional.thisnode.slave.keys.end oldone!
 
                 transferRequest(masterMasterMemory, thisMasterMemory, beginFirst, endFirst)
                 transferRequest(masterMasterMemory, thisSlaveMemory, beginSlave, endSlave)
@@ -230,8 +239,8 @@ def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
                 transferType = NEWSTART
 
             elif command.type == TRANSFERCOMPLETE:
-                if(transferToDoAfter and master):
-                    # TODO call the list communication for added or recovered
+                if transferToDoAfter and master:
+                    # call the list communication for added or recovered
                     if transferType == NEWSTART:
                         internal_channel_added.send_first_internal_channel_message(message="FINISHED")
                         internal_channel_added.wait_int_message(dont_wait=False)
@@ -279,6 +288,9 @@ def _getThread(index, logger,settings, cache, master, url, timing):
             if master:
                 timing["getters"][index].startWorking()
 
+            if(settings.isVerbose()):
+                logger.debug("received get command: " + str(command))
+
             #logger.debug( "received get command: " + str(command))
             if command.type == GETCOMMAND:
                 v=cache.get(command.key)
@@ -296,8 +308,8 @@ def getRequest(url, key):
     socket = context.socket(zmq.REQ)
     socket.connect(url)
 
-    socket.forward(dumps(Command(GETCOMMAND, key)))
-    v = loads(socket.wait_ext_message())
+    socket.send(dumps(Command(GETCOMMAND, key)))
+    v = loads(socket.recv())
     socket.close()
     return v
 
@@ -306,7 +318,7 @@ def setRequest(url, key, value):
     socket = context.socket(zmq.PUSH)
     socket.connect(url)
 
-    socket.forward(dumps(Command(SETCOMMAND, key, value)))
+    socket.send(dumps(Command(SETCOMMAND, key, value)))
     socket.close()
 
 def killProcess(url):
@@ -314,7 +326,7 @@ def killProcess(url):
     socket = context.socket(zmq.PUSH)
     socket.connect(url)
 
-    socket.forward(dumps(Command(SHUTDOWNCOMMAND)))
+    socket.send(dumps(Command(SHUTDOWNCOMMAND)))
     socket.close()
 
 def transferRequest(url, dest, begin, end):

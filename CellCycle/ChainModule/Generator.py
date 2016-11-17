@@ -1,9 +1,8 @@
 #! /usr/bin/env python
 
-from ListThread import Node, ListThread
+from ListThread import Node
 from DeadReader import DeadReader
 from DeadWriter import DeadWriter
-from time import sleep
 
 MYSELF = 'myself'
 MASTER = 'master'
@@ -34,17 +33,24 @@ class Generator:
         self.logger = logger
         self.settings = settings
         self.args = json_arg
+        self._writer = None
+        self._reader = None
 
-    @staticmethod
-    def _get_node_from_data(data):
-        # return Node(data[ID], data[IP], self.settings.getIntPort(),
-        #             self.settings.getExtPort(), min_key=data[MIN_KEY], max_key=data[MAX_KEY])
-        # TODO remove this to deploy
-        int_port = "558{}".format(data[IP][len("172.31.20.")])
-        ext_port = "559{}".format(data[IP][len("172.31.20.")])
-        memory_port = "557{}".format(data[IP][len("172.31.20.")])
-        return Node(data[ID], LOCAL_HOST, int_port,
-                    ext_port, min_key=data[MIN_KEY], max_key=data[MAX_KEY], memory_port=memory_port)
+    def _get_node_from_data(self, data):
+        return Node(data[ID], data[IP], self.settings.getIntPort(),
+                    self.settings.getExtPort(), min_key=data[MIN_KEY], max_key=data[MAX_KEY],
+                    memory_port=self.settings.getMemoryObjectPort())
+
+    def get_reader(self):
+        return self._reader
+
+    def get_writer(self):
+        return self._writer
+
+    def start_reader_writer(self):
+        self._reader.start()
+        self._writer.start()
+        self._reader.join()
 
     def create_process_environment(self):
         myself = self.args[MYSELF]
@@ -65,28 +71,8 @@ class Generator:
         reader = DeadReader(myself, master, slave, slave_of_slave, master_of_master, self.logger, self.settings,
                             thread_reader_name, writer)
 
-        reader.start()
-        writer.start()
-
-        from threading import Thread
-
-        # FIXME This part is just to test dead node cycle
-        new_scale_down_thread = Thread(name="ScaleDownThread", target=scale_down_thread, args=(myself, self.logger,))
-        new_scale_down_thread.start()
-
-        # FIXME This part is just to test add node cycle
-        sleep(10)
-        if myself.id == "1" or myself.id == "2" or myself.id == "4":
-            # from threading import Thread
-            new_scale_up_thread = Thread(name="ScaleUpThread", target=scale_up_thread, args=(myself, self.logger,))
-            new_scale_up_thread.start()
-
-        reader.join()
-
-        # TODO return writer instance
-    # unused
-    # def create_process(self):
-    #     Process(name='ListCommunicationProcess', target=Generator._create_process_environment(self))
+        self._reader = reader
+        self._writer = writer
 
 
 class Parameter:    # unused
@@ -97,77 +83,3 @@ class Parameter:    # unused
         self.slave_of_slave = slave_of_slave
         self.master = master
         self.master_of_master = master_of_master
-
-
-def scale_down_thread(a, l):
-    from CellCycle.ChainModule.ListCommunication import InternalChannel
-    internal_channel_server = InternalChannel(addr='127.0.0.1', port=a.memory_port, logger=l)
-    internal_channel_server.generate_internal_channel_server_side()
-    internal_channel_server.wait_int_message(dont_wait=False)
-    # internal_channel_server.reply_to_int_message("OK")
-
-    l.debug("computing new keys")
-    sleep(5)
-    l.debug("keys computed")
-
-    # myself = Generator._get_node_from_data(a[MYSELF])
-    internal_channel = InternalChannel(addr='127.0.0.1', port=a.int_port, logger=l)
-    internal_channel.generate_internal_channel_client_side()
-
-    # if myself.int_port == 1:
-
-    ListThread.notify_memory_request_finished(internal_channel)
-    # else:
-    #     while True:
-    #         sleep(5)
-
-
-def scale_up_thread(a, l):
-    from CellCycle.ChainModule.ListCommunication import InternalChannel
-
-    # myself = Generator._get_node_from_data(a[MYSELF])
-    internal_channel = InternalChannel(addr='127.0.0.1', port=a.int_port, logger=l)
-    internal_channel.generate_internal_channel_client_side()
-
-    # while True:
-    ListThread.notify_scale_up(internal_channel)
-    #     sleep(5)
-
-    # else:
-    #     while True:
-    #         sleep(5)
-
-
-def gen(l, s, a):
-    generator = Generator(logger=l, settings=s, json_arg=a)
-    generator.create_process_environment()
-
-
-def create_single_process(l, s, a):
-    new_process = Process(name="Process-"+str(n), target=gen, args=(l, s, a, ))
-    new_process.start()
-
-
-if __name__ == "__main__":
-    from firstLaunchAWS import create_instances_parameters
-    from start import loadSettings
-    from start import loadLogger
-
-    params = create_instances_parameters()
-    currentProfile = {"profile_name": "alessandro_fazio", "key_pair": "AWSCellCycle", "branch": "ListUtilities"}
-    settings_to_launch = loadSettings(currentProfile=currentProfile)
-    logger_to_launch = loadLogger(settings_to_launch)
-
-    jobs = []
-    from multiprocessing import Process
-    for n in xrange(len(params)):
-        p = Process(name="Process-"+str(n), target=gen, args=(logger_to_launch, settings_to_launch, params[n], ))
-        jobs.append(p)
-        p.start()
-
-    sleep(1)
-    jobs[1].terminate()
-    # jobs[0].terminate()
-
-    # for i in jobs:
-    #     i.join()

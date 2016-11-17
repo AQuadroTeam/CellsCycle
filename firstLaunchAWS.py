@@ -9,6 +9,7 @@ def _get_parameter(node_id, private_ip, min_key, max_key):
 
 def create_instances_parameters():
 
+    """
     first = _get_parameter(node_id="1", private_ip="172.31.20.1", min_key="0", max_key="19")
     # parameter["master_of_master"] = first
 
@@ -23,6 +24,22 @@ def create_instances_parameters():
 
     fifth = _get_parameter(node_id="5", private_ip="172.31.20.5", min_key="80", max_key="99")
     # parameter["slave_of_slave"] = fifth
+    """
+    n = 5
+    key_int = (2**32-1)/n
+    first = _get_parameter(node_id="1", private_ip="172.31.20.1", min_key="0", max_key=str(key_int-1))
+    # parameter["master_of_master"] = first
+
+    second = _get_parameter(node_id="2", private_ip="172.31.20.2", min_key=str(key_int), max_key=str(2*key_int-1))
+    # parameter["master"] = second
+
+    third = _get_parameter(node_id="3", private_ip="172.31.20.3", min_key=str(2*key_int), max_key=str(3*key_int-1))
+    # parameter["myself"] = third
+
+    fourth = _get_parameter(node_id="4", private_ip="172.31.20.4", min_key=str(3*key_int), max_key=str(4*key_int-1))
+    # parameter["slave"] = fourth
+
+    fifth = _get_parameter(node_id="5", private_ip="172.31.20.5", min_key=str(4*key_int), max_key=str(5*key_int-1))
 
     list_parameters = [first, second, third, fourth, fifth]
 

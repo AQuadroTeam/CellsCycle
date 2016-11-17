@@ -1,5 +1,10 @@
 #! /usr/bin/env python
-from Message import InformationMessage
+from CellCycle.AWS.AWSlib import startInstanceAWS, terminateThisInstanceAWS
+from CellCycle.ChainModule.MemoryObject import MemoryObject
+from CellCycle.ChainModule.Message import InformationMessage
+from CellCycle.KeyCalcManager import keyCalcToCreateANewNode
+from CellCycle.MemoryModule.MemoryManagement import newMasterRequest, newSlaveRequest
+from CellCycle.MemoryModule.calculateSon import calculateSonId
 from ListCommunication import *
 from Printer import *
 from zmq import ZMQError
@@ -8,7 +13,6 @@ from ChainFlow import *
 from ListThread import Node
 from cPickle import dumps, loads
 from firstLaunchAWS import create_specific_instance_parameters
-from DeadReader import DeadReader
 from CycleStateMachine import TransitionTable
 from ChainList import DeadList
 
@@ -37,18 +41,7 @@ class DeadWriter (ConsumerThread):
         self.last_dead_node = None
         self.deads = DeadList()
         # self.first_time = True
-
-        # TODO remove this and replace with canonicals check
-        # if self.canonical_check():
-        if self.myself.ip is '':
-            # We are a new machine
-            self.myself.ip = "127.0.0.1"
-            # self.first_time = False
-        # TODO remove this comment to deploy
-        # else:
-            # Let's begin with the memory part, this is the case of first boot
-
-            # self.new_master_request()
+        # FIXME The old version here had canonical_check
 
         self.external_channel = ExternalChannel(addr=self.myself.ip, port=self.myself.ext_port, logger=self.logger)
         self.internal_channel = InternalChannel(addr=self.myself.ip, port=self.myself.int_port, logger=self.logger)
@@ -124,25 +117,23 @@ class DeadWriter (ConsumerThread):
         self.last_seen_random = msg.random
 
     def new_master_request(self):
-        internal_channel_on_the_fly = InternalChannel(addr="127.0.0.1", port=self.myself.memory_port,
-                                                      logger=self.logger)
-        internal_channel_on_the_fly.generate_internal_channel_client_side()
-        internal_channel_on_the_fly.send_first_internal_channel_message("NEED RESTORED")
-        # internal_channel_on_the_fly.wait_int_message(dont_wait=False)
-        # internal_channel_on_the_fly.close()
+        master_of_master_to_send = self.node_list.get_value(self.master_of_master.id).master
+        memory_object = MemoryObject(master_of_master_to_send, self.master_of_master, self.master,
+                                     self.myself, self.slave)
+        newMasterRequest("tcp://localhost:" + str(self.settings.getMasterSetPort()), memory_object)
 
-        # TODO remove above, this is the right code
-        # master_of_master_to_send = self.node_list.get_value(self.master_of_master.id).master
-        # memory_object = MemoryObject(master_of_master_to_send, self.master_of_master, self.master,
-        # self.myself, self.slave)
-        # loads(newMasterRequest("tcp://localhost:" + str(self.settings.getMasterSetPort()), memory_object))
+    def first_boot_new_master_request(self):
+
+        master_of_master_to_send = self.master_of_master
+        memory_object = MemoryObject(master_of_master_to_send, self.master, self.myself,
+                                     self.slave, self.slave_of_slave)
+        newMasterRequest("tcp://localhost:" + str(self.settings.getMasterSetPort()), memory_object)
 
     def new_slave_request(self):
-        pass
-        # slave_of_slave_to_send = self.node_list.get_value(self.slave_of_slave.id).slave
-        # memory_object = MemoryObject(self.master, self.myself, self.slave,
-        # self.slave_of_slave, slave_of_slave_to_send)
-        # newSlaveRequest("tcp://localhost:" + str(self.settings.getMasterSetPort()), memory_object)
+        slave_of_slave_to_send = self.node_list.get_value(self.slave_of_slave.id).slave
+        memory_object = MemoryObject(self.master, self.myself, self.slave,
+                                     self.slave_of_slave, slave_of_slave_to_send)
+        newSlaveRequest("tcp://localhost:" + str(self.settings.getMasterSetPort()), memory_object)
 
     def consider_add_message(self, msg, origin_message):
         relatives_check = self.is_one_of_my_relatives(msg.source_id)
@@ -231,6 +222,7 @@ class DeadWriter (ConsumerThread):
         self.logger.debug("forwarding RESTORE message\n{}".format(msg.printable_message()))
 
     def consider_dead_message(self, msg, origin_message):
+        self.change_dead_keys_to(msg.source_id)
         target_id = msg.target_id
         target_slave = msg.target_relative_id
         target_master = msg.source_id
@@ -276,22 +268,24 @@ class DeadWriter (ConsumerThread):
             self.transition_table.change_state("pal")
 
         self.remove_from_list(msg.target_id)
+        # FIXME pay attention that i have already updated my parents
+        self.change_parents_from_list()
+
         self.forward_message(origin_message)
         self.logger.debug("forwarding this DEAD message\n{}".format(msg.printable_message()))
 
     def consider_added_message(self, msg, origin_message):
         self.logger.debug("my version is {}, uuu we have a new NODE\n{}".
                           format(str(self.version), msg.printable_message()))
-        min_max_key = Node.to_min_max_key_obj(msg.target_key)
-        # TODO remove this to deploy
-        # node_to_add = Node(msg.target_id, msg.target_addr, self.settings.getIntPort(),
-        #                    self.settings.getExtPort(),
-        #                    min_max_key.min_key, min_max_key.max_key)
-        added_int_port = "558{}".format(msg.target_id) if msg.target_id in ["1", "2", "3", "4", "5"] else "5586"
-        added_ext_port = "559{}".format(msg.target_id) if msg.target_id in ["1", "2", "3", "4", "5"] else "5596"
 
-        node_to_add = Node(msg.target_id, msg.target_addr, added_int_port,
-                           added_ext_port,
+        # new_memory_obj = self.get_memory_obj_from_new_node(msg)
+
+        # before creating adding the new node to the list let's update the old keys
+        self.change_added_keys_to(msg.source_id)
+
+        min_max_key = Node.to_min_max_key_obj(msg.target_key)
+        node_to_add = Node(msg.target_id, msg.target_addr, self.settings.getIntPort(),
+                           self.settings.getExtPort(),
                            min_max_key.min_key, min_max_key.max_key)
         self.logger.debug("adding this node in list\n{}".format(node_to_add.print_values()))
 
@@ -320,7 +314,7 @@ class DeadWriter (ConsumerThread):
             if not self.transition_table.get_current_state().can_scale_up():
                 self.transition_table.change_state("added_or_pa")
             # this was the old version self.change_parents(node_to_add)
-            self.change_parents()
+            self.change_parents_from_list()
             self.logger.debug("welcome new relative! now i am able to receive new scale ups, relatives:\n"
                               "{}, {}, {}, {}, {}".format(self.master_of_master.id, self.master.id, self.myself.id,
                                                           self.slave.id, self.slave_of_slave.id))
@@ -331,6 +325,10 @@ class DeadWriter (ConsumerThread):
     def writer_behavior(self):
 
         self.internal_channel.generate_internal_channel_server_side()
+
+        if self.canonical_check():
+            # Let's begin with the memory part, this is the case of first boot
+            self.first_boot_new_master_request()
 
         loads(self.internal_channel.wait_int_message(dont_wait=False))
 
@@ -396,7 +394,6 @@ class DeadWriter (ConsumerThread):
             self.external_channel.forward(origin_message)
         except zmq.Again as a:
             self.logger_debug("my slave is DEAD " + a.message)
-            # TODO This signature is wrong, change target_master_id in target_slave_id
             dead_message = self.make_dead_node_msg(target_id=self.slave.id, target_addr=self.slave.ip,
                                                    target_key=self.slave.get_min_max_key(),
                                                    target_master_id=self.slave_of_slave.id)
@@ -455,7 +452,7 @@ class DeadWriter (ConsumerThread):
 
         if is_int_message(msg):
             # Now we have a simple object to handle with
-            # if msg == "FINISHED" and self.dead_cycle_finished:
+
             if is_alive_message(msg):
                 can_scale_up = self.transition_table.get_current_state().can_scale_up()
                 if can_scale_up and msg.target_id == self.node_to_add:
@@ -471,13 +468,15 @@ class DeadWriter (ConsumerThread):
                 can_scale_up = self.transition_table.get_current_state().can_scale_up()
                 if can_scale_up:
                     self.internal_channel.reply_to_int_message(OK)
-                    # if self.first_time:
-                    #     self.first_time = False
-                    # else:
+
                     self.version = int(self.last_seen_version) + 1
-                    msg = self.make_add_node_msg(target_id=str(compute_son_id(float(self.myself.id),
+                    memory_obj = MemoryObject(self.master_of_master, self.master, self.myself,
+                                              self.slave, self.slave_of_slave)
+                    new_min_max_key = keyCalcToCreateANewNode(memory_obj).newNode
+                    min_max_key_string = "{}:{}".format(str(new_min_max_key.min_key), str(new_min_max_key.max_key))
+                    msg = self.make_add_node_msg(target_id=str(calculateSonId(float(self.myself.id),
                                                                               float(self.slave.id))),
-                                                 target_key="0:19",
+                                                 target_key=min_max_key_string,
                                                  source_flag=INT, target_slave_id=self.slave.id)
                     msg_to_send = to_external_message(self.version, msg)
                     self.last_add_message = msg_to_send
@@ -526,14 +525,12 @@ class DeadWriter (ConsumerThread):
                     # we send a notice to the next node
                     self.forward_message(string_message)
                     # and now we add the new node
-                    min_max_key = Node.to_min_max_key_obj(msg.target_key)
-                    added_int_port = "558{}".format(msg.target_id) if msg.target_id in \
-                        ["1", "2", "3", "4", "5"] else "5586"
-                    added_ext_port = "559{}".format(msg.target_id) if msg.target_id in \
-                        ["1", "2", "3", "4", "5"] else "5596"
+                    self.change_added_keys_to(msg.source_id)
 
-                    node_to_add = Node(msg.target_id, msg.target_addr, added_int_port,
-                                       added_ext_port,
+                    min_max_key = Node.to_min_max_key_obj(msg.target_key)
+
+                    node_to_add = Node(msg.target_id, msg.target_addr, self.settings.getIntPort(),
+                                       self.settings.getExtPort(),
                                        min_max_key.min_key, min_max_key.max_key)
                     self.logger.debug("adding this node in list\n{}".format(node_to_add.print_values()))
 
@@ -559,14 +556,12 @@ class DeadWriter (ConsumerThread):
 
                     self.internal_channel.reply_to_int_message(dumps(information_message))
 
-                    # TODO change if it doesn't work
                     # self.wait_the_new_node_and_send_the_list()
-                    self.change_parents()
+                    self.change_parents_from_list()
 
             if is_scale_down_message(msg):
                 if self.transition_table.get_current_state().can_scale_down():
-                    exit(0)
-                # TODO replace with terminate instance and check for reply
+                    terminateThisInstanceAWS(settings=self.settings, logger=self.logger)
         else:
             # self.logger.debug(just_received_new_msg(self.myself.id, self.master.id,
             #                                         msg.printable_message()))
@@ -581,21 +576,21 @@ class DeadWriter (ConsumerThread):
                 self.logger.debug("LAST ADD message")
                 # The cycle is over
                 # We have to wait for a new node
-                new_node_id_to_add = str(compute_son_id(float(self.myself.id), float(self.slave.id)))
-                # new_node_keys_to_add = compute_son_key()
-                new_node_instance_to_add = Node(new_node_id_to_add, "172.31.20.6", '5586',
-                                                '5596',
-                                                '0', '19')
+                memory_obj = MemoryObject(self.master_of_master, self.master, self.myself,
+                                          self.slave, self.slave_of_slave)
+                new_min_max_key = keyCalcToCreateANewNode(memory_obj).newNode
+
+                new_node_id_to_add = str(calculateSonId(float(self.myself.id), float(self.slave.id)))
+                new_node_instance_to_add = Node(new_node_id_to_add, None, self.settings.getIntPort(),
+                                                self.settings.getExtPort(),
+                                                new_min_max_key.min_key, new_min_max_key.max_key)
                 specific_parameters = [self.master, self.myself, new_node_instance_to_add, self.slave,
                                        self.slave_of_slave]
 
                 self.last_add_message = ''
                 self.node_to_add = msg.target_id
-                # startInstanceAWS(self.settings, self.logger, create_specific_instance_parameters(specific_parameters))
+                startInstanceAWS(self.settings, self.logger, create_specific_instance_parameters(specific_parameters))
                 self.new_slave_request()
-                # TODO generate node with startInstanceAWS
-                create_single_process(l=self.logger, s=self.settings,
-                                      a=create_specific_instance_parameters(specific_parameters))
                 self.logger.debug("ADD CYCLE completed")
             elif is_my_last_added_message(msg, self.last_added_message):
                 # The cycle is over
@@ -678,98 +673,3 @@ class DeadWriter (ConsumerThread):
                     else:
                         self.logger.debug("this message will never be forwarded due to lower "
                                           "last seen version:\n"+msg.printable_message())
-
-
-LOCAL_HOST = '127.0.0.1'
-MYSELF = 'myself'
-MASTER = 'master'
-SLAVE = 'slave'
-MASTER_OF_MASTER = 'master_of_master'
-SLAVE_OF_SLAVE = 'slave_of_slave'
-
-ID = 'id'
-IP = 'ip'
-MIN_KEY = 'min_key'
-MAX_KEY = 'max_key'
-
-
-class Generator:
-    def __init__(self, logger, settings, json_arg):
-        self.logger = logger
-        self.settings = settings
-        self.args = json_arg
-
-    def _get_node_from_data(self, data):
-        # return Node(data[ID], data[IP], self.settings.getIntPort(),
-        #             self.settings.getExtPort(), min_key=data[MIN_KEY], max_key=data[MAX_KEY])
-
-        if data[IP] == "172.31.20.6":
-
-            int_port = "5586"
-            ext_port = "5596"
-            memory_port = "5576"
-            return Node(data[ID], '', int_port,
-                        ext_port, min_key=data[MIN_KEY], max_key=data[MAX_KEY], memory_port=memory_port)
-        else:
-            # int_port = "558{}".format(len("172.31.20."))
-            # ext_port = "559{}".format(len("172.31.20."))
-            int_port = "558{}".format(data[ID])
-            ext_port = "559{}".format(data[ID])
-            memory_port = "557{}".format(data[ID])
-            return Node(data[ID], data[IP], int_port,
-                        ext_port, min_key=data[MIN_KEY], max_key=data[MAX_KEY], memory_port=memory_port)
-
-    def create_process_environment(self):
-        myself = self.args[MYSELF]
-        myself = self._get_node_from_data(myself)
-        master = self.args[MASTER]
-        master = self._get_node_from_data(master)
-        slave = self.args[SLAVE]
-        slave = self._get_node_from_data(slave)
-        master_of_master = self.args[MASTER_OF_MASTER]
-        master_of_master = self._get_node_from_data(master_of_master)
-        slave_of_slave = self.args[SLAVE_OF_SLAVE]
-        slave_of_slave = self._get_node_from_data(slave_of_slave)
-
-        thread_reader_name = "Reader-{}".format(myself.id)
-        thread_writer_name = "Writer-{}".format(myself.id)
-
-        writer = DeadWriter(myself, master, slave, slave_of_slave, master_of_master, self.logger, self.settings,
-                            thread_writer_name)
-        reader = DeadReader(myself, master, slave, slave_of_slave, master_of_master, self.logger, self.settings,
-                            thread_reader_name, writer)
-
-        reader.start()
-        writer.start()
-
-        time.sleep(5)
-        if myself.id not in ["1", "2", "3", "4", "5"]:
-            from threading import Thread
-            new_scale_up_thread = Thread(name="NewInstanceThread", target=new_instance_thread, args=(myself,
-                                                                                                     self.logger,))
-            new_scale_up_thread.start()
-
-        reader.join()
-    # unused
-    # def create_process(self):
-    #     Process(name='ListCommunicationProcess', target=Generator._create_process_environment(self))
-
-
-def new_instance_thread(a, l):
-    internal_channel = InternalChannel(addr='127.0.0.1', port=a.memory_port, logger=l)
-    internal_channel.generate_internal_channel_client_side()
-    time.sleep(2)
-    internal_channel.send_first_internal_channel_message(message="FINISHED")
-    internal_channel.wait_int_message(dont_wait=False)
-
-
-def gen(l, s, a):
-    generator = Generator(logger=l, settings=s, json_arg=a)
-    generator.create_process_environment()
-
-
-def create_single_process(l, s, a):
-    l.debug("CREATING NEW PROCESS")
-    from multiprocessing import Process
-    new_process = Process(name="Process-NewBorn", target=gen, args=(l, s, a, ))
-    new_process.start()

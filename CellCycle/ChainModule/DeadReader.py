@@ -1,4 +1,7 @@
 #! /usr/bin/env python
+
+from CellCycle.ChainModule.MemoryObject import MemoryObject
+from CellCycle.MemoryModule.MemoryManagement import newStartRequest
 from ProdCons import ProducerThread
 from ListCommunication import *
 from zmq import Again
@@ -9,7 +12,13 @@ from cPickle import loads, dumps
 
 
 class DeadReader(ProducerThread):
-    def __init__(self, myself, master, slave, slave_of_slave, master_of_master, logger, settings, name, writer_instance):
+    """This is a reader thread that waits for its master.
+    If TIMEOUT passes then the master is DEAD.
+
+    """
+
+    def __init__(self, myself, master, slave, slave_of_slave, master_of_master, logger, settings, name,
+                 writer_instance):
         ProducerThread.__init__(self, myself, master, slave, slave_of_slave, master_of_master, logger, settings, name)
         self.logger.debug(these_are_my_features_reader(self.myself.id, self.master.id, self.slave.id,
                                                        self.myself.int_port, self.myself.ext_port, self.myself.ip))
@@ -18,10 +27,9 @@ class DeadReader(ProducerThread):
         self.external_channel = ExternalChannel(addr=self.master.ip, port=self.master.ext_port, logger=self.logger)
         self.internal_channel = InternalChannel(addr=self.master.ip, port=self.master.int_port, logger=self.logger)
 
-        # self.internal_channel_memory = InternalChannel(addr="localhost", port=self.settings.getMemoryObjectPort(),
-        #                                                logger=self.logger)
-        self.internal_channel_memory = InternalChannel(addr="127.0.0.1", port=self.myself.memory_port,
+        self.internal_channel_memory = InternalChannel(addr="localhost", port=self.settings.getMemoryObjectPort(),
                                                        logger=self.logger)
+
         self.writer_instance = writer_instance
 
     def run(self):
@@ -30,9 +38,12 @@ class DeadReader(ProducerThread):
         self.logger.debug(exiting_reader(self.myself.id))
 
     def new_start_request(self):
-        pass
-        # memory_object = MemoryObject(self.master_of_master, self.master, self.myself, self.slave, self.slave_of_slave)
-        # newStartRequest("tcp://localhost:" + str(self.settings.getMasterSetPort()), memory_object)
+        memory_object = MemoryObject(self.master_of_master, self.master, self.myself, self.slave, self.slave_of_slave)
+        newStartRequest("tcp://localhost:" + str(self.settings.getMasterSetPort()), memory_object)
+        # wait for added by memory module
+        self.internal_channel_memory.generate_internal_channel_server_side()
+        self.internal_channel_memory.wait_int_message(dont_wait=False)
+        self.internal_channel_memory.reply_to_int_message(OK)
 
     def update_birth_information(self, rep_msg):
         self.node_list = rep_msg.node_list
@@ -68,12 +79,9 @@ class DeadReader(ProducerThread):
 
     def new_birth_connection(self):
         self.logger.debug("new birth sync init")
-        self.myself.ip = "127.0.0.1"
-        self.myself.int_addr = '{}:{}'.format(self.myself.ip, self.myself.int_port)    # ip:int_port
-        self.myself.ext_addr = '{}:{}'.format(self.myself.ip, self.myself.ext_port)    # ip:ext_port
 
         self.new_start_request()
-        # wait for added
+        # wait for memory request finished
         self.internal_channel_memory.generate_internal_channel_server_side()
         self.internal_channel_memory.wait_int_message(dont_wait=False)
         self.internal_channel_memory.reply_to_int_message(OK)
@@ -166,19 +174,11 @@ class DeadReader(ProducerThread):
 
                                 min_max_key = Node.to_min_max_key_obj(message.target_key)
                                 self.master_of_master = self.master
-                                # self.master = Node(node_id=message.target_id, ip=message.target_addr,
-                                #                    min_key=min_max_key.min_key, max_key=min_max_key.max_key,
-                                #                    int_port=self.settings.getIntPort(),
-                                #                    ext_port=self.settings.getExtPort())
-                                added_int_port = "558{}".format(message.target_id) if \
-                                    message.target_id in ["1", "2", "3", "4", "5"] else "5586"
-                                added_ext_port = "559{}".format(message.target_id) if \
-                                    message.target_id in ["1", "2", "3", "4", "5"] else "5596"
-
                                 self.master = Node(node_id=message.target_id, ip=message.target_addr,
                                                    min_key=min_max_key.min_key, max_key=min_max_key.max_key,
-                                                   int_port=added_int_port,
-                                                   ext_port=added_ext_port)
+                                                   int_port=self.settings.getIntPort(),
+                                                   ext_port=self.settings.getExtPort())
+
                                 self.logger.debug("added node as new master\n{}".format(self.master.print_values()))
                                 self.external_channel.close()
                                 self.internal_channel.close()
@@ -187,22 +187,15 @@ class DeadReader(ProducerThread):
                                 self.external_channel = ExternalChannel(addr=self.master.ip, port=self.master.ext_port,
                                                                         logger=self.logger)
                                 stop = True
-                            if self.is_my_new_master_of_master(message):
-                                # TODO change this part to deploy
-                                min_max_key = Node.to_min_max_key_obj(message.target_key)
-                                # self.master = Node(node_id=message.target_id, ip=message.target_addr,
-                                #                    min_key=min_max_key.min_key, max_key=min_max_key.max_key,
-                                #                    int_port=self.settings.getIntPort(),
-                                #                    ext_port=self.settings.getExtPort())
-                                added_int_port = "558{}".format(message.target_id) if \
-                                    message.target_id in ["1", "2", "3", "4", "5"] else "5586"
-                                added_ext_port = "559{}".format(message.target_id) if \
-                                    message.target_id in ["1", "2", "3", "4", "5"] else "5596"
+                            elif self.is_my_new_master_of_master(message):
+                                # This is the part when i connect to another publisher
 
+                                min_max_key = Node.to_min_max_key_obj(message.target_key)
                                 self.master_of_master = Node(node_id=message.target_id, ip=message.target_addr,
                                                              min_key=min_max_key.min_key, max_key=min_max_key.max_key,
-                                                             int_port=added_int_port,
-                                                             ext_port=added_ext_port)
+                                                             int_port=self.settings.getIntPort(),
+                                                             ext_port=self.settings.getExtPort())
+
                                 self.logger.debug("added node as new master_of_master\n{}".format(
                                     self.master_of_master.print_values()))
 
