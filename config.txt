@@ -1,6 +1,6 @@
 LogFile logFile.txt
 Verbose False
-PreallocatedPool  300000000
+PreallocatedPool  200000000
 SlabSize 1000000
 GetterThreadNumber 2
 MasterSetPort 5550
@@ -17,7 +17,7 @@ SetScaleDownLevel 0
 AwsImageId ami-a643b8c9
 AwsSecurityGroup SSHToAll
 AwsKeyName AWSCellCycle
-GitBranch ListUtilities
+GitBranch AmazonTest
 StartFileRelativePath startOnBoot.py
 IntPort 5557
 ExtPort 5558
