@@ -50,7 +50,8 @@ def _serviceThread(settings, logger, url_Backend,socket,queue, list_manager):
         if(message != ""):
             command = message.split()
             try:
-                logger.debug("Received command: " + str(command))
+                if(settings.isVerbose()):
+                    logger.debug("Received command: " + str(command))
                 _manageRequest(logger, settings, socket, command, client, list_manager)
             except Exception as e:
                 logger.warning("Error for client: "+ str(client) +", error:"+ str(e) + ". command: " + message)
