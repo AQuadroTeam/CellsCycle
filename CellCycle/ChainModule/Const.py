@@ -19,12 +19,17 @@ SOURCE_ID_INDEX = 8
 NUM_FIELDS = 9
 
 # Priority
-DEAD = '4'
+DEAD = '5'
+RESTORE = '4'
 RESTORED = '3'
 ADDED = '2'
 ADD = '1'
 ALIVE = '0'
-IN_PROC = '-1'
+MEMORY_REQUEST_STARTED = '-1'
+MEMORY_REQUEST_FINISHED = '-2'
+SCALE_UP = '-3'
+SCALE_DOWN = '-4'
+
 
 # List communication
 DEFAULT_ADDR = '127.0.0.1'

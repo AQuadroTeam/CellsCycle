@@ -118,17 +118,17 @@ class ExternalChannel(ListCommunication):
         try:
             # self.logger.debug('sending message')
             self.list_communication_channel.send(data)
-            self.logger.debug('ok with the message')
+            # self.logger.debug('ok with the message')
         except zmq.NotDone:
             # time.sleep(TRY_TIMEOUT)
-            self.logger.debug('my recipient is dead')
+            self.logger.debug('my recipient is dead, not done')
             self.list_communication_channel.close()
         except zmq.Again:
             self.logger.debug('my recipient is dead')
-            self.list_communication_channel.close()
+            # self.list_communication_channel.close()
             raise zmq.Again
         except zmq.ZMQError as a:
-            self.logger.debug(a.strerror)
+            self.logger.debug("Error in message forward " + a.strerror)
             self.context.destroy()
             self.context = zmq.Context()
 

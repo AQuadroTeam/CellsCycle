@@ -8,7 +8,7 @@ from Const import *
 from random import randint
 from ChainList import ChainList
 from Printer import this_is_the_thread_in_action
-from Message import Message, InProcMessage
+from Message import Message
 from cPickle import dumps
 from socket import getfqdn, gethostbyname
 
@@ -69,7 +69,8 @@ class ListThread (threading.Thread):
         self.node_list.add_node(target_node=target_node, target_master=target_master,
                                 target_slave=target_slave)
 
-    def change_parents(self, node_to_add):
+    def change_parents(self):
+        """
         master_check = float(self.myself.id) > float(node_to_add.id) > float(self.master.id)
         slave_check = float(self.slave.id) > float(node_to_add.id) > float(self.myself.id)
         master_of_master_check = float(self.master.id) > float(node_to_add.id) > float(self.master_of_master.id)
@@ -87,6 +88,17 @@ class ListThread (threading.Thread):
         elif slave_of_slave_check:
             self.slave_of_slave = node_to_add
             self.logger.debug("my slave_of_slave is changed, now is {}".format(self.slave_of_slave.id))
+        """
+        my = self.node_list.get_value(self.myself.id)
+        m = my.master
+        s = my.slave
+        mm = self.node_list.get_value(m.id).master
+        ss = self.node_list.get_value(s.id).slave
+
+        self.master = m
+        self.slave = s
+        self.master_of_master = mm
+        self.slave_of_slave = ss
 
     # This function is the same as change_parents but more secure because takes info from the list
     def change_parents_from_list(self):
@@ -267,6 +279,36 @@ class ListThread (threading.Thread):
         return msg
 
     @staticmethod
+    def notify_memory_request_finished(channel_to_send):
+        msg = Message()
+        msg.source_flag = INT
+        msg.version = ''
+        msg.priority = MEMORY_REQUEST_FINISHED
+        msg.random = randint(MIN_RANDOM, MAX_RANDOM)
+        msg.target_id = ''
+        msg.target_key = ''
+        msg.target_addr = ''
+        msg.target_relative_id = ''
+        msg.source_id = ''
+        channel_to_send.send_first_internal_channel_message(message=dumps(msg))
+        channel_to_send.wait_int_message(dont_wait=False)
+
+    @staticmethod
+    def notify_memory_request_started(channel_to_send):
+        msg = Message()
+        msg.source_flag = INT
+        msg.version = ''
+        msg.priority = MEMORY_REQUEST_STARTED
+        msg.random = randint(MIN_RANDOM, MAX_RANDOM)
+        msg.target_id = ''
+        msg.target_key = ''
+        msg.target_addr = ''
+        msg.target_relative_id = ''
+        msg.source_id = ''
+        channel_to_send.send_first_internal_channel_message(message=dumps(msg))
+        channel_to_send.wait_int_message(dont_wait=False)
+
+    @staticmethod
     def notify_restored(channel_to_send):
         msg = Message()
         msg.source_flag = INT
@@ -294,8 +336,8 @@ class ListThread (threading.Thread):
         msg = Message()
         msg.source_flag = INT
         msg.version = ''
-        msg.priority = ADD
-        msg.random = randint(MIN_RANDOM, MAX_RANDOM)
+        msg.priority = SCALE_UP
+        msg.random = ''
         msg.target_id = ''
         msg.target_key = ''
         msg.target_addr = ''
@@ -314,24 +356,13 @@ class ListThread (threading.Thread):
         msg = Message()
         msg.source_flag = INT
         msg.version = ''
-        msg.priority = DEAD
-        msg.random = randint(MIN_RANDOM, MAX_RANDOM)
+        msg.priority = SCALE_DOWN
+        msg.random = ''
         msg.target_id = ''
         msg.target_key = ''
         msg.target_addr = ''
         msg.target_relative_id = ''
         msg.source_id = ''
-        channel_to_send.send_first_internal_channel_message(dumps(msg))
-        channel_to_send.wait_int_message(dont_wait=False)
-
-    def notify_list(self, channel_to_send):
-        # return self.make_dead_node_msg(target_id=self.myself.id, target_key=self.myself.key,
-        #                                source_flag=INT, target_master_id=self.master.id, target_addr=self.myself.ip)
-        msg = InProcMessage()
-        msg.source_flag = INT
-        msg.list = self.node_list
-        msg.priority = IN_PROC
-        self.logger.debug("sending list to {}".format(self.myself.id))
         channel_to_send.send_first_internal_channel_message(dumps(msg))
         channel_to_send.wait_int_message(dont_wait=False)
 
@@ -356,6 +387,12 @@ class ListThread (threading.Thread):
                                   target_key=target_key,
                                   target_relative=target_master_id)
 
+    def make_restore_node_msg(self, target_id, target_addr, target_key, source_flag=INT, target_master_id=''):
+        return self.make_node_msg(source_flag=source_flag, priority=RESTORE, target_id=target_id,
+                                  target_addr=target_addr,
+                                  target_key=target_key,
+                                  target_relative=target_master_id)
+
     def make_restored_node_msg(self, target_id, target_addr, target_key, source_flag=INT, target_master_id=''):
         return self.make_node_msg(source_flag=source_flag, priority=RESTORED,
                                   target_id=target_id, target_addr=target_addr,
@@ -366,6 +403,17 @@ class ListThread (threading.Thread):
             self.master.id == target_id or \
             self.slave.id == target_id or \
             self.slave_of_slave.id == target_id
+
+    def is_one_of_my_r_of_r(self, target_id):
+        mm_result = self.node_list.get_value(self.master_of_master.id).master
+        mmm_result = self.node_list.get_value(mm_result.id).master
+        ss_result = self.node_list.get_value(self.slave_of_slave.id).slave
+        sss_result = self.node_list.get_value(ss_result.id).slave
+
+        return mm_result.id == target_id or \
+            mmm_result.id == target_id or \
+            ss_result.id == target_id or \
+            sss_result.id == target_id
 
     def is_my_new_slave_of_slave(self, message):
         return float(self.slave_of_slave.id) > float(message.target_id) > float(self.slave.id)

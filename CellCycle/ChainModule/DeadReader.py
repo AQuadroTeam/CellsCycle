@@ -1,5 +1,5 @@
 #! /usr/bin/env python
-from CellCycle.AWS.AWSlib import stopThisInstanceAWS
+
 from CellCycle.ChainModule.MemoryObject import MemoryObject
 from CellCycle.MemoryModule.MemoryManagement import newStartRequest
 from ProdCons import ProducerThread
@@ -45,6 +45,21 @@ class DeadReader(ProducerThread):
         self.internal_channel_memory.wait_int_message(dont_wait=False)
         self.internal_channel_memory.reply_to_int_message(OK)
 
+    def update_birth_information(self, rep_msg):
+        self.node_list = rep_msg.node_list
+        self.writer_instance.set_list(self.node_list)
+        # internal_channel_to_send_list = InternalChannel(addr='127.0.0.1', port=self.myself.int_port,
+        #                                                 logger=self.logger)
+        # internal_channel_to_send_list.generate_internal_channel_client_side()
+        # self.notify_list(internal_channel_to_send_list)
+        # internal_channel_to_send_list.close()
+
+        self.logger.debug("received the new list\n{}".format(self.node_list.print_list()))
+        self.writer_instance.set_version(rep_msg.version)
+        self.writer_instance.set_last_seen_version(rep_msg.last_seen_version)
+        self.writer_instance.set_last_seen_priority(rep_msg.last_seen_priority)
+        self.writer_instance.set_last_seen_random(rep_msg.last_seen_random)
+
     def retry_until_success(self, msg, times):
         stop = False
         while not stop:
@@ -55,14 +70,8 @@ class DeadReader(ProducerThread):
             if not (rep_msg == NOK or rep_msg == DIE):
                 rep_msg = loads(rep_msg)
                 if times == 2:
-                    self.node_list = rep_msg.node_list
-                    self.writer_instance.set_list(self.node_list)
-                    self.logger.debug("received the new list\n{}".format(self.node_list.print_list()))
-                    self.writer_instance.set_version(rep_msg.version)
-                    self.writer_instance.set_last_seen_version(rep_msg.last_seen_version)
-                    self.writer_instance.set_last_seen_priority(rep_msg.last_seen_priority)
-                    self.writer_instance.set_last_seen_random(rep_msg.last_seen_random)
-
+                    # not necessary
+                    self.update_birth_information(rep_msg)
                 stop = True
             else:
                 self.logger.debug("wrong information at sync time, retry in 0.5 seconds")
@@ -72,6 +81,10 @@ class DeadReader(ProducerThread):
         self.logger.debug("new birth sync init")
 
         self.new_start_request()
+        # wait for memory request finished
+        self.internal_channel_memory.generate_internal_channel_server_side()
+        self.internal_channel_memory.wait_int_message(dont_wait=False)
+        self.internal_channel_memory.reply_to_int_message(OK)
 
         self.internal_channel.generate_internal_channel_client_side()
 
@@ -79,11 +92,13 @@ class DeadReader(ProducerThread):
         new_added_node_message = self.make_added_node_msg(target_id=self.myself.id, target_slave_id=self.slave.id,
                                                           target_addr=self.myself.ip, target_key=min_max_keys,
                                                           source_flag=INT, source_id=self.master.id)
-        self.retry_until_success(dumps(new_added_node_message), 1)
+        self.retry_until_success(dumps(new_added_node_message), 2)
 
-        new_alive_node_message = self.make_alive_node_msg(source_flag=INT, target_id=self.myself.id,
-                                                          target_master_id=self.master.id)
-        self.retry_until_success(dumps(new_alive_node_message), 2)
+        #        rep_msg = self.internal_channel.wait_int_message(dont_wait=False)
+        #        self.update_birth_information(rep_msg)
+        # new_alive_node_message = self.make_alive_node_msg(source_flag=INT, target_id=self.myself.id,
+        #                                                   target_master_id=self.master.id)
+        # self.retry_until_success(dumps(new_alive_node_message), 2)
 
         self.logger.debug("new accepted by master {}".format(self.master.id))
 
@@ -116,7 +131,8 @@ class DeadReader(ProducerThread):
             else:
                 stop = True
 
-        self.logger.debug("accepted by master {}".format(self.master.id))
+        self.logger.debug("accepted by master {}, achieved new master_of_master id {}"
+                          .format(self.master.id, self.master_of_master.id))
 
         self.external_channel.generate_external_channel_client_side()
         self.external_channel.external_channel_subscribe()
@@ -126,7 +142,6 @@ class DeadReader(ProducerThread):
 
     def change_master(self):
         self.master = self.master_of_master
-        self.master_of_master = None
 
     def change_master_of_master(self, new_master_of_master):
         self.master_of_master = new_master_of_master
@@ -141,7 +156,6 @@ class DeadReader(ProducerThread):
                 self.logger.debug("my IP is not none : {}".format(self.myself.ip))
                 self.init_connection()
 
-            tempt = 0
             stop = False
 
             while not stop:
@@ -153,10 +167,6 @@ class DeadReader(ProducerThread):
                     message = loads(message)
 
                     if not is_alive_message(message):
-                        if is_dead_and_i_am_the_target(message, self.myself.id):
-                            self.logger.debug(i_am_dead_goodbye(self.myself))
-                            self.external_channel.close()
-                            stopThisInstanceAWS(settings=self.settings, logger=self.logger)
 
                         if is_added_message(message):
                             if self.is_my_new_master(message):
@@ -187,53 +197,15 @@ class DeadReader(ProducerThread):
                                                              ext_port=self.settings.getExtPort())
 
                                 self.logger.debug("added node as new master_of_master\n{}".format(
-                                    self.master.print_values()))
-                                self.external_channel.close()
-                                self.internal_channel.close()
-                                self.internal_channel = InternalChannel(addr=self.master.ip, port=self.master.int_port,
-                                                                        logger=self.logger)
-                                self.external_channel = ExternalChannel(addr=self.master.ip, port=self.master.ext_port,
-                                                                        logger=self.logger)
-                                stop = True
+                                    self.master_of_master.print_values()))
 
                             self.logger.debug(new_node_added(message.target_id))
 
-                        '''
-                        This is a special case, for now we don't consider it
-                        if not is_in_list(message,self.node_list):
-                            if message[2] == PRIORITY_DEAD:
-                                self.logger.debug('Hey you are not in the list!')
-                            else:
-                                self.logger.
-                                debug('Hey ' + message[11] + ' you are not in the list! You are supposed to be dead!')
-                        '''
-
                         self.produce(origin_message)
-
-                        # if tempt < 1:
-                        # self.logger.debug(just_received_new_msg(self.myself.id, self.master.id,
-                        #                                         message.printable_message()))
-                        #     tempt += 1
 
                 except Again:
 
-                    dead_message = self.make_dead_node_msg(target_id=self.master.id, target_addr=self.master.ip,
-                                                           target_key=self.master.get_min_max_key(),
-                                                           target_master_id=self.master_of_master.id)
-                    '''
-                    This is a special case, for now we don't consider it
-                    if not (self.masterId in self.node_list):
-                        self.logger.debug('Probably i missed something')
-                        exit(1)
-                    else:
-                    '''
-
-                    self.produce(dumps(dead_message))
-                    if tempt < 1:
-                        self.logger.debug(this_is_my_dead_message(self.myself.id, self.master.id,
-                                                                  dead_message.printable_message()))
-                        tempt += 1
-
+                    self.logger.debug("my master {} is dead".format(self.master.id))
                     self.change_master()
 
                     # This is the part when i connect to another publisher
@@ -248,10 +220,3 @@ class DeadReader(ProducerThread):
                                                             logger=self.logger)
 
                     stop = True
-                    # TODO wait restored message
-                    # internal_channel_on_the_fly =
-                    # InternalChannel(addr="localhost", port=settings.getMemoryObjectPort(),
-                    #  logger=logger
-                    # internal_channel_on_the_fly.generate_internal_channel_server_side()
-                    # internal_channel_on_the_fly.wait_int_message(dont_wait=False)
-                    # internal_channel_on_the_fly.reply_to_int_message(OK)

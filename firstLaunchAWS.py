@@ -26,7 +26,7 @@ def create_instances_parameters():
     # parameter["slave_of_slave"] = fifth
     """
     n = 5
-    key_int = 2**32-1/n
+    key_int = (2**32-1)/n
     first = _get_parameter(node_id="1", private_ip="172.31.20.1", min_key="0", max_key=str(key_int-1))
     # parameter["master_of_master"] = first
 

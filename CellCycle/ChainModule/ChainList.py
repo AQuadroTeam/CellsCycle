@@ -98,3 +98,19 @@ class ListValue:
         # return 'Node : myself {}, master {}, slave {}\n'.format(target_to_print, master_to_print, slave_to_print)
 
 
+class DeadList(object):
+
+    def __init__(self):
+        self._list = dict()
+
+    def add_in_list(self, key, value):
+        self._list[key] = value
+
+    def remove_from_list(self, key):
+        try:
+            del(self._list[key])
+        except KeyError:
+            raise KeyError
+
+    def get_value(self, key):
+        return self._list[key]

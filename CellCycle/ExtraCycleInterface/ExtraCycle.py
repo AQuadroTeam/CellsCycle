@@ -50,7 +50,8 @@ def _serviceThread(settings, logger, url_Backend,socket,queue, list_manager):
         if(message != ""):
             command = message.split()
             try:
-                logger.debug("Received command: " + str(command))
+                if(settings.isVerbose()):
+                    logger.debug("Received command: " + str(command))
                 _manageRequest(logger, settings, socket, command, client, list_manager)
             except Exception as e:
                 logger.warning("Error for client: "+ str(client) +", error:"+ str(e) + ". command: " + message)
@@ -212,17 +213,16 @@ def _deleteHandler(settings, logger, socket,client, key, list_manager):
 def _getHandler(settings,logger,  socket, client, key, list_manager):
     from random import random
     #get server nodes and choose
-    host = list_manager.node_list.find_memory_key(key)
+    masterHost = list_manager.node_list.find_memory_key(key)
+    slaveHost = masterHost.slave
     if(random()>0.5):
         if(settings.isVerbose()):
-            logger.debug("sending get request to master " + str(host.target.ip))
-        returnValue =standardMasterGetRequest(settings, key, host.target.ip)
+            logger.debug("sending get request to master " + str(masterHost.target.ip))
+        returnValue =standardMasterGetRequest(settings, key, masterHost.target.ip)
     else:
         if(settings.isVerbose()):
-            logger.debug("sending get request to slave" + str(host.target.ip))
-        returnValue =standardSlaveGetRequest(settings, key, host.target.ip)
-    #
-    # TODO replace else ip with slave ip
+            logger.debug("sending get request to slave" + str(slaveHost.ip))
+        returnValue =standardSlaveGetRequest(settings, key, slaveHost.ip)
     #returnValue = standardMasterGetRequest(settings, key)
     returnValue = returnValue if returnValue!=None else ""
 

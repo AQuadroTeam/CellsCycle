@@ -12,7 +12,7 @@ def to_external_message(version, message):
 
 
 def msg_variable_version_check(msg, version):
-    return int(msg.version) >= version
+    return int(msg.version) > int(version)
 
 
 def msg_msg_version_check(msg1, msg2):
@@ -44,6 +44,10 @@ def is_my_last_added_message(msg, last_added_message):
 
 def is_my_last_dead_message(msg, last_dead_message):
     return is_equal_message(msg, last_dead_message)
+
+
+def is_my_last_restore_message(msg, last_restore_message):
+    return is_equal_message(msg, last_restore_message)
 
 
 def is_my_last_restored_message(msg, last_restored_message):
@@ -88,8 +92,24 @@ def check_message_priority(msg, priority):
     return msg.priority == priority
 
 
-def is_inproc_message(msg):
-    return check_message_priority(msg, IN_PROC)
+def is_restore_message(msg):
+    return check_message_priority(msg, RESTORE)
+
+
+def is_memory_request_started_message(msg):
+    return check_message_priority(msg, MEMORY_REQUEST_STARTED)
+
+
+def is_memory_request_finished_message(msg):
+    return check_message_priority(msg, MEMORY_REQUEST_FINISHED)
+
+
+def is_scale_up_message(msg):
+    return check_message_priority(msg, SCALE_UP)
+
+
+def is_scale_down_message(msg):
+    return check_message_priority(msg, SCALE_DOWN)
 
 
 def is_alive_message(msg):
@@ -110,6 +130,11 @@ def is_restored_message(msg):
 
 def is_dead_message(msg):
     return check_message_priority(msg, DEAD)
+
+
+def is_neutral_message(msg):
+    return check_message_priority(msg, DEAD) or check_message_priority(msg, ADDED) or \
+           check_message_priority(msg, RESTORED)
 
 # Check Dead Stuff
 

@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 
-from ListThread import Node, ListThread
+from ListThread import Node
 from DeadReader import DeadReader
 from DeadWriter import DeadWriter
 
@@ -83,70 +83,3 @@ class Parameter:    # unused
         self.slave_of_slave = slave_of_slave
         self.master = master
         self.master_of_master = master_of_master
-
-
-def scale_down_thread(a, l):
-    from CellCycle.ChainModule.ListCommunication import InternalChannel
-    internal_channel_server = InternalChannel(addr='127.0.0.1', port=a.memory_port, logger=l)
-    internal_channel_server.generate_internal_channel_server_side()
-    internal_channel_server.wait_int_message(dont_wait=False)
-    internal_channel_server.reply_to_int_message("OK")
-
-    # myself = Generator._get_node_from_data(a[MYSELF])
-    internal_channel = InternalChannel(addr='127.0.0.1', port=a.int_port, logger=l)
-    internal_channel.generate_internal_channel_client_side()
-
-    # if myself.int_port == 1:
-
-    ListThread.notify_restored(internal_channel)
-    # else:
-    #     while True:
-    #         sleep(5)
-
-
-def scale_up_thread(a, l):
-    from CellCycle.ChainModule.ListCommunication import InternalChannel
-
-    # myself = Generator._get_node_from_data(a[MYSELF])
-    internal_channel = InternalChannel(addr='127.0.0.1', port=a.int_port, logger=l)
-    internal_channel.generate_internal_channel_client_side()
-
-    # while True:
-    ListThread.notify_scale_up(internal_channel)
-    #     sleep(5)
-
-    # else:
-    #     while True:
-    #         sleep(5)
-
-
-def gen(l, s, a):
-    generator = Generator(logger=l, settings=s, json_arg=a)
-    writer = generator.create_process_environment()
-    writer.join()
-
-
-def create_single_process(l, s, a):
-    new_process = Process(name="Process-"+str(n), target=gen, args=(l, s, a, ))
-    new_process.start()
-
-
-if __name__ == "__main__":
-    from firstLaunchAWS import create_instances_parameters
-    from start import loadSettings
-    from start import loadLogger
-
-    params = create_instances_parameters()
-    currentProfile = {"profile_name": "alessandro_fazio", "key_pair": "AWSCellCycle", "branch": "ListUtilities"}
-    settings_to_launch = loadSettings(currentProfile=currentProfile)
-    logger_to_launch = loadLogger(settings_to_launch)
-
-    jobs = []
-    from multiprocessing import Process
-    for n in xrange(len(params)):
-        p = Process(name="Process-"+str(n), target=gen, args=(logger_to_launch, settings_to_launch, params[n], ))
-        jobs.append(p)
-        p.start()
-
-    # for i in jobs:
-    #     i.join()

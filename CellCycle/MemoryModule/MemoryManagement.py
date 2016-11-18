@@ -130,13 +130,18 @@ def _setToSlaveThread(logger,settings,  cache, master,url, queue, hostState):
 
         objToSend = queue.get()
         slaveAddress = "tcp://"+hostState["current"].slave.ip + ":"+ str(settings.getSlaveSetPort())
-        if(settings.isVerbose()):
-            logger.debug("send current key to slave: " + str(slaveAddress))
+
         if(slaveAddress != None):
-            try:
-                setRequest(slaveAddress, objToSend.key, objToSend.value)
-            except Exception as e:
-                logger.warning(str(e))
+            sended = False
+            while(!sended):
+                try:
+                    slaveAddress = "tcp://"+hostState["current"].slave.ip + ":"+ str(settings.getSlaveSetPort())
+                    setRequest(slaveAddress, objToSend.key, objToSend.value)
+                    if(settings.isVerbose()):
+                        logger.debug("sended current key to slave: "+str(objToSend.key) +" to " + str(slaveAddress))
+                    sended = True
+                except Exception as e:
+                    logger.warning(str(e))
 
 def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
     logger.debug("Listening in new task for set on " + url)
@@ -245,7 +250,7 @@ def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
                         internal_channel_added.send_first_internal_channel_message(message="FINISHED")
                         internal_channel_added.wait_int_message(dont_wait=False)
                     elif transferType == NEWMASTER:
-                        ListThread.notify_restored(internal_channel_restored)
+                        ListThread.notify_memory_request_finished(internal_channel_restored)
                     #avvertire gestore ciclo che E finito recovery TODO:
                     logger.warning("new master state recovery: DONE")
                     #do something with command and hostState

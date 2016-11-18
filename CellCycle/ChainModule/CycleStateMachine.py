@@ -6,10 +6,38 @@ class State(object):
                             "BusyAddPS": self.from_busy_add_ps,
                             "BusyAddPL": self.from_busy_add_pl,
                             "BusyDeadPS": self.from_busy_dead_ps,
-                            "BusyDeadPL": self.from_busy_dead_pl}
+                            "BusyDeadPL": self.from_busy_dead_pl,
+                            "MemoryRequest": self.from_memory_request}
+        self._can_pass_add = None
+        self._can_pass_restore = None
+        self._can_scale_up = None
+        self._can_scale_down = None
+        self._can_restore = None
+        self._can_accept_new_birth = None
 
     def __str__(self):
-        return "I am a state {}".format(self.__class__.__name__)
+        return "I am in state {}".format(self.__class__.__name__)
+
+    def can_accept_new_birth(self):
+        return self._can_accept_new_birth
+
+    def can_pass_add(self):
+        return self._can_pass_add
+
+    def can_pass_restore(self):
+        return self._can_pass_restore
+
+    def can_restore(self):
+        return self._can_restore
+
+    def can_scale_up(self):
+        return self._can_scale_up
+
+    def can_scale_down(self):
+        return self._can_scale_down
+
+    def get_name(self):
+        return self.__class__.__name__
 
     def transfer_from(self, prev_state):
         return self.transitions[prev_state.__class__.__name__]()
@@ -29,29 +57,46 @@ class State(object):
     def from_free(self):
         pass
 
+    def from_memory_request(self):
+        pass
+
 
 class Free(State):
 
     def __init__(self, target_instance):
         super(Free, self).__init__(target_instance)
+        self._can_pass_add = True
+        self._can_pass_restore = True
+        self._can_scale_up = True
+        self._can_scale_down = True
+        self._can_restore = True
+        self._can_accept_new_birth = True
 
     def from_busy_add_ps(self):
-        print str(self)
-        self.target_instance.set_my_attr(str(self))
+        self.target_instance.logger_debug(str(self))
+        self.target_instance.set_last_seen_priority('0')
+        self.target_instance.set_last_seen_random('0')
 
     def from_busy_add_pl(self):
-        print str(self)
-        self.target_instance.set_my_attr(str(self))
+        self.target_instance.logger_debug(str(self))
+        self.target_instance.set_last_seen_priority('0')
+        self.target_instance.set_last_seen_random('0')
 
     def from_busy_dead_ps(self):
-        print str(self)
-        self.target_instance.set_my_attr(str(self))
+        self.target_instance.logger_debug(str(self))
+        self.target_instance.set_last_seen_priority('0')
+        self.target_instance.set_last_seen_random('0')
 
     def from_busy_dead_pl(self):
-        print str(self)
-        self.target_instance.set_my_attr(str(self))
+        self.target_instance.logger_debug(str(self))
+        self.target_instance.set_last_seen_priority('0')
+        self.target_instance.set_last_seen_random('0')
 
     def from_free(self):
+        raise StrangeState()
+
+    def from_memory_request(self):
+        self.target_instance.logger_debug(str(self))
         raise StrangeState()
 
 
@@ -59,100 +104,174 @@ class BusyAddPS(State):
 
     def __init__(self, target_instance):
         super(BusyAddPS, self).__init__(target_instance)
+        self._can_pass_add = True
+        self._can_pass_restore = True
+        self._can_scale_up = False
+        self._can_scale_down = False
+        self._can_restore = True
+        self._can_accept_new_birth = True
 
     def from_busy_add_ps(self):
-        raise StrangeState()
+        self.target_instance.logger_debug(str(self))
+        self.target_instance.clear_last_add_message()
 
     def from_busy_add_pl(self):
-        print str(self)
-        self.target_instance.set_my_attr(str(self))
+        self.target_instance.logger_debug(str(self))
 
     def from_busy_dead_ps(self):
-        print str(self)
-        self.target_instance.set_my_attr(str(self))
+        self.target_instance.logger_debug(str(self))
+        raise StrangeState()
 
     def from_busy_dead_pl(self):
-        print str(self)
-        self.target_instance.set_my_attr(str(self))
+        self.target_instance.logger_debug(str(self))
+        raise StrangeState()
 
     def from_free(self):
-        print str(self)
-        self.target_instance.set_my_attr(str(self))
+        self.target_instance.logger_debug(str(self))
+
+    def from_memory_request(self):
+        self.target_instance.logger_debug(str(self))
+        raise StrangeState()
 
 
 class BusyAddPL(State):
 
     def __init__(self, target_instance):
         super(BusyAddPL, self).__init__(target_instance)
+        self._can_pass_add = True
+        self._can_pass_restore = True
+        self._can_scale_up = False
+        self._can_scale_down = False
+        self._can_restore = True
+        self._can_accept_new_birth = True
 
     def from_busy_add_ps(self):
-        print str(self)
-        self.target_instance.set_my_attr(str(self))
+        self.target_instance.logger_debug(str(self))
+        self.target_instance.clear_last_add_message()
 
     def from_busy_add_pl(self):
-        raise StrangeState()
+        self.target_instance.logger_debug(str(self))
 
     def from_busy_dead_ps(self):
-        print str(self)
-        self.target_instance.set_my_attr(str(self))
+        self.target_instance.logger_debug(str(self))
+        raise StrangeState()
 
     def from_busy_dead_pl(self):
-        print str(self)
-        self.target_instance.set_my_attr(str(self))
+        self.target_instance.logger_debug(str(self))
+        raise StrangeState()
 
     def from_free(self):
-        print str(self)
-        self.target_instance.set_my_attr(str(self))
+        self.target_instance.logger_debug(str(self))
+
+    def from_memory_request(self):
+        self.target_instance.logger_debug(str(self))
+        raise StrangeState()
 
 
 class BusyDeadPL(State):
 
     def __init__(self, target_instance):
         super(BusyDeadPL, self).__init__(target_instance)
+        self._can_pass_add = False       # This means that we cannot pass r_of_r requests
+        self._can_pass_restore = True    # This means that we can pass r_of_r requests
+        self._can_scale_up = False
+        self._can_scale_down = False
+        self._can_restore = False
+        self._can_accept_new_birth = False
 
     def from_busy_add_ps(self):
-        print str(self)
-        self.target_instance.set_my_attr(str(self))
+        self.target_instance.logger_debug(str(self))
+        self.target_instance.clear_last_add_message()
 
     def from_busy_add_pl(self):
-        print str(self)
-        self.target_instance.set_my_attr(str(self))
+        self.target_instance.logger_debug(str(self))
 
     def from_busy_dead_ps(self):
-        print str(self)
-        self.target_instance.set_my_attr(str(self))
+        self.target_instance.logger_debug(str(self))
 
     def from_busy_dead_pl(self):
-        raise StrangeState()
+        self.target_instance.logger_debug(str(self))
 
     def from_free(self):
-        print str(self)
-        self.target_instance.set_my_attr(str(self))
+        self.target_instance.logger_debug(str(self))
+
+    def from_memory_request(self):
+        self.target_instance.logger_debug(str(self))
+        raise StrangeState()
 
 
 class BusyDeadPS(State):
 
     def __init__(self, target_instance):
         super(BusyDeadPS, self).__init__(target_instance)
+        self._can_pass_add = False       # This means that we cannot pass r_of_r requests
+        self._can_pass_restore = True    # This means that we can pass r_of_r requests
+        self._can_scale_up = False
+        self._can_scale_down = False
+        self._can_restore = False
+        self._can_accept_new_birth = False
+
+    # This function is necessary if we are the originators of the DEAD message
+    def flip_restore(self):
+        self._can_restore = not self._can_restore
 
     def from_busy_add_ps(self):
-        print str(self)
-        self.target_instance.set_my_attr(str(self))
+        self.target_instance.logger_debug(str(self))
+        self.target_instance.clear_last_add_message()
 
     def from_busy_add_pl(self):
-        print str(self)
-        self.target_instance.set_my_attr(str(self))
+        self.target_instance.logger_debug(str(self))
 
     def from_busy_dead_ps(self):
-        raise StrangeState()
+        self.target_instance.logger_debug(str(self))
 
     def from_busy_dead_pl(self):
-        print str(self)
-        self.target_instance.set_my_attr(str(self))
+        self.target_instance.logger_debug(str(self))
 
     def from_free(self):
-        print str(self)
-        self.target_instance.set_my_attr(str(self))
+        self.target_instance.logger_debug(str(self))
+
+    def from_memory_request(self):
+        self.target_instance.logger_debug(str(self))
+
+
+class MemoryRequest(State):
+
+    def __init__(self, target_instance):
+        super(MemoryRequest, self).__init__(target_instance)
+        self._can_pass_add = False       # This means that we cannot pass r_of_r requests
+        self._can_pass_restore = False    # This means that we cannot pass r_of_r requests
+        self._can_scale_up = False
+        self._can_scale_down = False
+        self._can_restore = False
+        self._can_accept_new_birth = False
+
+    # This function is necessary if we are the originators of the DEAD message
+    def flip_restore(self):
+        self._can_restore = not self._can_restore
+
+    def from_busy_add_ps(self):
+        self.target_instance.logger_debug(str(self))
+        raise StrangeState()
+
+    def from_busy_add_pl(self):
+        self.target_instance.logger_debug(str(self))
+        raise StrangeState()
+
+    def from_busy_dead_ps(self):
+        self.target_instance.logger_debug(str(self))
+
+    def from_busy_dead_pl(self):
+        self.target_instance.logger_debug(str(self))
+        raise StrangeState()
+
+    def from_free(self):
+        self.target_instance.logger_debug(str(self))
+        raise StrangeState()
+
+    def from_memory_request(self):
+        self.target_instance.logger_debug(str(self))
+        raise StrangeState()
 
 
 class TransitionTable(object):
@@ -214,11 +333,14 @@ if __name__ == "__name__":
 
     # dict_state = {0: "Free", 1: "BusyAddPS", 2: "BusyAddPL", 3: "BusyDeadPL", 4: "BusyDeadPS"}
 
-    transition_table_param = {"Free": [None, "pas", "pal", "pdl", "pds"],
-                              "BusyAddPS": ["added_or_pa", None, "paa_and_pl", "pad_and_pl", "pad_and_ps"],
-                              "BusyAddPL": ["added_or_pa", "paa_and_ps", None, "pad_and_pl", "pad_and_ps"],
-                              "BusyDeadPL": ["restored_or_pa", None, None, None, "pad_and_ps"],
-                              "BusyDeadPS": ["restored_or_pa", None, None, "pad_and_pl", None]}
+    transition_table_param = {"Free": [None, "pas", "pal", "pdl", "pds", None],
+                              "BusyAddPS": ["added_or_pa", "paa_and_ps", "paa_and_pl", "pad_and_pl", "pad_and_ps",
+                                            None],
+                              "BusyAddPL": ["added_or_pa", "paa_and_ps", "paa_and_pl", "pad_and_pl", "pad_and_ps",
+                                            None],
+                              "BusyDeadPL": ["restored_or_pa", None, None, "pad_and_pl", "pad_and_ps", None],
+                              "BusyDeadPS": ["restored_or_pa", None, None, "pad_and_pl", "pad_and_ps", "m_started"],
+                              "MemoryRequest": [None, None, None, None, None, "m_finished"]}
 
     states_param = ["Free", "BusyAddPS", "BusyAddPL", "BusyDeadPL", "BusyDeadPS"]
     # mapping_to_do = {"S1:S2": "pas", "S2:S3": "pal", "S3:S1": ""}
@@ -255,4 +377,3 @@ if __name__ == "__name__":
         print s.message
 
     print new_target.get_my_attr()
-

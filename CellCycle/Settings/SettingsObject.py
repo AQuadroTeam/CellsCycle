@@ -70,6 +70,12 @@ class SettingsObject(object):
     def getExtPort(self):
         return int(self.configDict[Constants.EXTPORT][0])
 
+    def getMinInstance(self):
+        return int(self.configDict[Constants.MININSTANCE][0])
+
+    def getMaxInstance(self):
+        return int(self.configDict[Constants.MAXINSTANCE][0])
+
     def getMemoryObjectPort(self):
         return int(self.configDict[Constants.MEMORYOBJECTPORT][0])
 
