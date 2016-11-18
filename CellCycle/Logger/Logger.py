@@ -37,12 +37,11 @@ class LoggerHelper:
         # install handler
         logger.addHandler(fl)
 
-        if (self.verbosity):
-            # build stderr handler if desired
-            ch = logging.StreamHandler(sys.stderr)
-            ch.setLevel(logging.DEBUG)
-            ch.setFormatter(formatter)
-            logger.addHandler(ch)
+        # build stderr handler if desired
+        ch = logging.StreamHandler(sys.stderr)
+        ch.setLevel(logging.DEBUG)
+        ch.setFormatter(formatter)
+        logger.addHandler(ch)
 
         # Configure logger to write to an Uncaught throwable...
         def my_handler(type, value, tb):
