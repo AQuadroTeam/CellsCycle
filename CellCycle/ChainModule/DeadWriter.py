@@ -465,7 +465,10 @@ class DeadWriter (ConsumerThread):
                     # In the future we can add an error code instead of empty msgs
                     self.internal_channel.reply_to_int_message(DIE)
             if is_scale_up_message(msg):
-                can_scale_up = self.transition_table.get_current_state().can_scale_up()
+                # Remember, we have simultaneous adds so it's possible to overflow
+                nodes_number = len(self.node_list)
+                reached_limit = nodes_number >= int(self.settings.getMaxInstance())
+                can_scale_up = self.transition_table.get_current_state().can_scale_up() and (not reached_limit)
                 if can_scale_up:
                     self.internal_channel.reply_to_int_message(OK)
 
@@ -560,7 +563,9 @@ class DeadWriter (ConsumerThread):
                     self.change_parents_from_list()
 
             if is_scale_down_message(msg):
-                if self.transition_table.get_current_state().can_scale_down():
+                nodes_number = len(self.node_list)
+                reached_limit = nodes_number <= int(self.settings.getMinInstance())
+                if self.transition_table.get_current_state().can_scale_down() and (not reached_limit):
                     terminateThisInstanceAWS(settings=self.settings, logger=self.logger)
         else:
             # self.logger.debug(just_received_new_msg(self.myself.id, self.master.id,

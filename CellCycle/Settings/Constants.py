@@ -29,6 +29,8 @@ SETSCALEDOWNLEVEL = "SetScaleDownLevel"
 EXTPORT = "ExtPort"
 INTPORT = "IntPort"
 MEMORYOBJECTPORT = "MemoryObjectPort"
+MININSTANCE = "MinInstance"
+MAXINSTANCE = "MaxInstance"
 
 # AWS
 AWSIMAGEID = "AwsImageId"

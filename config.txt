@@ -21,5 +21,7 @@ GitBranch ListUtilities
 StartFileRelativePath startOnBoot.py
 IntPort 5557
 ExtPort 5558
+MinInstance 4
+MaxInstance 7
 MemoryObjectPort 5559
 AwsProfileName alessandro_fazio
