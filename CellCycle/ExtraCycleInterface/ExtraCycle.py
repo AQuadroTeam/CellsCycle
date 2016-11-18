@@ -181,7 +181,10 @@ def _sendGuide(socket, client):
 
 def _sendError(socket, client):
     error = "ERROR\r\n"
-    _send(socket, client, error)
+    try:
+        _send(socket, client, error)
+    except Exception as e:
+        pass
 
 def _setHandler(settings, logger, socket,client, key, flag, exp, byte, value, list_manager):
     #add flag to stored data
@@ -239,7 +242,10 @@ def _getHandler(settings,logger,  socket, client, key, list_manager):
     _send(socket, client, returnString)
 
 def _quitHandler(settings, socket, client):
-    _send(socket, client, b'')
+    try:
+        _send(socket, client, b'')
+    except Exception as e:
+        pass
 
 def _transferHandler(settings, socket, client):
     _send(socket, client, "DOING....")
