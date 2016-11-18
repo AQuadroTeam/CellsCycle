@@ -117,22 +117,18 @@ class DeadWriter (ConsumerThread):
         self.last_seen_random = msg.random
 
     def new_master_request(self):
-        master_of_master_to_send = self.node_list.get_value(self.master_of_master.id).master
-        memory_object = MemoryObject(master_of_master_to_send, self.master_of_master, self.master,
-                                     self.myself, self.slave)
+        memory_object = MemoryObject(self.master_of_master, self.master, self.myself,
+                                     self.slave, self.slave_of_slave)
         newMasterRequest("tcp://localhost:" + str(self.settings.getMasterSetPort()), memory_object)
 
     def first_boot_new_master_request(self):
-
-        master_of_master_to_send = self.master_of_master
-        memory_object = MemoryObject(master_of_master_to_send, self.master, self.myself,
+        memory_object = MemoryObject(self.master_of_master, self.master, self.myself,
                                      self.slave, self.slave_of_slave)
         newMasterRequest("tcp://localhost:" + str(self.settings.getMasterSetPort()), memory_object)
 
     def new_slave_request(self):
-        slave_of_slave_to_send = self.node_list.get_value(self.slave_of_slave.id).slave
-        memory_object = MemoryObject(self.master, self.myself, self.slave,
-                                     self.slave_of_slave, slave_of_slave_to_send)
+        memory_object = MemoryObject(self.master_of_master, self.master, self.myself,
+                                     self.slave, self.slave_of_slave)
         newSlaveRequest("tcp://localhost:" + str(self.settings.getMasterSetPort()), memory_object)
 
     def consider_add_message(self, msg, origin_message):
@@ -561,6 +557,7 @@ class DeadWriter (ConsumerThread):
 
                     # self.wait_the_new_node_and_send_the_list()
                     self.change_parents_from_list()
+                    self.new_slave_request()
 
             if is_scale_down_message(msg):
                 nodes_number = len(self.node_list)
@@ -595,7 +592,6 @@ class DeadWriter (ConsumerThread):
                 self.last_add_message = ''
                 self.node_to_add = msg.target_id
                 startInstanceAWS(self.settings, self.logger, create_specific_instance_parameters(specific_parameters))
-                self.new_slave_request()
                 self.logger.debug("ADD CYCLE completed")
             elif is_my_last_added_message(msg, self.last_added_message):
                 # The cycle is over

@@ -36,7 +36,3 @@ class InformationMessage:
         self.last_seen_version = last_seen_version
         self.last_seen_priority = last_seen_priority
         self.last_seen_random = last_seen_random
-
-
-
-
