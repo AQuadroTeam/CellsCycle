@@ -130,13 +130,18 @@ def _setToSlaveThread(logger,settings,  cache, master,url, queue, hostState):
 
         objToSend = queue.get()
         slaveAddress = "tcp://"+hostState["current"].slave.ip + ":"+ str(settings.getSlaveSetPort())
-        if(settings.isVerbose()):
-            logger.debug("send current key to slave: " + str(slaveAddress))
+
         if(slaveAddress != None):
-            try:
-                setRequest(slaveAddress, objToSend.key, objToSend.value)
-            except Exception as e:
-                logger.warning(str(e))
+            sended = False
+            while(!sended):
+                try:
+                    slaveAddress = "tcp://"+hostState["current"].slave.ip + ":"+ str(settings.getSlaveSetPort())
+                    setRequest(slaveAddress, objToSend.key, objToSend.value)
+                    if(settings.isVerbose()):
+                        logger.debug("sended current key to slave: "+str(objToSend.key) +" to " + str(slaveAddress))
+                    sended = True
+                except Exception as e:
+                    logger.warning(str(e))
 
 def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
     logger.debug("Listening in new task for set on " + url)
