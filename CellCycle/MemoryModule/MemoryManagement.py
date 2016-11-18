@@ -165,11 +165,11 @@ def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
         try:
             if master:
                 timing["setters"][0].startWaiting()
+            recv = socket.recv()
 
-            command = loads(socket.recv())
             if master:
                 timing["setters"][0].startWorking()
-
+            command = loads(recv)
             if(settings.isVerbose()):
                 logger.debug("received set command: " + str(command))
             #logger.debug("received set command: " + str(command))
@@ -289,9 +289,11 @@ def _getThread(index, logger,settings, cache, master, url, timing):
         try:
             if master:
                 timing["getters"][index].startWaiting()
-            command = loads(socket.recv())
+            recv= socket.recv()
             if master:
                 timing["getters"][index].startWorking()
+
+            command = loads(recv)
 
             if(settings.isVerbose()):
                 logger.debug("received get command: " + str(command))
