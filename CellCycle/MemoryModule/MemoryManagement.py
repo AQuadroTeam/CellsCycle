@@ -133,7 +133,7 @@ def _setToSlaveThread(logger,settings,  cache, master,url, queue, hostState):
 
         if(slaveAddress != None):
             sended = False
-            while(!sended):
+            while( not sended):
                 try:
                     slaveAddress = "tcp://"+hostState["current"].slave.ip + ":"+ str(settings.getSlaveSetPort())
                     setRequest(slaveAddress, objToSend.key, objToSend.value)
