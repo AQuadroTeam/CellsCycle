@@ -36,6 +36,9 @@ def _receiverThread(logger, socket, queue):
             queue.put([client, command])
         except Exception as e:
             logger.error(str(e))
+            import traceback
+            logger.error(traceback.format_exc())
+
 
 def _serviceThread(settings, logger, url_Backend,socket,queue, list_manager):
     logger.debug("Listening for clients on " + url_Backend)
@@ -51,6 +54,9 @@ def _serviceThread(settings, logger, url_Backend,socket,queue, list_manager):
 
         except Exception as e:
             logger.error(str(e))
+            import traceback
+            logger.error(traceback.format_exc())
+
 
 
 
