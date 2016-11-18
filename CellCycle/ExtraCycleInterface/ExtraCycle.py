@@ -34,27 +34,24 @@ def _receiverThread(logger, socket, queue):
         try:
             client, command = socket.recv_multipart()
             queue.put([client, command])
-        except KeyboardInterrupt as e:
+        except Exception as e:
             logger.error(str(e))
-            return
 
 def _serviceThread(settings, logger, url_Backend,socket,queue, list_manager):
     logger.debug("Listening for clients on " + url_Backend)
     while True:
         try:
             client, message = queue.get()
-        except KeyboardInterrupt as e:
-            logger.error(str(e))
-            return
+            if(message != ""):
+                command = message.split()
 
-        if(message != ""):
-            command = message.split()
-            try:
                 if(settings.isVerbose()):
                     logger.debug("Received command: " + str(command))
                 _manageRequest(logger, settings, socket, command, client, list_manager)
-            except Exception as e:
-                logger.warning("Error for client: "+ str(client) +", error:"+ str(e) + ". command: " + message)
+
+        except Exception as e:
+            logger.error(str(e))
+
 
 
 def _manageRequest(logger, settings, socket, command, client, list_manager):
