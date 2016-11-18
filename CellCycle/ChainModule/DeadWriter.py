@@ -385,45 +385,48 @@ class DeadWriter (ConsumerThread):
 
         self.internal_channel.reply_to_int_message(dumps(information_message))
 
+    def manage_dead_node(self):
+        dead_message = self.make_dead_node_msg(target_id=self.slave.id, target_addr=self.slave.ip,
+                                               target_key=self.slave.get_min_max_key(),
+                                               target_master_id=self.slave_of_slave.id)
+        # if self.first_time:
+        #     self.first_time = False
+        # else:
+        self.version = int(self.last_seen_version) + 1
+        # generate a new channel to the slave_of_slave
+        self.internal_channel.resync(msg=self.master_of_master.id)
+
+        msg_to_send = to_external_message(self.version, dead_message)
+        string_message = dumps(msg_to_send)
+        self.external_channel.forward(string_message)
+        self.last_dead_message = msg_to_send
+
+        self.last_dead_node = self.slave
+        self.remove_from_list(self.slave.id)
+
+        # Change slave and slave of slave
+        self.slave = self.slave_of_slave
+        self.slave_of_slave = self.node_list.get_value(self.slave_of_slave.id).slave
+
+        # Now update the list
+        self.update_list(self.myself.id, self.master.id, self.slave.id)
+        # Update the master node, the new master of target_slave is target_master
+        self.change_master_to(target_node=self.slave.id, target_master=self.myself.id)
+        # Update the slave node, the new slave of target_master is target_slave
+        self.change_slave_to(target_node=self.myself.id, target_slave=self.slave.id)
+
+        can_scale_up = self.transition_table.get_current_state().can_scale_up()
+        if can_scale_up:
+            self.transition_table.change_state("pas")
+        else:
+            self.transition_table.change_state("paa_and_ps")
+
     def forward_message(self, origin_message):
         try:
             self.external_channel.forward(origin_message)
         except zmq.Again as a:
             self.logger_debug("my slave is DEAD " + a.message)
-            dead_message = self.make_dead_node_msg(target_id=self.slave.id, target_addr=self.slave.ip,
-                                                   target_key=self.slave.get_min_max_key(),
-                                                   target_master_id=self.slave_of_slave.id)
-            # if self.first_time:
-            #     self.first_time = False
-            # else:
-            self.version = int(self.last_seen_version) + 1
-            # generate a new channel to the slave_of_slave
-            self.internal_channel.resync(msg=self.master_of_master.id)
-
-            msg_to_send = to_external_message(self.version, dead_message)
-            string_message = dumps(msg_to_send)
-            self.external_channel.forward(string_message)
-            self.last_dead_message = msg_to_send
-
-            self.last_dead_node = self.slave
-            self.remove_from_list(self.slave.id)
-
-            # Change slave and slave of slave
-            self.slave = self.slave_of_slave
-            self.slave_of_slave = self.node_list.get_value(self.slave_of_slave.id).slave
-
-            # Now update the list
-            self.update_list(self.myself.id, self.master.id, self.slave.id)
-            # Update the master node, the new master of target_slave is target_master
-            self.change_master_to(target_node=self.slave.id, target_master=self.myself.id)
-            # Update the slave node, the new slave of target_master is target_slave
-            self.change_slave_to(target_node=self.myself.id, target_slave=self.slave.id)
-
-            can_scale_up = self.transition_table.get_current_state().can_scale_up()
-            if can_scale_up:
-                self.transition_table.change_state("pas")
-            else:
-                self.transition_table.change_state("paa_and_ps")
+            self.manage_dead_node()
 
     def update_and_forward_message(self, msg, origin_message, source=EXT):
         self.update_last_seen(msg, source)
@@ -457,6 +460,8 @@ class DeadWriter (ConsumerThread):
                     self.logger.debug("slave {} is DEAD, and why i don't realized it?".format(self.slave.id))
                     # Perhaps our slave is died
                     self.internal_channel.reply_to_int_message(NOK)
+                    # This is a very weird case
+                    self.manage_dead_node()
                 else:
                     # In the future we can add an error code instead of empty msgs
                     self.internal_channel.reply_to_int_message(DIE)
