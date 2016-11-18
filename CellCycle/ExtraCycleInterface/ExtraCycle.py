@@ -76,7 +76,8 @@ def _manageRequest(logger, settings, socket, command, client, list_manager):
             try:
                 _getHandler(settings, logger, socket, client, key, list_manager)
             except Exception as e:
-                logger.warning(str(e) + " for command: " + " ".join(command))
+                import traceback
+                logger.warning("for command: " + " ".join(command) + " , error: " + str(traceback.format_exc()))
                 _sendError(socket, client)
             return;
         else:
@@ -106,14 +107,16 @@ def _manageRequest(logger, settings, socket, command, client, list_manager):
             try:
                 value = " ".join(command[5:])
             except Exception as e:
-                logger.warning(str(e) + " for command: " + " ".join(command))
+                import traceback
+                logger.warning("for command: " + " ".join(command) + " , error: " + str(traceback.format_exc()))
                 _sendGuide(socket, client)
                 return
 
             try:
                 _setHandler(settings, logger, socket,client, key, flag, exp, byte, value, list_manager)
             except Exception as e:
-                logger.warning(str(e) + " for command: " + " ".join(command))
+                import traceback
+                logger.warning("for command: " + " ".join(command) + " , error: " + str(traceback.format_exc()))
                 _sendError(socket, client)
 
             return
