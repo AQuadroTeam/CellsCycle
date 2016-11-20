@@ -89,7 +89,7 @@ def _memoryMetricatorThread(logger, cache, settings, master, timing):
         # this channel is necessary to send scale up/down requests
         internal_channel = InternalChannel(addr='127.0.0.1', port=settings.getIntPort(), logger=logger)
         internal_channel.generate_internal_channel_client_side()
-
+        logger.debug("Metricator ready to calc means")
         while True:
             sleep(period)
             setMean = 1.0 - timing["setters"][0].calcMean()
