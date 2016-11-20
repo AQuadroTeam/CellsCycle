@@ -129,6 +129,8 @@ def _manageRequest(logger, settings, socket, command, client, list_manager):
             return
         KILLYOURSELF = "KILLYOURSELF"
         NEWCELL = "NEWCELL"
+        SCALEUP = "SCALEUP"
+        SCALEDOWN = "SCALEDOWN"
         LOG = "LOG"
 
         operation = command[1]
@@ -147,9 +149,29 @@ def _manageRequest(logger, settings, socket, command, client, list_manager):
             else:
                 _sendGuide(socket, client)
                 return
-        elif(operation.upper() == NEWCELL):
+        elif(operation.upper() == NEWCELLMANUAL):
             logger.debug("I'm creating a new node on AWS with params: " + str(params))
             _awsCreateCellHandler(settings,logger, socket, client,  params )
+            return
+        elif(operation.upper() == SCALEUP):
+            logger.debug("Requests for scale Up!")
+            from CellCycle.ChainModule.ListThread import ListThread
+            from CellCycle.ChainModule.ListCommunication import InternalChannel
+            # this channel is necessary to send scale up/down requests
+            internal_channel = InternalChannel(addr='127.0.0.1', port=settings.getIntPort(), logger=logger)
+            internal_channel.generate_internal_channel_client_side()
+            # call scale up service
+            ListThread.notify_scale_up(internal_channel)
+            return
+        elif(operation.upper() == SCALEDOWN):
+            logger.debug("Requests for scale Up!")
+            from CellCycle.ChainModule.ListThread import ListThread
+            from CellCycle.ChainModule.ListCommunication import InternalChannel
+            # this channel is necessary to send scale up/down requests
+            internal_channel = InternalChannel(addr='127.0.0.1', port=settings.getIntPort(), logger=logger)
+            internal_channel.generate_internal_channel_client_side()
+            # call scale up service
+            ListThread.notify_scale_down(internal_channel)
             return
         elif(operation.upper() == LOG):
             _log(settings, logger, socket, client)
@@ -178,6 +200,8 @@ def _sendGuide(socket, client):
         "-CELLCYCLE \n"\
         "\tKILLYOURSELF <TERMINATE or STOP>\n"\
         "\tNEWCELL <params>\n"\
+        "\tSCALEUP\n"\
+        "\tSCALEDOWN\n"\
         "\tLOG\n"\
         "\nBYE\r\n"
     _send(socket, client, guide)
