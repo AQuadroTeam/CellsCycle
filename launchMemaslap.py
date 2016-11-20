@@ -7,7 +7,8 @@ def launchMemaslap(settings):
   keyName = settings.getAwsKeyName()
   securityGroup = settings.getAwsSecurityGroup()
   privateIp = "172.31.21.1"
-  ec2.create_instances(ImageId=imageIdCellCycle, MinCount=1, MaxCount=1, InstanceType='t2.nano', KeyName=keyName, SecurityGroups=[securityGroup],  PrivateIpAddress=privateIp)
+  userData = 'alias memaslap-test="memaslap -s 172.31.20.1:5555,172.31.20.2:5555,172.31.20.3:5555,172.31.20.4:5555,172.31.20.5:5555"'
+  ec2.create_instances(ImageId=imageIdCellCycle, MinCount=1, MaxCount=1, InstanceType='t2.micro', KeyName=keyName, SecurityGroups=[securityGroup],  PrivateIpAddress=privateIp, UserData = userData)
 
 if __name__ == "__main__":
     import sys
