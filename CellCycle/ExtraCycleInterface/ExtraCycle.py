@@ -202,7 +202,8 @@ def _manageRequest(logger, settings, socket, command, client, list_manager):
             _log(settings, logger, socket, client)
             return
         elif(operation.upper() == WHOHAS):
-            _whoHasHandler(settings, logger, client, socket, params, list_manager)
+            key = hashOfKey(params)
+            _whoHasHandler(settings, logger, client, socket, key, list_manager)
             return
         elif(operation.upper() == KEYS):
             _keysHandler(settings, logger, client, socket)
