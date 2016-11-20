@@ -133,6 +133,8 @@ def _manageRequest(logger, settings, socket, command, client, list_manager):
         SCALEUP = "SCALEUP"
         SCALEDOWN = "SCALEDOWN"
         LOG = "LOG"
+        WHOHAS = "WHOHAS"
+        KEYS = "KEYS"
 
         operation = command[1]
         params = " ".join(command[2:])
@@ -199,7 +201,12 @@ def _manageRequest(logger, settings, socket, command, client, list_manager):
         elif(operation.upper() == LOG):
             _log(settings, logger, socket, client)
             return
-
+        elif(operation.upper() == WHOHAS):
+            _whoHasHandler(settings, logger, client, socket, params)
+            return
+        elif(operation.upper() == KEYS):
+            _keysHandler(settings, logger, client, socket)
+            return
         else:
             _sendGuide(socket, client)
             return
@@ -326,6 +333,14 @@ def _awsKillAllStopHandler(settings,logger, socket, client):
 def _awsKillAllTerminateHandler(settings,logger, socket, client):
     _send(socket, client, "HELLO DARKNESS MY OLD FRIEND...\r\n")
     terminateAllAWS(settings, logger)
+
+def _whoHasHandler(settings, logger, client, socket, key):
+    masterHost = list_manager.node_list.find_memory_key(key)
+    _send(socket, client,"Key " + str(key) +" is assigned to: "+ str(masterHost.target.ip)+"\r\n")
+
+def _keysHandler(settings, logger, client, socket):
+    _send(socket, client,"NOT IMPLEMENTED YET\r\n")
+
 
 def hashOfKey(key):
     return crc32(key) % (1<<32)
