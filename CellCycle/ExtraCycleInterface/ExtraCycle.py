@@ -149,7 +149,7 @@ def _manageRequest(logger, settings, socket, command, client, list_manager):
             else:
                 _sendGuide(socket, client)
                 return
-        elif(operation.upper() == NEWCELLMANUAL):
+        elif(operation.upper() == NEWCELL):
             logger.debug("I'm creating a new node on AWS with params: " + str(params))
             _awsCreateCellHandler(settings,logger, socket, client,  params )
             return
