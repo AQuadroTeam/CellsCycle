@@ -220,6 +220,7 @@ def _sendGuide(socket, client):
         "-DELETE (DELETE <key>)\n"\
         "-CELLCYCLE \n"\
         "\tKILLYOURSELF <TERMINATE or STOP>\n"\
+        "\tKILLALL <TERMINATE or STOP>\n"\
         "\tNEWCELL <params>\n"\
         "\tSCALEUP\n"\
         "\tSCALEDOWN\n"\
