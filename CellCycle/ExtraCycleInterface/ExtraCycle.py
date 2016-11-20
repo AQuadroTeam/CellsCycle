@@ -337,7 +337,7 @@ def _awsKillAllTerminateHandler(settings,logger, socket, client):
     terminateAllAWS(settings, logger)
 
 def _whoHasHandler(settings, logger, client, socket, key, list_manager):
-    masterHost = list_manager.node_list.find_memory_key(str(key))
+    masterHost = list_manager.node_list.find_memory_key(key)
     _send(socket, client,"Key " + str(key) +" is assigned to: "+ str(masterHost.target.ip)+"\r\n")
 
 def _keysHandler(settings, logger, client, socket):
