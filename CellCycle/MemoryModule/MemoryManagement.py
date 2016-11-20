@@ -447,6 +447,7 @@ class TimingMetricator(object):
         self.stopWorkingTime = 0
         self.meanWaitingRatio = 0
         self.totalWorkingTime = 0
+        self.totalTime = 0
         self.startPeriod = time()
 
     def __str__(self):
@@ -462,15 +463,18 @@ class TimingMetricator(object):
         self.startWaitingTime = time()
 
     def calcMean(self):
-        period = time() - self.startPeriod
+        period = self.totalTime
         working = self.totalWorkingTime
         waitingMean = 1 - (working / float(period))
         self.totalWorkingTime = 0
         self.startPeriod = time()
+        self.totalTime = 0
         self.meanWaitingRatio = waitingMean
         return waitingMean
 
     def stopWorking(self):
         self.stopWorkingTime = time()
         work = self.stopWorkingTime - self.startWorkingTime
+        totalTime = self.stopWorkingTime - self.startWaitingTime
         self.totalWorkingTime += work
+        self.totalTime += totalTime
