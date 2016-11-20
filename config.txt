@@ -7,12 +7,12 @@ MasterSetPort 5550
 MasterGetPort 5551
 SlaveSetPort 5552
 SlaveGetPort 5553
-ServiceThreadNumber 4
+ServiceThreadNumber 2
 ClientEntrypointPort 5555
 ScalePeriod 60
-GetScaleUpLevel 0.99
+GetScaleUpLevel 0.50
 GetScaleDownLevel 0
-SetScaleUpLevel 0.99
+SetScaleUpLevel 0.50
 SetScaleDownLevel 0
 AwsImageId ami-a643b8c9
 AwsSecurityGroup SSHToAll

@@ -36,6 +36,9 @@ def _receiverThread(logger, socket, queue):
             queue.put([client, command])
         except Exception as e:
             logger.error(str(e))
+            import traceback
+            logger.error(traceback.format_exc())
+
 
 def _serviceThread(settings, logger, url_Backend,socket,queue, list_manager):
     logger.debug("Listening for clients on " + url_Backend)
@@ -51,6 +54,9 @@ def _serviceThread(settings, logger, url_Backend,socket,queue, list_manager):
 
         except Exception as e:
             logger.error(str(e))
+            import traceback
+            logger.error(traceback.format_exc())
+
 
 
 
@@ -70,7 +76,8 @@ def _manageRequest(logger, settings, socket, command, client, list_manager):
             try:
                 _getHandler(settings, logger, socket, client, key, list_manager)
             except Exception as e:
-                logger.warning(str(e) + " for command: " + " ".join(command))
+                import traceback
+                logger.warning("for command: " + " ".join(command) + " , error: " + str(traceback.format_exc()))
                 _sendError(socket, client)
             return;
         else:
@@ -100,14 +107,16 @@ def _manageRequest(logger, settings, socket, command, client, list_manager):
             try:
                 value = " ".join(command[5:])
             except Exception as e:
-                logger.warning(str(e) + " for command: " + " ".join(command))
+                import traceback
+                logger.warning("for command: " + " ".join(command) + " , error: " + str(traceback.format_exc()))
                 _sendGuide(socket, client)
                 return
 
             try:
                 _setHandler(settings, logger, socket,client, key, flag, exp, byte, value, list_manager)
             except Exception as e:
-                logger.warning(str(e) + " for command: " + " ".join(command))
+                import traceback
+                logger.warning("for command: " + " ".join(command) + " , error: " + str(traceback.format_exc()))
                 _sendError(socket, client)
 
             return
@@ -175,7 +184,10 @@ def _sendGuide(socket, client):
 
 def _sendError(socket, client):
     error = "ERROR\r\n"
-    _send(socket, client, error)
+    try:
+        _send(socket, client, error)
+    except Exception as e:
+        pass
 
 def _setHandler(settings, logger, socket,client, key, flag, exp, byte, value, list_manager):
     #add flag to stored data
@@ -233,7 +245,10 @@ def _getHandler(settings,logger,  socket, client, key, list_manager):
     _send(socket, client, returnString)
 
 def _quitHandler(settings, socket, client):
-    _send(socket, client, b'')
+    try:
+        _send(socket, client, b'')
+    except Exception as e:
+        pass
 
 def _transferHandler(settings, socket, client):
     _send(socket, client, "DOING....")
