@@ -86,9 +86,7 @@ def _memoryMetricatorThread(logger, cache, settings, master, timing):
 
         logger.debug("Metricator alive, period: "+ str(period) +"s, getThrLevel: [" +str(getScaleDownLevel) +"," + str(getScaleUpLevel)+ "], setThrLevel: [" + str(setScaleDownLevel) + "," + str(setScaleUpLevel) + "]"  )
 
-        # this channel is necessary to send scale up/down requests
-        internal_channel = InternalChannel(addr='127.0.0.1', port=settings.getIntPort(), logger=logger)
-        internal_channel.generate_internal_channel_client_side()
+
 
         while True:
             sleep(period)
@@ -102,6 +100,9 @@ def _memoryMetricatorThread(logger, cache, settings, master, timing):
 
             # scale up needed
             if getMean >= getScaleUpLevel or setMean >= setScaleUpLevel:
+                # this channel is necessary to send scale up/down requests
+                internal_channel = InternalChannel(addr='127.0.0.1', port=settings.getIntPort(), logger=logger)
+                internal_channel.generate_internal_channel_client_side()
                 logger.debug("Requests for scale Up!")
                 # call scale up service
                 ListThread.notify_scale_up(internal_channel)
@@ -109,6 +110,9 @@ def _memoryMetricatorThread(logger, cache, settings, master, timing):
 
             # scale down needed
             elif getMean <= getScaleDownLevel or setMean <= setScaleDownLevel:
+                # this channel is necessary to send scale up/down requests
+                internal_channel = InternalChannel(addr='127.0.0.1', port=settings.getIntPort(), logger=logger)
+                internal_channel.generate_internal_channel_client_side()
                 logger.debug("Requests for scale Down!")
                 # Tcall scale down service
                 ListThread.notify_scale_down(internal_channel)
