@@ -126,6 +126,8 @@ def _setToSlaveThread(logger,settings,  cache, master,url, queue, hostState):
     while (hostState["current"] == None):
         logger.debug("cannot send to slave, net info: "+ str(hostState["current"]))
         time.sleep(1)
+
+    logger.debug("Finally I'm configured")
     while True:
 
         objToSend = queue.get()
@@ -172,6 +174,7 @@ def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
             command = loads(recv)
             if(settings.isVerbose()):
                 logger.debug("received set command: " + str(command))
+
             #logger.debug("received set command: " + str(command))
             if command.type == SETCOMMAND:
                 if(master):

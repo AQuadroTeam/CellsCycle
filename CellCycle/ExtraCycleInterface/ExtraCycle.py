@@ -258,7 +258,7 @@ def _deleteHandler(settings, logger, socket,client, key, list_manager):
     #hosts = getNodesForKey(key)
     if(settings.isVerbose()):
         logger.debug("sending delete request to " + str(host.target.ip))
-    returnValue =standardMasterGetRequest(settings, key, host.target.ip)
+    returnValue =standardMasterSetRequest(settings, key,None, host.target.ip)
     # TODO commented this line
     # returnValue = standardMasterSetRequest(settings, key, None)
     returnString = "DELETED\r\n"
