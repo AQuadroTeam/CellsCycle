@@ -176,7 +176,9 @@ def _manageRequest(logger, settings, socket, command, client, list_manager):
             from CellCycle.ChainModule.ListCommunication import InternalChannel
             # this channel is necessary to send scale up/down requests
             internal_channel = InternalChannel(addr='127.0.0.1', port=settings.getIntPort(), logger=logger)
+            logger.debug("internal channel built")
             internal_channel.generate_internal_channel_client_side()
+            logger.debug("internal channel generated")
             # call scale up service
             ListThread.notify_scale_up(internal_channel)
             _send(socket, client, "SENDED")
