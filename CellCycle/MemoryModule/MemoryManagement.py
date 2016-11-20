@@ -89,7 +89,7 @@ def _memoryMetricatorThread(logger, cache, settings, master, timing):
         # this channel is necessary to send scale up/down requests
         internal_channel = InternalChannel(addr='127.0.0.1', port=settings.getIntPort(), logger=logger)
         internal_channel.generate_internal_channel_client_side()
-        logger.debug("Metricator ready to calc means")
+
         while True:
             sleep(period)
             setMean = 1.0 - timing["setters"][0].calcMean()
@@ -289,11 +289,9 @@ def _getThread(index, logger,settings, cache, master, url, timing):
         try:
             if master:
                 timing["getters"][index].startWaiting()
-            recv= socket.recv()
+            command = loads(socket.recv())
             if master:
                 timing["getters"][index].startWorking()
-
-            command = loads(recv)
 
             if(settings.isVerbose()):
                 logger.debug("received get command: " + str(command))
@@ -447,7 +445,6 @@ class TimingMetricator(object):
         self.stopWorkingTime = 0
         self.meanWaitingRatio = 0
         self.totalWorkingTime = 0
-        self.totalTime = 0
         self.startPeriod = time()
 
     def __str__(self):
@@ -463,18 +460,15 @@ class TimingMetricator(object):
         self.startWaitingTime = time()
 
     def calcMean(self):
-        period = self.totalTime
+        period = time() - self.startPeriod
         working = self.totalWorkingTime
         waitingMean = 1 - (working / float(period))
         self.totalWorkingTime = 0
         self.startPeriod = time()
-        self.totalTime = 0
         self.meanWaitingRatio = waitingMean
         return waitingMean
 
     def stopWorking(self):
         self.stopWorkingTime = time()
         work = self.stopWorkingTime - self.startWorkingTime
-        totalTime = self.stopWorkingTime - self.startWaitingTime
         self.totalWorkingTime += work
-        self.totalTime += totalTime
