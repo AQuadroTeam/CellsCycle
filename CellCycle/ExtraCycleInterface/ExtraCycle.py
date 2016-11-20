@@ -162,6 +162,7 @@ def _manageRequest(logger, settings, socket, command, client, list_manager):
             internal_channel.generate_internal_channel_client_side()
             # call scale up service
             ListThread.notify_scale_up(internal_channel)
+            _send(socket, client, "SENDED")
             return
         elif(operation.upper() == SCALEDOWN):
             logger.debug("Requests for scale Up!")
@@ -172,6 +173,7 @@ def _manageRequest(logger, settings, socket, command, client, list_manager):
             internal_channel.generate_internal_channel_client_side()
             # call scale up service
             ListThread.notify_scale_down(internal_channel)
+            _send(socket, client, "SENDED")
             return
         elif(operation.upper() == LOG):
             _log(settings, logger, socket, client)
