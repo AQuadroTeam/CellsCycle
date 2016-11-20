@@ -128,6 +128,7 @@ def _manageRequest(logger, settings, socket, command, client, list_manager):
             _sendGuide(socket, client)
             return
         KILLYOURSELF = "KILLYOURSELF"
+        KILLALL = "KILLALL"
         NEWCELL = "NEWCELL"
         SCALEUP = "SCALEUP"
         SCALEDOWN = "SCALEDOWN"
@@ -140,6 +141,7 @@ def _manageRequest(logger, settings, socket, command, client, list_manager):
             TERMINATE = "TERMINATE"
             STOP = "STOP"
             logger.debug("Hello darkness my old friend...")
+
             if(params.upper() == STOP):
                 _awsKillYourselfStopHandler(settings, logger, socket, client)
                 return
@@ -149,6 +151,21 @@ def _manageRequest(logger, settings, socket, command, client, list_manager):
             else:
                 _sendGuide(socket, client)
                 return
+        elif(operation.upper() == KILLALL):
+            TERMINATE = "TERMINATE"
+            STOP = "STOP"
+            logger.debug("Hello darkness my old friend...")
+
+            if(params.upper() == STOP):
+                _awsKillAllStopHandler(settings, logger, socket, client)
+                return
+            elif(params.upper() == TERMINATE):
+                _awsKillAllTerminateHandler(settings, logger, socket, client)
+                return
+            else:
+                _sendGuide(socket, client)
+                return
+
         elif(operation.upper() == NEWCELL):
             logger.debug("I'm creating a new node on AWS with params: " + str(params))
             _awsCreateCellHandler(settings,logger, socket, client,  params )
@@ -297,6 +314,13 @@ def _awsKillYourselfTerminateHandler(settings,logger, socket, client):
     _send(socket, client, "HELLO DARKNESS MY OLD FRIEND...\r\n")
     terminateThisInstanceAWS(settings, logger)
 
+def _awsKillAllStopHandler(settings,logger, socket, client):
+    _send(socket, client, "HELLO DARKNESS MY OLD FRIEND...\r\n")
+    stopAllAWS(settings, logger)
+
+def _awsKillAllTerminateHandler(settings,logger, socket, client):
+    _send(socket, client, "HELLO DARKNESS MY OLD FRIEND...\r\n")
+    terminateAllAWS(settings, logger)
 
 def hashOfKey(key):
     return crc32(key) % (1<<32)
