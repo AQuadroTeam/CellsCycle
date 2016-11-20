@@ -202,7 +202,7 @@ def _manageRequest(logger, settings, socket, command, client, list_manager):
             _log(settings, logger, socket, client)
             return
         elif(operation.upper() == WHOHAS):
-            _whoHasHandler(settings, logger, client, socket, params)
+            _whoHasHandler(settings, logger, client, socket, params, list_manager)
             return
         elif(operation.upper() == KEYS):
             _keysHandler(settings, logger, client, socket)
@@ -233,6 +233,7 @@ def _sendGuide(socket, client):
         "\tNEWCELL <params>\n"\
         "\tSCALEUP\n"\
         "\tSCALEDOWN\n"\
+        "\tWHOHAS <key>\n"\
         "\tLOG\n"\
         "\nBYE\r\n"
     _send(socket, client, guide)
@@ -334,8 +335,8 @@ def _awsKillAllTerminateHandler(settings,logger, socket, client):
     _send(socket, client, "HELLO DARKNESS MY OLD FRIEND...\r\n")
     terminateAllAWS(settings, logger)
 
-def _whoHasHandler(settings, logger, client, socket, key):
-    masterHost = list_manager.node_list.find_memory_key(key)
+def _whoHasHandler(settings, logger, client, socket, key, list_manager):
+    masterHost = list_manager.node_list.find_memory_key(str(key))
     _send(socket, client,"Key " + str(key) +" is assigned to: "+ str(masterHost.target.ip)+"\r\n")
 
 def _keysHandler(settings, logger, client, socket):
