@@ -41,7 +41,6 @@ class DeadWriter (ConsumerThread):
         self.last_dead_node = None
         self.deads = DeadList()
         # self.first_time = True
-        # FIXME The old version here had canonical_check
 
         self.external_channel = ExternalChannel(addr=self.myself.ip, port=self.myself.ext_port, logger=self.logger)
         self.internal_channel = InternalChannel(addr=self.myself.ip, port=self.myself.int_port, logger=self.logger)
@@ -460,7 +459,7 @@ class DeadWriter (ConsumerThread):
                     self.logger.debug("slave {} is DEAD, and why i don't realized it?".format(self.slave.id))
                     # Perhaps our slave is died
                     self.internal_channel.reply_to_int_message(NOK)
-                    # This is a very weird case
+                    # This is a very weird case, my slave_of_slave is ready and i'm not when slave dies
                     self.manage_dead_node()
                 else:
                     # In the future we can add an error code instead of empty msgs
