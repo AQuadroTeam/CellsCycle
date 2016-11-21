@@ -45,7 +45,7 @@ def _serviceThread(settings, logger, url_Backend,socket,queue, list_manager):
     while True:
         try:
             client, message = queue.get()
-            if(message != ""):
+            if(message != "" and message!="\n"):
                 command = message.split()
 
                 if(settings.isVerbose()):
@@ -180,7 +180,7 @@ def _manageRequest(logger, settings, socket, command, client, list_manager):
 
             internal_channel = InternalChannel(addr='127.0.0.1', port=settings.getIntPort(), logger=logger)
             internal_channel.generate_internal_channel_client_side()
-
+            logger.debug("I'm sending the scale up request...")
             # call scale up service
             ListThread.notify_scale_up(internal_channel)
             _send(socket, client, "SENDED")
@@ -194,6 +194,7 @@ def _manageRequest(logger, settings, socket, command, client, list_manager):
             internal_channel = InternalChannel(addr='127.0.0.1', port=settings.getIntPort(), logger=logger)
             internal_channel.generate_internal_channel_client_side()
             # call scale up service
+            logger.debug("I'm sending the scale down request...")
             ListThread.notify_scale_down(internal_channel)
             _send(socket, client, "SENDED")
             logger.debug("Requested!")
