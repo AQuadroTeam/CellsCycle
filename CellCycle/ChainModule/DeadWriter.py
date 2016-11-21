@@ -43,7 +43,8 @@ class DeadWriter (ConsumerThread):
         # self.first_time = True
 
         self.external_channel = ExternalChannel(addr=self.myself.ip, port=self.myself.ext_port, logger=self.logger)
-        self.internal_channel = InternalChannel(addr=self.myself.ip, port=self.myself.int_port, logger=self.logger)
+        # self.internal_channel = InternalChannel(addr=self.myself.ip, port=self.myself.int_port, logger=self.logger)
+        self.internal_channel = InternalChannel(addr="*", port=self.myself.int_port, logger=self.logger)
 
         self.node_to_add = ''
 
