@@ -41,7 +41,8 @@ class ListCommunication:
 
     def open_rep_socket(self, sync_addr=None):
         # Socket to receive signals
-        self.list_communication_channel = self.context.socket(zmq.REP)
+        # self.list_communication_channel = self.context.socket(zmq.REP)
+        self.list_communication_channel = self.context.socket(zmq.PULL)
         if sync_addr is not None:
             self.list_communication_channel.bind(sync_addr)
         else:
@@ -49,7 +50,8 @@ class ListCommunication:
 
     def open_req_socket(self, sync_addr=None):
         # Second, synchronize with publisher
-        self.list_communication_channel = self.context.socket(zmq.REQ)
+        # self.list_communication_channel = self.context.socket(zmq.REQ)
+        self.list_communication_channel = self.context.socket(zmq.PUSH)
         if sync_addr is not None:
             self.list_communication_channel.connect(sync_addr)
         else:
