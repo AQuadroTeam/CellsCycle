@@ -253,6 +253,7 @@ def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
                         internal_channel_added.send_first_internal_channel_message(message="FINISHED")
                         internal_channel_added.wait_int_message(dont_wait=False)
                     elif transferType == NEWMASTER:
+                        logger.debug("MEMORY RESTORE finished , notify list thread")
                         ListThread.notify_memory_request_finished(internal_channel_restored)
                     #avvertire gestore ciclo che E finito recovery TODO:
                     logger.warning("new master state recovery: DONE")
