@@ -27,7 +27,7 @@ class DeadReader(ProducerThread):
         self.external_channel = ExternalChannel(addr=self.master.ip, port=self.master.ext_port, logger=self.logger)
         self.internal_channel = InternalChannel(addr=self.master.ip, port=self.master.int_port, logger=self.logger)
 
-        self.internal_channel_memory = InternalChannel(addr="*", port=self.settings.getMemoryObjectPort(),
+        self.internal_channel_memory = InternalChannel(addr="127.0.0.1", port=self.settings.getMemoryObjectPort(),
                                                        logger=self.logger)
 
         self.writer_instance = writer_instance
@@ -81,10 +81,10 @@ class DeadReader(ProducerThread):
 
     def new_birth_connection(self):
         self.logger.debug("new birth sync init")
+        self.internal_channel_memory.generate_internal_channel_server_side()
 
         self.new_start_request()
         # wait for memory request finished
-        self.internal_channel_memory.generate_internal_channel_server_side()
         req_msg = self.internal_channel_memory.wait_int_message(dont_wait=False)
         self.logger.debug("received this message {}".format(req_msg))
         self.internal_channel_memory.reply_to_int_message(b"OK")
