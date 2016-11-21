@@ -279,7 +279,7 @@ class ListThread (threading.Thread):
         return msg
 
     @staticmethod
-    def notify_memory_request_finished(channel_to_send, logger=None):
+    def notify_memory_request_finished(channel_to_send):
         msg = Message()
         msg.source_flag = INT
         msg.version = ''
@@ -291,8 +291,6 @@ class ListThread (threading.Thread):
         msg.target_relative_id = ''
         msg.source_id = ''
         channel_to_send.send_first_internal_channel_message(message=dumps(msg))
-        if logger is not None:
-            logger.debug("message sent, wait for a request from thread")
         channel_to_send.wait_int_message(dont_wait=False)
 
     @staticmethod
