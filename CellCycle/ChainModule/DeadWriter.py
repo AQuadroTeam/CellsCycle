@@ -470,7 +470,7 @@ class DeadWriter (ConsumerThread):
                     self.internal_channel.reply_to_int_message(DIE)
             if is_scale_up_message(msg):
                 # Remember, we have simultaneous adds so it's possible to overflow
-                nodes_number = len(self.node_list)
+                nodes_number = len(self.node_list.dictionary)
                 reached_limit = nodes_number >= int(self.settings.getMaxInstance())
                 can_scale_up = self.transition_table.get_current_state().can_scale_up() and (not reached_limit)
                 if can_scale_up:
@@ -568,7 +568,7 @@ class DeadWriter (ConsumerThread):
                     self.new_slave_request()
 
             if is_scale_down_message(msg):
-                nodes_number = len(self.node_list)
+                nodes_number = len(self.node_list.dictionary)
                 reached_limit = nodes_number <= int(self.settings.getMinInstance())
                 if self.transition_table.get_current_state().can_scale_down() and (not reached_limit):
                     terminateThisInstanceAWS(settings=self.settings, logger=self.logger)
