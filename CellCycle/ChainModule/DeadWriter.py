@@ -371,7 +371,24 @@ class DeadWriter (ConsumerThread):
             time.sleep(WRITER_TIMEOUT)
 
     def no_network_scale_up(self):
-        self.analyze_message(msg=dumps(self.return_scale_up_msg()))
+        self.manage_no_network_scale_up()
+
+    def manage_no_network_scale_up(self):
+        self.version = int(self.last_seen_version) + 1
+        memory_obj = MemoryObject(self.master_of_master, self.master, self.myself,
+                                  self.slave, self.slave_of_slave)
+        new_min_max_key = keyCalcToCreateANewNode(memory_obj).newNode
+        min_max_key_string = "{}:{}".format(str(new_min_max_key.min_key), str(new_min_max_key.max_key))
+        msg = self.make_add_node_msg(target_id=str(calculateSonId(float(self.myself.id),
+                                                                  float(self.slave.id))),
+                                     target_key=min_max_key_string,
+                                     source_flag=INT, target_slave_id=self.slave.id)
+        msg_to_send = to_external_message(self.version, msg)
+        self.last_add_message = msg_to_send
+        self.transition_table.change_state("pas")
+        self.logger.debug("now i'm busy : ScaleUpThread asked to scale up")
+        string_message = dumps(msg_to_send)
+        self.update_and_forward_message(msg=msg_to_send, origin_message=string_message, source=INT)
 
     def wait_the_new_node_and_send_the_list(self):
 
