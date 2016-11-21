@@ -88,13 +88,13 @@ class DeadReader(ProducerThread):
         self.internal_channel_memory.wait_int_message(dont_wait=False)
         self.internal_channel_memory.reply_to_int_message(OK)
 
+        self.logger.debug("memory transfer completed, now notify to the new master")
         self.internal_channel.generate_internal_channel_client_side()
 
         min_max_keys = Node.get_min_max_key(self.myself)
         new_added_node_message = self.make_added_node_msg(target_id=self.myself.id, target_slave_id=self.slave.id,
                                                           target_addr=self.myself.ip, target_key=min_max_keys,
                                                           source_flag=INT, source_id=self.master.id)
-        self.logger.debug("memory transfer completed, now notify to the new master")
         self.retry_until_success(dumps(new_added_node_message), 2)
 
         #        rep_msg = self.internal_channel.wait_int_message(dont_wait=False)
