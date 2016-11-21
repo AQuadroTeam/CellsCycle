@@ -174,15 +174,16 @@ def _manageRequest(logger, settings, socket, command, client, list_manager):
             return
         elif(operation.upper() == SCALEUP):
             logger.debug("Requests for scale Up!")
-            from CellCycle.ChainModule.ListThread import ListThread
-            from CellCycle.ChainModule.ListCommunication import InternalChannel
+            # from CellCycle.ChainModule.ListThread import ListThread
+            # from CellCycle.ChainModule.ListCommunication import InternalChannel
             # this channel is necessary to send scale up/down requests
 
-            internal_channel = InternalChannel(addr='127.0.0.1', port=settings.getIntPort(), logger=logger)
-            internal_channel.generate_internal_channel_client_side()
+            # internal_channel = InternalChannel(addr='127.0.0.1', port=settings.getIntPort(), logger=logger)
+            # internal_channel.generate_internal_channel_client_side()
             logger.debug("I'm sending the scale up request...")
             # call scale up service
-            ListThread.notify_scale_up(internal_channel)
+            # ListThread.notify_scale_up(internal_channel)
+            list_manager.no_network_scale_up()
             _send(socket, client, "SENDED")
             logger.debug("Requested!")
             return

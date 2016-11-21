@@ -370,6 +370,9 @@ class DeadWriter (ConsumerThread):
             # Sleep for WRITER_TIMEOUT (1 millisecond)
             time.sleep(WRITER_TIMEOUT)
 
+    def no_network_scale_up(self):
+        self.analyze_message(msg=dumps(self.return_scale_up_msg()))
+
     def wait_the_new_node_and_send_the_list(self):
 
         msg = loads(self.internal_channel.wait_int_message(dont_wait=False))

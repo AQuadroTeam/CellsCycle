@@ -323,6 +323,20 @@ class ListThread (threading.Thread):
         channel_to_send.send_first_internal_channel_message(message=dumps(msg))
         channel_to_send.wait_int_message(dont_wait=False)
 
+    @staticmethod
+    def return_scale_up_msg():
+        msg = Message()
+        msg.source_flag = INT
+        msg.version = ''
+        msg.priority = SCALE_UP
+        msg.random = ''
+        msg.target_id = ''
+        msg.target_key = ''
+        msg.target_addr = ''
+        msg.target_relative_id = ''
+        msg.source_id = ''
+        return msg
+
     # This function is used by Memory Management Process to notify a new scale up
     # It is just a wrapper
     @staticmethod
