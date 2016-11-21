@@ -230,6 +230,15 @@ def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
 
             elif command.type == NEWSTART:
                 hostState["current"] = command.optional
+                logger.debug("This is the ip of the vm: \nmaster_of_master {}\n"
+                             "master {}\n"
+                             "myself {}\n"
+                             "slave {}\n"
+                             "slave_of_slave{}".format(command.optional.master_of_master.ip,
+                                                       command.optional.master.ip,
+                                                       command.optional.myself.ip,
+                                                       command.optional.slave.ip,
+                                                       command.optional.slave_of_slave.ip))
                 logger.debug("Memory needs to be configured, first bootup of this memory node, new info: "+ str(hostState["current"]))
 
                 # import keys of master

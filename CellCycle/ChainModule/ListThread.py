@@ -28,7 +28,7 @@ class ListThread (threading.Thread):
         self.busy_add = False
 
         if self.myself.ip is None:
-            ip = gethostbyname(getfqdn())
+            ip = str(gethostbyname(getfqdn()))
             self.myself.ip = ip
             self.int_addr = '{}:{}'.format(ip, self.myself.int_port)    # ip:int_port
             self.ext_addr = '{}:{}'.format(ip, self.myself.ext_port)    # ip:int_port
