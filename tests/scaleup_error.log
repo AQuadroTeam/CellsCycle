@@ -1,0 +1,594 @@
+cellcycle scaleup
+cellcycle log
+BEGIN OF LOGFILE
+error: pathspec 'AmazonTest' did not match any file(s) known to git.
+Fetching origin
+From https://github.com/AQuadroTeam/CellsCycle
+   8413fb8..b0dc4aa  master     -> origin/master
+   4f94843..718d77b  AWS-lib    -> origin/AWS-lib
+ * [new branch]      AmazonTest -> origin/AmazonTest
+ * [new branch]      AmazonTestBeta -> origin/AmazonTestBeta
+ * [new branch]      ListCycleNewVersionTest -> origin/ListCycleNewVersionTest
+ * [new branch]      ListUtilities -> origin/ListUtilities
+HEAD is now at 9163ee8 added acm doc specification, added log to scale up
+2016-11-21 17:11:29,926 MainThread MainProcess DEBUG: Starting with params: {u'master': {u'ip': u'172.31.20.5', u'min_key': u'3435973836', u'id': u'5', u'max_key': u'4294967294'}, u'myself': {u'ip': u'172.31.20.1', u'min_key': u'0', u'id': u'1', u'max_key': u'858993458'}, u'master_of_master': {u'ip': u'172.31.20.4', u'min_key': u'2576980377', u'id': u'4', u'max_key': u'3435973835'}, u'slave': {u'ip': u'172.31.20.2', u'min_key': u'858993459', u'id': u'2', u'max_key': u'1717986917'}, u'slave_of_slave': {u'ip': u'172.31.20.3', u'min_key': u'1717986918', u'id': u'3', u'max_key': u'2576980376'}}
+2016-11-21 17:11:29,953 MainThread MainProcess DEBUG: These are my features: (Writer 1) Master ID : 5 , SlaveID: 2, IntPort 5557, ExtPort 5558, IP 172.31.20.1
+2016-11-21 17:11:29,961 MainThread MainProcess DEBUG: These are my features: (Reader 1) Master ID : 5 , SlaveID: 2, IntPort 5557, ExtPort 5558, IP 172.31.20.1
+2016-11-21 17:11:29,961 MainThread MainProcess DEBUG: list_manager : <DeadWriter(Writer-1, initial)>
+2016-11-21 17:11:29,962 MainThread python-CCMemorySlave DEBUG: Cache: Initializing cache with totalSize:200.0MB, slabSize:0.1MB
+2016-11-21 17:11:29,964 MainThread python-CCMemoryMaster DEBUG: Cache: Initializing cache with totalSize:200.0MB, slabSize:0.1MB
+2016-11-21 17:11:29,968 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-21 17:11:29,968 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-21 17:11:29,971 Reader-1 MainProcess DEBUG: Starting Reader 1
+2016-11-21 17:11:29,972 Reader-1 MainProcess DEBUG: my IP is not none : 172.31.20.1
+2016-11-21 17:11:29,972 Reader-1 MainProcess DEBUG: sync init
+2016-11-21 17:11:29,972 Reader-1 MainProcess DEBUG: new internal channel client created with destination tcp://172.31.20.5:5557
+2016-11-21 17:11:29,972 Reader-1 MainProcess DEBUG: sending message to tcp://172.31.20.5:5557
+2016-11-21 17:11:30,047 Writer-1 MainProcess DEBUG: Starting Writer 1
+2016-11-21 17:11:30,048 Writer-1 MainProcess DEBUG: new internal channel server created with destination tcp://*:5557
+2016-11-21 17:11:30,049 Writer-1 MainProcess DEBUG: waiting for a request
+2016-11-21 17:11:30,057 Reader-1 MainProcess DEBUG: waiting for a request
+2016-11-21 17:11:30,059 Reader-1 MainProcess DEBUG: accepted by master 5, achieved new master_of_master id 4
+2016-11-21 17:11:30,060 Reader-1 MainProcess DEBUG: Generating client connection point tcp://172.31.20.5:5558
+2016-11-21 17:11:30,060 Reader-1 MainProcess DEBUG: sync completed
+2016-11-21 17:11:30,213 Writer-1 MainProcess DEBUG: sending message to tcp://*:5557
+2016-11-21 17:11:30,215 Writer-1 MainProcess DEBUG: Generating server connection point tcp://172.31.20.1:5558
+2016-11-21 17:11:30,258 MainThread python-CCMemorySlave DEBUG: Cache: End of Initialization Cache, Success!
+2016-11-21 17:11:30,268 MainThread python-CCMemoryMaster DEBUG: Cache: End of Initialization Cache, Success!
+2016-11-21 17:11:30,271 MainThread python-CCMemorySlave DEBUG: Memory Process initialized:200000000B, get# = 1
+2016-11-21 17:11:30,272 MainThread python-CCMemoryMaster DEBUG: Memory Process initialized:200000000B, get# = 1
+2016-11-21 17:11:30,281 MemoryGetProxy python-CCMemorySlave DEBUG: Routing from tcp://*:5553 to inproc://get_memoryslave
+2016-11-21 17:11:30,281 MemoryGetProxy python-CCMemoryMaster DEBUG: Routing from tcp://*:5551 to inproc://get_memorymaster
+2016-11-21 17:11:30,281 MemoryGetter python-CCMemorySlave DEBUG: Listening in new task for get on inproc://get_memoryslave
+2016-11-21 17:11:30,282 MemoryGetter python-CCMemoryMaster DEBUG: Listening in new task for get on inproc://get_memorymaster
+2016-11-21 17:11:30,282 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Metricator alive, period: 60s, getThrLevel: [-inf,0.5], setThrLevel: [-inf,0.5]
+2016-11-21 17:11:30,282 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: new internal channel client created with destination tcp://127.0.0.1:5557
+2016-11-21 17:11:30,282 MainThread python-CCMemorySlave DEBUG: Listening in new task for set on tcp://*:5552
+2016-11-21 17:11:30,283 MainThread python-CCMemorySlave DEBUG: new internal channel client created with destination tcp://127.0.0.1:5559
+2016-11-21 17:11:30,283 MainThread python-CCMemorySlave DEBUG: new internal channel client created with destination tcp://127.0.0.1:5557
+2016-11-21 17:11:30,283 MainThread python-CCMemoryMaster DEBUG: Listening in new task for set on tcp://*:5550
+2016-11-21 17:11:30,283 MainThread python-CCMemoryMaster DEBUG: new internal channel client created with destination tcp://127.0.0.1:5559
+2016-11-21 17:11:30,283 MainThread python-CCMemoryMaster DEBUG: new internal channel client created with destination tcp://127.0.0.1:5557
+2016-11-21 17:11:30,284 MemorySlaveSetter python-CCMemoryMaster DEBUG: cannot send to slave, net info: None
+2016-11-21 17:11:30,433 MainThread python-CCMemoryMaster DEBUG: Configuration of net data: <CellCycle.ChainModule.MemoryObject.MemoryObject instance at 0x7f0ed1ae7680>
+2016-11-21 17:11:31,217 Writer-1 MainProcess DEBUG: this is my list
+Node 1, Node : myself 1, master 5, slave 2
+
+Node 3, Node : myself 3, master 2, slave 4
+
+Node 2, Node : myself 2, master 1, slave 3
+
+Node 5, Node : myself 5, master 4, slave 1
+
+Node 4, Node : myself 4, master 3, slave 5
+
+
+2016-11-21 17:11:31,217 Writer-1 MainProcess DEBUG: Send that i'm ALIVE (1) to 2
+2016-11-21 17:11:31,284 MemorySlaveSetter python-CCMemoryMaster DEBUG: Finally I'm configured
+2016-11-21 17:12:30,332 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 5.92787416143e-06, getters (mean): 0.0
+2016-11-21 17:13:30,372 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-21 17:14:30,398 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-21 17:15:30,421 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-21 17:15:31,644 ServiceEntrypointThread MainProcess DEBUG: Requests for scale Up!
+2016-11-21 17:15:31,644 ServiceEntrypointThread MainProcess DEBUG: new internal channel client created with destination tcp://127.0.0.1:5557
+2016-11-21 17:15:31,644 ServiceEntrypointThread MainProcess DEBUG: I'm sending the scale up request...
+2016-11-21 17:15:31,645 ServiceEntrypointThread MainProcess DEBUG: sending message to tcp://127.0.0.1:5557
+2016-11-21 17:15:31,661 ServiceEntrypointThread MainProcess DEBUG: waiting for a request
+
+END OF LOG
+cellcycle lgo
+ERROR
+SUPPORTED OPERATIONS:
+-SET (SET <key> <flag> <exp> <byte> <data>)
+-ADD (ADD <key> <flag> <exp> <byte> <data>)
+-GET (GET <key>)
+-DELETE (DELETE <key>)
+-CELLCYCLE
+        KILLYOURSELF <TERMINATE or STOP>
+        KILLALL <TERMINATE or STOP>
+        NEWCELL <params>
+        SCALEUP
+        SCALEDOWN
+        WHOHAS <key>
+        LOG
+
+BYE
+cellcycle log
+BEGIN OF LOGFILE
+error: pathspec 'AmazonTest' did not match any file(s) known to git.
+Fetching origin
+From https://github.com/AQuadroTeam/CellsCycle
+   8413fb8..b0dc4aa  master     -> origin/master
+   4f94843..718d77b  AWS-lib    -> origin/AWS-lib
+ * [new branch]      AmazonTest -> origin/AmazonTest
+ * [new branch]      AmazonTestBeta -> origin/AmazonTestBeta
+ * [new branch]      ListCycleNewVersionTest -> origin/ListCycleNewVersionTest
+ * [new branch]      ListUtilities -> origin/ListUtilities
+HEAD is now at 9163ee8 added acm doc specification, added log to scale up
+2016-11-21 17:11:29,926 MainThread MainProcess DEBUG: Starting with params: {u'master': {u'ip': u'172.31.20.5', u'min_key': u'3435973836', u'id': u'5', u'max_key': u'4294967294'}, u'myself': {u'ip': u'172.31.20.1', u'min_key': u'0', u'id': u'1', u'max_key': u'858993458'}, u'master_of_master': {u'ip': u'172.31.20.4', u'min_key': u'2576980377', u'id': u'4', u'max_key': u'3435973835'}, u'slave': {u'ip': u'172.31.20.2', u'min_key': u'858993459', u'id': u'2', u'max_key': u'1717986917'}, u'slave_of_slave': {u'ip': u'172.31.20.3', u'min_key': u'1717986918', u'id': u'3', u'max_key': u'2576980376'}}
+2016-11-21 17:11:29,953 MainThread MainProcess DEBUG: These are my features: (Writer 1) Master ID : 5 , SlaveID: 2, IntPort 5557, ExtPort 5558, IP 172.31.20.1
+2016-11-21 17:11:29,961 MainThread MainProcess DEBUG: These are my features: (Reader 1) Master ID : 5 , SlaveID: 2, IntPort 5557, ExtPort 5558, IP 172.31.20.1
+2016-11-21 17:11:29,961 MainThread MainProcess DEBUG: list_manager : <DeadWriter(Writer-1, initial)>
+2016-11-21 17:11:29,962 MainThread python-CCMemorySlave DEBUG: Cache: Initializing cache with totalSize:200.0MB, slabSize:0.1MB
+2016-11-21 17:11:29,964 MainThread python-CCMemoryMaster DEBUG: Cache: Initializing cache with totalSize:200.0MB, slabSize:0.1MB
+2016-11-21 17:11:29,968 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-21 17:11:29,968 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-21 17:11:29,971 Reader-1 MainProcess DEBUG: Starting Reader 1
+2016-11-21 17:11:29,972 Reader-1 MainProcess DEBUG: my IP is not none : 172.31.20.1
+2016-11-21 17:11:29,972 Reader-1 MainProcess DEBUG: sync init
+2016-11-21 17:11:29,972 Reader-1 MainProcess DEBUG: new internal channel client created with destination tcp://172.31.20.5:5557
+2016-11-21 17:11:29,972 Reader-1 MainProcess DEBUG: sending message to tcp://172.31.20.5:5557
+2016-11-21 17:11:30,047 Writer-1 MainProcess DEBUG: Starting Writer 1
+2016-11-21 17:11:30,048 Writer-1 MainProcess DEBUG: new internal channel server created with destination tcp://*:5557
+2016-11-21 17:11:30,049 Writer-1 MainProcess DEBUG: waiting for a request
+2016-11-21 17:11:30,057 Reader-1 MainProcess DEBUG: waiting for a request
+2016-11-21 17:11:30,059 Reader-1 MainProcess DEBUG: accepted by master 5, achieved new master_of_master id 4
+2016-11-21 17:11:30,060 Reader-1 MainProcess DEBUG: Generating client connection point tcp://172.31.20.5:5558
+2016-11-21 17:11:30,060 Reader-1 MainProcess DEBUG: sync completed
+2016-11-21 17:11:30,213 Writer-1 MainProcess DEBUG: sending message to tcp://*:5557
+2016-11-21 17:11:30,215 Writer-1 MainProcess DEBUG: Generating server connection point tcp://172.31.20.1:5558
+2016-11-21 17:11:30,258 MainThread python-CCMemorySlave DEBUG: Cache: End of Initialization Cache, Success!
+2016-11-21 17:11:30,268 MainThread python-CCMemoryMaster DEBUG: Cache: End of Initialization Cache, Success!
+2016-11-21 17:11:30,271 MainThread python-CCMemorySlave DEBUG: Memory Process initialized:200000000B, get# = 1
+2016-11-21 17:11:30,272 MainThread python-CCMemoryMaster DEBUG: Memory Process initialized:200000000B, get# = 1
+2016-11-21 17:11:30,281 MemoryGetProxy python-CCMemorySlave DEBUG: Routing from tcp://*:5553 to inproc://get_memoryslave
+2016-11-21 17:11:30,281 MemoryGetProxy python-CCMemoryMaster DEBUG: Routing from tcp://*:5551 to inproc://get_memorymaster
+2016-11-21 17:11:30,281 MemoryGetter python-CCMemorySlave DEBUG: Listening in new task for get on inproc://get_memoryslave
+2016-11-21 17:11:30,282 MemoryGetter python-CCMemoryMaster DEBUG: Listening in new task for get on inproc://get_memorymaster
+2016-11-21 17:11:30,282 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Metricator alive, period: 60s, getThrLevel: [-inf,0.5], setThrLevel: [-inf,0.5]
+2016-11-21 17:11:30,282 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: new internal channel client created with destination tcp://127.0.0.1:5557
+2016-11-21 17:11:30,282 MainThread python-CCMemorySlave DEBUG: Listening in new task for set on tcp://*:5552
+2016-11-21 17:11:30,283 MainThread python-CCMemorySlave DEBUG: new internal channel client created with destination tcp://127.0.0.1:5559
+2016-11-21 17:11:30,283 MainThread python-CCMemorySlave DEBUG: new internal channel client created with destination tcp://127.0.0.1:5557
+2016-11-21 17:11:30,283 MainThread python-CCMemoryMaster DEBUG: Listening in new task for set on tcp://*:5550
+2016-11-21 17:11:30,283 MainThread python-CCMemoryMaster DEBUG: new internal channel client created with destination tcp://127.0.0.1:5559
+2016-11-21 17:11:30,283 MainThread python-CCMemoryMaster DEBUG: new internal channel client created with destination tcp://127.0.0.1:5557
+2016-11-21 17:11:30,284 MemorySlaveSetter python-CCMemoryMaster DEBUG: cannot send to slave, net info: None
+2016-11-21 17:11:30,433 MainThread python-CCMemoryMaster DEBUG: Configuration of net data: <CellCycle.ChainModule.MemoryObject.MemoryObject instance at 0x7f0ed1ae7680>
+2016-11-21 17:11:31,217 Writer-1 MainProcess DEBUG: this is my list
+Node 1, Node : myself 1, master 5, slave 2
+
+Node 3, Node : myself 3, master 2, slave 4
+
+Node 2, Node : myself 2, master 1, slave 3
+
+Node 5, Node : myself 5, master 4, slave 1
+
+Node 4, Node : myself 4, master 3, slave 5
+
+
+2016-11-21 17:11:31,217 Writer-1 MainProcess DEBUG: Send that i'm ALIVE (1) to 2
+2016-11-21 17:11:31,284 MemorySlaveSetter python-CCMemoryMaster DEBUG: Finally I'm configured
+2016-11-21 17:12:30,332 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 5.92787416143e-06, getters (mean): 0.0
+2016-11-21 17:13:30,372 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-21 17:14:30,398 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-21 17:15:30,421 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-21 17:15:31,644 ServiceEntrypointThread MainProcess DEBUG: Requests for scale Up!
+2016-11-21 17:15:31,644 ServiceEntrypointThread MainProcess DEBUG: new internal channel client created with destination tcp://127.0.0.1:5557
+2016-11-21 17:15:31,644 ServiceEntrypointThread MainProcess DEBUG: I'm sending the scale up request...
+2016-11-21 17:15:31,645 ServiceEntrypointThread MainProcess DEBUG: sending message to tcp://127.0.0.1:5557
+2016-11-21 17:15:31,661 ServiceEntrypointThread MainProcess DEBUG: waiting for a request
+2016-11-21 17:15:35,682 Reader-1 MainProcess DEBUG: my master 5 is dead
+2016-11-21 17:15:35,686 Reader-1 MainProcess DEBUG: Closing socket with tcp://172.31.20.5:5558
+2016-11-21 17:15:35,690 Reader-1 MainProcess DEBUG: Closing socket with tcp://172.31.20.5:5557
+2016-11-21 17:15:35,690 Reader-1 MainProcess DEBUG: my IP is not none : 172.31.20.1
+2016-11-21 17:15:35,690 Reader-1 MainProcess DEBUG: sync init
+2016-11-21 17:15:35,690 Reader-1 MainProcess DEBUG: new internal channel client created with destination tcp://172.31.20.4:5557
+2016-11-21 17:15:35,690 Reader-1 MainProcess DEBUG: sending message to tcp://172.31.20.4:5557
+2016-11-21 17:15:35,707 Reader-1 MainProcess DEBUG: waiting for a request
+2016-11-21 17:15:35,711 Reader-1 MainProcess DEBUG: accepted by master 4, achieved new master_of_master id 4
+2016-11-21 17:15:35,712 Reader-1 MainProcess DEBUG: Generating client connection point tcp://172.31.20.4:5558
+2016-11-21 17:15:35,712 Reader-1 MainProcess DEBUG: sync completed
+2016-11-21 17:15:37,714 Reader-1 MainProcess DEBUG: my master 4 is dead
+2016-11-21 17:15:37,714 Reader-1 MainProcess DEBUG: Closing socket with tcp://172.31.20.4:5558
+2016-11-21 17:15:37,715 Reader-1 MainProcess DEBUG: Closing socket with tcp://172.31.20.4:5557
+2016-11-21 17:15:37,715 Reader-1 MainProcess DEBUG: my IP is not none : 172.31.20.1
+2016-11-21 17:15:37,715 Reader-1 MainProcess DEBUG: sync init
+2016-11-21 17:15:37,715 Reader-1 MainProcess DEBUG: new internal channel client created with destination tcp://172.31.20.4:5557
+2016-11-21 17:15:37,715 Reader-1 MainProcess DEBUG: sending message to tcp://172.31.20.4:5557
+2016-11-21 17:15:37,738 Reader-1 MainProcess DEBUG: waiting for a request
+2016-11-21 17:15:37,741 Reader-1 MainProcess DEBUG: accepted by master 4, achieved new master_of_master id 4
+2016-11-21 17:15:37,741 Reader-1 MainProcess DEBUG: Generating client connection point tcp://172.31.20.4:5558
+2016-11-21 17:15:37,742 Reader-1 MainProcess DEBUG: sync completed
+2016-11-21 17:15:40,748 Reader-1 MainProcess DEBUG: my master 4 is dead
+2016-11-21 17:15:40,749 Reader-1 MainProcess DEBUG: Closing socket with tcp://172.31.20.4:5558
+2016-11-21 17:15:40,749 Reader-1 MainProcess DEBUG: Closing socket with tcp://172.31.20.4:5557
+2016-11-21 17:15:40,749 Reader-1 MainProcess DEBUG: my IP is not none : 172.31.20.1
+2016-11-21 17:15:40,749 Reader-1 MainProcess DEBUG: sync init
+2016-11-21 17:15:40,749 Reader-1 MainProcess DEBUG: new internal channel client created with destination tcp://172.31.20.4:5557
+2016-11-21 17:15:40,749 Reader-1 MainProcess DEBUG: sending message to tcp://172.31.20.4:5557
+2016-11-21 17:15:40,774 Reader-1 MainProcess DEBUG: waiting for a request
+
+END OF LOG
+cellcycle log
+BEGIN OF LOGFILE
+error: pathspec 'AmazonTest' did not match any file(s) known to git.
+Fetching origin
+From https://github.com/AQuadroTeam/CellsCycle
+   8413fb8..b0dc4aa  master     -> origin/master
+   4f94843..718d77b  AWS-lib    -> origin/AWS-lib
+ * [new branch]      AmazonTest -> origin/AmazonTest
+ * [new branch]      AmazonTestBeta -> origin/AmazonTestBeta
+ * [new branch]      ListCycleNewVersionTest -> origin/ListCycleNewVersionTest
+ * [new branch]      ListUtilities -> origin/ListUtilities
+HEAD is now at 9163ee8 added acm doc specification, added log to scale up
+2016-11-21 17:11:29,926 MainThread MainProcess DEBUG: Starting with params: {u'master': {u'ip': u'172.31.20.5', u'min_key': u'3435973836', u'id': u'5', u'max_key': u'4294967294'}, u'myself': {u'ip': u'172.31.20.1', u'min_key': u'0', u'id': u'1', u'max_key': u'858993458'}, u'master_of_master': {u'ip': u'172.31.20.4', u'min_key': u'2576980377', u'id': u'4', u'max_key': u'3435973835'}, u'slave': {u'ip': u'172.31.20.2', u'min_key': u'858993459', u'id': u'2', u'max_key': u'1717986917'}, u'slave_of_slave': {u'ip': u'172.31.20.3', u'min_key': u'1717986918', u'id': u'3', u'max_key': u'2576980376'}}
+2016-11-21 17:11:29,953 MainThread MainProcess DEBUG: These are my features: (Writer 1) Master ID : 5 , SlaveID: 2, IntPort 5557, ExtPort 5558, IP 172.31.20.1
+2016-11-21 17:11:29,961 MainThread MainProcess DEBUG: These are my features: (Reader 1) Master ID : 5 , SlaveID: 2, IntPort 5557, ExtPort 5558, IP 172.31.20.1
+2016-11-21 17:11:29,961 MainThread MainProcess DEBUG: list_manager : <DeadWriter(Writer-1, initial)>
+2016-11-21 17:11:29,962 MainThread python-CCMemorySlave DEBUG: Cache: Initializing cache with totalSize:200.0MB, slabSize:0.1MB
+2016-11-21 17:11:29,964 MainThread python-CCMemoryMaster DEBUG: Cache: Initializing cache with totalSize:200.0MB, slabSize:0.1MB
+2016-11-21 17:11:29,968 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-21 17:11:29,968 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-21 17:11:29,971 Reader-1 MainProcess DEBUG: Starting Reader 1
+2016-11-21 17:11:29,972 Reader-1 MainProcess DEBUG: my IP is not none : 172.31.20.1
+2016-11-21 17:11:29,972 Reader-1 MainProcess DEBUG: sync init
+2016-11-21 17:11:29,972 Reader-1 MainProcess DEBUG: new internal channel client created with destination tcp://172.31.20.5:5557
+2016-11-21 17:11:29,972 Reader-1 MainProcess DEBUG: sending message to tcp://172.31.20.5:5557
+2016-11-21 17:11:30,047 Writer-1 MainProcess DEBUG: Starting Writer 1
+2016-11-21 17:11:30,048 Writer-1 MainProcess DEBUG: new internal channel server created with destination tcp://*:5557
+2016-11-21 17:11:30,049 Writer-1 MainProcess DEBUG: waiting for a request
+2016-11-21 17:11:30,057 Reader-1 MainProcess DEBUG: waiting for a request
+2016-11-21 17:11:30,059 Reader-1 MainProcess DEBUG: accepted by master 5, achieved new master_of_master id 4
+2016-11-21 17:11:30,060 Reader-1 MainProcess DEBUG: Generating client connection point tcp://172.31.20.5:5558
+2016-11-21 17:11:30,060 Reader-1 MainProcess DEBUG: sync completed
+2016-11-21 17:11:30,213 Writer-1 MainProcess DEBUG: sending message to tcp://*:5557
+2016-11-21 17:11:30,215 Writer-1 MainProcess DEBUG: Generating server connection point tcp://172.31.20.1:5558
+2016-11-21 17:11:30,258 MainThread python-CCMemorySlave DEBUG: Cache: End of Initialization Cache, Success!
+2016-11-21 17:11:30,268 MainThread python-CCMemoryMaster DEBUG: Cache: End of Initialization Cache, Success!
+2016-11-21 17:11:30,271 MainThread python-CCMemorySlave DEBUG: Memory Process initialized:200000000B, get# = 1
+2016-11-21 17:11:30,272 MainThread python-CCMemoryMaster DEBUG: Memory Process initialized:200000000B, get# = 1
+2016-11-21 17:11:30,281 MemoryGetProxy python-CCMemorySlave DEBUG: Routing from tcp://*:5553 to inproc://get_memoryslave
+2016-11-21 17:11:30,281 MemoryGetProxy python-CCMemoryMaster DEBUG: Routing from tcp://*:5551 to inproc://get_memorymaster
+2016-11-21 17:11:30,281 MemoryGetter python-CCMemorySlave DEBUG: Listening in new task for get on inproc://get_memoryslave
+2016-11-21 17:11:30,282 MemoryGetter python-CCMemoryMaster DEBUG: Listening in new task for get on inproc://get_memorymaster
+2016-11-21 17:11:30,282 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Metricator alive, period: 60s, getThrLevel: [-inf,0.5], setThrLevel: [-inf,0.5]
+2016-11-21 17:11:30,282 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: new internal channel client created with destination tcp://127.0.0.1:5557
+2016-11-21 17:11:30,282 MainThread python-CCMemorySlave DEBUG: Listening in new task for set on tcp://*:5552
+2016-11-21 17:11:30,283 MainThread python-CCMemorySlave DEBUG: new internal channel client created with destination tcp://127.0.0.1:5559
+2016-11-21 17:11:30,283 MainThread python-CCMemorySlave DEBUG: new internal channel client created with destination tcp://127.0.0.1:5557
+2016-11-21 17:11:30,283 MainThread python-CCMemoryMaster DEBUG: Listening in new task for set on tcp://*:5550
+2016-11-21 17:11:30,283 MainThread python-CCMemoryMaster DEBUG: new internal channel client created with destination tcp://127.0.0.1:5559
+2016-11-21 17:11:30,283 MainThread python-CCMemoryMaster DEBUG: new internal channel client created with destination tcp://127.0.0.1:5557
+2016-11-21 17:11:30,284 MemorySlaveSetter python-CCMemoryMaster DEBUG: cannot send to slave, net info: None
+2016-11-21 17:11:30,433 MainThread python-CCMemoryMaster DEBUG: Configuration of net data: <CellCycle.ChainModule.MemoryObject.MemoryObject instance at 0x7f0ed1ae7680>
+2016-11-21 17:11:31,217 Writer-1 MainProcess DEBUG: this is my list
+Node 1, Node : myself 1, master 5, slave 2
+
+Node 3, Node : myself 3, master 2, slave 4
+
+Node 2, Node : myself 2, master 1, slave 3
+
+Node 5, Node : myself 5, master 4, slave 1
+
+Node 4, Node : myself 4, master 3, slave 5
+
+
+2016-11-21 17:11:31,217 Writer-1 MainProcess DEBUG: Send that i'm ALIVE (1) to 2
+2016-11-21 17:11:31,284 MemorySlaveSetter python-CCMemoryMaster DEBUG: Finally I'm configured
+2016-11-21 17:12:30,332 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 5.92787416143e-06, getters (mean): 0.0
+2016-11-21 17:13:30,372 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-21 17:14:30,398 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-21 17:15:30,421 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-21 17:15:31,644 ServiceEntrypointThread MainProcess DEBUG: Requests for scale Up!
+2016-11-21 17:15:31,644 ServiceEntrypointThread MainProcess DEBUG: new internal channel client created with destination tcp://127.0.0.1:5557
+2016-11-21 17:15:31,644 ServiceEntrypointThread MainProcess DEBUG: I'm sending the scale up request...
+2016-11-21 17:15:31,645 ServiceEntrypointThread MainProcess DEBUG: sending message to tcp://127.0.0.1:5557
+2016-11-21 17:15:31,661 ServiceEntrypointThread MainProcess DEBUG: waiting for a request
+2016-11-21 17:15:35,682 Reader-1 MainProcess DEBUG: my master 5 is dead
+2016-11-21 17:15:35,686 Reader-1 MainProcess DEBUG: Closing socket with tcp://172.31.20.5:5558
+2016-11-21 17:15:35,690 Reader-1 MainProcess DEBUG: Closing socket with tcp://172.31.20.5:5557
+2016-11-21 17:15:35,690 Reader-1 MainProcess DEBUG: my IP is not none : 172.31.20.1
+2016-11-21 17:15:35,690 Reader-1 MainProcess DEBUG: sync init
+2016-11-21 17:15:35,690 Reader-1 MainProcess DEBUG: new internal channel client created with destination tcp://172.31.20.4:5557
+2016-11-21 17:15:35,690 Reader-1 MainProcess DEBUG: sending message to tcp://172.31.20.4:5557
+2016-11-21 17:15:35,707 Reader-1 MainProcess DEBUG: waiting for a request
+2016-11-21 17:15:35,711 Reader-1 MainProcess DEBUG: accepted by master 4, achieved new master_of_master id 4
+2016-11-21 17:15:35,712 Reader-1 MainProcess DEBUG: Generating client connection point tcp://172.31.20.4:5558
+2016-11-21 17:15:35,712 Reader-1 MainProcess DEBUG: sync completed
+2016-11-21 17:15:37,714 Reader-1 MainProcess DEBUG: my master 4 is dead
+2016-11-21 17:15:37,714 Reader-1 MainProcess DEBUG: Closing socket with tcp://172.31.20.4:5558
+2016-11-21 17:15:37,715 Reader-1 MainProcess DEBUG: Closing socket with tcp://172.31.20.4:5557
+2016-11-21 17:15:37,715 Reader-1 MainProcess DEBUG: my IP is not none : 172.31.20.1
+2016-11-21 17:15:37,715 Reader-1 MainProcess DEBUG: sync init
+2016-11-21 17:15:37,715 Reader-1 MainProcess DEBUG: new internal channel client created with destination tcp://172.31.20.4:5557
+2016-11-21 17:15:37,715 Reader-1 MainProcess DEBUG: sending message to tcp://172.31.20.4:5557
+2016-11-21 17:15:37,738 Reader-1 MainProcess DEBUG: waiting for a request
+2016-11-21 17:15:37,741 Reader-1 MainProcess DEBUG: accepted by master 4, achieved new master_of_master id 4
+2016-11-21 17:15:37,741 Reader-1 MainProcess DEBUG: Generating client connection point tcp://172.31.20.4:5558
+2016-11-21 17:15:37,742 Reader-1 MainProcess DEBUG: sync completed
+2016-11-21 17:15:40,748 Reader-1 MainProcess DEBUG: my master 4 is dead
+2016-11-21 17:15:40,749 Reader-1 MainProcess DEBUG: Closing socket with tcp://172.31.20.4:5558
+2016-11-21 17:15:40,749 Reader-1 MainProcess DEBUG: Closing socket with tcp://172.31.20.4:5557
+2016-11-21 17:15:40,749 Reader-1 MainProcess DEBUG: my IP is not none : 172.31.20.1
+2016-11-21 17:15:40,749 Reader-1 MainProcess DEBUG: sync init
+2016-11-21 17:15:40,749 Reader-1 MainProcess DEBUG: new internal channel client created with destination tcp://172.31.20.4:5557
+2016-11-21 17:15:40,749 Reader-1 MainProcess DEBUG: sending message to tcp://172.31.20.4:5557
+2016-11-21 17:15:40,774 Reader-1 MainProcess DEBUG: waiting for a request
+2016-11-21 17:16:30,481 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-21 17:17:30,541 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+
+END OF LOG
+quit
+Connection closed by foreign host.
+ubuntu@ip-172-31-21-1:~$ telnet 172.31.20.2 5555
+Trying 172.31.20.2...
+Connected to 172.31.20.2.
+Escape character is '^]'.
+cellcycle lot
+ERROR
+SUPPORTED OPERATIONS:
+-SET (SET <key> <flag> <exp> <byte> <data>)
+-ADD (ADD <key> <flag> <exp> <byte> <data>)
+-GET (GET <key>)
+-DELETE (DELETE <key>)
+-CELLCYCLE
+        KILLYOURSELF <TERMINATE or STOP>
+        KILLALL <TERMINATE or STOP>
+        NEWCELL <params>
+        SCALEUP
+        SCALEDOWN
+        WHOHAS <key>
+        LOG
+
+BYE
+cellcycle log
+BEGIN OF LOGFILE
+error: pathspec 'AmazonTest' did not match any file(s) known to git.
+Fetching origin
+From https://github.com/AQuadroTeam/CellsCycle
+   8413fb8..b0dc4aa  master     -> origin/master
+   4f94843..718d77b  AWS-lib    -> origin/AWS-lib
+ * [new branch]      AmazonTest -> origin/AmazonTest
+ * [new branch]      AmazonTestBeta -> origin/AmazonTestBeta
+ * [new branch]      ListCycleNewVersionTest -> origin/ListCycleNewVersionTest
+ * [new branch]      ListUtilities -> origin/ListUtilities
+HEAD is now at 9163ee8 added acm doc specification, added log to scale up
+2016-11-21 17:11:19,257 MainThread MainProcess DEBUG: Starting with params: {u'master': {u'ip': u'172.31.20.1', u'min_key': u'0', u'id': u'1', u'max_key': u'858993458'}, u'myself': {u'ip': u'172.31.20.2', u'min_key': u'858993459', u'id': u'2', u'max_key': u'1717986917'}, u'master_of_master': {u'ip': u'172.31.20.5', u'min_key': u'3435973836', u'id': u'5', u'max_key': u'4294967294'}, u'slave': {u'ip': u'172.31.20.3', u'min_key': u'1717986918', u'id': u'3', u'max_key': u'2576980376'}, u'slave_of_slave': {u'ip': u'172.31.20.4', u'min_key': u'2576980377', u'id': u'4', u'max_key': u'3435973835'}}
+2016-11-21 17:11:19,274 MainThread MainProcess DEBUG: These are my features: (Writer 2) Master ID : 1 , SlaveID: 3, IntPort 5557, ExtPort 5558, IP 172.31.20.2
+2016-11-21 17:11:19,279 MainThread MainProcess DEBUG: These are my features: (Reader 2) Master ID : 1 , SlaveID: 3, IntPort 5557, ExtPort 5558, IP 172.31.20.2
+2016-11-21 17:11:19,279 MainThread MainProcess DEBUG: list_manager : <DeadWriter(Writer-2, initial)>
+2016-11-21 17:11:19,281 MainThread python-CCMemorySlave DEBUG: Cache: Initializing cache with totalSize:200.0MB, slabSize:0.1MB
+2016-11-21 17:11:19,283 MainThread python-CCMemoryMaster DEBUG: Cache: Initializing cache with totalSize:200.0MB, slabSize:0.1MB
+2016-11-21 17:11:19,287 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-21 17:11:19,302 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-21 17:11:19,307 Reader-2 MainProcess DEBUG: Starting Reader 2
+2016-11-21 17:11:19,307 Reader-2 MainProcess DEBUG: my IP is not none : 172.31.20.2
+2016-11-21 17:11:19,307 Reader-2 MainProcess DEBUG: sync init
+2016-11-21 17:11:19,307 Reader-2 MainProcess DEBUG: new internal channel client created with destination tcp://172.31.20.1:5557
+2016-11-21 17:11:19,307 Reader-2 MainProcess DEBUG: sending message to tcp://172.31.20.1:5557
+2016-11-21 17:11:19,350 Writer-2 MainProcess DEBUG: Starting Writer 2
+2016-11-21 17:11:19,351 Writer-2 MainProcess DEBUG: new internal channel server created with destination tcp://*:5557
+2016-11-21 17:11:19,351 Writer-2 MainProcess DEBUG: waiting for a request
+2016-11-21 17:11:19,518 MainThread python-CCMemoryMaster DEBUG: Cache: End of Initialization Cache, Success!
+2016-11-21 17:11:19,525 MainThread python-CCMemorySlave DEBUG: Cache: End of Initialization Cache, Success!
+2016-11-21 17:11:19,526 MainThread python-CCMemorySlave DEBUG: Memory Process initialized:200000000B, get# = 1
+2016-11-21 17:11:19,535 MainThread python-CCMemoryMaster DEBUG: Memory Process initialized:200000000B, get# = 1
+2016-11-21 17:11:19,536 MemoryGetProxy python-CCMemoryMaster DEBUG: Routing from tcp://*:5551 to inproc://get_memorymaster
+2016-11-21 17:11:19,536 MemoryGetProxy python-CCMemorySlave DEBUG: Routing from tcp://*:5553 to inproc://get_memoryslave
+2016-11-21 17:11:19,537 MemoryGetter python-CCMemoryMaster DEBUG: Listening in new task for get on inproc://get_memorymaster
+2016-11-21 17:11:19,537 MemoryGetter python-CCMemorySlave DEBUG: Listening in new task for get on inproc://get_memoryslave
+2016-11-21 17:11:19,537 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Metricator alive, period: 60s, getThrLevel: [-inf,0.5], setThrLevel: [-inf,0.5]
+2016-11-21 17:11:19,537 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: new internal channel client created with destination tcp://127.0.0.1:5557
+2016-11-21 17:11:19,538 MainThread python-CCMemorySlave DEBUG: Listening in new task for set on tcp://*:5552
+2016-11-21 17:11:19,538 MainThread python-CCMemorySlave DEBUG: new internal channel client created with destination tcp://127.0.0.1:5559
+2016-11-21 17:11:19,538 MainThread python-CCMemorySlave DEBUG: new internal channel client created with destination tcp://127.0.0.1:5557
+2016-11-21 17:11:19,538 MainThread python-CCMemoryMaster DEBUG: Listening in new task for set on tcp://*:5550
+2016-11-21 17:11:19,539 MainThread python-CCMemoryMaster DEBUG: new internal channel client created with destination tcp://127.0.0.1:5559
+2016-11-21 17:11:19,539 MainThread python-CCMemoryMaster DEBUG: new internal channel client created with destination tcp://127.0.0.1:5557
+2016-11-21 17:11:19,539 MemorySlaveSetter python-CCMemoryMaster DEBUG: cannot send to slave, net info: None
+2016-11-21 17:11:19,589 MainThread python-CCMemoryMaster DEBUG: Configuration of net data: <CellCycle.ChainModule.MemoryObject.MemoryObject instance at 0x7f9abdfb4680>
+2016-11-21 17:11:20,540 MemorySlaveSetter python-CCMemoryMaster DEBUG: Finally I'm configured
+2016-11-21 17:11:21,489 Writer-2 MainProcess DEBUG: sending message to tcp://*:5557
+2016-11-21 17:11:21,492 Writer-2 MainProcess DEBUG: Generating server connection point tcp://172.31.20.2:5558
+2016-11-21 17:11:22,493 Writer-2 MainProcess DEBUG: this is my list
+Node 1, Node : myself 1, master 5, slave 2
+
+Node 3, Node : myself 3, master 2, slave 4
+
+Node 2, Node : myself 2, master 1, slave 3
+
+Node 5, Node : myself 5, master 4, slave 1
+
+Node 4, Node : myself 4, master 3, slave 5
+
+
+2016-11-21 17:11:22,494 Writer-2 MainProcess DEBUG: Send that i'm ALIVE (2) to 3
+2016-11-21 17:11:30,172 Reader-2 MainProcess DEBUG: waiting for a request
+2016-11-21 17:11:30,172 Reader-2 MainProcess DEBUG: accepted by master 1, achieved new master_of_master id 5
+2016-11-21 17:11:30,172 Reader-2 MainProcess DEBUG: Generating client connection point tcp://172.31.20.1:5558
+2016-11-21 17:11:30,173 Reader-2 MainProcess DEBUG: sync completed
+2016-11-21 17:12:19,592 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 6.57453650088e-06, getters (mean): 0.0
+2016-11-21 17:13:19,631 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-21 17:14:19,656 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-21 17:15:19,680 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-21 17:15:33,598 Reader-2 MainProcess DEBUG: my master 1 is dead
+2016-11-21 17:15:33,600 Reader-2 MainProcess DEBUG: Closing socket with tcp://172.31.20.1:5558
+2016-11-21 17:15:33,600 Reader-2 MainProcess DEBUG: Closing socket with tcp://172.31.20.1:5557
+2016-11-21 17:15:33,601 Reader-2 MainProcess DEBUG: my IP is not none : 172.31.20.2
+2016-11-21 17:15:33,601 Reader-2 MainProcess DEBUG: sync init
+2016-11-21 17:15:33,601 Reader-2 MainProcess DEBUG: new internal channel client created with destination tcp://172.31.20.5:5557
+2016-11-21 17:15:33,601 Reader-2 MainProcess DEBUG: sending message to tcp://172.31.20.5:5557
+2016-11-21 17:15:33,616 Reader-2 MainProcess DEBUG: waiting for a request
+2016-11-21 17:15:33,627 Reader-2 MainProcess DEBUG: accepted by master 5, achieved new master_of_master id 5
+2016-11-21 17:15:33,627 Reader-2 MainProcess DEBUG: Generating client connection point tcp://172.31.20.5:5558
+2016-11-21 17:15:33,627 Reader-2 MainProcess DEBUG: sync completed
+2016-11-21 17:15:35,629 Reader-2 MainProcess DEBUG: my master 5 is dead
+2016-11-21 17:15:35,632 Reader-2 MainProcess DEBUG: Closing socket with tcp://172.31.20.5:5558
+2016-11-21 17:15:35,632 Reader-2 MainProcess DEBUG: Closing socket with tcp://172.31.20.5:5557
+2016-11-21 17:15:35,632 Reader-2 MainProcess DEBUG: my IP is not none : 172.31.20.2
+2016-11-21 17:15:35,632 Reader-2 MainProcess DEBUG: sync init
+2016-11-21 17:15:35,632 Reader-2 MainProcess DEBUG: new internal channel client created with destination tcp://172.31.20.5:5557
+2016-11-21 17:15:35,632 Reader-2 MainProcess DEBUG: sending message to tcp://172.31.20.5:5557
+2016-11-21 17:15:35,656 Reader-2 MainProcess DEBUG: waiting for a request
+2016-11-21 17:15:35,659 Reader-2 MainProcess DEBUG: accepted by master 5, achieved new master_of_master id 5
+2016-11-21 17:15:35,659 Reader-2 MainProcess DEBUG: Generating client connection point tcp://172.31.20.5:5558
+2016-11-21 17:15:35,660 Reader-2 MainProcess DEBUG: sync completed
+2016-11-21 17:15:36,664 Writer-2 MainProcess DEBUG: forwarding this DEAD message
+target_addr: 172.31.20.1
+target_key: 0:858993458
+random: 8480
+target_id: 1
+priority: 5
+version: 1
+source_id: 5
+source_flag: 1
+target_relative_id: 2
+
+2016-11-21 17:15:39,694 Writer-2 MainProcess DEBUG: slave 3 is DEAD, and why i don't realized it?
+2016-11-21 17:15:39,697 Writer-2 MainProcess DEBUG: sending message to tcp://*:5557
+2016-11-21 17:15:39,699 Writer-2 MainProcess DEBUG: waiting for a request
+2016-11-21 17:15:41,722 Writer-2 MainProcess DEBUG: sending message to tcp://*:5557
+2016-11-21 17:15:42,726 Writer-2 MainProcess DEBUG: I am in state BusyAddPS
+2016-11-21 17:16:19,741 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-21 17:17:19,801 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-21 17:18:19,844 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-21 17:19:19,904 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+
+END OF LOG
+quir
+ERROR
+SUPPORTED OPERATIONS:
+-SET (SET <key> <flag> <exp> <byte> <data>)
+-ADD (ADD <key> <flag> <exp> <byte> <data>)
+-GET (GET <key>)
+-DELETE (DELETE <key>)
+-CELLCYCLE
+        KILLYOURSELF <TERMINATE or STOP>
+        KILLALL <TERMINATE or STOP>
+        NEWCELL <params>
+        SCALEUP
+        SCALEDOWN
+        WHOHAS <key>
+        LOG
+
+BYE
+quit
+Connection closed by foreign host.
+ubuntu@ip-172-31-21-1:~$ telnet 172.31.20.5 5555
+Trying 172.31.20.5...
+Connected to 172.31.20.5.
+Escape character is '^]'.
+cellcycle log
+BEGIN OF LOGFILE
+error: pathspec 'AmazonTest' did not match any file(s) known to git.
+Fetching origin
+From https://github.com/AQuadroTeam/CellsCycle
+   8413fb8..b0dc4aa  master     -> origin/master
+   4f94843..718d77b  AWS-lib    -> origin/AWS-lib
+ * [new branch]      AmazonTest -> origin/AmazonTest
+ * [new branch]      AmazonTestBeta -> origin/AmazonTestBeta
+ * [new branch]      ListCycleNewVersionTest -> origin/ListCycleNewVersionTest
+ * [new branch]      ListUtilities -> origin/ListUtilities
+HEAD is now at 9163ee8 added acm doc specification, added log to scale up
+2016-11-21 17:11:21,362 MainThread MainProcess DEBUG: Starting with params: {u'master': {u'ip': u'172.31.20.4', u'min_key': u'2576980377', u'id': u'4', u'max_key': u'3435973835'}, u'myself': {u'ip': u'172.31.20.5', u'min_key': u'3435973836', u'id': u'5', u'max_key': u'4294967294'}, u'master_of_master': {u'ip': u'172.31.20.3', u'min_key': u'1717986918', u'id': u'3', u'max_key': u'2576980376'}, u'slave': {u'ip': u'172.31.20.1', u'min_key': u'0', u'id': u'1', u'max_key': u'858993458'}, u'slave_of_slave': {u'ip': u'172.31.20.2', u'min_key': u'858993459', u'id': u'2', u'max_key': u'1717986917'}}
+2016-11-21 17:11:21,390 MainThread MainProcess DEBUG: These are my features: (Writer 5) Master ID : 4 , SlaveID: 1, IntPort 5557, ExtPort 5558, IP 172.31.20.5
+2016-11-21 17:11:21,397 MainThread MainProcess DEBUG: These are my features: (Reader 5) Master ID : 4 , SlaveID: 1, IntPort 5557, ExtPort 5558, IP 172.31.20.5
+2016-11-21 17:11:21,397 MainThread MainProcess DEBUG: list_manager : <DeadWriter(Writer-5, initial)>
+2016-11-21 17:11:21,398 MainThread python-CCMemorySlave DEBUG: Cache: Initializing cache with totalSize:200.0MB, slabSize:0.1MB
+2016-11-21 17:11:21,400 MainThread python-CCMemoryMaster DEBUG: Cache: Initializing cache with totalSize:200.0MB, slabSize:0.1MB
+2016-11-21 17:11:21,404 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-21 17:11:21,404 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-21 17:11:21,432 Reader-5 MainProcess DEBUG: Starting Reader 5
+2016-11-21 17:11:21,432 Reader-5 MainProcess DEBUG: my IP is not none : 172.31.20.5
+2016-11-21 17:11:21,432 Reader-5 MainProcess DEBUG: sync init
+2016-11-21 17:11:21,432 Reader-5 MainProcess DEBUG: new internal channel client created with destination tcp://172.31.20.4:5557
+2016-11-21 17:11:21,433 Reader-5 MainProcess DEBUG: sending message to tcp://172.31.20.4:5557
+2016-11-21 17:11:21,463 Writer-5 MainProcess DEBUG: Starting Writer 5
+2016-11-21 17:11:21,464 Writer-5 MainProcess DEBUG: new internal channel server created with destination tcp://*:5557
+2016-11-21 17:11:21,465 Writer-5 MainProcess DEBUG: waiting for a request
+2016-11-21 17:11:21,671 MainThread python-CCMemorySlave DEBUG: Cache: End of Initialization Cache, Success!
+2016-11-21 17:11:21,677 MainThread python-CCMemoryMaster DEBUG: Cache: End of Initialization Cache, Success!
+2016-11-21 17:11:21,677 MainThread python-CCMemoryMaster DEBUG: Memory Process initialized:200000000B, get# = 1
+2016-11-21 17:11:21,684 MainThread python-CCMemorySlave DEBUG: Memory Process initialized:200000000B, get# = 1
+2016-11-21 17:11:21,686 MemoryGetProxy python-CCMemorySlave DEBUG: Routing from tcp://*:5553 to inproc://get_memoryslave
+2016-11-21 17:11:21,686 MemoryGetProxy python-CCMemoryMaster DEBUG: Routing from tcp://*:5551 to inproc://get_memorymaster
+2016-11-21 17:11:21,686 MemoryGetter python-CCMemorySlave DEBUG: Listening in new task for get on inproc://get_memoryslave
+2016-11-21 17:11:21,686 MemoryGetter python-CCMemoryMaster DEBUG: Listening in new task for get on inproc://get_memorymaster
+2016-11-21 17:11:21,687 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Metricator alive, period: 60s, getThrLevel: [-inf,0.5], setThrLevel: [-inf,0.5]
+2016-11-21 17:11:21,687 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: new internal channel client created with destination tcp://127.0.0.1:5557
+2016-11-21 17:11:21,687 MainThread python-CCMemorySlave DEBUG: Listening in new task for set on tcp://*:5552
+2016-11-21 17:11:21,687 MainThread python-CCMemorySlave DEBUG: new internal channel client created with destination tcp://127.0.0.1:5559
+2016-11-21 17:11:21,687 MainThread python-CCMemorySlave DEBUG: new internal channel client created with destination tcp://127.0.0.1:5557
+2016-11-21 17:11:21,729 MainThread python-CCMemoryMaster DEBUG: Listening in new task for set on tcp://*:5550
+2016-11-21 17:11:21,729 MainThread python-CCMemoryMaster DEBUG: new internal channel client created with destination tcp://127.0.0.1:5559
+2016-11-21 17:11:21,729 MainThread python-CCMemoryMaster DEBUG: new internal channel client created with destination tcp://127.0.0.1:5557
+2016-11-21 17:11:21,730 MemorySlaveSetter python-CCMemoryMaster DEBUG: cannot send to slave, net info: None
+2016-11-21 17:11:21,801 MainThread python-CCMemoryMaster DEBUG: Configuration of net data: <CellCycle.ChainModule.MemoryObject.MemoryObject instance at 0x7fe739622680>
+2016-11-21 17:11:22,731 MemorySlaveSetter python-CCMemoryMaster DEBUG: Finally I'm configured
+2016-11-21 17:11:23,438 Reader-5 MainProcess DEBUG: waiting for a request
+2016-11-21 17:11:23,438 Reader-5 MainProcess DEBUG: accepted by master 4, achieved new master_of_master id 3
+2016-11-21 17:11:23,439 Reader-5 MainProcess DEBUG: Generating client connection point tcp://172.31.20.4:5558
+2016-11-21 17:11:23,439 Reader-5 MainProcess DEBUG: sync completed
+2016-11-21 17:11:29,928 Writer-5 MainProcess DEBUG: sending message to tcp://*:5557
+2016-11-21 17:11:29,933 Writer-5 MainProcess DEBUG: Generating server connection point tcp://172.31.20.5:5558
+2016-11-21 17:11:30,935 Writer-5 MainProcess DEBUG: this is my list
+Node 1, Node : myself 1, master 5, slave 2
+
+Node 3, Node : myself 3, master 2, slave 4
+
+Node 2, Node : myself 2, master 1, slave 3
+
+Node 5, Node : myself 5, master 4, slave 1
+
+Node 4, Node : myself 4, master 3, slave 5
+
+
+2016-11-21 17:11:30,935 Writer-5 MainProcess DEBUG: Send that i'm ALIVE (5) to 1
+2016-11-21 17:12:21,744 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 7.43287440053e-06, getters (mean): 0.0
+2016-11-21 17:13:21,768 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-21 17:14:21,817 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-21 17:15:21,843 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 2.96308260428e-06, getters (mean): 0.0
+2016-11-21 17:15:33,557 Writer-5 MainProcess DEBUG: slave 1 is DEAD, and why i don't realized it?
+2016-11-21 17:15:33,559 Writer-5 MainProcess DEBUG: sending message to tcp://*:5557
+2016-11-21 17:15:33,562 Writer-5 MainProcess DEBUG: waiting for a request
+2016-11-21 17:15:35,596 Writer-5 MainProcess DEBUG: sending message to tcp://*:5557
+2016-11-21 17:15:36,602 Writer-5 MainProcess DEBUG: I am in state BusyAddPS
+2016-11-21 17:15:37,585 Reader-5 MainProcess DEBUG: my master 4 is dead
+2016-11-21 17:15:37,588 Reader-5 MainProcess DEBUG: Closing socket with tcp://172.31.20.4:5558
+2016-11-21 17:15:37,588 Reader-5 MainProcess DEBUG: Closing socket with tcp://172.31.20.4:5557
+2016-11-21 17:15:37,588 Reader-5 MainProcess DEBUG: my IP is not none : 172.31.20.5
+2016-11-21 17:15:37,588 Reader-5 MainProcess DEBUG: sync init
+2016-11-21 17:15:37,588 Reader-5 MainProcess DEBUG: new internal channel client created with destination tcp://172.31.20.3:5557
+2016-11-21 17:15:37,588 Reader-5 MainProcess DEBUG: sending message to tcp://172.31.20.3:5557
+2016-11-21 17:15:37,607 Reader-5 MainProcess DEBUG: waiting for a request
+2016-11-21 17:15:37,613 Reader-5 MainProcess DEBUG: accepted by master 3, achieved new master_of_master id 3
+2016-11-21 17:15:37,616 Reader-5 MainProcess DEBUG: Generating client connection point tcp://172.31.20.3:5558
+2016-11-21 17:15:37,616 Reader-5 MainProcess DEBUG: sync completed
+2016-11-21 17:15:39,617 Reader-5 MainProcess DEBUG: my master 3 is dead
+2016-11-21 17:15:39,620 Reader-5 MainProcess DEBUG: Closing socket with tcp://172.31.20.3:5558
+2016-11-21 17:15:39,620 Reader-5 MainProcess DEBUG: Closing socket with tcp://172.31.20.3:5557
+2016-11-21 17:15:39,620 Reader-5 MainProcess DEBUG: my IP is not none : 172.31.20.5
+2016-11-21 17:15:39,620 Reader-5 MainProcess DEBUG: sync init
+2016-11-21 17:15:39,620 Reader-5 MainProcess DEBUG: new internal channel client created with destination tcp://172.31.20.3:5557
+2016-11-21 17:15:39,621 Reader-5 MainProcess DEBUG: sending message to tcp://172.31.20.3:5557
+2016-11-21 17:15:39,639 Reader-5 MainProcess DEBUG: waiting for a request
+2016-11-21 17:15:39,642 Reader-5 MainProcess DEBUG: accepted by master 3, achieved new master_of_master id 3
+2016-11-21 17:15:39,643 Reader-5 MainProcess DEBUG: Generating client connection point tcp://172.31.20.3:5558
+2016-11-21 17:15:39,643 Reader-5 MainProcess DEBUG: sync completed
+2016-11-21 17:15:40,648 Writer-5 MainProcess DEBUG: forwarding this DEAD message
+target_addr: 172.31.20.4
+target_key: 2576980377:3435973835
+random: 1572
+target_id: 4
+priority: 5
+version: 1
+source_id: 3
+source_flag: 1
+target_relative_id: 5
+
+2016-11-21 17:16:21,865 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-21 17:17:21,889 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-21 17:18:21,913 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-21 17:19:21,964 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-21 17:20:21,989 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+
+END OF LOG
+quit
+Connection closed by foreign host.
+ubuntu@ip-172-31-21-1:~$ telnet 172.31.20.5 5555
+Trying 172.31.20.5...
+Connected to 172.31.20.5.
+Escape character is '^]'.
+cellcycle killall terminate
+HELLO DARKNESS MY OLD FRIEND...
