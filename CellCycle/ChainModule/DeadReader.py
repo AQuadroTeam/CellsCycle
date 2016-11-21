@@ -27,7 +27,7 @@ class DeadReader(ProducerThread):
         self.external_channel = ExternalChannel(addr=self.master.ip, port=self.master.ext_port, logger=self.logger)
         self.internal_channel = InternalChannel(addr=self.master.ip, port=self.master.int_port, logger=self.logger)
 
-        self.internal_channel_memory = InternalChannel(addr="127.0.0.1", port=self.settings.getMemoryObjectPort(),
+        self.internal_channel_memory = InternalChannel(addr="*", port=self.settings.getMemoryObjectPort(),
                                                        logger=self.logger)
 
         self.writer_instance = writer_instance
