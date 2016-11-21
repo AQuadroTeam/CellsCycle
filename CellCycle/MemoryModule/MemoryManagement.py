@@ -206,8 +206,8 @@ def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
                     logger.warning("master is dead. Recovering... "+ str(hostState["current"]))
                     hostState["current"] = command.optional
                     # import keys of master, from this slave memory
-                    thisMasterMemory = "tcp://localhost:"+ str(settings.getMasterSetPort())
-                    thisSlaveMemory = "tcp://localhost:"+ str(settings.getSlaveSetPort())
+                    thisMasterMemory = "tcp://"+hostState["current"].myself.ip+":"+ str(settings.getMasterSetPort())
+                    thisSlaveMemory = "tcp://"+hostState["current"].myself.ip+":"+ str(settings.getSlaveSetPort())
                     newSlaveSlaveMemory =  "tcp://"+hostState["current"].slave.ip+":"+ str(settings.getSlaveSetPort())
                     beginFirst = hostState["current"].myself.min_key #command.optional.thisnode.slave.keys.begin oldone!
                     endFirst = hostState["current"].myself.max_key #command.optional.thisnode.slave.keys.end oldone!
@@ -216,7 +216,7 @@ def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
                     # create new slave memory for this node from new master
                     newMasterMasterMemory = "tcp://"+ hostState["current"].master.ip +":"+ str(settings.getMasterSetPort())
                     # instead of localhost i must have command.optional.newmaster.url
-                    thisSlaveMemory = "tcp://localhost:"+ str(settings.getSlaveSetPort())
+                    thisSlaveMemory = "tcp://"+hostState["current"].myself.ip+":"+ str(settings.getSlaveSetPort())
                     beginSecond = hostState["current"].master.min_key #command.optional.newmaster.master.keys.begin
                     endSecond = hostState["current"].master.max_key #command.optional.newmaster.master.keys.end
                     transferRequest(newMasterMasterMemory,[thisSlaveMemory],  beginSecond, endSecond)
@@ -250,6 +250,7 @@ def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
 
             elif command.type == TRANSFERCOMPLETE:
                 if transferToDoAfter and master:
+                    logger.debug("I'm communicating that transfer is completed")
                     # call the list communication for added or recovered
                     if transferType == NEWSTART:
                         internal_channel_added.send_first_internal_channel_message(message="FINISHED")
