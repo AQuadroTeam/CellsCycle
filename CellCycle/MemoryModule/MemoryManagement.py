@@ -110,7 +110,7 @@ def _memoryMetricatorThread(logger, cache, settings, master, timing):
             # scale down needed
             elif getMean <= getScaleDownLevel or setMean <= setScaleDownLevel:
                 logger.debug("Requests for scale Down!")
-                # Tcall scale down service
+                # call scale down service
                 ListThread.notify_scale_down(internal_channel)
                 # self.list_communication_thread.notify_scale_down()
 
@@ -253,8 +253,8 @@ def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
                         internal_channel_added.send_first_internal_channel_message(message="FINISHED")
                         internal_channel_added.wait_int_message(dont_wait=False)
                     elif transferType == NEWMASTER:
-                        logger.debug("MEMORY RESTORE finished , notify list thread")
-                        ListThread.notify_memory_request_finished(internal_channel_restored)
+                        logger.debug("MEMORY TRANSFER finished , notify list thread")
+                        ListThread.notify_memory_request_finished(internal_channel_restored, logger=logger)
                     #avvertire gestore ciclo che E finito recovery TODO:
                     logger.warning("new master state recovery: DONE")
                     #do something with command and hostState

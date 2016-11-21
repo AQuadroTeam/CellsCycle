@@ -185,10 +185,9 @@ class InternalChannel(ListCommunication):
 
         try:
             self.logger.debug('sending message to {}'.format(self.sync_address))
-            #rimetti   tracker_object = self.list_communication_channel.send(msg, track=True, copy=False)
-            self.list_communication_channel.send(msg)
+            tracker_object = self.list_communication_channel.send(msg, track=True, copy=False)
             # wait forever
-            #rimetti   tracker_object.wait(timeout)
+            tracker_object.wait(timeout)
             # self.logger.debug('ok with the message')
         except zmq.NotDone:
             self.logger.debug('Something went wrong with that message')
