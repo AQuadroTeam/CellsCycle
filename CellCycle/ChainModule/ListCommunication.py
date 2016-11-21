@@ -1,7 +1,7 @@
 import zmq
 import time
 from Printer import *
-from Const import TRACKER_TIMEOUT, TRY_TIMEOUT, OK, TRACKER_INFINITE_TIMEOUT
+from Const import TRY_TIMEOUT, OK, TRACKER_INFINITE_TIMEOUT
 
 BACKLOG = 5
 MAX_BUFF = 1024

@@ -112,7 +112,7 @@ def _memoryMetricatorThread(logger, cache, settings, master, timing):
             elif getMean <= getScaleDownLevel or setMean <= setScaleDownLevel:
 
                 logger.debug("Requests for scale Down!")
-                # Tcall scale down service
+                # call scale down service
                 ListThread.notify_scale_down(internal_channel)
                 # self.list_communication_thread.notify_scale_down()
 
@@ -153,10 +153,10 @@ def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
     socket = context.socket(zmq.PULL)
     socket.bind(url)
 
-    internal_channel_added = InternalChannel(addr="localhost", port=settings.getMemoryObjectPort(), logger=logger)
+    internal_channel_added = InternalChannel(addr="127.0.0.1", port=settings.getMemoryObjectPort(), logger=logger)
     internal_channel_added.generate_internal_channel_client_side()
 
-    internal_channel_restored = InternalChannel(addr="localhost", port=settings.getIntPort(), logger=logger)
+    internal_channel_restored = InternalChannel(addr="127.0.0.1", port=settings.getIntPort(), logger=logger)
     internal_channel_restored.generate_internal_channel_client_side()
 
     transferToDoAfter = False
@@ -256,6 +256,7 @@ def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
                         internal_channel_added.send_first_internal_channel_message(message="FINISHED")
                         internal_channel_added.wait_int_message(dont_wait=False)
                     elif transferType == NEWMASTER:
+                        logger.debug("MEMORY TRANSFER finished , notify list thread")
                         ListThread.notify_memory_request_finished(internal_channel_restored)
                     #avvertire gestore ciclo che E finito recovery TODO:
                     logger.warning("new master state recovery: DONE")
