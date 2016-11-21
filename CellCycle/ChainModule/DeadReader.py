@@ -27,7 +27,7 @@ class DeadReader(ProducerThread):
         self.external_channel = ExternalChannel(addr=self.master.ip, port=self.master.ext_port, logger=self.logger)
         self.internal_channel = InternalChannel(addr=self.master.ip, port=self.master.int_port, logger=self.logger)
 
-        self.internal_channel_memory = InternalChannel(addr="localhost", port=self.settings.getMemoryObjectPort(),
+        self.internal_channel_memory = InternalChannel(addr="*", port=self.settings.getMemoryObjectPort(),
                                                        logger=self.logger)
 
         self.writer_instance = writer_instance
@@ -39,6 +39,8 @@ class DeadReader(ProducerThread):
 
     def new_start_request(self):
         memory_object = MemoryObject(self.master_of_master, self.master, self.myself, self.slave, self.slave_of_slave)
+        self.logger.debug("hello everyone! this is my situation\n{}\nnew start request is coming!!!".
+                          format(memory_object.print_elements()))
         newStartRequest("tcp://localhost:" + str(self.settings.getMasterSetPort()), memory_object)
         # wait for added by memory module
         self.internal_channel_memory.generate_internal_channel_server_side()
