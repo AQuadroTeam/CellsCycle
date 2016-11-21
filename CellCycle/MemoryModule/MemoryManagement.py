@@ -263,7 +263,7 @@ def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
                     logger.debug("I'm communicating that transfer is completed")
                     # call the list communication for added or recovered
                     if transferType == NEWSTART:
-                        internal_channel_added.send_first_internal_channel_message(message="FINISHED")
+                        internal_channel_added.send_first_internal_channel_message(message=b"FINISHED")
                         internal_channel_added.wait_int_message(dont_wait=False)
                     elif transferType == NEWMASTER:
                         logger.debug("MEMORY TRANSFER finished , notify list thread")
