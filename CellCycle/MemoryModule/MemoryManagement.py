@@ -234,12 +234,12 @@ def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
                              "master {}\n"
                              "myself {}\n"
                              "slave {}\n"
-                             "slave_of_slave{}".format(command.optional.master_of_master.ip,
-                                                       command.optional.master.ip,
-                                                       command.optional.myself.ip,
-                                                       command.optional.slave.ip,
-                                                       command.optional.slave_of_slave.ip))
-                logger.debug("Memory needs to be configured, first bootup of this memory node, new info: "+ str(hostState["current"]))
+                             "slave_of_slave{}".format(hostState["current"].master_of_master.ip,
+                                                       hostState["current"].master.ip,
+                                                       hostState["current"].myself.ip,
+                                                       hostState["current"].slave.ip,
+                                                       hostState["current"].slave_of_slave.ip))
+                logger.debug("Memory needs to be configured, first bootup of this memory node, new info: "+ str(hostState["current"].print_elements()))
 
                 # import keys of master
                 thisMasterMemory = "tcp://" + hostState["current"].myself.ip +":"+ str(settings.getMasterSetPort())
@@ -252,8 +252,8 @@ def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
                 beginSlave = hostState["current"].master.min_key #command.optional.thisnode.slave.keys.begin oldone!
                 endSlave = hostState["current"].master.max_key #command.optional.thisnode.slave.keys.end oldone!
 
-                transferRequest(masterMasterMemory, thisMasterMemory, beginFirst, endFirst)
-                transferRequest(masterMasterMemory, thisSlaveMemory, beginSlave, endSlave)
+                transferRequest(masterMasterMemory, [thisMasterMemory], beginFirst, endFirst)
+                transferRequest(masterMasterMemory, [thisSlaveMemory], beginSlave, endSlave)
 
                 transferToDoAfter = True
                 transferType = NEWSTART
