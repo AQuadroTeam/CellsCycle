@@ -125,7 +125,7 @@ def _setToSlaveThread(logger,settings,  cache, master,url, queue, hostState):
     if(not master):
         return
     import time
-    while (hostState["current"] == None):
+    while hostState["current"] is None:
         logger.debug("cannot send to slave, net info: "+ str(hostState["current"]))
         time.sleep(1)
 
@@ -229,12 +229,13 @@ def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
                 hostState["current"] = command.optional
 
             elif command.type == NEWSTART:
-                logger.debug("Memory needs to be configured, first bootup of this memory node, new info: "+ str(hostState["current"]))
                 hostState["current"] = command.optional
+                logger.debug("Memory needs to be configured, first bootup of this memory node, new info: "+ str(hostState["current"]))
+
                 # import keys of master
-                thisMasterMemory = "tcp://localhost:"+ str(settings.getMasterSetPort())
-                thisSlaveMemory = "tcp://localhost:"+ str(settings.getSlaveSetPort())
-                masterMasterMemory =  "tcp://"+hostState["current"].master.ip+":"+ str(settings.getMasterSetPort())
+                thisMasterMemory = "tcp://" + hostState["current"].myself.ip +":"+ str(settings.getMasterSetPort())
+                thisSlaveMemory = "tcp://" + hostState["current"].myself.ip +":"+ str(settings.getSlaveSetPort())
+                masterMasterMemory = "tcp://"+hostState["current"].master.ip+":"+ str(settings.getMasterSetPort())
 
                 beginFirst = hostState["current"].myself.min_key #command.optional.thisnode.slave.keys.begin oldone!
                 endFirst = hostState["current"].myself.max_key #command.optional.thisnode.slave.keys.end oldone!
