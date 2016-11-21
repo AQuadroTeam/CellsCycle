@@ -151,10 +151,10 @@ def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
     socket = context.socket(zmq.PULL)
     socket.bind(url)
 
-    internal_channel_added = InternalChannel(addr="localhost", port=settings.getMemoryObjectPort(), logger=logger)
+    internal_channel_added = InternalChannel(addr="127.0.0.1", port=settings.getMemoryObjectPort(), logger=logger)
     internal_channel_added.generate_internal_channel_client_side()
 
-    internal_channel_restored = InternalChannel(addr="localhost", port=settings.getIntPort(), logger=logger)
+    internal_channel_restored = InternalChannel(addr="127.0.0.1", port=settings.getIntPort(), logger=logger)
     internal_channel_restored.generate_internal_channel_client_side()
 
     transferToDoAfter = False
