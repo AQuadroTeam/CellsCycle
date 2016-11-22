@@ -76,26 +76,15 @@ class ListValue:
         self.slave = target
 
     def print_value(self):
-        # return ''.join('Node :\n {}\n'.format(u) for u in [self.target.id, self.master.id,
-        #                                                    self.slave.id])
-        # if self.slave is None:
-        #     slave_to_print = 'None'
-        # else:
-        #     slave_to_print = self.slave.id
-        # if self.master is None:
-        #     master_to_print = 'None'
-        # else:
-        #     master_to_print = self.master.id
+        target_to_print = self.target
+        master_to_print = self.master
+        slave_to_print = self.slave
 
-        # target_to_print = self.target.print_values()
-        # master_to_print = self.master.print_values()
-        # slave_to_print = self.slave.print_values()
-        target_to_print = self.target.id
-        master_to_print = self.master.id
-        slave_to_print = self.slave.id
-
-        return 'Node : myself {}, master {}, slave {}\n'.format(target_to_print, master_to_print, slave_to_print)
-        # return 'Node : myself {}, master {}, slave {}\n'.format(target_to_print, master_to_print, slave_to_print)
+        return 'Node : myself {}, master {}, slave {}\n' \
+               'Keys : master {}, myself {}, slave {}'.format(target_to_print.id, master_to_print.id, slave_to_print.id,
+                                                              master_to_print.get_min_max_key(),
+                                                              target_to_print.get_min_max_key(),
+                                                              slave_to_print.get_min_max_key())
 
 
 class DeadList(object):
