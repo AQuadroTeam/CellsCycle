@@ -22,7 +22,7 @@ def startExtraCycleListeners(settings, logger, list_manager=None):
     socketZ = context.socket(zmq.STREAM)
     socketZ.bind(url_Frontend)
 
-    queue = Queue()
+    queue = Queue(maxsize=10)
     interfaceSendLock = Lock()
 
     socket = socketZ, interfaceSendLock
