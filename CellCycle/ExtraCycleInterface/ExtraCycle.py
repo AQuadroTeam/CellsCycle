@@ -188,7 +188,7 @@ def _manageRequest(logger, settings, socket, command, client, list_manager):
             logger.debug("Requested!")
             return
         elif(operation.upper() == SCALEDOWN):
-            logger.debug("Requests for scale Up!")
+            logger.debug("Requests for scale Down!")
             from CellCycle.ChainModule.ListThread import ListThread
             from CellCycle.ChainModule.ListCommunication import InternalChannel
             # this channel is necessary to send scale up/down requests
