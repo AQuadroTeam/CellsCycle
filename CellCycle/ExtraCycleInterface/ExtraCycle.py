@@ -20,8 +20,7 @@ def startExtraCycleListeners(settings, logger, list_manager=None):
     socket = context.socket(zmq.STREAM)
     socket.bind(url_Frontend)
 
-    #TODO analyze this
-    queue = Queue(maxsize=10)
+    queue = Queue()
 
     for i in range(threadNumber):
         th = Thread(name='ServiceEntrypointThread',target=_serviceThread, args=(settings, logger, url_Frontend, socket, queue, list_manager))
@@ -207,7 +206,7 @@ def _manageRequest(logger, settings, socket, command, client, list_manager):
             _whoHasHandler(settings, logger, client, socket, key, list_manager)
             return
         elif(operation.upper() == KEYS):
-            _keysHandler(settings, logger, client, socket,list_manager)
+            _keysHandler(settings, logger, client, socket)
             return
         else:
             _sendGuide(socket, client)
@@ -233,7 +232,6 @@ def _sendGuide(socket, client):
         "\tSCALEUP\n"\
         "\tSCALEDOWN\n"\
         "\tWHOHAS <key>\n"\
-        "\tKEYS\n"\
         "\tLOG\n"\
         "\nBYE\r\n"
     _send(socket, client, guide)
@@ -335,8 +333,8 @@ def _whoHasHandler(settings, logger, client, socket, key, list_manager):
     masterHost = list_manager.node_list.find_memory_key(key)
     _send(socket, client,"Key " + str(key) +" is assigned to: "+ str(masterHost.target.ip)+"\r\n")
 
-def _keysHandler(settings, logger, client, socket,list_manager):
-    _send(socket, client, list_manager.node_list.print_list()+"\r\n")
+def _keysHandler(settings, logger, client, socket):
+    _send(socket, client,"NOT IMPLEMENTED YET\r\n")
 
 
 def hashOfKey(key):
