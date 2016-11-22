@@ -49,30 +49,8 @@ def _serviceThread(settings, logger, url_Backend,queue, list_manager):
     logger.debug("Listening for clients on " + url_Backend)
     bufSize = settings.getValueMaxSize()
     while True:
-
-        sock, addr = queue.get()
         try:
-            message = sock.recv(bufSize)
-        except Exception as e:
-            logger.error(str(e))
-            import traceback
-            logger.error(traceback.format_exc())
-            sock.close()
-            continue
-
-        while(message != "" and message!="\n" and len(message)>0):
-            command = message.split()
-
-            if(settings.isVerbose()):
-                logger.debug("Received command: " + str(command))
-
-            try:
-                _manageRequest(logger, settings, sock, command, addr, list_manager)
-            except Exception as e:
-                logger.error(str(e))
-                import traceback
-                logger.error(traceback.format_exc())
-
+            sock, addr = queue.get()
             try:
                 message = sock.recv(bufSize)
             except Exception as e:
@@ -82,10 +60,30 @@ def _serviceThread(settings, logger, url_Backend,queue, list_manager):
                 sock.close()
                 continue
 
-        except Exception as e:
-            logger.error(str(e))
-            import traceback
-            logger.error(traceback.format_exc())
+            while(message != "" and message!="\n" and len(message)>0):
+                command = message.split()
+
+                if(settings.isVerbose()):
+                    logger.debug("Received command: " + str(command))
+
+                try:
+                    _manageRequest(logger, settings, sock, command, addr, list_manager)
+                except Exception as e:
+                    logger.error(str(e))
+                    import traceback
+                    logger.error(traceback.format_exc())
+
+                try:
+                    message = sock.recv(bufSize)
+                except Exception as e:
+                    logger.error(str(e))
+                    import traceback
+                    logger.error(traceback.format_exc())
+                    sock.close()
+                    continue
+        except:
+            pass
+
 
 
 
