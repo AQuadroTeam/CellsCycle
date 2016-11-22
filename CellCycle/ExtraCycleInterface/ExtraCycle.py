@@ -213,7 +213,7 @@ def _manageRequest(logger, settings, socket, command, client, list_manager):
             _whoHasHandler(settings, logger, client, socket, key, list_manager)
             return
         elif(operation.upper() == KEYS):
-            _keysHandler(settings, logger, client, socket)
+            _keysHandler(settings, logger, client, socket, list_manager)
             return
         else:
             _sendGuide(socket, client)
@@ -246,6 +246,7 @@ def _sendGuide(socket, client):
         "\tNEWCELL <params>\n"\
         "\tSCALEUP\n"\
         "\tSCALEDOWN\n"\
+        "\tKEYS\n"\
         "\tWHOHAS <key>\n"\
         "\tLOG\n"\
         "\nBYE\r\n"
@@ -348,8 +349,8 @@ def _whoHasHandler(settings, logger, client, socket, key, list_manager):
     masterHost = list_manager.node_list.find_memory_key(key)
     _send(socket, client,"Key " + str(key) +" is assigned to: "+ str(masterHost.target.ip)+"\r\n")
 
-def _keysHandler(settings, logger, client, socket):
-    _send(socket, client,"NOT IMPLEMENTED YET\r\n")
+def _keysHandler(settings, logger, client, socket, list_manager):
+    _send(socket, client,str(list_manager.node_list.printList())+"\r\n")
 
 
 def hashOfKey(key):
