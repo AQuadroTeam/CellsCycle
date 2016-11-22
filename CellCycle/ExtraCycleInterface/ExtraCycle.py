@@ -52,13 +52,13 @@ def _serviceThread(settings, logger, url_Backend,queue, list_manager):
         try:
             sock, addr = queue.get()
             message = sock.recv(bufSize)
-            if(message != "" and message!="\n" and len(message)>0):
+            while(message != "" and message!="\n" and len(message)>0):
                 command = message.split()
 
                 if(settings.isVerbose()):
                     logger.debug("Received command: " + str(command))
                 _manageRequest(logger, settings, sock, command, addr, list_manager)
-
+                message = sock.recv(bufSize)
         except Exception as e:
             logger.error(str(e))
             import traceback

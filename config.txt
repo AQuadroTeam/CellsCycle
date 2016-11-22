@@ -8,7 +8,7 @@ MasterSetPort 5550
 MasterGetPort 5551
 SlaveSetPort 5552
 SlaveGetPort 5553
-ServiceThreadNumber 2
+ServiceThreadNumber 16
 ClientEntrypointPort 5555
 ScalePeriod 60
 GetScaleUpLevel 0.50
