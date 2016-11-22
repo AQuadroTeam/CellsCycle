@@ -83,13 +83,7 @@ class DeadReader(ProducerThread):
         self.logger.debug("new birth sync init")
 
         self.new_start_request()
-        # FIXME i think that this part is unnecessary
-        # wait for memory request finished
-        # self.internal_channel_memory.generate_internal_channel_server_side()
-        # req_msg = self.internal_channel_memory.wait_int_message(dont_wait=False)
-        # self.logger.debug("received this message {}".format(req_msg))
-        # self.internal_channel_memory.reply_to_int_message(b"OK")
-
+        # Transfer part finished
         self.internal_channel.generate_internal_channel_client_side()
 
         min_max_keys = Node.get_min_max_key(self.myself)
