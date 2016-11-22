@@ -36,22 +36,15 @@ def startExtraCycleListeners(settings, logger, list_manager=None):
 
 def _receiverThread(logger, socketL, queue):
     logger.debug("Interface receiver is started")
-    interfaceSendLock = socketL[1]
     socket = socketL[0]
     while True:
         try:
-            interfaceSendLock.acquire()
-            logger.debug("inside lock")
             client, command = socket.recv_multipart()
-            logger.debug("after receive")
             queue.put([client, command])
         except Exception as e:
             logger.error(str(e))
             import traceback
             logger.error(traceback.format_exc())
-        finally:
-            interfaceSendLock.release()
-            logger.debug("after all")
 
 
 def _serviceThread(settings, logger, url_Backend,socket,queue, list_manager):
