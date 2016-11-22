@@ -20,6 +20,7 @@ def startExtraCycleListeners(settings, logger, list_manager=None):
     socket = context.socket(zmq.STREAM)
     socket.bind(url_Frontend)
 
+    #TODO analyze this
     queue = Queue(maxsize=10)
 
     for i in range(threadNumber):
