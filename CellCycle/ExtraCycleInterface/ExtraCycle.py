@@ -4,6 +4,8 @@ from Queue import Queue
 from binascii import crc32
 from CellCycle.MemoryModule.MemoryManagement import standardSlaveGetRequest, standardTransferRequest, standardMasterSetRequest, standardMasterGetRequest
 from CellCycle.AWS.AWSlib import *
+from socket import socket, AF_INET, SOCK_STREAM
+
 
 
 
@@ -16,48 +18,45 @@ def startExtraCycleListeners(settings, logger, list_manager=None):
     # prepare socket urls
     url_Frontend = "tcp://*:" + str(port)
 
-    # Prepare our context and sockets
-    context = zmq.Context.instance()
-
-    socketZ = context.socket(zmq.STREAM)
-    socketZ.bind(url_Frontend)
+    sock = socket(AF_INET, SOCK_STREAM)
+    sock.bind(('', str(port)))
 
     queue = Queue(maxsize=10)
-    interfaceSendLock = Lock()
-
-    socket = socketZ, interfaceSendLock
 
     for i in range(threadNumber):
-        th = Thread(name='ServiceEntrypointThread',target=_serviceThread, args=(settings, logger, url_Frontend, socket, queue, list_manager))
+        th = Thread(name='ServiceEntrypointThread',target=_serviceThread, args=(settings, logger, url_Frontend, queue, list_manager))
         th.start()
 
-    Thread(name='ServiceEntrypointRouterThread',target=_receiverThread, args=(logger, socket, queue)).start()
+    Thread(name='ServiceEntrypointRouterThread',target=_receiverThread, args=(logger, sock, queue)).start()
 
 
 def _receiverThread(logger, socketL, queue):
     logger.debug("Interface receiver is started")
-    socket = socketL[0]
+
+    socketL.listen(5)
+
     while True:
         try:
-            client, command = socket.recv_multipart()
-            queue.put([client, command])
+            client_sock, client_addr = socketL.accept()
+            queue.put((client_sock, client_addr))
         except Exception as e:
             logger.error(str(e))
             import traceback
             logger.error(traceback.format_exc())
 
 
-def _serviceThread(settings, logger, url_Backend,socket,queue, list_manager):
+def _serviceThread(settings, logger, url_Backend,queue, list_manager):
     logger.debug("Listening for clients on " + url_Backend)
     while True:
         try:
-            client, message = queue.get()
-            if(message != "" and message!="\n"):
+            sock, addr = queue.get()
+            command = sock.recv()
+            if(message != "" and message!="\n" and len(command)>0):
                 command = message.split()
 
                 if(settings.isVerbose()):
                     logger.debug("Received command: " + str(command))
-                _manageRequest(logger, settings, socket, command, client, list_manager)
+                _manageRequest(logger, settings, sock, command, addr, list_manager)
 
         except Exception as e:
             logger.error(str(e))
@@ -224,15 +223,9 @@ def _manageRequest(logger, settings, socket, command, client, list_manager):
 
 
 def _send(socketL, client, data):
-    interfaceSendLock = socketL[1]
-    socket = socketL[0]
-    interfaceSendLock.acquire()
-    try:
-        socket.send_multipart([client,data])
-    except:
-        pass
-    finally:
-        interfaceSendLock.release()
+
+    socketL.send(data)
+
 
 def _sendGuide(socket, client):
     guide = "ERROR\r\nSUPPORTED OPERATIONS:\n"\
@@ -312,7 +305,7 @@ def _getHandler(settings,logger,  socket, client, key, list_manager):
 
 def _quitHandler(settings, socket, client):
     try:
-        _send(socket, client, b'')
+        socket.close()
     except Exception as e:
         pass
 
