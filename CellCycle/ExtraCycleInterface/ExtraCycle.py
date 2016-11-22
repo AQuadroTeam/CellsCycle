@@ -61,7 +61,7 @@ def _serviceThread(settings, logger, url_Backend,socket,queue, list_manager):
 
                 if(settings.isVerbose()):
                     logger.debug("Received command: " + str(command))
-                _manageRequest(logger, settings, socket, command, client, list_manager,interfaceSendLock)
+                _manageRequest(logger, settings, socket, command, client, list_manager)
 
         except Exception as e:
             logger.error(str(e))
