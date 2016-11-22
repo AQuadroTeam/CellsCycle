@@ -81,13 +81,14 @@ class DeadReader(ProducerThread):
 
     def new_birth_connection(self):
         self.logger.debug("new birth sync init")
-        self.internal_channel_memory.generate_internal_channel_server_side()
 
         self.new_start_request()
+        # FIXME i think that this part is unnecessary
         # wait for memory request finished
-        req_msg = self.internal_channel_memory.wait_int_message(dont_wait=False)
-        self.logger.debug("received this message {}".format(req_msg))
-        self.internal_channel_memory.reply_to_int_message(b"OK")
+        # self.internal_channel_memory.generate_internal_channel_server_side()
+        # req_msg = self.internal_channel_memory.wait_int_message(dont_wait=False)
+        # self.logger.debug("received this message {}".format(req_msg))
+        # self.internal_channel_memory.reply_to_int_message(b"OK")
 
         self.internal_channel.generate_internal_channel_client_side()
 
