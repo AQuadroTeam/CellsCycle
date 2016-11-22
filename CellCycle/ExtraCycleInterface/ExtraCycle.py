@@ -1,9 +1,11 @@
-from threading import Thread
+from threading import Thread, Lock
 import zmq
 from Queue import Queue
 from binascii import crc32
 from CellCycle.MemoryModule.MemoryManagement import standardSlaveGetRequest, standardTransferRequest, standardMasterSetRequest, standardMasterGetRequest
 from CellCycle.AWS.AWSlib import *
+
+interfaceSendLock = Lock()
 
 def startExtraCycleListeners(settings, logger, list_manager=None):
     threadNumber = settings.getServiceThreadNumber()
@@ -217,7 +219,8 @@ def _manageRequest(logger, settings, socket, command, client, list_manager):
 
 
 def _send(socket, client, data):
-    socket.send_multipart([client,data])
+    with interfaceSendLock:
+        socket.send_multipart([client,data])
 
 def _sendGuide(socket, client):
     guide = "ERROR\r\nSUPPORTED OPERATIONS:\n"\
