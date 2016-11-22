@@ -41,7 +41,9 @@ def _receiverThread(logger, socketL, queue):
     while True:
         try:
             interfaceSendLock.acquire()
+            logger.debug("inside lock")
             client, command = socket.recv_multipart()
+            logger.debug("after receive")
             queue.put([client, command])
         except Exception as e:
             logger.error(str(e))
@@ -49,6 +51,7 @@ def _receiverThread(logger, socketL, queue):
             logger.error(traceback.format_exc())
         finally:
             interfaceSendLock.release()
+            logger.debug("after all")
 
 
 def _serviceThread(settings, logger, url_Backend,socket,queue, list_manager):
@@ -230,8 +233,13 @@ def _manageRequest(logger, settings, socket, command, client, list_manager):
 def _send(socketL, client, data):
     interfaceSendLock = socketL[1]
     socket = socketL[0]
-    with interfaceSendLock:
+    interfaceSendLock.acquire()
+    try:
         socket.send_multipart([client,data])
+    except:
+        pass
+    finally:
+        interfaceSendLock.release()
 
 def _sendGuide(socket, client):
     guide = "ERROR\r\nSUPPORTED OPERATIONS:\n"\
