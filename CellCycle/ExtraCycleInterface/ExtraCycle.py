@@ -2,7 +2,7 @@ from threading import Thread
 import zmq
 from Queue import Queue
 from binascii import crc32
-from CellCycle.MemoryModule.MemoryManagement import standardKillRequest, standardSlaveSetRequest, standardSlaveGetRequest, standardTransferRequest, standardMasterSetRequest, standardMasterGetRequest
+from CellCycle.MemoryModule.MemoryManagement import standardSlaveGetRequest, standardTransferRequest, standardMasterSetRequest, standardMasterGetRequest
 from CellCycle.AWS.AWSlib import *
 
 def startExtraCycleListeners(settings, logger, list_manager=None):
@@ -20,8 +20,7 @@ def startExtraCycleListeners(settings, logger, list_manager=None):
     socket = context.socket(zmq.STREAM)
     socket.bind(url_Frontend)
 
-    #TODO analyze this
-    queue = Queue(maxsize=10)
+    queue = Queue()
 
     for i in range(threadNumber):
         th = Thread(name='ServiceEntrypointThread',target=_serviceThread, args=(settings, logger, url_Frontend, socket, queue, list_manager))
@@ -80,25 +79,25 @@ def _manageRequest(logger, settings, socket, command, client, list_manager):
                 import traceback
                 logger.warning("for command: " + " ".join(command) + " , error: " + str(traceback.format_exc()))
                 _sendError(socket, client)
-            return;
+            return
         else:
             _sendGuide(socket, client)
-            return;
+            return
     if(command[0].upper() == TRANSFER):
         _transferHandler(settings, socket, client)
-        return;
+        return
     if(command[0].upper() == DELETE):
         if(command[1] != ""):
             key = hashOfKey(command[1])
             _deleteHandler(settings,logger, socket, client, key, list_manager)
-            return;
+            return
         else:
             _sendGuide(socket, client)
-            return;
+            return
     elif(command[0].upper() in setList):
         if(len(command) < 5):
             _sendGuide(socket, client)
-            return;
+            return
         else:
             key = hashOfKey(command[1])
             flag = command[2]
@@ -190,8 +189,6 @@ def _manageRequest(logger, settings, socket, command, client, list_manager):
             return
         elif(operation.upper() == SCALEDOWN):
             logger.debug("Requests for scale Down!")
-            from CellCycle.ChainModule.ListThread import ListThread
-            from CellCycle.ChainModule.ListCommunication import InternalChannel
             # this channel is necessary to send scale up/down requests
             # internal_channel = InternalChannel(addr='127.0.0.1', port=settings.getIntPort(), logger=logger)
             # internal_channel.generate_internal_channel_client_side()
@@ -209,14 +206,11 @@ def _manageRequest(logger, settings, socket, command, client, list_manager):
             _whoHasHandler(settings, logger, client, socket, key, list_manager)
             return
         elif(operation.upper() == KEYS):
-            _keysHandler(settings, logger, client, socket,list_manager)
+            _keysHandler(settings, logger, client, socket)
             return
         else:
             _sendGuide(socket, client)
             return
-
-
-        return
     else:
         _sendGuide(socket, client)
         return
@@ -238,7 +232,6 @@ def _sendGuide(socket, client):
         "\tSCALEUP\n"\
         "\tSCALEDOWN\n"\
         "\tWHOHAS <key>\n"\
-        "\tKEYS\n"\
         "\tLOG\n"\
         "\nBYE\r\n"
     _send(socket, client, guide)
@@ -253,28 +246,24 @@ def _sendError(socket, client):
 def _setHandler(settings, logger, socket,client, key, flag, exp, byte, value, list_manager):
     #add flag to stored data
     value = '{:010d}'.format(int(flag)) + value
-    # TODO check this line
     host = list_manager.node_list.find_memory_key(key)
     #get server node
     #hosts = getNodesForKey(key)
     if(settings.isVerbose()):
         logger.debug("sending set request to " + str(host.target.ip))
     returnValue =standardMasterSetRequest(settings, key, value, host.target.ip)
-    # TODO commented this line
     # returnValue = standardMasterSetRequest(settings, key, value)
 
     returnString = "STORED\r\n"
     _send(socket, client, returnString)
 
 def _deleteHandler(settings, logger, socket,client, key, list_manager):
-    #TODO check this line
     host = list_manager.node_list.find_memory_key(key)
     #get server node
     #hosts = getNodesForKey(key)
     if(settings.isVerbose()):
         logger.debug("sending delete request to " + str(host.target.ip))
     returnValue =standardMasterSetRequest(settings, key,None, host.target.ip)
-    # TODO commented this line
     # returnValue = standardMasterSetRequest(settings, key, None)
     returnString = "DELETED\r\n"
     _send(socket, client, returnString)
@@ -344,8 +333,8 @@ def _whoHasHandler(settings, logger, client, socket, key, list_manager):
     masterHost = list_manager.node_list.find_memory_key(key)
     _send(socket, client,"Key " + str(key) +" is assigned to: "+ str(masterHost.target.ip)+"\r\n")
 
-def _keysHandler(settings, logger, client, socket,list_manager):
-    _send(socket, client, list_manager.node_list.print_list()+"\r\n")
+def _keysHandler(settings, logger, client, socket):
+    _send(socket, client,"NOT IMPLEMENTED YET\r\n")
 
 
 def hashOfKey(key):
