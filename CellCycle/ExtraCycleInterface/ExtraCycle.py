@@ -20,7 +20,7 @@ def startExtraCycleListeners(settings, logger, list_manager=None):
     socket = context.socket(zmq.STREAM)
     socket.bind(url_Frontend)
 
-    queue = Queue()
+    queue = Queue(maxsize=10)
 
     for i in range(threadNumber):
         th = Thread(name='ServiceEntrypointThread',target=_serviceThread, args=(settings, logger, url_Frontend, socket, queue, list_manager))
