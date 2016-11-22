@@ -51,8 +51,8 @@ def _serviceThread(settings, logger, url_Backend,queue, list_manager):
     while True:
         try:
             sock, addr = queue.get()
-            command = sock.recv(bufSize)
-            if(message != "" and message!="\n" and len(command)>0):
+            message = sock.recv(bufSize)
+            if(message != "" and message!="\n" and len(message)>0):
                 command = message.split()
 
                 if(settings.isVerbose()):
