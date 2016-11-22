@@ -34,7 +34,8 @@ def startExtraCycleListeners(settings, logger, list_manager=None):
 def _receiverThread(logger, socket, queue):
     while True:
         try:
-            client, command = socket.recv_multipart()
+            with interfaceSendLock:
+                client, command = socket.recv_multipart()
             queue.put([client, command])
         except Exception as e:
             logger.error(str(e))
