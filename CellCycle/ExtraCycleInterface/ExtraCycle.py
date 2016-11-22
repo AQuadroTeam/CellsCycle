@@ -19,7 +19,7 @@ def startExtraCycleListeners(settings, logger, list_manager=None):
     url_Frontend = "tcp://*:" + str(port)
 
     sock = socket(AF_INET, SOCK_STREAM)
-    sock.bind(('', str(port)))
+    sock.bind(('', int(port)))
 
     queue = Queue(maxsize=10)
 
