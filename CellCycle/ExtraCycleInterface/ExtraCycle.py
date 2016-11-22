@@ -81,6 +81,7 @@ def _serviceThread(settings, logger, url_Backend,queue, list_manager):
                     logger.error(traceback.format_exc())
                     sock.close()
                     continue
+            sock.close()
         except:
             pass
 
