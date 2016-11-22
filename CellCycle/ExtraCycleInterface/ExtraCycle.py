@@ -40,13 +40,15 @@ def _receiverThread(logger, socketL, queue):
     socket = socketL[0]
     while True:
         try:
-            with interfaceSendLock:
-                client, command = socket.recv_multipart()
+            interfaceSendLock.acquire()
+            client, command = socket.recv_multipart()
             queue.put([client, command])
         except Exception as e:
             logger.error(str(e))
             import traceback
             logger.error(traceback.format_exc())
+        finally:
+            interfaceSendLock.release()
 
 
 def _serviceThread(settings, logger, url_Backend,socket,queue, list_manager):
