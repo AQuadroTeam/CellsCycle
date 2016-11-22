@@ -24,7 +24,7 @@ def startInstanceAWS(settings, logger, params, privateIp=None):
     "sudo git checkout "+branch+"  >> "+settings.getLogFile()+" 2>&1\n" \
     "sudo git fetch --all >> "+settings.getLogFile()+" 2>&1\n" \
     "sudo git reset --hard origin/" + branch +" >> "+settings.getLogFile()+" 2>&1\n" \
-    "sudo /usr/bin/python "+ startFile + " '" + serializedParams + "' '" + serializedSettings + "'\n"
+    "sudo /usr/bin/python "+ startFile + " '" + serializedParams + "' '" + serializedSettings + " >> extremeLog.log 2>&1'\n"
 
     logger.debug("id image: " + imageIdCellCycle)
     if(privateIp != None):
