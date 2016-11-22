@@ -5,7 +5,7 @@ from binascii import crc32
 from CellCycle.MemoryModule.MemoryManagement import standardSlaveGetRequest, standardTransferRequest, standardMasterSetRequest, standardMasterGetRequest
 from CellCycle.AWS.AWSlib import *
 
-interfaceSendLock = Lock()
+
 
 def startExtraCycleListeners(settings, logger, list_manager=None):
     threadNumber = settings.getServiceThreadNumber()
@@ -19,23 +19,29 @@ def startExtraCycleListeners(settings, logger, list_manager=None):
     # Prepare our context and sockets
     context = zmq.Context.instance()
 
-    socket = context.socket(zmq.STREAM)
-    socket.bind(url_Frontend)
+    socketZ = context.socket(zmq.STREAM)
+    socketZ.bind(url_Frontend)
 
     queue = Queue()
+    interfaceSendLock = Lock()
+
+    socket = socketZ, interfaceSendLock
 
     for i in range(threadNumber):
-        th = Thread(name='ServiceEntrypointThread',target=_serviceThread, args=(settings, logger, url_Frontend, socket, queue, list_manager))
+        th = Thread(name='ServiceEntrypointThread',target=_serviceThread, args=(settings, logger, url_Frontend, socket, queue, list_manager)
         th.start()
 
-    Thread(name='ServiceEntrypointRouterThread',target=_receiverThread, args=(logger, socket, queue)).start()
+    Thread(name='ServiceEntrypointRouterThread',target=_receiverThread, args=(logger, socket, queue).start()
 
 
-def _receiverThread(logger, socket, queue):
+def _receiverThread(logger, socketL, queue):
     logger.debug("Interface receiver is started")
+    interfaceSendLock = socketL[1]
+    socket = socketL[0]
     while True:
         try:
-            client, command = socket.recv_multipart()
+            with interfaceSendLock:
+                client, command = socket.recv_multipart()
             queue.put([client, command])
         except Exception as e:
             logger.error(str(e))
@@ -53,7 +59,7 @@ def _serviceThread(settings, logger, url_Backend,socket,queue, list_manager):
 
                 if(settings.isVerbose()):
                     logger.debug("Received command: " + str(command))
-                _manageRequest(logger, settings, socket, command, client, list_manager)
+                _manageRequest(logger, settings, socket, command, client, list_manager,interfaceSendLock)
 
         except Exception as e:
             logger.error(str(e))
@@ -219,7 +225,9 @@ def _manageRequest(logger, settings, socket, command, client, list_manager):
         return
 
 
-def _send(socket, client, data):
+def _send(socketL, client, data):
+    interfaceSendLock = socketL[1]
+    socket = socketL[0]
     with interfaceSendLock:
         socket.send_multipart([client,data])
 
