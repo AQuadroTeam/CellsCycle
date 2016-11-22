@@ -32,13 +32,10 @@ def startExtraCycleListeners(settings, logger, list_manager=None):
 
 
 def _receiverThread(logger, socket, queue):
+    logger.debug("Interface receiver is started")
     while True:
         try:
-            client = None
-            command = None
-            print "Mi metto ad aspettare"
-            with interfaceSendLock:
-                client, command = socket.recv_multipart()
+            client, command = socket.recv_multipart()
             queue.put([client, command])
         except Exception as e:
             logger.error(str(e))
