@@ -7,6 +7,7 @@ VERBOSE = "Verbose"
 SLABSIZE = "SlabSize"
 PREALLOCATEDPOOL = "PreallocatedPool"
 GETTERTHREADNUMBER = "GetterThreadNumber"
+VALUEMAXSIZE = "ValueMaxSize"
 
 #Network Settings
 MASTERSETPORT = "MasterSetPort"

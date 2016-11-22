@@ -49,6 +49,9 @@ class SettingsObject(object):
 
     def getGetterThreadNumber(self):
         return int(self.configDict[Constants.GETTERTHREADNUMBER][0])
+
+    def getValueMaxSize(self):
+        return int(self.configDict[Constants.VALUEMAXSIZE][0])
     # end of memory settings
 
     # network settings

@@ -47,10 +47,11 @@ def _receiverThread(logger, socketL, queue):
 
 def _serviceThread(settings, logger, url_Backend,queue, list_manager):
     logger.debug("Listening for clients on " + url_Backend)
+    bufSize = settings.getValueMaxSize()
     while True:
         try:
             sock, addr = queue.get()
-            command = sock.recv()
+            command = sock.recv(bufSize)
             if(message != "" and message!="\n" and len(command)>0):
                 command = message.split()
 
