@@ -11,7 +11,7 @@ SlaveGetPort 5553
 ServiceThreadNumber 16
 ClientEntrypointPort 5555
 ScalePeriod 60
-GetScaleUpLevel 0.10
+GetScaleUpLevel 0.02
 GetScaleDownLevel 0
 SetScaleUpLevel 0.10
 SetScaleDownLevel 0
