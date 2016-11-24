@@ -194,7 +194,7 @@ def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
                     dataList = cache.cache.iteritems()
                     begin = command.optional[0]
                     end = command.optional[1]
-                    _transfer(dest, dataList, begin, end)
+                    _transfer(settings,logger, dest, dataList, begin, end)
                     logger.debug("Transfer complete!")
 
             elif command.type == NEWMASTER:
@@ -279,7 +279,7 @@ def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
         except Exception as e:
             logger.error(e)
 
-def _transfer(dest, dataList, begin, end):
+def _transfer(settings,logger, dest, dataList, begin, end):
     context = zmq.Context.instance()
     socketTM = context.socket(zmq.PUSH)
 
@@ -288,7 +288,9 @@ def _transfer(dest, dataList, begin, end):
         key = int(data[0])
         if(key >= int(begin) and  key <= int(end) ):
             value = data[1].getValue(key)
-            print "transferring:" +str(value) #it's just for debug TODO to delete
+            if(settings.isVerbose()):
+                logger.debug("transferred: " + str(value))
+
             socketTM.send(dumps(Command(SETCOMMAND,key,value)))
     socketTM.send(dumps(Command(TRANSFERCOMPLETE)))
     socketTM.close()
