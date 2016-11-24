@@ -11,7 +11,7 @@ SlaveGetPort 5553
 ServiceThreadNumber 16
 ClientEntrypointPort 5555
 ScalePeriod 60
-GetScaleUpLevel 0.02
+GetScaleUpLevel 0.04
 GetScaleDownLevel 0
 SetScaleUpLevel 0.10
 SetScaleDownLevel 0
@@ -23,6 +23,6 @@ StartFileRelativePath startOnBoot.py
 IntPort 5557
 ExtPort 5558
 MinInstance 4
-MaxInstance 7
+MaxInstance 14
 MemoryObjectPort 5559
 AwsProfileName alessandro_fazio
