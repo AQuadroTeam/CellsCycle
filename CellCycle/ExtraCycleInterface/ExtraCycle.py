@@ -77,6 +77,7 @@ def _serviceThread(settings, logger, url_Backend,queue, list_manager):
                     message = sock.recv(bufSize)
                 except Exception as e:
                     sock.close()
+                    message = None
                     continue
             sock.close()
         except:
