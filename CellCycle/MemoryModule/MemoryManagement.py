@@ -145,7 +145,7 @@ def _setToSlaveThread(logger,settings,  cache, master,url, queue, hostState):
                         logger.debug("sended current key to slave: "+str(objToSend.key) +" to " + str(slaveAddress))
                     sended = True
                 except Exception as e:
-                    logger.warning(str(e))
+                    logger.warning("error in slave: " + str(e))
 
 def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
     logger.debug("Listening in new task for set on " + url)
