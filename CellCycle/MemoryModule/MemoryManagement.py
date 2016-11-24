@@ -152,7 +152,7 @@ def _setToSlaveThread(logger,settings,  cache, master,url, queue, hostState):
                         socket.connect(slaveAddress)
                         logger.debug("Change of slave:" + slaveAddress)
 
-                    socket.send(dumps(Command(SETCOMMAND, key, value)))
+                    socket.send(dumps(Command(SETCOMMAND, objToSend.key, objToSend.value)))
 
                     if(settings.isVerbose()):
                         logger.debug("sended current key to slave: "+str(objToSend.key) +" to " + str(slaveAddress))
