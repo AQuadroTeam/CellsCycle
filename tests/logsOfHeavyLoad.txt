@@ -1,0 +1,1329 @@
+nodo 1:
+BEGIN OF LOGFILE
+Switched to a new branch 'ListCycleNewVersionTest'
+Branch ListCycleNewVersionTest set up to track remote branch ListCycleNewVersionTest from origin.
+Fetching origin
+From https://github.com/AQuadroTeam/CellsCycle
+   5c66bd7..10a3483  ListCycleNewVersionTest -> origin/ListCycleNewVersionTest
+HEAD is now at 10a3483 Changed scaleup level
+2016-11-23 17:14:26,176 MainThread MainProcess DEBUG: Starting with params: {u'master': {u'ip': u'172.31.20.5', u'min_key': u'3435973836', u'id': u'5', u'max_key': u'4294967294'}, u'myself': {u'ip': u'172.31.20.1', u'min_key': u'0', u'id': u'1', u'max_key': u'858993458'}, u'master_of_master': {u'ip': u'172.31.20.4', u'min_key': u'2576980377', u'id': u'4', u'max_key': u'3435973835'}, u'slave': {u'ip': u'172.31.20.2', u'min_key': u'858993459', u'id': u'2', u'max_key': u'1717986917'}, u'slave_of_slave': {u'ip': u'172.31.20.3', u'min_key': u'1717986918', u'id': u'3', u'max_key': u'2576980376'}}
+2016-11-23 17:14:26,178 MainThread MainProcess DEBUG: These are my features: (Writer 1) Master ID : 5 , SlaveID: 2, IntPort 5557, ExtPort 5558, IP 172.31.20.1
+2016-11-23 17:14:26,180 MainThread MainProcess DEBUG: These are my features: (Reader 1) Master ID : 5 , SlaveID: 2, IntPort 5557, ExtPort 5558, IP 172.31.20.1
+2016-11-23 17:14:26,180 MainThread MainProcess DEBUG: list_manager : <DeadWriter(Writer-1, initial)>
+2016-11-23 17:14:26,181 MainThread python-CCMemoryMaster DEBUG: Cache: Initializing cache with totalSize:200.0MB, slabSize:0.1MB
+2016-11-23 17:14:26,183 MainThread python-CCMemorySlave DEBUG: Cache: Initializing cache with totalSize:200.0MB, slabSize:0.1MB
+2016-11-23 17:14:26,187 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:26,191 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:26,191 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:26,195 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:26,199 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:26,199 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:26,203 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:26,207 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:26,207 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:26,211 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:26,215 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:26,219 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:26,219 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:26,223 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:26,227 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:26,227 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:26,231 ServiceEntrypointRouterThread MainProcess DEBUG: Interface receiver is started
+2016-11-23 17:14:26,231 Reader-1 MainProcess DEBUG: Starting Reader 1
+2016-11-23 17:14:26,231 Reader-1 MainProcess DEBUG: my IP is not none : 172.31.20.1
+2016-11-23 17:14:26,231 Reader-1 MainProcess DEBUG: sync init
+2016-11-23 17:14:26,232 Reader-1 MainProcess DEBUG: new internal channel client created with destination tcp://172.31.20.5:5557
+2016-11-23 17:14:26,232 Reader-1 MainProcess DEBUG: sending message to tcp://172.31.20.5:5557
+2016-11-23 17:14:26,273 Writer-1 MainProcess DEBUG: Starting Writer 1
+2016-11-23 17:14:26,274 Writer-1 MainProcess DEBUG: new internal channel server created with destination tcp://*:5557
+2016-11-23 17:14:26,274 Writer-1 MainProcess DEBUG: waiting for a request
+2016-11-23 17:14:26,285 Reader-1 MainProcess DEBUG: waiting for a request
+2016-11-23 17:14:26,285 Reader-1 MainProcess DEBUG: accepted by master 5, achieved new master_of_master id 4
+2016-11-23 17:14:26,285 Reader-1 MainProcess DEBUG: Generating client connection point tcp://172.31.20.5:5558
+2016-11-23 17:14:26,285 Reader-1 MainProcess DEBUG: sync completed
+2016-11-23 17:14:26,331 Writer-1 MainProcess DEBUG: sending message to tcp://*:5557
+2016-11-23 17:14:26,332 Writer-1 MainProcess DEBUG: Generating server connection point tcp://172.31.20.1:5558
+2016-11-23 17:14:26,397 MainThread python-CCMemoryMaster DEBUG: Cache: End of Initialization Cache, Success!
+2016-11-23 17:14:26,397 MainThread python-CCMemoryMaster DEBUG: Memory Process initialized:200000000B, get# = 1
+2016-11-23 17:14:26,400 MainThread python-CCMemorySlave DEBUG: Cache: End of Initialization Cache, Success!
+2016-11-23 17:14:26,400 MainThread python-CCMemorySlave DEBUG: Memory Process initialized:200000000B, get# = 1
+2016-11-23 17:14:26,400 MemoryGetProxy python-CCMemorySlave DEBUG: Routing from tcp://*:5553 to inproc://get_memoryslave
+2016-11-23 17:14:26,401 MemoryGetProxy python-CCMemoryMaster DEBUG: Routing from tcp://*:5551 to inproc://get_memorymaster
+2016-11-23 17:14:26,401 MemoryGetter python-CCMemorySlave DEBUG: Listening in new task for get on inproc://get_memoryslave
+2016-11-23 17:14:26,401 MemoryGetter python-CCMemoryMaster DEBUG: Listening in new task for get on inproc://get_memorymaster
+2016-11-23 17:14:26,401 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Metricator alive, period: 60s, getThrLevel: [-inf,0.1], setThrLevel: [-inf,0.1]
+2016-11-23 17:14:26,402 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: new internal channel client created with destination tcp://127.0.0.1:5557
+2016-11-23 17:14:26,402 MainThread python-CCMemorySlave DEBUG: Listening in new task for set on tcp://*:5552
+2016-11-23 17:14:26,402 MainThread python-CCMemorySlave DEBUG: new internal channel client created with destination tcp://127.0.0.1:5559
+2016-11-23 17:14:26,402 MainThread python-CCMemorySlave DEBUG: new internal channel client created with destination tcp://127.0.0.1:5557
+2016-11-23 17:14:26,403 MainThread python-CCMemoryMaster DEBUG: Listening in new task for set on tcp://*:5550
+2016-11-23 17:14:26,403 MainThread python-CCMemoryMaster DEBUG: new internal channel client created with destination tcp://127.0.0.1:5559
+2016-11-23 17:14:26,403 MainThread python-CCMemoryMaster DEBUG: new internal channel client created with destination tcp://127.0.0.1:5557
+2016-11-23 17:14:26,403 MemorySlaveSetter python-CCMemoryMaster DEBUG: cannot send to slave, net info: None
+2016-11-23 17:14:26,425 MainThread python-CCMemoryMaster DEBUG: Configuration of net data: <CellCycle.ChainModule.MemoryObject.MemoryObject instance at 0x7f6420b0cd88>
+2016-11-23 17:14:27,333 Writer-1 MainProcess DEBUG: this is my list
+Node 1, Node : myself 1, master 5, slave 2
+Keys : master 3435973836:4294967294, myself 0:858993458, slave 858993459:1717986917
+Node 3, Node : myself 3, master 2, slave 4
+Keys : master 858993459:1717986917, myself 1717986918:2576980376, slave 2576980377:3435973835
+Node 2, Node : myself 2, master 1, slave 3
+Keys : master 0:858993458, myself 858993459:1717986917, slave 1717986918:2576980376
+Node 5, Node : myself 5, master 4, slave 1
+Keys : master 2576980377:3435973835, myself 3435973836:4294967294, slave 0:858993458
+Node 4, Node : myself 4, master 3, slave 5
+Keys : master 1717986918:2576980376, myself 2576980377:3435973835, slave 3435973836:4294967294
+
+2016-11-23 17:14:27,334 Writer-1 MainProcess DEBUG: Send that i'm ALIVE (1) to 2
+2016-11-23 17:14:27,404 MemorySlaveSetter python-CCMemoryMaster DEBUG: Finally I'm configured
+2016-11-23 17:15:26,459 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 4.83144605223e-06, getters (mean): 0.0
+2016-11-23 17:16:26,491 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:17:26,543 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:18:26,600 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:19:26,623 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:20:26,683 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00654028971415, getters (mean): 0.0249182938186
+2016-11-23 17:21:26,743 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0109218445505, getters (mean): 0.0424909626172
+2016-11-23 17:22:26,803 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0121898465925, getters (mean): 0.0543841308739
+2016-11-23 17:23:26,863 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.012750618882, getters (mean): 0.0633194492421
+2016-11-23 17:24:26,923 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0130521129893, getters (mean): 0.0615622608855
+2016-11-23 17:25:26,983 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0130448881368, getters (mean): 0.0596638152019
+2016-11-23 17:26:27,044 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0129627683396, getters (mean): 0.0644408968867
+2016-11-23 17:27:27,103 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0127146264892, getters (mean): 0.0608673785377
+2016-11-23 17:28:27,163 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0127549823124, getters (mean): 0.0611746490097
+2016-11-23 17:29:27,223 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0129886467003, getters (mean): 0.0597689655812
+2016-11-23 17:30:27,283 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0132520060578, getters (mean): 0.0605117961553
+2016-11-23 17:31:27,343 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0133085925651, getters (mean): 0.0628223690014
+2016-11-23 17:32:27,403 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0133970203905, getters (mean): 0.0602590352697
+2016-11-23 17:33:27,463 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.013886615996, getters (mean): 0.0660203997335
+2016-11-23 17:34:27,523 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0134936400104, getters (mean): 0.0631566212185
+2016-11-23 17:35:27,583 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0127747995628, getters (mean): 0.0565320282127
+2016-11-23 17:36:27,643 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.013302874101, getters (mean): 0.063554743928
+2016-11-23 17:37:27,703 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0136277582708, getters (mean): 0.0661461900807
+2016-11-23 17:38:27,763 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0139669417262, getters (mean): 0.0687872848179
+2016-11-23 17:39:27,823 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0135658416828, getters (mean): 0.0630552193919
+2016-11-23 17:40:27,435 Writer-1 MainProcess DEBUG: this message from 2 can be forwarded due to higher priority than 0
+target_addr:
+target_key: 1288490189:1717986917
+random: 8014
+target_id: 2.5
+priority: 1
+version: 1
+source_id: 2
+source_flag: 1
+target_relative_id: 3
+
+2016-11-23 17:40:27,435 Writer-1 MainProcess DEBUG: I am in state BusyAddPS
+2016-11-23 17:40:27,436 Writer-1 MainProcess DEBUG: forwarding ADD message
+target_addr:
+target_key: 1288490189:1717986917
+random: 8014
+target_id: 2.5
+priority: 1
+version: 1
+source_id: 2
+source_flag: 1
+target_relative_id: 3
+
+2016-11-23 17:40:27,883 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0133795800166, getters (mean): 0.0659447940877
+2016-11-23 17:41:27,943 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0133346718542, getters (mean): 0.0590822617178
+2016-11-23 17:42:28,003 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00987658160298, getters (mean): 0.0443120091364
+2016-11-23 17:43:28,063 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0139439209378, getters (mean): 0.064089978655
+2016-11-23 17:44:28,123 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.013217484446, getters (mean): 0.0632850745848
+2016-11-23 17:45:28,183 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0130247747207, getters (mean): 0.0553595612807
+2016-11-23 17:46:28,243 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0127569707698, getters (mean): 0.0515200455296
+2016-11-23 17:47:28,303 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.012889788121, getters (mean): 0.0517172236326
+2016-11-23 17:48:28,363 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0116417920212, getters (mean): 0.0445725676948
+2016-11-23 17:49:28,423 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0118195068588, getters (mean): 0.0448560233025
+2016-11-23 17:50:28,448 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00463782130575, getters (mean): 0.018024944516
+2016-11-23 17:51:28,472 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:52:28,508 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:53:28,544 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:54:28,567 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:55:28,592 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:56:28,615 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:57:28,660 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:58:28,704 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:59:28,763 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 18:00:28,797 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+
+END OF LOG
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+nodo 2:
+BEGIN OF LOGFILE
+Switched to a new branch 'ListCycleNewVersionTest'
+Branch ListCycleNewVersionTest set up to track remote branch ListCycleNewVersionTest from origin.
+Fetching origin
+From https://github.com/AQuadroTeam/CellsCycle
+   5c66bd7..10a3483  ListCycleNewVersionTest -> origin/ListCycleNewVersionTest
+HEAD is now at 10a3483 Changed scaleup level
+2016-11-23 17:14:25,613 MainThread MainProcess DEBUG: Starting with params: {u'master': {u'ip': u'172.31.20.1', u'min_key': u'0', u'id': u'1', u'max_
+key': u'858993458'}, u'myself': {u'ip': u'172.31.20.2', u'min_key': u'858993459', u'id': u'2', u'max_key': u'1717986917'}, u'master_of_master': {u'ip
+': u'172.31.20.5', u'min_key': u'3435973836', u'id': u'5', u'max_key': u'4294967294'}, u'slave': {u'ip': u'172.31.20.3', u'min_key': u'1717986918', u
+'id': u'3', u'max_key': u'2576980376'}, u'slave_of_slave': {u'ip': u'172.31.20.4', u'min_key': u'2576980377', u'id': u'4', u'max_key': u'3435973835'}
+}
+2016-11-23 17:14:25,615 MainThread MainProcess DEBUG: These are my features: (Writer 2) Master ID : 1 , SlaveID: 3, IntPort 5557, ExtPort 5558, IP 17
+2.31.20.2
+2016-11-23 17:14:25,617 MainThread MainProcess DEBUG: These are my features: (Reader 2) Master ID : 1 , SlaveID: 3, IntPort 5557, ExtPort 5558, IP 17
+2.31.20.2
+2016-11-23 17:14:25,617 MainThread MainProcess DEBUG: list_manager : <DeadWriter(Writer-2, initial)>
+2016-11-23 17:14:25,618 MainThread python-CCMemoryMaster DEBUG: Cache: Initializing cache with totalSize:200.0MB, slabSize:0.1MB
+2016-11-23 17:14:25,620 MainThread python-CCMemorySlave DEBUG: Cache: Initializing cache with totalSize:200.0MB, slabSize:0.1MB
+2016-11-23 17:14:25,624 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:25,628 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:25,628 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:25,632 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:25,636 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:25,636 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:25,640 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:25,644 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:25,644 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:25,648 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:25,652 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:25,652 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:25,656 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:25,660 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:25,664 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:25,664 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:25,668 ServiceEntrypointRouterThread MainProcess DEBUG: Interface receiver is started
+2016-11-23 17:14:25,672 Reader-2 MainProcess DEBUG: Starting Reader 2
+2016-11-23 17:14:25,672 Reader-2 MainProcess DEBUG: my IP is not none : 172.31.20.2
+2016-11-23 17:14:25,672 Reader-2 MainProcess DEBUG: sync init
+2016-11-23 17:14:25,672 Reader-2 MainProcess DEBUG: new internal channel client created with destination tcp://172.31.20.1:5557
+2016-11-23 17:14:25,673 Reader-2 MainProcess DEBUG: sending message to tcp://172.31.20.1:5557
+2016-11-23 17:14:25,696 Writer-2 MainProcess DEBUG: Starting Writer 2
+2016-11-23 17:14:25,697 Writer-2 MainProcess DEBUG: new internal channel server created with destination tcp://*:5557
+2016-11-23 17:14:25,697 Writer-2 MainProcess DEBUG: waiting for a request
+2016-11-23 17:14:25,831 MainThread python-CCMemorySlave DEBUG: Cache: End of Initialization Cache, Success!
+2016-11-23 17:14:25,832 MainThread python-CCMemorySlave DEBUG: Memory Process initialized:200000000B, get# = 1
+2016-11-23 17:14:25,833 MainThread python-CCMemoryMaster DEBUG: Cache: End of Initialization Cache, Success!
+2016-11-23 17:14:25,834 MainThread python-CCMemoryMaster DEBUG: Memory Process initialized:200000000B, get# = 1
+2016-11-23 17:14:25,835 MemoryGetProxy python-CCMemorySlave DEBUG: Routing from tcp://*:5553 to inproc://get_memoryslave
+2016-11-23 17:14:25,835 MemoryGetProxy python-CCMemoryMaster DEBUG: Routing from tcp://*:5551 to inproc://get_memorymaster
+2016-11-23 17:14:25,835 MemoryGetter python-CCMemorySlave DEBUG: Listening in new task for get on inproc://get_memoryslave
+2016-11-23 17:14:25,835 MemoryGetter python-CCMemoryMaster DEBUG: Listening in new task for get on inproc://get_memorymaster
+2016-11-23 17:14:25,836 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Metricator alive, period: 60s, getThrLevel: [-inf,0.1], setThrLevel:
+ [-inf,0.1]
+2016-11-23 17:14:25,836 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: new internal channel client created with destination tcp://127.0.0.1
+:5557
+2016-11-23 17:14:25,836 MainThread python-CCMemorySlave DEBUG: Listening in new task for set on tcp://*:5552
+2016-11-23 17:14:25,837 MainThread python-CCMemorySlave DEBUG: new internal channel client created with destination tcp://127.0.0.1:5559
+2016-11-23 17:14:25,837 MainThread python-CCMemorySlave DEBUG: new internal channel client created with destination tcp://127.0.0.1:5557
+2016-11-23 17:14:25,837 MainThread python-CCMemoryMaster DEBUG: Listening in new task for set on tcp://*:5550
+2016-11-23 17:14:25,837 MainThread python-CCMemoryMaster DEBUG: new internal channel client created with destination tcp://127.0.0.1:5559
+2016-11-23 17:14:25,838 MainThread python-CCMemoryMaster DEBUG: new internal channel client created with destination tcp://127.0.0.1:5557
+2016-11-23 17:14:25,838 MemorySlaveSetter python-CCMemoryMaster DEBUG: cannot send to slave, net info: None
+2016-11-23 17:14:25,842 Writer-2 MainProcess DEBUG: sending message to tcp://*:5557
+2016-11-23 17:14:25,843 Writer-2 MainProcess DEBUG: Generating server connection point tcp://172.31.20.2:5558
+2016-11-23 17:14:25,887 MainThread python-CCMemoryMaster DEBUG: Configuration of net data: <CellCycle.ChainModule.MemoryObject.MemoryObject instance
+at 0x7fd4837f7d88>
+2016-11-23 17:14:26,567 Reader-2 MainProcess DEBUG: waiting for a request
+2016-11-23 17:14:26,567 Reader-2 MainProcess DEBUG: accepted by master 1, achieved new master_of_master id 5
+2016-11-23 17:14:26,567 Reader-2 MainProcess DEBUG: Generating client connection point tcp://172.31.20.1:5558
+2016-11-23 17:14:26,567 Reader-2 MainProcess DEBUG: sync completed
+2016-11-23 17:14:26,839 MemorySlaveSetter python-CCMemoryMaster DEBUG: Finally I'm configured
+2016-11-23 17:14:26,844 Writer-2 MainProcess DEBUG: this is my list
+Node 1, Node : myself 1, master 5, slave 2
+Keys : master 3435973836:4294967294, myself 0:858993458, slave 858993459:1717986917
+Node 3, Node : myself 3, master 2, slave 4
+Keys : master 858993459:1717986917, myself 1717986918:2576980376, slave 2576980377:3435973835
+Node 2, Node : myself 2, master 1, slave 3
+Keys : master 0:858993458, myself 858993459:1717986917, slave 1717986918:2576980376
+Node 5, Node : myself 5, master 4, slave 1
+Keys : master 2576980377:3435973835, myself 3435973836:4294967294, slave 0:858993458
+Node 4, Node : myself 4, master 3, slave 5
+Keys : master 1717986918:2576980376, myself 2576980377:3435973835, slave 3435973836:4294967294
+
+2016-11-23 17:14:26,845 Writer-2 MainProcess DEBUG: Send that i'm ALIVE (2) to 3
+2016-11-23 17:15:25,890 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 5.77666181933e-06, getters (mean): 0.0
+2016-11-23 17:16:25,940 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:17:25,964 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:18:25,989 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:19:26,048 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:20:26,108 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00680881428722, getters (mean): 0.026540
+0410278
+2016-11-23 17:21:26,168 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0115147910346, getters (mean): 0.0426862
+77094
+2016-11-23 17:22:26,229 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0135485659696, getters (mean): 0.0531056
+305835
+2016-11-23 17:23:26,288 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0137998602942, getters (mean): 0.0585889
+367659
+2016-11-23 17:24:26,348 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0132233405095, getters (mean): 0.0573879
+60476
+2016-11-23 17:25:26,408 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0135653945022, getters (mean): 0.0583202
+008969
+2016-11-23 17:26:26,468 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0138598999832, getters (mean): 0.0572394
+711399
+2016-11-23 17:27:26,528 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.013913790912, getters (mean): 0.06086868
+00459
+2016-11-23 17:28:26,588 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0137553415972, getters (mean): 0.0585167
+59908
+2016-11-23 17:29:26,648 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.013794016306, getters (mean): 0.06066285
+11743
+2016-11-23 17:30:26,708 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0158452657262, getters (mean): 0.0637443
+093966
+2016-11-23 17:31:26,768 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0150146204302, getters (mean): 0.0627135
+261323
+2016-11-23 17:32:26,828 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0154563689458, getters (mean): 0.0618889
+870056
+2016-11-23 17:33:26,888 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0157981075767, getters (mean): 0.0649244
+35234
+2016-11-23 17:34:26,949 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0149272469661, getters (mean): 0.0633572
+936752
+2016-11-23 17:35:27,009 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0133680580849, getters (mean): 0.0590315
+00646
+2016-11-23 17:36:27,068 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0145301969903, getters (mean): 0.0641875
+382447
+2016-11-23 17:37:27,128 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0157981278331, getters (mean): 0.0644960
+083995
+2016-11-23 17:38:27,188 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0158324721477, getters (mean): 0.0649284
+583574
+2016-11-23 17:39:27,248 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0154515768957, getters (mean): 0.0584952
+368822
+2016-11-23 17:40:27,308 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0158580368035, getters (mean): 0.1214009
+50562
+2016-11-23 17:40:27,308 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Up!
+2016-11-23 17:40:27,308 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-11-23 17:40:27,314 Writer-2 MainProcess DEBUG: sending message to tcp://*:5557
+2016-11-23 17:40:27,315 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-11-23 17:40:27,315 Writer-2 MainProcess DEBUG: I am in state BusyAddPS
+2016-11-23 17:40:27,316 Writer-2 MainProcess DEBUG: now i'm busy : ScaleUpThread asked to scale up
+2016-11-23 17:40:27,336 Writer-2 MainProcess DEBUG: LAST ADD message
+2016-11-23 17:40:27,336 Writer-2 MainProcess DEBUG: contact amazon
+2016-11-23 17:40:27,703 Writer-2 MainProcess DEBUG: Loading JSON file: /usr/local/lib/python2.7/dist-packages/boto3/data/ec2/2016-09-15/resources-1.j
+son
+2016-11-23 17:40:27,734 Writer-2 MainProcess DEBUG: Looking for credentials via: assume-role
+2016-11-23 17:40:27,735 Writer-2 MainProcess DEBUG: Looking for credentials via: shared-credentials-file
+2016-11-23 17:40:27,735 Writer-2 MainProcess INFO: Found credentials in shared credentials file: ~/.aws/credentials
+2016-11-23 17:40:27,740 Writer-2 MainProcess DEBUG: Loading JSON file: /usr/local/lib/python2.7/dist-packages/botocore/data/endpoints.json
+2016-11-23 17:40:27,779 Writer-2 MainProcess DEBUG: Loading JSON file: /usr/local/lib/python2.7/dist-packages/botocore/data/ec2/2016-09-15/service-2.
+json
+2016-11-23 17:40:27,903 Writer-2 MainProcess DEBUG: Loading JSON file: /usr/local/lib/python2.7/dist-packages/botocore/data/_retry.json
+2016-11-23 17:40:27,906 Writer-2 MainProcess DEBUG: Registering retry handlers for service: ec2
+2016-11-23 17:40:27,930 Writer-2 MainProcess DEBUG: Event creating-client-class.ec2: calling handler <function add_generate_presigned_url at 0x7fd483
+a9c668>
+2016-11-23 17:40:27,930 Writer-2 MainProcess DEBUG: The s3 config key is not a dictionary type, ignoring its value of: None
+2016-11-23 17:40:27,934 Writer-2 MainProcess DEBUG: Setting ec2 timeout as (60, 60)
+2016-11-23 17:40:27,935 Writer-2 MainProcess DEBUG: Loading ec2:ec2
+2016-11-23 17:40:27,949 Writer-2 MainProcess DEBUG: Event creating-resource-class.ec2.ServiceResource: calling handler <function _handler at 0x7fd480
+16c8c0>
+2016-11-23 17:40:27,959 Writer-2 MainProcess DEBUG: id image: ami-9fc501f0
+2016-11-23 17:40:27,960 Writer-2 MainProcess INFO: Calling ec2:run_instances with {'UserData': u'#!/bin/bash\nsudo cp /home/ubuntu/.aws /root/ -r\ncd
+ /home/ubuntu/git/CellsCycle/\nsudo echo BEGIN OF LOGFILE > logFile.txt\nsudo git checkout ListCycleNewVersionTest  >> logFile.txt 2>&1\nsudo git fet
+ch --all >> logFile.txt 2>&1\nsudo git reset --hard origin/ListCycleNewVersionTest >> logFile.txt 2>&1\nsudo /usr/bin/python startOnBoot.py \'{"slave
+": {"ip": "172.31.20.3", "max_key": "2576980376", "id": "3", "min_key": "1717986918"}, "myself": {"ip": null, "max_key": "1717986917", "id": "2.5", "
+min_key": "1288490189"}, "master_of_master": {"ip": "172.31.20.1", "max_key": "858993458", "id": "1", "min_key": "0"}, "master": {"ip": "172.31.20.2"
+, "max_key": "1717986917", "id": "2", "min_key": "858993459"}, "slave_of_slave": {"ip": "172.31.20.4", "max_key": "3435973835", "id": "4", "min_key":
+ "2576980377"}}\' \'{"MemoryObjectPort": ["5559"], "SlaveSetPort": ["5552"], "MasterGetPort": ["5551"], "ClientEntrypointPort": ["5555"], "ValueMaxSi
+ze": ["4096"], "GitBranch": ["ListCycleNewVersionTest"], "LogFile": ["logFile.txt"], "ServiceThreadNumber": ["16"], "StartFileRelativePath": ["startO
+nBoot.py"], "GetterThreadNumber": ["1"], "PreallocatedPool": ["200000000"], "MasterSetPort": ["5550"], "SetScaleDownLevel": ["0"], "AwsImageId": ["am
+i-9fc501f0"], "IntPort": ["5557"], "GetScaleUpLevel": ["0.10"], "AwsProfileName": ["andrea_gennusa"], "AwsKeyName": ["CellCycleBot"], "ExtPort": ["55
+58"], "GetScaleDownLevel": ["0"], "SetScaleUpLevel": ["0.10"], "AwsSecurityGroup": ["SSHToAll"], "Verbose": ["False"], "MinInstance": ["4"], "SlaveGe
+tPort": ["5553"], "MaxInstance": ["7"], "ScalePeriod": ["60"], "SlabSize": ["100000"]}\' >> extremeLog.log 2>&1\n', 'KeyName': 'CellCycleBot', 'Secur
+ityGroups': ['SSHToAll'], 'MaxCount': 1, 'MinCount': 1, 'InstanceType': 't2.micro', 'ImageId': 'ami-9fc501f0'}
+2016-11-23 17:40:27,961 Writer-2 MainProcess DEBUG: Event before-parameter-build.ec2.RunInstances: calling handler <bound method ParameterAlias.alias
+_parameter_in_call of <botocore.handlers.ParameterAlias object at 0x7fd483a4d250>>
+2016-11-23 17:40:27,965 Writer-2 MainProcess DEBUG: Event before-parameter-build.ec2.RunInstances: calling handler <function base64_encode_user_data
+at 0x7fd483a49848>
+2016-11-23 17:40:27,966 Writer-2 MainProcess DEBUG: Making request for OperationModel(name=RunInstances) (verify_ssl=True) with params: {'body': {'Us
+erData': u'IyEvYmluL2Jhc2gKc3VkbyBjcCAvaG9tZS91YnVudHUvLmF3cyAvcm9vdC8gLXIKY2QgL2hvbWUvdWJ1bnR1L2dpdC9DZWxsc0N5Y2xlLwpzdWRvIGVjaG8gQkVHSU4gT0YgTE9HRk
+lMRSA+IGxvZ0ZpbGUudHh0CnN1ZG8gZ2l0IGNoZWNrb3V0IExpc3RDeWNsZU5ld1ZlcnNpb25UZXN0ICA+PiBsb2dGaWxlLnR4dCAyPiYxCnN1ZG8gZ2l0IGZldGNoIC0tYWxsID4+IGxvZ0ZpbGU
+udHh0IDI+JjEKc3VkbyBnaXQgcmVzZXQgLS1oYXJkIG9yaWdpbi9MaXN0Q3ljbGVOZXdWZXJzaW9uVGVzdCA+PiBsb2dGaWxlLnR4dCAyPiYxCnN1ZG8gL3Vzci9iaW4vcHl0aG9uIHN0YXJ0T25C
+b290LnB5ICd7InNsYXZlIjogeyJpcCI6ICIxNzIuMzEuMjAuMyIsICJtYXhfa2V5IjogIjI1NzY5ODAzNzYiLCAiaWQiOiAiMyIsICJtaW5fa2V5IjogIjE3MTc5ODY5MTgifSwgIm15c2VsZiI6I
+HsiaXAiOiBudWxsLCAibWF4X2tleSI6ICIxNzE3OTg2OTE3IiwgImlkIjogIjIuNSIsICJtaW5fa2V5IjogIjEyODg0OTAxODkifSwgIm1hc3Rlcl9vZl9tYXN0ZXIiOiB7ImlwIjogIjE3Mi4zMS
+4yMC4xIiwgIm1heF9rZXkiOiAiODU4OTkzNDU4IiwgImlkIjogIjEiLCAibWluX2tleSI6ICIwIn0sICJtYXN0ZXIiOiB7ImlwIjogIjE3Mi4zMS4yMC4yIiwgIm1heF9rZXkiOiAiMTcxNzk4Njk
+xNyIsICJpZCI6ICIyIiwgIm1pbl9rZXkiOiAiODU4OTkzNDU5In0sICJzbGF2ZV9vZl9zbGF2ZSI6IHsiaXAiOiAiMTcyLjMxLjIwLjQiLCAibWF4X2tleSI6ICIzNDM1OTczODM1IiwgImlkIjog
+IjQiLCAibWluX2tleSI6ICIyNTc2OTgwMzc3In19JyAneyJNZW1vcnlPYmplY3RQb3J0IjogWyI1NTU5Il0sICJTbGF2ZVNldFBvcnQiOiBbIjU1NTIiXSwgIk1hc3RlckdldFBvcnQiOiBbIjU1N
+TEiXSwgIkNsaWVudEVudHJ5cG9pbnRQb3J0IjogWyI1NTU1Il0sICJWYWx1ZU1heFNpemUiOiBbIjQwOTYiXSwgIkdpdEJyYW5jaCI6IFsiTGlzdEN5Y2xlTmV3VmVyc2lvblRlc3QiXSwgIkxvZ0
+ZpbGUiOiBbImxvZ0ZpbGUudHh0Il0sICJTZXJ2aWNlVGhyZWFkTnVtYmVyIjogWyIxNiJdLCAiU3RhcnRGaWxlUmVsYXRpdmVQYXRoIjogWyJzdGFydE9uQm9vdC5weSJdLCAiR2V0dGVyVGhyZWF
+kTnVtYmVyIjogWyIxIl0sICJQcmVhbGxvY2F0ZWRQb29sIjogWyIyMDAwMDAwMDAiXSwgIk1hc3RlclNldFBvcnQiOiBbIjU1NTAiXSwgIlNldFNjYWxlRG93bkxldmVsIjogWyIwIl0sICJBd3NJ
+bWFnZUlkIjogWyJhbWktOWZjNTAxZjAiXSwgIkludFBvcnQiOiBbIjU1NTciXSwgIkdldFNjYWxlVXBMZXZlbCI6IFsiMC4xMCJdLCAiQXdzUHJvZmlsZU5hbWUiOiBbImFuZHJlYV9nZW5udXNhI
+l0sICJBd3NLZXlOYW1lIjogWyJDZWxsQ3ljbGVCb3QiXSwgIkV4dFBvcnQiOiBbIjU1NTgiXSwgIkdldFNjYWxlRG93bkxldmVsIjogWyIwIl0sICJTZXRTY2FsZVVwTGV2ZWwiOiBbIjAuMTAiXS
+wgIkF3c1NlY3VyaXR5R3JvdXAiOiBbIlNTSFRvQWxsIl0sICJWZXJib3NlIjogWyJGYWxzZSJdLCAiTWluSW5zdGFuY2UiOiBbIjQiXSwgIlNsYXZlR2V0UG9ydCI6IFsiNTU1MyJdLCAiTWF4SW5
+zdGFuY2UiOiBbIjciXSwgIlNjYWxlUGVyaW9kIjogWyI2MCJdLCAiU2xhYlNpemUiOiBbIjEwMDAwMCJdfScgPj4gZXh0cmVtZUxvZy5sb2cgMj4mMQo=', 'Version': u'2016-09-15', u'S
+ecurityGroup.1': 'SSHToAll', 'ImageId': 'ami-9fc501f0', 'KeyName': 'CellCycleBot', 'MaxCount': 1, 'Action': u'RunInstances', 'MinCount': 1, 'Instance
+Type': 't2.micro'}, 'url': u'https://ec2.eu-central-1.amazonaws.com/', 'headers': {'User-Agent': 'Boto3/1.4.1 Python/2.7.6 Linux/3.13.0-100-generic B
+otocore/1.4.70 Resource'}, 'context': {'client_region': 'eu-central-1', 'has_streaming_input': False, 'client_config': <botocore.config.Config object
+ at 0x7fd46033e590>}, 'query_string': '', 'url_path': '/', 'method': u'POST'}
+2016-11-23 17:40:27,967 Writer-2 MainProcess DEBUG: Event request-created.ec2.RunInstances: calling handler <bound method RequestSigner.handler of <b
+otocore.signers.RequestSigner object at 0x7fd46033e550>>
+2016-11-23 17:40:27,970 Writer-2 MainProcess DEBUG: Calculating signature using v4 auth.
+2016-11-23 17:40:27,970 Writer-2 MainProcess DEBUG: CanonicalRequest:
+POST
+/
+
+host:ec2.eu-central-1.amazonaws.com
+x-amz-date:20161123T174027Z
+
+host;x-amz-date
+d857051bb80ed6889a7a31d49d402cd9ec3613a8706e72d859f6799fff61962c
+2016-11-23 17:40:27,970 Writer-2 MainProcess DEBUG: StringToSign:
+AWS4-HMAC-SHA256
+20161123T174027Z
+20161123/eu-central-1/ec2/aws4_request
+ef416bd3b40006876e6362f3707d75e4269a8dad3fe66be62a8cf50f82949efc
+2016-11-23 17:40:27,971 Writer-2 MainProcess DEBUG: Signature:
+d424a16b57ab29e14b5840b9193ce118800022edc77fa2f43322a8cebc56ba2d
+2016-11-23 17:40:27,983 Writer-2 MainProcess DEBUG: Sending http request: <PreparedRequest [POST]>
+2016-11-23 17:40:27,984 Writer-2 MainProcess INFO: Starting new HTTPS connection (1): ec2.eu-central-1.amazonaws.com
+2016-11-23 17:40:28,549 Writer-2 MainProcess DEBUG: "POST / HTTP/1.1" 200 None
+2016-11-23 17:40:28,550 Writer-2 MainProcess DEBUG: Response headers: {'transfer-encoding': 'chunked', 'vary': 'Accept-Encoding', 'server': 'AmazonEC
+2', 'content-type': 'text/xml;charset=UTF-8', 'date': 'Wed, 23 Nov 2016 17:40:27 GMT'}
+2016-11-23 17:40:28,551 Writer-2 MainProcess DEBUG: Response body:
+<?xml version="1.0" encoding="UTF-8"?>
+<RunInstancesResponse xmlns="http://ec2.amazonaws.com/doc/2016-09-15/">
+    <requestId>3311ac60-f2fc-49da-9dae-0f497a6b4597</requestId>
+    <reservationId>r-0a4c67bc5694654db</reservationId>
+    <ownerId>116189005786</ownerId>
+    <groupSet/>
+    <instancesSet>
+        <item>
+            <instanceId>i-0dcb05e3878ef41f7</instanceId>
+            <imageId>ami-9fc501f0</imageId>
+            <instanceState>
+                <code>0</code>
+                <name>pending</name>
+            </instanceState>
+            <privateDnsName>ip-172-31-26-232.eu-central-1.compute.internal</privateDnsName>
+            <dnsName/>
+            <reason/>
+            <keyName>CellCycleBot</keyName>
+            <amiLaunchIndex>0</amiLaunchIndex>
+            <productCodes/>
+            <instanceType>t2.micro</instanceType>
+            <launchTime>2016-11-23T17:40:28.000Z</launchTime>
+            <placement>
+                <availabilityZone>eu-central-1b</availabilityZone>
+                <groupName/>
+                <tenancy>default</tenancy>
+            </placement>
+            <monitoring>
+                <state>disabled</state>
+            </monitoring>
+            <subnetId>subnet-2adbcb51</subnetId>
+            <vpcId>vpc-088c8461</vpcId>
+            <privateIpAddress>172.31.26.232</privateIpAddress>
+            <sourceDestCheck>true</sourceDestCheck>
+            <groupSet>
+                <item>
+                    <groupId>sg-97d59dff</groupId>
+                    <groupName>SSHToAll</groupName>
+                </item>
+            </groupSet>
+            <stateReason>
+                <code>pending</code>
+                <message>pending</message>
+            </stateReason>
+            <architecture>x86_64</architecture>
+            <rootDeviceType>ebs</rootDeviceType>
+            <rootDeviceName>/dev/sda1</rootDeviceName>
+            <blockDeviceMapping/>
+            <virtualizationType>hvm</virtualizationType>
+            <clientToken/>
+            <hypervisor>xen</hypervisor>
+            <networkInterfaceSet>
+                <item>
+                    <networkInterfaceId>eni-ee278091</networkInterfaceId>
+                    <subnetId>subnet-2adbcb51</subnetId>
+                    <vpcId>vpc-088c8461</vpcId>
+                    <description/>
+                    <ownerId>116189005786</ownerId>
+                    <status>in-use</status>
+                    <macAddress>06:18:7d:f9:67:f9</macAddress>
+                    <privateIpAddress>172.31.26.232</privateIpAddress>
+                    <privateDnsName>ip-172-31-26-232.eu-central-1.compute.internal</privateDnsName>
+                    <sourceDestCheck>true</sourceDestCheck>
+                    <groupSet>
+                        <item>
+                            <groupId>sg-97d59dff</groupId>
+                            <groupName>SSHToAll</groupName>
+                        </item>
+                    </groupSet>
+                    <attachment>
+                        <attachmentId>eni-attach-70d296f0</attachmentId>
+                        <deviceIndex>0</deviceIndex>
+                        <status>attaching</status>
+                        <attachTime>2016-11-23T17:40:28.000Z</attachTime>
+                        <deleteOnTermination>true</deleteOnTermination>
+                    </attachment>
+                    <privateIpAddressesSet>
+                        <item>
+                            <privateIpAddress>172.31.26.232</privateIpAddress>
+                            <privateDnsName>ip-172-31-26-232.eu-central-1.compute.internal</privateDnsName>
+                            <primary>true</primary>
+                        </item>
+                    </privateIpAddressesSet>
+                </item>
+            </networkInterfaceSet>
+            <ebsOptimized>false</ebsOptimized>
+        </item>
+    </instancesSet>
+</RunInstancesResponse>
+2016-11-23 17:40:28,564 Writer-2 MainProcess DEBUG: Event needs-retry.ec2.RunInstances: calling handler <botocore.retryhandler.RetryHandler object at
+ 0x7fd452962150>
+2016-11-23 17:40:28,564 Writer-2 MainProcess DEBUG: No retry needed.
+2016-11-23 17:40:28,565 Writer-2 MainProcess DEBUG: Response: {u'OwnerId': '116189005786', u'ReservationId': 'r-0a4c67bc5694654db', 'ResponseMetadata
+': {'RetryAttempts': 0, 'HTTPStatusCode': 200, 'RequestId': '3311ac60-f2fc-49da-9dae-0f497a6b4597', 'HTTPHeaders': {'transfer-encoding': 'chunked', '
+vary': 'Accept-Encoding', 'server': 'AmazonEC2', 'content-type': 'text/xml;charset=UTF-8', 'date': 'Wed, 23 Nov 2016 17:40:27 GMT'}}, u'Groups': [],
+u'Instances': [{u'Monitoring': {u'State': 'disabled'}, u'PublicDnsName': '', u'RootDeviceType': 'ebs', u'State': {u'Code': 0, u'Name': 'pending'}, u'
+EbsOptimized': False, u'LaunchTime': datetime.datetime(2016, 11, 23, 17, 40, 28, tzinfo=tzlocal()), u'PrivateIpAddress': '172.31.26.232', u'ProductCo
+des': [], u'VpcId': 'vpc-088c8461', u'StateTransitionReason': '', u'InstanceId': 'i-0dcb05e3878ef41f7', u'ImageId': 'ami-9fc501f0', u'PrivateDnsName'
+: 'ip-172-31-26-232.eu-central-1.compute.internal', u'KeyName': 'CellCycleBot', u'SecurityGroups': [{u'GroupName': 'SSHToAll', u'GroupId': 'sg-97d59d
+ff'}], u'ClientToken': '', u'SubnetId': 'subnet-2adbcb51', u'InstanceType': 't2.micro', u'NetworkInterfaces': [{u'Status': 'in-use', u'MacAddress': '
+06:18:7d:f9:67:f9', u'SourceDestCheck': True, u'VpcId': 'vpc-088c8461', u'Description': '', u'NetworkInterfaceId': 'eni-ee278091', u'PrivateIpAddress
+es': [{u'PrivateDnsName': 'ip-172-31-26-232.eu-central-1.compute.internal', u'Primary': True, u'PrivateIpAddress': '172.31.26.232'}], u'PrivateDnsNam
+e': 'ip-172-31-26-232.eu-central-1.compute.internal', u'Attachment': {u'Status': 'attaching', u'DeviceIndex': 0, u'DeleteOnTermination': True, u'Atta
+chmentId': 'eni-attach-70d296f0', u'AttachTime': datetime.datetime(2016, 11, 23, 17, 40, 28, tzinfo=tzlocal())}, u'Groups': [{u'GroupName': 'SSHToAll
+', u'GroupId': 'sg-97d59dff'}], u'SubnetId': 'subnet-2adbcb51', u'OwnerId': '116189005786', u'PrivateIpAddress': '172.31.26.232'}], u'SourceDestCheck
+': True, u'Placement': {u'Tenancy': 'default', u'GroupName': '', u'AvailabilityZone': 'eu-central-1b'}, u'Hypervisor': 'xen', u'BlockDeviceMappings':
+ [], u'Architecture': 'x86_64', u'StateReason': {u'Message': 'pending', u'Code': 'pending'}, u'RootDeviceName': '/dev/sda1', u'VirtualizationType': '
+hvm', u'AmiLaunchIndex': 0}]}
+2016-11-23 17:40:28,565 Writer-2 MainProcess DEBUG: Loading ec2:Instance
+2016-11-23 17:40:28,571 Writer-2 MainProcess DEBUG: Renaming Instance attribute network_interfaces
+2016-11-23 17:40:28,581 Writer-2 MainProcess DEBUG: Event creating-resource-class.ec2.Instance: calling handler <function _handler at 0x7fd48016c938>
+2016-11-23 17:40:28,585 Writer-2 MainProcess DEBUG: ADD CYCLE completed
+2016-11-23 17:41:12,779 MainThread python-CCMemoryMaster DEBUG: Transferring memory to tcp://172.31.26.232:5552....
+2016-11-23 17:41:27,373 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0112797179721, getters (mean): 0.0577906
+699663
+2016-11-23 17:41:49,491 MainThread python-CCMemoryMaster DEBUG: Transfer complete!
+2016-11-23 17:41:49,491 MainThread python-CCMemoryMaster DEBUG: Transferring memory to tcp://172.31.26.232:5550....
+2016-11-23 17:42:09,173 MainThread python-CCMemoryMaster DEBUG: Transfer complete!
+2016-11-23 17:42:09,583 MemorySlaveSetter python-CCMemoryMaster WARNING: Too many open files
+2016-11-23 17:42:09,583 MemorySlaveSetter python-CCMemoryMaster WARNING: Too many open files
+2016-11-23 17:42:09,583 MemorySlaveSetter python-CCMemoryMaster WARNING: Too many open files
+2016-11-23 17:42:09,583 MemorySlaveSetter python-CCMemoryMaster WARNING: Too many open files
+2016-11-23 17:42:09,583 MemorySlaveSetter python-CCMemoryMaster WARNING: Too many open files
+2016-11-23 17:42:12,907 MemorySlaveSetter python-CCMemoryMaster WARNING: Too many open files
+2016-11-23 17:42:12,908 MemorySlaveSetter python-CCMemoryMaster WARNING: Too many open files
+2016-11-23 17:42:12,908 MemorySlaveSetter python-CCMemoryMaster WARNING: Too many open files
+2016-11-23 17:42:12,908 MemorySlaveSetter python-CCMemoryMaster WARNING: Too many open files
+2016-11-23 17:42:12,908 MemorySlaveSetter python-CCMemoryMaster WARNING: Too many open files
+2016-11-23 17:42:12,908 MemorySlaveSetter python-CCMemoryMaster WARNING: Too many open files
+2016-11-23 17:42:12,909 MemorySlaveSetter python-CCMemoryMaster WARNING: Too many open files
+2016-11-23 17:42:12,909 MemorySlaveSetter python-CCMemoryMaster WARNING: Too many open files
+2016-11-23 17:42:12,909 MemorySlaveSetter python-CCMemoryMaster WARNING: Too many open files
+2016-11-23 17:42:12,910 MemorySlaveSetter python-CCMemoryMaster WARNING: Too many open files
+2016-11-23 17:42:12,910 MemorySlaveSetter python-CCMemoryMaster WARNING: Too many open files
+2016-11-23 17:42:12,910 MemorySlaveSetter python-CCMemoryMaster WARNING: Too many open files
+2016-11-23 17:42:12,910 MemorySlaveSetter python-CCMemoryMaster WARNING: Too many open files
+2016-11-23 17:42:12,910 MemorySlaveSetter python-CCMemoryMaster WARNING: Too many open files
+2016-11-23 17:42:12,910 MemorySlaveSetter python-CCMemoryMaster WARNING: Too many open files
+2016-11-23 17:42:12,910 MemorySlaveSetter python-CCMemoryMaster WARNING: Too many open files
+2016-11-23 17:42:12,910 MemorySlaveSetter python-CCMemoryMaster WARNING: Too many open files
+2016-11-23 17:42:12,910 MemorySlaveSetter python-CCMemoryMaster WARNING: Too many open files
+2016-11-23 17:42:12,910 MemorySlaveSetter python-CCMemoryMaster WARNING: Too many open files
+2016-11-23 17:42:12,911 MemorySlaveSetter python-CCMemoryMaster WARNING: Too many open files
+2016-11-23 17:42:12,911 MemorySlaveSetter python-CCMemoryMaster WARNING: Too many open files
+2016-11-23 17:42:12,911 MemorySlaveSetter python-CCMemoryMaster WARNING: Too many open files
+2016-11-23 17:42:12,912 MemorySlaveSetter python-CCMemoryMaster WARNING: Too many open files
+2016-11-23 17:42:12,912 MemorySlaveSetter python-CCMemoryMaster WARNING: Too many open files
+2016-11-23 17:42:12,912 MemorySlaveSetter python-CCMemoryMaster WARNING: Too many open files
+2016-11-23 17:42:12,912 MemorySlaveSetter python-CCMemoryMaster WARNING: Too many open files
+2016-11-23 17:42:12,912 MemorySlaveSetter python-CCMemoryMaster WARNING: Too many open files
+2016-11-23 17:42:12,912 MemorySlaveSetter python-CCMemoryMaster WARNING: Too many open files
+2016-11-23 17:42:12,912 MemorySlaveSetter python-CCMemoryMaster WARNING: Too many open files
+2016-11-23 17:42:12,913 MemorySlaveSetter python-CCMemoryMaster WARNING: Too many open files
+2016-11-23 17:42:12,913 MemorySlaveSetter python-CCMemoryMaster WARNING: Too many open files
+2016-11-23 17:42:12,913 MemorySlaveSetter python-CCMemoryMaster WARNING: Too many open files
+2016-11-23 17:42:12,913 MemorySlaveSetter python-CCMemoryMaster WARNING: Too many open files
+2016-11-23 17:42:12,913 MemorySlaveSetter python-CCMemoryMaster WARNING: Too many open files
+2016-11-23 17:42:12,914 MemorySlaveSetter python-CCMemoryMaster WARNING: Too many open files
+2016-11-23 17:42:12,914 MemorySlaveSetter python-CCMemoryMaster WARNING: Too many open files
+2016-11-23 17:42:12,915 MemorySlaveSetter python-CCMemoryMaster WARNING: Too many open files
+2016-11-23 17:42:12,915 MemorySlaveSetter python-CCMemoryMaster WARNING: Too many open files
+2016-11-23 17:42:12,915 MemorySlaveSetter python-CCMemoryMaster WARNING: Too many open files
+2016-11-23 17:42:12,915 MemorySlaveSetter python-CCMemoryMaster WARNING: Too many open files
+2016-11-23 17:42:12,915 MemorySlaveSetter python-CCMemoryMaster WARNING: Too many open files
+2016-11-23 17:42:12,916 MemorySlaveSetter python-CCMemoryMaster WARNING: Too many open files
+2016-11-23 17:42:27,433 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.976529035185, getters (mean): 0.035911463862
+2016-11-23 17:42:27,433 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Up!
+2016-11-23 17:42:27,433 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-11-23 17:42:27,434 Writer-2 MainProcess DEBUG: sending message to tcp://*:5557
+2016-11-23 17:42:27,434 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-11-23 17:43:27,492 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0159753235303, getters (mean): 0.061541748958
+2016-11-23 17:44:27,552 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0144869198582, getters (mean): 0.0546631048136
+2016-11-23 17:45:27,612 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0134087268904, getters (mean): 0.0523124012153
+2016-11-23 17:46:27,672 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.013273835296, getters (mean): 0.0526882761595
+2016-11-23 17:46:29,260 ServiceEntrypointThread MainProcess ERROR: ChainList instance has no attribute 'print_elements'
+2016-11-23 17:46:29,261 ServiceEntrypointThread MainProcess ERROR: Traceback (most recent call last):
+  File "/home/ubuntu/git/CellsCycle/CellCycle/ExtraCycleInterface/ExtraCycle.py", line 70, in _serviceThread
+    _manageRequest(logger, settings, sock, command, addr, list_manager)
+  File "/home/ubuntu/git/CellsCycle/CellCycle/ExtraCycleInterface/ExtraCycle.py", line 235, in _manageRequest
+    _keysHandler(settings, logger, client, socket, list_manager)
+  File "/home/ubuntu/git/CellsCycle/CellCycle/ExtraCycleInterface/ExtraCycle.py", line 366, in _keysHandler
+    _send(socket, client,str(list_manager.node_list.print_elements())+"\r\n")
+AttributeError: ChainList instance has no attribute 'print_elements'
+
+2016-11-23 17:47:27,732 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0138602830412, getters (mean): 0.0514910302095
+2016-11-23 17:48:27,792 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0127235928306, getters (mean): 0.0440374880435
+2016-11-23 17:49:27,852 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0133883379057, getters (mean): 0.0465439438687
+2016-11-23 17:50:27,912 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00530074491037, getters (mean): 0.0195263392434
+2016-11-23 17:51:27,972 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:52:28,032 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:53:28,092 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:54:28,152 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:55:28,212 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:56:28,272 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:57:28,332 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:58:28,392 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:59:28,456 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 18:00:28,516 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 18:01:28,579 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 18:02:28,639 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+nodo 3:
+BEGIN OF LOGFILE
+Switched to a new branch 'ListCycleNewVersionTest'
+Branch ListCycleNewVersionTest set up to track remote branch ListCycleNewVersionTest from origin.
+Fetching origin
+From https://github.com/AQuadroTeam/CellsCycle
+   5c66bd7..10a3483  ListCycleNewVersionTest -> origin/ListCycleNewVersionTest
+HEAD is now at 10a3483 Changed scaleup level
+2016-11-23 17:14:19,566 MainThread MainProcess DEBUG: Starting with params: {u'master': {u'ip': u'172.31.20.2', u'min_key': u'858993459', u'id': u'2'
+, u'max_key': u'1717986917'}, u'myself': {u'ip': u'172.31.20.3', u'min_key': u'1717986918', u'id': u'3', u'max_key': u'2576980376'}, u'master_of_mast
+er': {u'ip': u'172.31.20.1', u'min_key': u'0', u'id': u'1', u'max_key': u'858993458'}, u'slave': {u'ip': u'172.31.20.4', u'min_key': u'2576980377', u
+'id': u'4', u'max_key': u'3435973835'}, u'slave_of_slave': {u'ip': u'172.31.20.5', u'min_key': u'3435973836', u'id': u'5', u'max_key': u'4294967294'}
+}
+2016-11-23 17:14:19,569 MainThread MainProcess DEBUG: These are my features: (Writer 3) Master ID : 2 , SlaveID: 4, IntPort 5557, ExtPort 5558, IP 17
+2.31.20.3
+2016-11-23 17:14:19,570 MainThread MainProcess DEBUG: These are my features: (Reader 3) Master ID : 2 , SlaveID: 4, IntPort 5557, ExtPort 5558, IP 17
+2.31.20.3
+2016-11-23 17:14:19,571 MainThread MainProcess DEBUG: list_manager : <DeadWriter(Writer-3, initial)>
+2016-11-23 17:14:19,576 MainThread python-CCMemorySlave DEBUG: Cache: Initializing cache with totalSize:200.0MB, slabSize:0.1MB
+2016-11-23 17:14:19,580 MainThread python-CCMemoryMaster DEBUG: Cache: Initializing cache with totalSize:200.0MB, slabSize:0.1MB
+2016-11-23 17:14:19,583 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:19,583 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:19,587 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:19,592 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:19,592 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:19,595 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:19,599 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:19,599 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:19,603 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:19,607 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:19,611 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:19,612 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:19,615 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:19,615 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:19,623 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:19,623 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:19,623 ServiceEntrypointRouterThread MainProcess DEBUG: Interface receiver is started
+2016-11-23 17:14:19,627 Reader-3 MainProcess DEBUG: Starting Reader 3
+2016-11-23 17:14:19,628 Reader-3 MainProcess DEBUG: my IP is not none : 172.31.20.3
+2016-11-23 17:14:19,628 Reader-3 MainProcess DEBUG: sync init
+2016-11-23 17:14:19,628 Reader-3 MainProcess DEBUG: new internal channel client created with destination tcp://172.31.20.2:5557
+2016-11-23 17:14:19,628 Reader-3 MainProcess DEBUG: sending message to tcp://172.31.20.2:5557
+2016-11-23 17:14:19,733 Writer-3 MainProcess DEBUG: Starting Writer 3
+2016-11-23 17:14:19,733 Writer-3 MainProcess DEBUG: new internal channel server created with destination tcp://*:5557
+2016-11-23 17:14:19,734 Writer-3 MainProcess DEBUG: waiting for a request
+2016-11-23 17:14:19,798 MainThread python-CCMemoryMaster DEBUG: Cache: End of Initialization Cache, Success!
+2016-11-23 17:14:19,798 MainThread python-CCMemoryMaster DEBUG: Memory Process initialized:200000000B, get# = 1
+2016-11-23 17:14:19,799 MainThread python-CCMemorySlave DEBUG: Cache: End of Initialization Cache, Success!
+2016-11-23 17:14:19,799 MainThread python-CCMemorySlave DEBUG: Memory Process initialized:200000000B, get# = 1
+2016-11-23 17:14:19,799 MemoryGetProxy python-CCMemoryMaster DEBUG: Routing from tcp://*:5551 to inproc://get_memorymaster
+2016-11-23 17:14:19,800 MemoryGetProxy python-CCMemorySlave DEBUG: Routing from tcp://*:5553 to inproc://get_memoryslave
+2016-11-23 17:14:19,800 MemoryGetter python-CCMemoryMaster DEBUG: Listening in new task for get on inproc://get_memorymaster
+2016-11-23 17:14:19,800 MemoryGetter python-CCMemorySlave DEBUG: Listening in new task for get on inproc://get_memoryslave
+2016-11-23 17:14:19,801 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Metricator alive, period: 60s, getThrLevel: [-inf,0.1], setThrLevel:
+ [-inf,0.1]
+2016-11-23 17:14:19,801 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: new internal channel client created with destination tcp://127.0.0.1
+:5557
+2016-11-23 17:14:19,801 MainThread python-CCMemorySlave DEBUG: Listening in new task for set on tcp://*:5552
+2016-11-23 17:14:19,802 MainThread python-CCMemorySlave DEBUG: new internal channel client created with destination tcp://127.0.0.1:5559
+2016-11-23 17:14:19,802 MainThread python-CCMemorySlave DEBUG: new internal channel client created with destination tcp://127.0.0.1:5557
+2016-11-23 17:14:19,802 MainThread python-CCMemoryMaster DEBUG: Listening in new task for set on tcp://*:5550
+2016-11-23 17:14:19,802 MainThread python-CCMemoryMaster DEBUG: new internal channel client created with destination tcp://127.0.0.1:5559
+2016-11-23 17:14:19,803 MainThread python-CCMemoryMaster DEBUG: new internal channel client created with destination tcp://127.0.0.1:5557
+2016-11-23 17:14:19,803 MemorySlaveSetter python-CCMemoryMaster DEBUG: cannot send to slave, net info: None
+2016-11-23 17:14:19,922 MainThread python-CCMemoryMaster DEBUG: Configuration of net data: <CellCycle.ChainModule.MemoryObject.MemoryObject instance
+at 0x7f09625acd88>
+2016-11-23 17:14:20,163 Writer-3 MainProcess DEBUG: sending message to tcp://*:5557
+2016-11-23 17:14:20,164 Writer-3 MainProcess DEBUG: Generating server connection point tcp://172.31.20.3:5558
+2016-11-23 17:14:20,803 MemorySlaveSetter python-CCMemoryMaster DEBUG: Finally I'm configured
+2016-11-23 17:14:21,166 Writer-3 MainProcess DEBUG: this is my list
+Node 1, Node : myself 1, master 5, slave 2
+Keys : master 3435973836:4294967294, myself 0:858993458, slave 858993459:1717986917
+Node 3, Node : myself 3, master 2, slave 4
+Keys : master 858993459:1717986917, myself 1717986918:2576980376, slave 2576980377:3435973835
+Node 2, Node : myself 2, master 1, slave 3
+Keys : master 0:858993458, myself 858993459:1717986917, slave 1717986918:2576980376
+Node 5, Node : myself 5, master 4, slave 1
+Keys : master 2576980377:3435973835, myself 3435973836:4294967294, slave 0:858993458
+Node 4, Node : myself 4, master 3, slave 5
+Keys : master 1717986918:2576980376, myself 2576980377:3435973835, slave 3435973836:4294967294
+
+2016-11-23 17:14:21,166 Writer-3 MainProcess DEBUG: Send that i'm ALIVE (3) to 4
+2016-11-23 17:14:25,670 Reader-3 MainProcess DEBUG: waiting for a request
+2016-11-23 17:14:25,670 Reader-3 MainProcess DEBUG: accepted by master 2, achieved new master_of_master id 1
+2016-11-23 17:14:25,670 Reader-3 MainProcess DEBUG: Generating client connection point tcp://172.31.20.2:5558
+2016-11-23 17:14:25,670 Reader-3 MainProcess DEBUG: sync completed
+2016-11-23 17:15:19,832 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 6.77968064655e-06, getters (mean): 0.0
+2016-11-23 17:16:19,856 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:17:19,915 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:18:19,941 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:19:19,964 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:20:20,024 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00621563419756, getters (mean): 0.023047
+3188114
+2016-11-23 17:21:20,084 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0128942566631, getters (mean): 0.0503282
+853787
+2016-11-23 17:22:20,144 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0140171917566, getters (mean): 0.0557399
+451812
+2016-11-23 17:23:20,204 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0153718965438, getters (mean): 0.0634077
+361534
+2016-11-23 17:24:20,264 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.015816903281, getters (mean): 0.06290273
+77677
+2016-11-23 17:25:20,323 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0149911326981, getters (mean): 0.0629536
+036939
+2016-11-23 17:26:20,383 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0157867412081, getters (mean): 0.0627334
+220477
+2016-11-23 17:27:20,443 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.014940278345, getters (mean): 0.06395977
+56531
+2016-11-23 17:28:20,504 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0155171620135, getters (mean): 0.0622515
+659307
+2016-11-23 17:29:20,563 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0151489525227, getters (mean): 0.0614586
+027485
+2016-11-23 17:30:20,623 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0155987239026, getters (mean): 0.0668815
+783881
+2016-11-23 17:31:20,683 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0160281974924, getters (mean): 0.0695316
+484637
+2016-11-23 17:32:20,743 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.015614716185, getters (mean): 0.06407415
+5176
+2016-11-23 17:33:20,803 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0159628881095, getters (mean): 0.0688986
+891878
+2016-11-23 17:34:20,863 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0159562952247, getters (mean): 0.0677497
+939921
+2016-11-23 17:35:20,923 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0153281475014, getters (mean): 0.0588848
+1704
+2016-11-23 17:36:20,983 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0164234348194, getters (mean): 0.0652380
+608834
+2016-11-23 17:37:21,043 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0167548608385, getters (mean): 0.0719082
+593874
+2016-11-23 17:38:21,103 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0166472349115, getters (mean): 0.0723785
+425467
+2016-11-23 17:39:21,163 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0156562314642, getters (mean): 0.0761159
+786268
+2016-11-23 17:40:21,223 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0153156050049, getters (mean): 0.0706321
+726102
+2016-11-23 17:40:27,383 Writer-3 MainProcess DEBUG: this message from 2 can be forwarded due to higher priority than 0
+target_addr:
+target_key: 1288490189:1717986917
+random: 8014
+target_id: 2.5
+priority: 1
+version: 1
+source_id: 2
+source_flag: 1
+target_relative_id: 3
+
+2016-11-23 17:40:27,383 Writer-3 MainProcess DEBUG: I am in state BusyAddPS
+2016-11-23 17:40:27,383 Writer-3 MainProcess DEBUG: forwarding ADD message
+target_addr:
+target_key: 1288490189:1717986917
+random: 8014
+target_id: 2.5
+priority: 1
+version: 1
+source_id: 2
+source_flag: 1
+target_relative_id: 3
+
+2016-11-23 17:41:21,283 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0157654079497, getters (mean): 0.0658881
+113695
+2016-11-23 17:42:21,344 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0117782882033, getters (mean): 0.0445483
+876013
+2016-11-23 17:43:21,403 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.015815017968, getters (mean): 0.06962698
+73963
+2016-11-23 17:44:21,463 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0157182108402, getters (mean): 0.0649108
+624833
+2016-11-23 17:45:21,523 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0164550602014, getters (mean): 0.0619213
+608631
+2016-11-23 17:46:21,583 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0151883642, getters (mean): 0.0602667783
+678
+2016-11-23 17:47:21,643 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0157798036666, getters (mean): 0.0612715
+078301
+2016-11-23 17:48:21,703 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0137211937635, getters (mean): 0.0499946
+445134
+2016-11-23 17:49:21,763 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0137726945654, getters (mean): 0.0497091
+656802
+2016-11-23 17:50:21,823 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00734288215015, getters (mean): 0.025368
+8479442
+2016-11-23 17:51:21,883 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:52:21,943 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:53:22,003 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:54:22,067 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:55:22,127 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:56:22,193 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:57:22,251 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:58:22,311 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:59:22,371 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 18:00:22,431 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 18:01:22,496 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 18:02:22,557 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 18:03:22,616 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 18:04:22,697 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 18:05:22,756 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 18:06:22,834 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 18:07:22,911 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+nodo 4:
+BEGIN OF LOGFILE
+Switched to a new branch 'ListCycleNewVersionTest'
+Branch ListCycleNewVersionTest set up to track remote branch ListCycleNewVersionTest from origin.
+Fetching origin
+From https://github.com/AQuadroTeam/CellsCycle
+   5c66bd7..10a3483  ListCycleNewVersionTest -> origin/ListCycleNewVersionTest
+HEAD is now at 10a3483 Changed scaleup level
+2016-11-23 17:14:20,155 MainThread MainProcess DEBUG: Starting with params: {u'master': {u'ip': u'172.31.20.3', u'min_key': u'1717986918', u'id': u'3
+', u'max_key': u'2576980376'}, u'myself': {u'ip': u'172.31.20.4', u'min_key': u'2576980377', u'id': u'4', u'max_key': u'3435973835'}, u'master_of_mas
+ter': {u'ip': u'172.31.20.2', u'min_key': u'858993459', u'id': u'2', u'max_key': u'1717986917'}, u'slave': {u'ip': u'172.31.20.5', u'min_key': u'3435
+973836', u'id': u'5', u'max_key': u'4294967294'}, u'slave_of_slave': {u'ip': u'172.31.20.1', u'min_key': u'0', u'id': u'1', u'max_key': u'858993458'}
+}
+2016-11-23 17:14:20,158 MainThread MainProcess DEBUG: These are my features: (Writer 4) Master ID : 3 , SlaveID: 5, IntPort 5557, ExtPort 5558, IP 17
+2.31.20.4
+2016-11-23 17:14:20,160 MainThread MainProcess DEBUG: These are my features: (Reader 4) Master ID : 3 , SlaveID: 5, IntPort 5557, ExtPort 5558, IP 17
+2.31.20.4
+2016-11-23 17:14:20,160 MainThread MainProcess DEBUG: list_manager : <DeadWriter(Writer-4, initial)>
+2016-11-23 17:14:20,161 MainThread python-CCMemoryMaster DEBUG: Cache: Initializing cache with totalSize:200.0MB, slabSize:0.1MB
+2016-11-23 17:14:20,164 MainThread python-CCMemorySlave DEBUG: Cache: Initializing cache with totalSize:200.0MB, slabSize:0.1MB
+2016-11-23 17:14:20,168 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:20,168 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:20,171 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:20,173 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:20,179 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:20,180 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:20,183 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:20,184 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:20,187 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:20,191 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:20,195 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:20,195 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:20,199 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:20,203 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:20,203 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:20,207 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:20,211 ServiceEntrypointRouterThread MainProcess DEBUG: Interface receiver is started
+2016-11-23 17:14:20,211 Reader-4 MainProcess DEBUG: Starting Reader 4
+2016-11-23 17:14:20,212 Reader-4 MainProcess DEBUG: my IP is not none : 172.31.20.4
+2016-11-23 17:14:20,212 Reader-4 MainProcess DEBUG: sync init
+2016-11-23 17:14:20,212 Reader-4 MainProcess DEBUG: new internal channel client created with destination tcp://172.31.20.3:5557
+2016-11-23 17:14:20,212 Reader-4 MainProcess DEBUG: sending message to tcp://172.31.20.3:5557
+2016-11-23 17:14:20,360 Writer-4 MainProcess DEBUG: Starting Writer 4
+2016-11-23 17:14:20,360 Writer-4 MainProcess DEBUG: new internal channel server created with destination tcp://*:5557
+2016-11-23 17:14:20,361 Writer-4 MainProcess DEBUG: waiting for a request
+2016-11-23 17:14:20,365 Reader-4 MainProcess DEBUG: waiting for a request
+2016-11-23 17:14:20,365 Reader-4 MainProcess DEBUG: accepted by master 3, achieved new master_of_master id 2
+2016-11-23 17:14:20,365 Reader-4 MainProcess DEBUG: Generating client connection point tcp://172.31.20.3:5558
+2016-11-23 17:14:20,365 Reader-4 MainProcess DEBUG: sync completed
+2016-11-23 17:14:20,370 MainThread python-CCMemorySlave DEBUG: Cache: End of Initialization Cache, Success!
+2016-11-23 17:14:20,370 MainThread python-CCMemorySlave DEBUG: Memory Process initialized:200000000B, get# = 1
+2016-11-23 17:14:20,373 MainThread python-CCMemoryMaster DEBUG: Cache: End of Initialization Cache, Success!
+2016-11-23 17:14:20,373 MainThread python-CCMemoryMaster DEBUG: Memory Process initialized:200000000B, get# = 1
+2016-11-23 17:14:20,374 MemoryGetProxy python-CCMemorySlave DEBUG: Routing from tcp://*:5553 to inproc://get_memoryslave
+2016-11-23 17:14:20,374 MemoryGetProxy python-CCMemoryMaster DEBUG: Routing from tcp://*:5551 to inproc://get_memorymaster
+2016-11-23 17:14:20,374 MemoryGetter python-CCMemorySlave DEBUG: Listening in new task for get on inproc://get_memoryslave
+2016-11-23 17:14:20,375 MemoryGetter python-CCMemoryMaster DEBUG: Listening in new task for get on inproc://get_memorymaster
+2016-11-23 17:14:20,375 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Metricator alive, period: 60s, getThrLevel: [-inf,0.1], setThrLevel:
+ [-inf,0.1]
+2016-11-23 17:14:20,375 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: new internal channel client created with destination tcp://127.0.0.1
+:5557
+2016-11-23 17:14:20,375 MainThread python-CCMemorySlave DEBUG: Listening in new task for set on tcp://*:5552
+2016-11-23 17:14:20,376 MainThread python-CCMemorySlave DEBUG: new internal channel client created with destination tcp://127.0.0.1:5559
+2016-11-23 17:14:20,376 MainThread python-CCMemorySlave DEBUG: new internal channel client created with destination tcp://127.0.0.1:5557
+2016-11-23 17:14:20,376 MainThread python-CCMemoryMaster DEBUG: Listening in new task for set on tcp://*:5550
+2016-11-23 17:14:20,376 MainThread python-CCMemoryMaster DEBUG: new internal channel client created with destination tcp://127.0.0.1:5559
+2016-11-23 17:14:20,377 MainThread python-CCMemoryMaster DEBUG: new internal channel client created with destination tcp://127.0.0.1:5557
+2016-11-23 17:14:20,377 MemorySlaveSetter python-CCMemoryMaster DEBUG: cannot send to slave, net info: None
+2016-11-23 17:14:20,505 MainThread python-CCMemoryMaster DEBUG: Configuration of net data: <CellCycle.ChainModule.MemoryObject.MemoryObject instance
+at 0x7fe3e8cadd88>
+2016-11-23 17:14:21,378 MemorySlaveSetter python-CCMemoryMaster DEBUG: Finally I'm configured
+2016-11-23 17:14:22,870 Writer-4 MainProcess DEBUG: sending message to tcp://*:5557
+2016-11-23 17:14:22,873 Writer-4 MainProcess DEBUG: Generating server connection point tcp://172.31.20.4:5558
+2016-11-23 17:14:23,874 Writer-4 MainProcess DEBUG: this is my list
+Node 1, Node : myself 1, master 5, slave 2
+Keys : master 3435973836:4294967294, myself 0:858993458, slave 858993459:1717986917
+Node 3, Node : myself 3, master 2, slave 4
+Keys : master 858993459:1717986917, myself 1717986918:2576980376, slave 2576980377:3435973835
+Node 2, Node : myself 2, master 1, slave 3
+Keys : master 0:858993458, myself 858993459:1717986917, slave 1717986918:2576980376
+Node 5, Node : myself 5, master 4, slave 1
+Keys : master 2576980377:3435973835, myself 3435973836:4294967294, slave 0:858993458
+Node 4, Node : myself 4, master 3, slave 5
+Keys : master 1717986918:2576980376, myself 2576980377:3435973835, slave 3435973836:4294967294
+
+2016-11-23 17:14:23,874 Writer-4 MainProcess DEBUG: Send that i'm ALIVE (4) to 5
+2016-11-23 17:15:20,399 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 6.02969917607e-06, getters (mean): 0.0
+2016-11-23 17:16:20,423 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:17:20,449 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:18:20,503 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:19:20,529 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:20:20,587 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00600260985661, getters (mean): 0.021269
+3341208
+2016-11-23 17:21:20,647 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0124278470602, getters (mean): 0.0454121
+638977
+2016-11-23 17:22:20,707 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0140830864592, getters (mean): 0.0537463
+207802
+2016-11-23 17:23:20,767 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0157155983834, getters (mean): 0.0595000
+526796
+2016-11-23 17:24:20,828 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0154937524295, getters (mean): 0.0599737
+659108
+2016-11-23 17:25:20,888 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0156369017397, getters (mean): 0.0585354
+510291
+2016-11-23 17:26:20,947 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0160448917224, getters (mean): 0.0612327
+740975
+2016-11-23 17:27:21,007 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0155025801311, getters (mean): 0.0607522
+732726
+2016-11-23 17:28:21,067 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0157795104731, getters (mean): 0.0604561
+384482
+2016-11-23 17:29:21,128 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0154956673994, getters (mean): 0.0599364
+842527
+2016-11-23 17:30:21,188 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0159647825357, getters (mean): 0.0615971
+376676
+2016-11-23 17:31:21,247 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0166820123685, getters (mean): 0.0667066
+374863
+2016-11-23 17:32:21,307 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0162644105394, getters (mean): 0.0660411
+094346
+2016-11-23 17:33:21,367 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0163838080506, getters (mean): 0.0651835
+122861
+2016-11-23 17:34:21,428 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0168270756513, getters (mean): 0.0658412
+906844
+2016-11-23 17:35:21,487 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0153742748792, getters (mean): 0.0592358
+947539
+2016-11-23 17:36:21,547 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0159672915531, getters (mean): 0.0619809
+480362
+2016-11-23 17:37:21,607 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0163652711544, getters (mean): 0.0644175
+09808
+2016-11-23 17:38:21,667 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0161630570969, getters (mean): 0.0625499
+258352
+2016-11-23 17:39:21,727 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0162569763738, getters (mean): 0.0621893
+269156
+2016-11-23 17:40:21,788 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0161499278532, getters (mean): 0.0630507
+737083
+2016-11-23 17:40:27,335 Writer-4 MainProcess DEBUG: this message from 2 can be forwarded due to higher priority than 0
+target_addr:
+target_key: 1288490189:1717986917
+random: 8014
+target_id: 2.5
+priority: 1
+version: 1
+source_id: 2
+source_flag: 1
+target_relative_id: 3
+
+2016-11-23 17:40:27,336 Writer-4 MainProcess DEBUG: I am in state BusyAddPS
+2016-11-23 17:40:27,336 Writer-4 MainProcess DEBUG: forwarding ADD message
+target_addr:
+target_key: 1288490189:1717986917
+random: 8014
+target_id: 2.5
+priority: 1
+version: 1
+source_id: 2
+source_flag: 1
+target_relative_id: 3
+
+2016-11-23 17:41:21,848 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0159722563007, getters (mean): 0.0599675
+213558
+2016-11-23 17:42:21,907 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0120536359612, getters (mean): 0.0431902
+17682
+2016-11-23 17:43:21,967 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.016011878506, getters (mean): 0.06011567
+09239
+2016-11-23 17:44:22,027 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0165206577741, getters (mean): 0.0599445
+429503
+2016-11-23 17:45:22,087 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0150170286994, getters (mean): 0.0550736
+124182
+2016-11-23 17:46:22,148 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0149822130261, getters (mean): 0.0535049
+123256
+2016-11-23 17:47:22,207 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0154812361776, getters (mean): 0.0548329
+127849
+2016-11-23 17:48:22,268 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0132138156658, getters (mean): 0.0473033
+35163
+2016-11-23 17:49:22,327 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0133504054989, getters (mean): 0.0471207
+315809
+2016-11-23 17:50:22,387 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00688208373482, getters (mean): 0.025018
+3413876
+2016-11-23 17:51:22,447 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:52:22,507 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:53:22,567 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:54:22,627 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:55:22,689 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:56:22,748 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:57:22,808 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:58:22,867 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:59:22,927 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 18:00:22,992 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 18:01:23,060 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 18:02:23,119 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 18:03:23,179 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 18:04:23,239 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 18:05:23,306 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 18:06:23,428 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 18:07:23,489 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 18:08:23,559 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+nodo 5:
+BEGIN OF LOGFILE
+Switched to a new branch 'ListCycleNewVersionTest'
+Branch ListCycleNewVersionTest set up to track remote branch ListCycleNewVersionTest from origin.
+Fetching origin
+From https://github.com/AQuadroTeam/CellsCycle
+   5c66bd7..10a3483  ListCycleNewVersionTest -> origin/ListCycleNewVersionTest
+HEAD is now at 10a3483 Changed scaleup level
+2016-11-23 17:14:22,485 MainThread MainProcess DEBUG: Starting with params: {u'master': {u'ip': u'172.31.20.4', u'min_key': u'2576980377', u'id': u'4
+', u'max_key': u'3435973835'}, u'myself': {u'ip': u'172.31.20.5', u'min_key': u'3435973836', u'id': u'5', u'max_key': u'4294967294'}, u'master_of_mas
+ter': {u'ip': u'172.31.20.3', u'min_key': u'1717986918', u'id': u'3', u'max_key': u'2576980376'}, u'slave': {u'ip': u'172.31.20.1', u'min_key': u'0',
+ u'id': u'1', u'max_key': u'858993458'}, u'slave_of_slave': {u'ip': u'172.31.20.2', u'min_key': u'858993459', u'id': u'2', u'max_key': u'1717986917'}
+}
+2016-11-23 17:14:22,488 MainThread MainProcess DEBUG: These are my features: (Writer 5) Master ID : 4 , SlaveID: 1, IntPort 5557, ExtPort 5558, IP 17
+2.31.20.5
+2016-11-23 17:14:22,490 MainThread MainProcess DEBUG: These are my features: (Reader 5) Master ID : 4 , SlaveID: 1, IntPort 5557, ExtPort 5558, IP 17
+2.31.20.5
+2016-11-23 17:14:22,490 MainThread MainProcess DEBUG: list_manager : <DeadWriter(Writer-5, initial)>
+2016-11-23 17:14:22,491 MainThread python-CCMemoryMaster DEBUG: Cache: Initializing cache with totalSize:200.0MB, slabSize:0.1MB
+2016-11-23 17:14:22,493 MainThread python-CCMemorySlave DEBUG: Cache: Initializing cache with totalSize:200.0MB, slabSize:0.1MB
+2016-11-23 17:14:22,497 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:22,501 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:22,501 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:22,505 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:22,509 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:22,509 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:22,513 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:22,517 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:22,521 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:22,521 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:22,525 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:22,529 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:22,529 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:22,533 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:22,533 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:22,537 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-23 17:14:22,541 ServiceEntrypointRouterThread MainProcess DEBUG: Interface receiver is started
+2016-11-23 17:14:22,541 Reader-5 MainProcess DEBUG: Starting Reader 5
+2016-11-23 17:14:22,541 Reader-5 MainProcess DEBUG: my IP is not none : 172.31.20.5
+2016-11-23 17:14:22,541 Reader-5 MainProcess DEBUG: sync init
+2016-11-23 17:14:22,542 Reader-5 MainProcess DEBUG: new internal channel client created with destination tcp://172.31.20.4:5557
+2016-11-23 17:14:22,542 Reader-5 MainProcess DEBUG: sending message to tcp://172.31.20.4:5557
+2016-11-23 17:14:22,632 Writer-5 MainProcess DEBUG: Starting Writer 5
+2016-11-23 17:14:22,632 Writer-5 MainProcess DEBUG: new internal channel server created with destination tcp://*:5557
+2016-11-23 17:14:22,632 Writer-5 MainProcess DEBUG: waiting for a request
+2016-11-23 17:14:22,642 Reader-5 MainProcess DEBUG: waiting for a request
+2016-11-23 17:14:22,643 Reader-5 MainProcess DEBUG: accepted by master 4, achieved new master_of_master id 3
+2016-11-23 17:14:22,644 Reader-5 MainProcess DEBUG: Generating client connection point tcp://172.31.20.4:5558
+2016-11-23 17:14:22,644 Reader-5 MainProcess DEBUG: sync completed
+2016-11-23 17:14:22,708 MainThread python-CCMemorySlave DEBUG: Cache: End of Initialization Cache, Success!
+2016-11-23 17:14:22,709 MainThread python-CCMemorySlave DEBUG: Memory Process initialized:200000000B, get# = 1
+2016-11-23 17:14:22,711 MainThread python-CCMemoryMaster DEBUG: Cache: End of Initialization Cache, Success!
+2016-11-23 17:14:22,711 MainThread python-CCMemoryMaster DEBUG: Memory Process initialized:200000000B, get# = 1
+2016-11-23 17:14:22,712 MemoryGetProxy python-CCMemorySlave DEBUG: Routing from tcp://*:5553 to inproc://get_memoryslave
+2016-11-23 17:14:22,712 MemoryGetProxy python-CCMemoryMaster DEBUG: Routing from tcp://*:5551 to inproc://get_memorymaster
+2016-11-23 17:14:22,713 MemoryGetter python-CCMemorySlave DEBUG: Listening in new task for get on inproc://get_memoryslave
+2016-11-23 17:14:22,713 MemoryGetter python-CCMemoryMaster DEBUG: Listening in new task for get on inproc://get_memorymaster
+2016-11-23 17:14:22,713 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Metricator alive, period: 60s, getThrLevel: [-inf,0.1], setThrLevel:
+ [-inf,0.1]
+2016-11-23 17:14:22,714 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: new internal channel client created with destination tcp://127.0.0.1
+:5557
+2016-11-23 17:14:22,714 MainThread python-CCMemorySlave DEBUG: Listening in new task for set on tcp://*:5552
+2016-11-23 17:14:22,714 MainThread python-CCMemorySlave DEBUG: new internal channel client created with destination tcp://127.0.0.1:5559
+2016-11-23 17:14:22,714 MainThread python-CCMemorySlave DEBUG: new internal channel client created with destination tcp://127.0.0.1:5557
+2016-11-23 17:14:22,715 MainThread python-CCMemoryMaster DEBUG: Listening in new task for set on tcp://*:5550
+2016-11-23 17:14:22,715 MainThread python-CCMemoryMaster DEBUG: new internal channel client created with destination tcp://127.0.0.1:5559
+2016-11-23 17:14:22,715 MainThread python-CCMemoryMaster DEBUG: new internal channel client created with destination tcp://127.0.0.1:5557
+2016-11-23 17:14:22,715 MemorySlaveSetter python-CCMemoryMaster DEBUG: cannot send to slave, net info: None
+2016-11-23 17:14:22,779 MainThread python-CCMemoryMaster DEBUG: Configuration of net data: <CellCycle.ChainModule.MemoryObject.MemoryObject instance
+at 0x7fb026822d88>
+2016-11-23 17:14:23,717 MemorySlaveSetter python-CCMemoryMaster DEBUG: Finally I'm configured
+2016-11-23 17:14:26,276 Writer-5 MainProcess DEBUG: sending message to tcp://*:5557
+2016-11-23 17:14:26,278 Writer-5 MainProcess DEBUG: Generating server connection point tcp://172.31.20.5:5558
+2016-11-23 17:14:27,279 Writer-5 MainProcess DEBUG: this is my list
+Node 1, Node : myself 1, master 5, slave 2
+Keys : master 3435973836:4294967294, myself 0:858993458, slave 858993459:1717986917
+Node 3, Node : myself 3, master 2, slave 4
+Keys : master 858993459:1717986917, myself 1717986918:2576980376, slave 2576980377:3435973835
+Node 2, Node : myself 2, master 1, slave 3
+Keys : master 0:858993458, myself 858993459:1717986917, slave 1717986918:2576980376
+Node 5, Node : myself 5, master 4, slave 1
+Keys : master 2576980377:3435973835, myself 3435973836:4294967294, slave 0:858993458
+Node 4, Node : myself 4, master 3, slave 5
+Keys : master 1717986918:2576980376, myself 2576980377:3435973835, slave 3435973836:4294967294
+
+2016-11-23 17:14:27,280 Writer-5 MainProcess DEBUG: Send that i'm ALIVE (5) to 1
+2016-11-23 17:15:22,746 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 4.99633438644e-06, getters (mean): 0.0
+2016-11-23 17:16:22,770 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:17:22,793 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:18:22,845 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:19:22,870 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:20:22,923 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00619094320519, getters (mean): 0.022302
+0031677
+2016-11-23 17:21:22,982 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0114558756234, getters (mean): 0.0419429
+127088
+2016-11-23 17:22:23,042 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0132276316452, getters (mean): 0.0495641
+797152
+2016-11-23 17:23:23,101 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0136382893936, getters (mean): 0.0544420
+575634
+2016-11-23 17:24:23,161 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0139254454952, getters (mean): 0.0546380
+775826
+2016-11-23 17:25:23,221 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0140023144113, getters (mean): 0.0546166
+598343
+2016-11-23 17:26:23,281 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0141466858979, getters (mean): 0.0560715
+442011
+2016-11-23 17:27:23,341 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0140797662453, getters (mean): 0.0581516
+964864
+2016-11-23 17:28:23,401 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0139884721289, getters (mean): 0.0563879
+773718
+2016-11-23 17:29:23,461 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0138586879771, getters (mean): 0.0555416
+685256
+2016-11-23 17:30:23,521 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0143734765775, getters (mean): 0.0576189
+9066
+2016-11-23 17:31:23,581 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0148691571847, getters (mean): 0.0590884
+658275
+2016-11-23 17:32:23,641 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0143181087599, getters (mean): 0.0574733
+4831
+2016-11-23 17:33:23,701 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0148508243366, getters (mean): 0.0617815
+662933
+2016-11-23 17:34:23,761 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0144818433301, getters (mean): 0.0580946
+834969
+2016-11-23 17:35:23,821 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0137506401891, getters (mean): 0.0511635
+139166
+2016-11-23 17:36:23,881 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0146667801147, getters (mean): 0.0573385
+268649
+2016-11-23 17:37:23,941 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0148292463422, getters (mean): 0.0620400
+587249
+2016-11-23 17:38:24,001 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.014842429148, getters (mean): 0.06025541
+3666
+2016-11-23 17:39:24,062 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0144998650939, getters (mean): 0.0565040
+042286
+2016-11-23 17:40:24,122 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0146845191329, getters (mean): 0.0591142
+056032
+2016-11-23 17:40:27,420 Writer-5 MainProcess DEBUG: this message from 2 can be forwarded due to higher priority than 0
+target_addr:
+target_key: 1288490189:1717986917
+random: 8014
+target_id: 2.5
+priority: 1
+version: 1
+source_id: 2
+source_flag: 1
+target_relative_id: 3
+
+2016-11-23 17:40:27,420 Writer-5 MainProcess DEBUG: I am in state BusyAddPS
+2016-11-23 17:40:27,420 Writer-5 MainProcess DEBUG: forwarding ADD message
+target_addr:
+target_key: 1288490189:1717986917
+random: 8014
+target_id: 2.5
+priority: 1
+version: 1
+source_id: 2
+source_flag: 1
+target_relative_id: 3
+
+2016-11-23 17:41:24,182 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0140817665021, getters (mean): 0.0558889
+938709
+2016-11-23 17:42:24,242 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0106088578317, getters (mean): 0.0392874
+122001
+2016-11-23 17:43:24,302 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0147405766196, getters (mean): 0.0590710
+417813
+2016-11-23 17:44:24,362 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0145907311316, getters (mean): 0.0574983
+020778
+2016-11-23 17:45:24,421 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0139845770343, getters (mean): 0.0539812
+187878
+2016-11-23 17:46:24,481 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0135624424017, getters (mean): 0.0503052
+588505
+2016-11-23 17:47:24,541 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0138170833417, getters (mean): 0.0523703
+650548
+2016-11-23 17:48:24,601 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.012248002031, getters (mean): 0.04366156
+71315
+2016-11-23 17:49:24,661 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0122768433543, getters (mean): 0.0452133
+658114
+2016-11-23 17:50:24,721 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00577415806031, getters (mean): 0.021252
+0110789
+2016-11-23 17:51:24,781 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:52:24,841 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:53:24,901 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:54:24,961 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:55:25,021 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:56:25,081 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:57:25,141 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:58:25,201 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 17:59:25,261 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 18:00:25,321 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 18:01:25,381 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 18:02:25,441 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 18:03:25,501 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 18:04:25,561 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 18:05:25,621 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-23 18:06:25,681 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
