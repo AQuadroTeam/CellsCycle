@@ -178,7 +178,9 @@ class DeadWriter (ConsumerThread):
                 string_message = dumps(msg_to_send)
                 self.update_and_forward_message(msg=msg_to_send, origin_message=string_message, source=INT)
                 self.transition_table.change_state("pds")
-
+        else:
+            self.last_seen_priority = '0'
+            self.last_seen_random = '0'
         self.deads.remove_from_list(msg.target_id)
         self.logger.debug("forwarding this RESTORED message\n{}\nThis is my new list\n{}".
                           format(msg.printable_message(), self.node_list.print_list()))
@@ -314,7 +316,9 @@ class DeadWriter (ConsumerThread):
             self.logger.debug("welcome new relative! now i am able to receive new scale ups, relatives:\n"
                               "{}, {}, {}, {}, {}".format(self.master_of_master.id, self.master.id, self.myself.id,
                                                           self.slave.id, self.slave_of_slave.id))
-
+        else:
+            self.last_seen_priority = '0'
+            self.last_seen_random = '0'
         self.forward_message(origin_message)
         self.logger.debug("forwarding this ADDED message\n{}".format(msg.printable_message()))
 
