@@ -430,16 +430,20 @@ class ListThread (threading.Thread):
             sss_result.id == target_id
 
     def is_my_new_slave_of_slave(self, message):
-        return float(self.slave_of_slave.id) > float(message.target_id) > float(self.slave.id)
+        return float(self.slave_of_slave.id) > float(message.target_id) > float(self.slave.id) or \
+               (float(self.slave.id) < float(self.slave_of_slave.id) < float(message.target_id))
 
     def is_my_new_master_of_master(self, message):
-        return float(self.master.id) > float(message.target_id) > float(self.master_of_master.id)
+        return (float(self.master.id) > float(message.target_id) > float(self.master_of_master.id)) or \
+               (float(message.target_id) > float(self.master_of_master.id) > float(self.master.id))
 
     def is_my_new_master(self, message):
-        return float(self.myself.id) > float(message.target_id) > float(self.master.id)
+        return (float(self.myself.id) > float(message.target_id) > float(self.master.id)) or\
+               (float(message.target_id) > float(self.master.id) > float(self.myself.id))
 
     def is_my_new_slave(self, message):
-        return float(self.myself.id) < float(message.target_id) < float(self.slave.id)
+        return (float(self.myself.id) < float(message.target_id) < float(self.slave.id)) or \
+               (float(self.myself.id) < float(self.slave.id) < float(message.target_id))
 
     # Remove an obsolete node from the list
     def remove_from_list(self, target_id):
