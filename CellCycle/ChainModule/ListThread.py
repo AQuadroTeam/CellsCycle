@@ -3,7 +3,7 @@
 import threading
 
 from CellCycle.ChainModule.MemoryObject import MemoryObject
-from CellCycle.KeyCalcManager import keyCalcToCreateANewNode, keyCalcWhenMasterDies
+from CellCycle.KeyCalcManager import keyCalcToCreateANewNode, keyCalcWhenSlaveDies
 from Const import *
 from random import randint
 from ChainList import ChainList
@@ -239,11 +239,10 @@ class ListThread (threading.Thread):
 
         memory_obj = MemoryObject(master_of_master_to_change, master_to_change, myself_to_change,
                                   slave_to_change, slave_of_slave_to_change)
-        # TODO change to keyCalcWhenSlaveDies
-        mm = keyCalcWhenMasterDies(memory_obj)
+        mm = keyCalcWhenSlaveDies(memory_obj)
 
         myself_to_change.change_keys(mm.myself.min_key, mm.myself.max_key)
-        slave_to_change.change_keys(mm.slave.min_key, mm.slave.max_key)
+        master_to_change.change_keys(mm.master.min_key, mm.master.max_key)
         master_of_master_to_change.change_keys(mm.master_of_master.min_key, mm.master_of_master.max_key)
         slave_of_slave_to_change.change_keys(mm.slave_of_slave.min_key, mm.slave_of_slave.max_key)
 
