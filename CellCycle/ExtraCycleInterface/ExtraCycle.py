@@ -364,7 +364,7 @@ def _whoHasHandler(settings, logger, client, socket, key, list_manager):
     _send(socket, client,"Key " + str(key) +" is assigned to: "+ str(masterHost.target.ip)+"\r\n")
 
 def _keysHandler(settings, logger, client, socket, list_manager):
-    _send(socket, client,str(list_manager.node_list.print_elements())+"\r\n")
+    _send(socket, client,str(list_manager.node_list.print_list())+"\r\n")
 
 
 def hashOfKey(key):
