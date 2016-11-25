@@ -239,7 +239,7 @@ class ListThread (threading.Thread):
 
         memory_obj = MemoryObject(master_of_master_to_change, master_to_change, myself_to_change,
                                   slave_to_change, slave_of_slave_to_change)
-
+        # TODO change to keyCalcWhenSlaveDies
         mm = keyCalcWhenMasterDies(memory_obj)
 
         myself_to_change.change_keys(mm.myself.min_key, mm.myself.max_key)
