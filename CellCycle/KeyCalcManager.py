@@ -45,6 +45,31 @@ def keyCalcWhenMasterDies(oldInfo):
 
     return SetOfNodes(myself, master, slave, master_of_master, slave_of_slave)
 
+
+def keyCalcWhenSlaveDies(oldInfo):
+    oldSlave = oldInfo.slave
+    oldMyself = oldInfo.myself
+    oldMaster = oldInfo.master
+    oldSlave_of_slave = oldInfo.slave_of_slave
+    oldMaster_of_master = oldInfo.master_of_master
+
+    oldSlavePair = _getPairFromObject(oldSlave)
+    oldMyselfPair = _getPairFromObject(oldMyself)
+    oldMasterPair = _getPairFromObject(oldMaster)
+    oldSlave_of_slavePair = _getPairFromObject(oldSlave_of_slave)
+    oldMaster_of_masterPair = _getPairFromObject(oldMaster_of_master)
+
+
+    master = Node(oldMaster)
+    slave = None
+    myself = Node(oldMyself)
+
+    slave_of_slave = Node(_joinKeys(oldSlavePair, oldSlave_of_slavePair))
+    master_of_master = Node(oldMaster_of_masterPair)
+
+    return SetOfNodes(myself, master, slave, master_of_master, slave_of_slave)
+
+
 def _getPairFromObject(obj):
     return (str(obj.min_key),str(obj.max_key))
 
@@ -63,7 +88,7 @@ def _spliceKeys(pair):
 
 
 def _joinKeys(firstPair, secondPair):
-    
+
     return (str(firstPair[0]), str(secondPair[1]))
 
 
