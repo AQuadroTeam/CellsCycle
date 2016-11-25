@@ -32,6 +32,7 @@ class DeadWriter (ConsumerThread):
         self.last_dead_message = ''
         self.last_restore_message = ''
         self.last_restored_message = ''
+        self.last_scale_down_message = ''
 
         self.last_seen_random = '0'
         self.last_seen_priority = '0'
@@ -593,7 +594,20 @@ class DeadWriter (ConsumerThread):
                 nodes_number = len(self.node_list.dictionary)
                 reached_limit = nodes_number <= int(self.settings.getMinInstance())
                 if self.transition_table.get_current_state().can_scale_down() and (not reached_limit):
-                    terminateThisInstanceAWS(settings=self.settings, logger=self.logger)
+                    self.internal_channel.reply_to_int_message(OK)
+
+                    self.version = int(self.last_seen_version) + 1
+                    msg = self.make_add_node_msg(target_id=self.myself.id,
+                                                 target_key=self.myself.get_min_max_key(),
+                                                 source_flag=INT, target_slave_id=self.slave.id)
+                    msg_to_send = to_external_message(self.version, msg)
+                    self.last_scale_down_message = msg_to_send
+                    self.transition_table.change_state("pas")
+                    self.logger.debug("now i'm busy : ScaleDownThread asked to scale down")
+                    string_message = dumps(msg_to_send)
+                    self.update_and_forward_message(msg=msg_to_send, origin_message=string_message, source=INT)
+                else:
+                    self.internal_channel.reply_to_int_message(NOK)
         else:
             # self.logger.debug(just_received_new_msg(self.myself.id, self.master.id,
             #                                         msg.printable_message()))
@@ -623,6 +637,8 @@ class DeadWriter (ConsumerThread):
                 self.node_to_add = msg.target_id
                 startInstanceAWS(self.settings, self.logger, create_specific_instance_parameters(specific_parameters))
                 self.logger.debug("ADD CYCLE completed")
+            elif is_my_last_add_message(msg, self.last_scale_down_message):
+                terminateThisInstanceAWS(settings=self.settings, logger=self.logger)
             elif is_my_last_added_message(msg, self.last_added_message):
                 # The cycle is over
                 self.last_added_message = ''
