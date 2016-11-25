@@ -12,9 +12,9 @@ ServiceThreadNumber 16
 ClientEntrypointPort 5555
 ScalePeriod 120
 GetScaleUpLevel 0.06
-GetScaleDownLevel 0
+GetScaleDownLevel 0.00001
 SetScaleUpLevel 0.50
-SetScaleDownLevel 0
+SetScaleDownLevel 0.000001
 AwsImageId ami-9fc501f0
 AwsSecurityGroup SSHToAll
 AwsKeyName AWSCellCycle
