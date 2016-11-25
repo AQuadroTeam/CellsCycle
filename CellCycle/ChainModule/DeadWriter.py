@@ -224,7 +224,7 @@ class DeadWriter (ConsumerThread):
         target_id = msg.target_id
         target_slave = msg.target_relative_id
         target_master = msg.source_id
-
+        # TODO check controls for r or r_of_r
         # Update the target ID
         self.update_list(target_node=target_id, target_master=target_master, target_slave=target_slave)
         # Update the master node, the new master of target_slave is target_master
@@ -276,6 +276,9 @@ class DeadWriter (ConsumerThread):
         self.logger.debug("my version is {}, uuu we have a new NODE\n{}".
                           format(str(self.version), msg.printable_message()))
 
+        relatives_check = self.is_one_of_my_relatives(msg.source_id)
+        r_of_r_check = self.is_one_of_my_r_of_r(msg.source_id)
+
         # new_memory_obj = self.get_memory_obj_from_new_node(msg)
 
         # before creating adding the new node to the list let's update the old keys
@@ -304,9 +307,6 @@ class DeadWriter (ConsumerThread):
 
         self.logger.debug("this is my new list\n{}".format(self.node_list.print_list()))
 
-        relatives_check = self.is_one_of_my_relatives(msg.source_id)
-        r_of_r_check = self.is_one_of_my_r_of_r(msg.source_id)
-
         if relatives_check or r_of_r_check:
             # TODO is this really SAFE ? Allow old added messages? you can remove the below if
             if not self.transition_table.get_current_state().can_scale_up():
@@ -317,6 +317,7 @@ class DeadWriter (ConsumerThread):
                               "{}, {}, {}, {}, {}".format(self.master_of_master.id, self.master.id, self.myself.id,
                                                           self.slave.id, self.slave_of_slave.id))
         else:
+            self.logger.debug("received an ADDED message about a node not r or r_of_r\n")
             self.last_seen_priority = '0'
             self.last_seen_random = '0'
         self.forward_message(origin_message)
