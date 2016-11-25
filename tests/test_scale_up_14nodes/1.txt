@@ -1,0 +1,1372 @@
+BEGIN OF LOGFILE
+Switched to a new branch 'ListCycleNewVersionTest'
+Branch ListCycleNewVersionTest set up to track remote branch ListCycleNewVersionTest from origin.
+Fetching origin
+From https://github.com/AQuadroTeam/CellsCycle
+   5c66bd7..6c97e6a  ListCycleNewVersionTest -> origin/ListCycleNewVersionTest
+HEAD is now at 6c97e6a Merge branch 'ListCycleNewVersionTest' of https://github.com/AQuadroTeam/CellsCycle into ListCycleNewVersionTest
+2016-11-25 12:18:24,169 MainThread MainProcess DEBUG: Starting with params: {u'master': {u'ip': u'172.31.20.5', u'min_key': u'3435973836', u'id': u'5', u'max_key': u'4294967294'}, u'myself': {u'ip': u'172.31.20.1', u'min_key': u'0', u'id': u'1', u'max_key': u'858993458'}, u'master_of_master': {u'ip': u'172.31.20.4', u'min_key': u'2576980377', u'id': u'4', u'max_key': u'3435973835'}, u'slave': {u'ip': u'172.31.20.2', u'min_key': u'858993459', u'id': u'2', u'max_key': u'1717986917'}, u'slave_of_slave': {u'ip': u'172.31.20.3', u'min_key': u'1717986918', u'id': u'3', u'max_key': u'2576980376'}}
+2016-11-25 12:18:24,171 MainThread MainProcess DEBUG: These are my features: (Writer 1) Master ID : 5 , SlaveID: 2, IntPort 5557, ExtPort 5558, IP 172.31.20.1
+2016-11-25 12:18:24,172 MainThread MainProcess DEBUG: These are my features: (Reader 1) Master ID : 5 , SlaveID: 2, IntPort 5557, ExtPort 5558, IP 172.31.20.1
+2016-11-25 12:18:24,173 MainThread MainProcess DEBUG: list_manager : <DeadWriter(Writer-1, initial)>
+2016-11-25 12:18:24,173 MainThread python-CCMemoryMaster DEBUG: Cache: Initializing cache with totalSize:200.0MB, slabSize:0.1MB
+2016-11-25 12:18:24,176 MainThread python-CCMemorySlave DEBUG: Cache: Initializing cache with totalSize:200.0MB, slabSize:0.1MB
+2016-11-25 12:18:24,180 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-25 12:18:24,184 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-25 12:18:24,184 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-25 12:18:24,188 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-25 12:18:24,192 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-25 12:18:24,192 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-25 12:18:24,196 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-25 12:18:24,197 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-25 12:18:24,200 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-25 12:18:24,204 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-25 12:18:24,208 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-25 12:18:24,208 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-25 12:18:24,212 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-25 12:18:24,216 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-25 12:18:24,216 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-25 12:18:24,220 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-25 12:18:24,224 ServiceEntrypointRouterThread MainProcess DEBUG: Interface receiver is started
+2016-11-25 12:18:24,224 Reader-1 MainProcess DEBUG: Starting Reader 1
+2016-11-25 12:18:24,224 Reader-1 MainProcess DEBUG: my IP is not none : 172.31.20.1
+2016-11-25 12:18:24,224 Reader-1 MainProcess DEBUG: sync init
+2016-11-25 12:18:24,224 Reader-1 MainProcess DEBUG: new internal channel client created with destination tcp://172.31.20.5:5557
+2016-11-25 12:18:24,224 Reader-1 MainProcess DEBUG: sending message to tcp://172.31.20.5:5557
+2016-11-25 12:18:24,251 Writer-1 MainProcess DEBUG: Starting Writer 1
+2016-11-25 12:18:24,251 Writer-1 MainProcess DEBUG: new internal channel server created with destination tcp://*:5557
+2016-11-25 12:18:24,252 Writer-1 MainProcess DEBUG: waiting for a request
+2016-11-25 12:18:24,261 Reader-1 MainProcess DEBUG: waiting for a request
+2016-11-25 12:18:24,261 Reader-1 MainProcess DEBUG: accepted by master 5, achieved new master_of_master id 4
+2016-11-25 12:18:24,262 Reader-1 MainProcess DEBUG: Generating client connection point tcp://172.31.20.5:5558
+2016-11-25 12:18:24,262 Reader-1 MainProcess DEBUG: sync completed
+2016-11-25 12:18:24,382 MainThread python-CCMemorySlave DEBUG: Cache: End of Initialization Cache, Success!
+2016-11-25 12:18:24,383 MainThread python-CCMemorySlave DEBUG: Memory Process initialized:200000000B, get# = 1
+2016-11-25 12:18:24,384 MainThread python-CCMemoryMaster DEBUG: Cache: End of Initialization Cache, Success!
+2016-11-25 12:18:24,384 MainThread python-CCMemoryMaster DEBUG: Memory Process initialized:200000000B, get# = 1
+2016-11-25 12:18:24,385 MemoryGetProxy python-CCMemorySlave DEBUG: Routing from tcp://*:5553 to inproc://get_memoryslave
+2016-11-25 12:18:24,385 MemoryGetProxy python-CCMemoryMaster DEBUG: Routing from tcp://*:5551 to inproc://get_memorymaster
+2016-11-25 12:18:24,385 MemoryGetter python-CCMemorySlave DEBUG: Listening in new task for get on inproc://get_memoryslave
+2016-11-25 12:18:24,386 MemoryGetter python-CCMemoryMaster DEBUG: Listening in new task for get on inproc://get_memorymaster
+2016-11-25 12:18:24,386 MainThread python-CCMemorySlave DEBUG: Listening in new task for set on tcp://*:5552
+2016-11-25 12:18:24,386 MainThread python-CCMemorySlave DEBUG: new internal channel client created with destination tcp://127.0.0.1:5559
+2016-11-25 12:18:24,386 MainThread python-CCMemorySlave DEBUG: new internal channel client created with destination tcp://127.0.0.1:5557
+2016-11-25 12:18:24,387 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Metricator alive, period: 120s, getThrLevel: [-inf,0.06], setThrLevel: [-inf,0.1]
+2016-11-25 12:18:24,387 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: new internal channel client created with destination tcp://127.0.0.1:5557
+2016-11-25 12:18:24,388 MainThread python-CCMemoryMaster DEBUG: Listening in new task for set on tcp://*:5550
+2016-11-25 12:18:24,388 MainThread python-CCMemoryMaster DEBUG: new internal channel client created with destination tcp://127.0.0.1:5559
+2016-11-25 12:18:24,388 MainThread python-CCMemoryMaster DEBUG: new internal channel client created with destination tcp://127.0.0.1:5557
+2016-11-25 12:18:24,388 MemorySlaveSetter python-CCMemoryMaster DEBUG: cannot send to slave, net info: None
+2016-11-25 12:18:24,402 MainThread python-CCMemoryMaster DEBUG: Configuration of net data: <CellCycle.ChainModule.MemoryObject.MemoryObject instance at 0x7f01acdbc248>
+2016-11-25 12:18:25,390 MemorySlaveSetter python-CCMemoryMaster DEBUG: Finally I'm configured
+2016-11-25 12:18:27,408 Writer-1 MainProcess DEBUG: sending message to tcp://*:5557
+2016-11-25 12:18:27,409 Writer-1 MainProcess DEBUG: Generating server connection point tcp://172.31.20.1:5558
+2016-11-25 12:18:28,411 Writer-1 MainProcess DEBUG: this is my list
+Node 1, Node : myself 1, master 5, slave 2
+Keys : master 3435973836:4294967294, myself 0:858993458, slave 858993459:1717986917
+Node 3, Node : myself 3, master 2, slave 4
+Keys : master 858993459:1717986917, myself 1717986918:2576980376, slave 2576980377:3435973835
+Node 2, Node : myself 2, master 1, slave 3
+Keys : master 0:858993458, myself 858993459:1717986917, slave 1717986918:2576980376
+Node 5, Node : myself 5, master 4, slave 1
+Keys : master 2576980377:3435973835, myself 3435973836:4294967294, slave 0:858993458
+Node 4, Node : myself 4, master 3, slave 5
+Keys : master 1717986918:2576980376, myself 2576980377:3435973835, slave 3435973836:4294967294
+
+2016-11-25 12:18:28,411 Writer-1 MainProcess DEBUG: Send that i'm ALIVE (1) to 2
+2016-11-25 12:20:30,153 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 1.63034126055e-06, getters (mean): 0.0
+2016-11-25 12:22:22,680 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0112790530456, getters (mean): 0.0427858996812
+2016-11-25 12:24:05,264 Writer-1 MainProcess DEBUG: this message from 4 can be forwarded due to higher priority than 0
+target_addr: 
+target_key: 3006477107:3435973835
+random: 7426
+target_id: 4.5
+priority: 1
+version: 1
+source_id: 4
+source_flag: 1
+target_relative_id: 5
+
+2016-11-25 12:24:05,264 Writer-1 MainProcess DEBUG: I am in state BusyAddPS
+2016-11-25 12:24:05,264 Writer-1 MainProcess DEBUG: forwarding ADD message
+target_addr: 
+target_key: 3006477107:3435973835
+random: 7426
+target_id: 4.5
+priority: 1
+version: 1
+source_id: 4
+source_flag: 1
+target_relative_id: 5
+
+2016-11-25 12:24:31,764 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.020168932745, getters (mean): 0.0777333184017
+2016-11-25 12:24:31,764 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Up!
+2016-11-25 12:24:31,764 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-11-25 12:24:31,771 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-11-25 12:24:31,849 Writer-1 MainProcess DEBUG: sending message to tcp://*:5557
+2016-11-25 12:24:54,916 Reader-1 MainProcess DEBUG: added node as new master_of_master
+min_key, 3006477107
+ip, 172.31.29.87
+int_addr, 172.31.29.87:5557
+ext_port, 5558
+ext_addr, 172.31.29.87:5558
+max_key, 3435973835
+id, 4.5
+memory_port, 
+int_port, 5557
+
+2016-11-25 12:24:54,916 Reader-1 MainProcess DEBUG: New node added, it's Reader 4.5
+2016-11-25 12:24:54,926 Writer-1 MainProcess DEBUG: my version is 2, uuu we have a new NODE
+target_addr: 172.31.29.87
+target_key: 3006477107:3435973835
+random: 5045
+target_id: 4.5
+priority: 2
+version: 1
+source_id: 4
+source_flag: 1
+target_relative_id: 5
+
+2016-11-25 12:24:54,926 Writer-1 MainProcess DEBUG: i'm 1, these are my nodes to compute keys
+Node myself, id 4, keys 2576980377:3435973835
+Node master, id 3, keys 1717986918:2576980376
+Node master_of_master, id 2, keys 858993459:1717986917
+Node slave, id 5, keys 3435973836:4294967294
+Node slave_of_slave, id 1, keys 0:858993458
+
+2016-11-25 12:24:54,926 Writer-1 MainProcess DEBUG: i'm 1, these are my computed keys
+myself, (2576980377,3006477106)
+slave, (3435973836,4294967294)
+master, (1717986918,2576980376)
+slave_of_slave, (0,858993458)
+newNode, (3006477107,3435973835)
+master_of_master, (858993459,1717986917)
+
+2016-11-25 12:24:54,926 Writer-1 MainProcess DEBUG: i'm 1
+2016-11-25 12:24:54,926 Writer-1 MainProcess DEBUG: adding this node in list, id: 4, master: 3, slave: 5
+2016-11-25 12:24:54,926 Writer-1 MainProcess DEBUG: adding this node in list, id: 3, master: 2, slave: 4
+2016-11-25 12:24:54,926 Writer-1 MainProcess DEBUG: adding this node in list, id: 5, master: 4, slave: 1
+2016-11-25 12:24:54,926 Writer-1 MainProcess DEBUG: adding this node in list, id: 2, master: 1, slave: 3
+2016-11-25 12:24:54,926 Writer-1 MainProcess DEBUG: adding this node in list, id: 1, master: 5, slave: 2
+2016-11-25 12:24:54,926 Writer-1 MainProcess DEBUG: adding this node in list
+min_key, 3006477107
+ip, 172.31.29.87
+int_addr, 172.31.29.87:5557
+ext_port, 5558
+ext_addr, 172.31.29.87:5558
+max_key, 3435973835
+id, 4.5
+memory_port, 
+int_port, 5557
+
+2016-11-25 12:24:54,926 Writer-1 MainProcess DEBUG: this is my new list
+Node 4.5, Node : myself 4.5, master 4, slave 5
+Keys : master 2576980377:3006477106, myself 3006477107:3435973835, slave 3435973836:4294967294
+Node 1, Node : myself 1, master 5, slave 2
+Keys : master 3435973836:4294967294, myself 0:858993458, slave 858993459:1717986917
+Node 3, Node : myself 3, master 2, slave 4
+Keys : master 858993459:1717986917, myself 1717986918:2576980376, slave 2576980377:3006477106
+Node 2, Node : myself 2, master 1, slave 3
+Keys : master 0:858993458, myself 858993459:1717986917, slave 1717986918:2576980376
+Node 5, Node : myself 5, master 4.5, slave 1
+Keys : master 3006477107:3435973835, myself 3435973836:4294967294, slave 0:858993458
+Node 4, Node : myself 4, master 3, slave 4.5
+Keys : master 1717986918:2576980376, myself 2576980377:3006477106, slave 3006477107:3435973835
+
+2016-11-25 12:24:54,926 Writer-1 MainProcess DEBUG: I am in state Free
+2016-11-25 12:24:54,927 Writer-1 MainProcess DEBUG: welcome new relative! now i am able to receive new scale ups, relatives:
+4.5, 5, 1, 2, 3
+2016-11-25 12:24:54,927 Writer-1 MainProcess DEBUG: forwarding this ADDED message
+target_addr: 172.31.29.87
+target_key: 3006477107:3435973835
+random: 5045
+target_id: 4.5
+priority: 2
+version: 1
+source_id: 4
+source_flag: 1
+target_relative_id: 5
+
+2016-11-25 12:26:05,051 Writer-1 MainProcess DEBUG: this message from 4 can be forwarded due to higher priority than 0
+target_addr: 
+target_key: 2791728742:3006477106
+random: 4755
+target_id: 4.25
+priority: 1
+version: 1
+source_id: 4
+source_flag: 1
+target_relative_id: 4.5
+
+2016-11-25 12:26:05,051 Writer-1 MainProcess DEBUG: I am in state BusyAddPL
+2016-11-25 12:26:05,051 Writer-1 MainProcess DEBUG: forwarding ADD message
+target_addr: 
+target_key: 2791728742:3006477106
+random: 4755
+target_id: 4.25
+priority: 1
+version: 1
+source_id: 4
+source_flag: 1
+target_relative_id: 4.5
+
+2016-11-25 12:26:34,796 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0196439058496, getters (mean): 0.0790327454203
+2016-11-25 12:26:34,796 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Up!
+2016-11-25 12:26:34,796 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-11-25 12:26:34,798 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-11-25 12:26:34,846 Writer-1 MainProcess DEBUG: sending message to tcp://*:5557
+2016-11-25 12:27:07,695 Reader-1 MainProcess DEBUG: New node added, it's Reader 4.25
+2016-11-25 12:27:07,753 Writer-1 MainProcess DEBUG: my version is 2, uuu we have a new NODE
+target_addr: 172.31.19.82
+target_key: 2791728742:3006477106
+random: 4782
+target_id: 4.25
+priority: 2
+version: 1
+source_id: 4
+source_flag: 1
+target_relative_id: 4.5
+
+2016-11-25 12:27:07,753 Writer-1 MainProcess DEBUG: i'm 1, these are my nodes to compute keys
+Node myself, id 4, keys 2576980377:3006477106
+Node master, id 3, keys 1717986918:2576980376
+Node master_of_master, id 2, keys 858993459:1717986917
+Node slave, id 4.5, keys 3006477107:3435973835
+Node slave_of_slave, id 5, keys 3435973836:4294967294
+
+2016-11-25 12:27:07,753 Writer-1 MainProcess DEBUG: i'm 1, these are my computed keys
+myself, (2576980377,2791728741)
+slave, (3006477107,3435973835)
+master, (1717986918,2576980376)
+slave_of_slave, (3435973836,4294967294)
+newNode, (2791728742,3006477106)
+master_of_master, (858993459,1717986917)
+
+2016-11-25 12:27:07,753 Writer-1 MainProcess DEBUG: i'm 1
+2016-11-25 12:27:07,753 Writer-1 MainProcess DEBUG: adding this node in list, id: 4, master: 3, slave: 4.5
+2016-11-25 12:27:07,753 Writer-1 MainProcess DEBUG: adding this node in list, id: 3, master: 2, slave: 4
+2016-11-25 12:27:07,753 Writer-1 MainProcess DEBUG: adding this node in list, id: 4.5, master: 4, slave: 5
+2016-11-25 12:27:07,753 Writer-1 MainProcess DEBUG: adding this node in list, id: 2, master: 1, slave: 3
+2016-11-25 12:27:07,753 Writer-1 MainProcess DEBUG: adding this node in list, id: 5, master: 4.5, slave: 1
+2016-11-25 12:27:07,753 Writer-1 MainProcess DEBUG: adding this node in list
+min_key, 2791728742
+ip, 172.31.19.82
+int_addr, 172.31.19.82:5557
+ext_port, 5558
+ext_addr, 172.31.19.82:5558
+max_key, 3006477106
+id, 4.25
+memory_port, 
+int_port, 5557
+
+2016-11-25 12:27:07,753 Writer-1 MainProcess DEBUG: this is my new list
+Node 4.5, Node : myself 4.5, master 4.25, slave 5
+Keys : master 2791728742:3006477106, myself 3006477107:3435973835, slave 3435973836:4294967294
+Node 1, Node : myself 1, master 5, slave 2
+Keys : master 3435973836:4294967294, myself 0:858993458, slave 858993459:1717986917
+Node 3, Node : myself 3, master 2, slave 4
+Keys : master 858993459:1717986917, myself 1717986918:2576980376, slave 2576980377:2791728741
+Node 2, Node : myself 2, master 1, slave 3
+Keys : master 0:858993458, myself 858993459:1717986917, slave 1717986918:2576980376
+Node 5, Node : myself 5, master 4.5, slave 1
+Keys : master 3006477107:3435973835, myself 3435973836:4294967294, slave 0:858993458
+Node 4, Node : myself 4, master 3, slave 4.25
+Keys : master 1717986918:2576980376, myself 2576980377:2791728741, slave 2791728742:3006477106
+Node 4.25, Node : myself 4.25, master 4, slave 4.5
+Keys : master 2576980377:2791728741, myself 2791728742:3006477106, slave 3006477107:3435973835
+
+2016-11-25 12:27:07,754 Writer-1 MainProcess DEBUG: I am in state Free
+2016-11-25 12:27:07,754 Writer-1 MainProcess DEBUG: welcome new relative! now i am able to receive new scale ups, relatives:
+4.5, 5, 1, 2, 3
+2016-11-25 12:27:07,754 Writer-1 MainProcess DEBUG: forwarding this ADDED message
+target_addr: 172.31.19.82
+target_key: 2791728742:3006477106
+random: 4782
+target_id: 4.25
+priority: 2
+version: 1
+source_id: 4
+source_flag: 1
+target_relative_id: 4.5
+
+2016-11-25 12:27:48,481 Writer-1 MainProcess DEBUG: this message from 4 can be forwarded due to higher priority than 0
+target_addr: 
+target_key: 2684354560:2791728741
+random: 5270
+target_id: 4.125
+priority: 1
+version: 1
+source_id: 4
+source_flag: 1
+target_relative_id: 4.25
+
+2016-11-25 12:27:48,481 Writer-1 MainProcess DEBUG: I am in state BusyAddPL
+2016-11-25 12:27:48,481 Writer-1 MainProcess DEBUG: forwarding ADD message
+target_addr: 
+target_key: 2684354560:2791728741
+random: 5270
+target_id: 4.125
+priority: 1
+version: 1
+source_id: 4
+source_flag: 1
+target_relative_id: 4.25
+
+2016-11-25 12:28:23,604 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0187444401118, getters (mean): 0.079384781397
+2016-11-25 12:28:23,605 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Up!
+2016-11-25 12:28:23,605 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-11-25 12:28:23,606 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-11-25 12:28:23,693 Writer-1 MainProcess DEBUG: sending message to tcp://*:5557
+2016-11-25 12:28:31,253 Reader-1 MainProcess DEBUG: New node added, it's Reader 4.125
+2016-11-25 12:28:31,320 Writer-1 MainProcess DEBUG: my version is 2, uuu we have a new NODE
+target_addr: 172.31.25.108
+target_key: 2684354560:2791728741
+random: 9475
+target_id: 4.125
+priority: 2
+version: 1
+source_id: 4
+source_flag: 1
+target_relative_id: 4.25
+
+2016-11-25 12:28:31,320 Writer-1 MainProcess DEBUG: i'm 1, these are my nodes to compute keys
+Node myself, id 4, keys 2576980377:2791728741
+Node master, id 3, keys 1717986918:2576980376
+Node master_of_master, id 2, keys 858993459:1717986917
+Node slave, id 4.25, keys 2791728742:3006477106
+Node slave_of_slave, id 4.5, keys 3006477107:3435973835
+
+2016-11-25 12:28:31,320 Writer-1 MainProcess DEBUG: i'm 1, these are my computed keys
+myself, (2576980377,2684354559)
+slave, (2791728742,3006477106)
+master, (1717986918,2576980376)
+slave_of_slave, (3006477107,3435973835)
+newNode, (2684354560,2791728741)
+master_of_master, (858993459,1717986917)
+
+2016-11-25 12:28:31,320 Writer-1 MainProcess DEBUG: i'm 1
+2016-11-25 12:28:31,320 Writer-1 MainProcess DEBUG: adding this node in list, id: 4, master: 3, slave: 4.25
+2016-11-25 12:28:31,320 Writer-1 MainProcess DEBUG: adding this node in list, id: 3, master: 2, slave: 4
+2016-11-25 12:28:31,320 Writer-1 MainProcess DEBUG: adding this node in list, id: 4.25, master: 4, slave: 4.5
+2016-11-25 12:28:31,320 Writer-1 MainProcess DEBUG: adding this node in list, id: 2, master: 1, slave: 3
+2016-11-25 12:28:31,320 Writer-1 MainProcess DEBUG: adding this node in list, id: 4.5, master: 4.25, slave: 5
+2016-11-25 12:28:31,320 Writer-1 MainProcess DEBUG: adding this node in list
+min_key, 2684354560
+ip, 172.31.25.108
+int_addr, 172.31.25.108:5557
+ext_port, 5558
+ext_addr, 172.31.25.108:5558
+max_key, 2791728741
+id, 4.125
+memory_port, 
+int_port, 5557
+
+2016-11-25 12:28:31,321 Writer-1 MainProcess DEBUG: this is my new list
+Node 4.5, Node : myself 4.5, master 4.25, slave 5
+Keys : master 2791728742:3006477106, myself 3006477107:3435973835, slave 3435973836:4294967294
+Node 4.125, Node : myself 4.125, master 4, slave 4.25
+Keys : master 2576980377:2684354559, myself 2684354560:2791728741, slave 2791728742:3006477106
+Node 1, Node : myself 1, master 5, slave 2
+Keys : master 3435973836:4294967294, myself 0:858993458, slave 858993459:1717986917
+Node 3, Node : myself 3, master 2, slave 4
+Keys : master 858993459:1717986917, myself 1717986918:2576980376, slave 2576980377:2684354559
+Node 2, Node : myself 2, master 1, slave 3
+Keys : master 0:858993458, myself 858993459:1717986917, slave 1717986918:2576980376
+Node 5, Node : myself 5, master 4.5, slave 1
+Keys : master 3006477107:3435973835, myself 3435973836:4294967294, slave 0:858993458
+Node 4, Node : myself 4, master 3, slave 4.125
+Keys : master 1717986918:2576980376, myself 2576980377:2684354559, slave 2684354560:2791728741
+Node 4.25, Node : myself 4.25, master 4.125, slave 4.5
+Keys : master 2684354560:2791728741, myself 2791728742:3006477106, slave 3006477107:3435973835
+
+2016-11-25 12:28:31,321 Writer-1 MainProcess DEBUG: I am in state Free
+2016-11-25 12:28:31,321 Writer-1 MainProcess DEBUG: welcome new relative! now i am able to receive new scale ups, relatives:
+4.5, 5, 1, 2, 3
+2016-11-25 12:28:31,322 Writer-1 MainProcess DEBUG: forwarding this ADDED message
+target_addr: 172.31.25.108
+target_key: 2684354560:2791728741
+random: 9475
+target_id: 4.125
+priority: 2
+version: 1
+source_id: 4
+source_flag: 1
+target_relative_id: 4.25
+
+2016-11-25 12:28:44,966 Writer-1 MainProcess DEBUG: this message from 3 can be forwarded due to higher priority than 0
+target_addr: 
+target_key: 2147483648:2576980376
+random: 2084
+target_id: 3.5
+priority: 1
+version: 2
+source_id: 3
+source_flag: 1
+target_relative_id: 4
+
+2016-11-25 12:28:44,966 Writer-1 MainProcess DEBUG: I am in state BusyAddPS
+2016-11-25 12:28:44,966 Writer-1 MainProcess DEBUG: forwarding ADD message
+target_addr: 
+target_key: 2147483648:2576980376
+random: 2084
+target_id: 3.5
+priority: 1
+version: 2
+source_id: 3
+source_flag: 1
+target_relative_id: 4
+
+2016-11-25 12:29:53,615 Reader-1 MainProcess DEBUG: New node added, it's Reader 3.5
+2016-11-25 12:29:53,693 Writer-1 MainProcess DEBUG: my version is 3, uuu we have a new NODE
+target_addr: 172.31.21.31
+target_key: 2147483648:2576980376
+random: 6078
+target_id: 3.5
+priority: 2
+version: 2
+source_id: 3
+source_flag: 1
+target_relative_id: 4
+
+2016-11-25 12:29:53,694 Writer-1 MainProcess DEBUG: i'm 1, these are my nodes to compute keys
+Node myself, id 3, keys 1717986918:2576980376
+Node master, id 2, keys 858993459:1717986917
+Node master_of_master, id 1, keys 0:858993458
+Node slave, id 4, keys 2576980377:2684354559
+Node slave_of_slave, id 4.125, keys 2684354560:2791728741
+
+2016-11-25 12:29:53,694 Writer-1 MainProcess DEBUG: i'm 1, these are my computed keys
+myself, (1717986918,2147483647)
+slave, (2576980377,2684354559)
+master, (858993459,1717986917)
+slave_of_slave, (2684354560,2791728741)
+newNode, (2147483648,2576980376)
+master_of_master, (0,858993458)
+
+2016-11-25 12:29:53,694 Writer-1 MainProcess DEBUG: i'm 1
+2016-11-25 12:29:53,694 Writer-1 MainProcess DEBUG: adding this node in list, id: 3, master: 2, slave: 4
+2016-11-25 12:29:53,694 Writer-1 MainProcess DEBUG: adding this node in list, id: 2, master: 1, slave: 3
+2016-11-25 12:29:53,694 Writer-1 MainProcess DEBUG: adding this node in list, id: 4, master: 3, slave: 4.125
+2016-11-25 12:29:53,694 Writer-1 MainProcess DEBUG: adding this node in list, id: 1, master: 5, slave: 2
+2016-11-25 12:29:53,694 Writer-1 MainProcess DEBUG: adding this node in list, id: 4.125, master: 4, slave: 4.25
+2016-11-25 12:29:53,694 Writer-1 MainProcess DEBUG: adding this node in list
+min_key, 2147483648
+ip, 172.31.21.31
+int_addr, 172.31.21.31:5557
+ext_port, 5558
+ext_addr, 172.31.21.31:5558
+max_key, 2576980376
+id, 3.5
+memory_port, 
+int_port, 5557
+
+2016-11-25 12:29:53,694 Writer-1 MainProcess DEBUG: this is my new list
+Node 4.5, Node : myself 4.5, master 4.25, slave 5
+Keys : master 2791728742:3006477106, myself 3006477107:3435973835, slave 3435973836:4294967294
+Node 3.5, Node : myself 3.5, master 3, slave 4
+Keys : master 1717986918:2147483647, myself 2147483648:2576980376, slave 2576980377:2684354559
+Node 4.125, Node : myself 4.125, master 4, slave 4.25
+Keys : master 2576980377:2684354559, myself 2684354560:2791728741, slave 2791728742:3006477106
+Node 1, Node : myself 1, master 5, slave 2
+Keys : master 3435973836:4294967294, myself 0:858993458, slave 858993459:1717986917
+Node 3, Node : myself 3, master 2, slave 3.5
+Keys : master 858993459:1717986917, myself 1717986918:2147483647, slave 2147483648:2576980376
+Node 2, Node : myself 2, master 1, slave 3
+Keys : master 0:858993458, myself 858993459:1717986917, slave 1717986918:2147483647
+Node 5, Node : myself 5, master 4.5, slave 1
+Keys : master 3006477107:3435973835, myself 3435973836:4294967294, slave 0:858993458
+Node 4, Node : myself 4, master 3.5, slave 4.125
+Keys : master 2147483648:2576980376, myself 2576980377:2684354559, slave 2684354560:2791728741
+Node 4.25, Node : myself 4.25, master 4.125, slave 4.5
+Keys : master 2684354560:2791728741, myself 2791728742:3006477106, slave 3006477107:3435973835
+
+2016-11-25 12:29:53,694 Writer-1 MainProcess DEBUG: I am in state Free
+2016-11-25 12:29:53,694 Writer-1 MainProcess DEBUG: welcome new relative! now i am able to receive new scale ups, relatives:
+4.5, 5, 1, 2, 3
+2016-11-25 12:29:53,694 Writer-1 MainProcess DEBUG: forwarding this ADDED message
+target_addr: 172.31.21.31
+target_key: 2147483648:2576980376
+random: 6078
+target_id: 3.5
+priority: 2
+version: 2
+source_id: 3
+source_flag: 1
+target_relative_id: 4
+
+2016-11-25 12:29:55,140 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0197005793203, getters (mean): 0.0797810973539
+2016-11-25 12:29:55,140 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Up!
+2016-11-25 12:29:55,140 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-11-25 12:29:55,141 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-11-25 12:29:55,199 Writer-1 MainProcess DEBUG: sending message to tcp://*:5557
+2016-11-25 12:29:55,201 Writer-1 MainProcess DEBUG: I am in state BusyAddPS
+2016-11-25 12:29:55,201 Writer-1 MainProcess DEBUG: now i'm busy : ScaleUpThread asked to scale up
+2016-11-25 12:29:55,703 Writer-1 MainProcess DEBUG: LAST ADD message
+2016-11-25 12:29:55,703 Writer-1 MainProcess DEBUG: contact amazon
+2016-11-25 12:29:55,827 Writer-1 MainProcess DEBUG: Loading JSON file: /usr/local/lib/python2.7/dist-packages/boto3/data/ec2/2016-09-15/resources-1.json
+2016-11-25 12:29:55,938 Writer-1 MainProcess DEBUG: Looking for credentials via: assume-role
+2016-11-25 12:29:55,939 Writer-1 MainProcess DEBUG: Looking for credentials via: shared-credentials-file
+2016-11-25 12:29:55,939 Writer-1 MainProcess INFO: Found credentials in shared credentials file: ~/.aws/credentials
+2016-11-25 12:29:55,942 Writer-1 MainProcess DEBUG: Loading JSON file: /usr/local/lib/python2.7/dist-packages/botocore/data/endpoints.json
+2016-11-25 12:29:56,035 Writer-1 MainProcess DEBUG: Loading JSON file: /usr/local/lib/python2.7/dist-packages/botocore/data/ec2/2016-09-15/service-2.json
+2016-11-25 12:29:56,481 Writer-1 MainProcess DEBUG: Loading JSON file: /usr/local/lib/python2.7/dist-packages/botocore/data/_retry.json
+2016-11-25 12:29:56,503 Writer-1 MainProcess DEBUG: Registering retry handlers for service: ec2
+2016-11-25 12:29:56,631 Writer-1 MainProcess DEBUG: Event creating-client-class.ec2: calling handler <function add_generate_presigned_url at 0x7f01ad056668>
+2016-11-25 12:29:56,636 Writer-1 MainProcess DEBUG: The s3 config key is not a dictionary type, ignoring its value of: None
+2016-11-25 12:29:56,653 Writer-1 MainProcess DEBUG: Setting ec2 timeout as (60, 60)
+2016-11-25 12:29:56,654 Writer-1 MainProcess DEBUG: Loading ec2:ec2
+2016-11-25 12:29:56,695 Writer-1 MainProcess DEBUG: Event creating-resource-class.ec2.ServiceResource: calling handler <function _handler at 0x7f01ac7308c0>
+2016-11-25 12:29:56,699 Writer-1 MainProcess DEBUG: id image: ami-9fc501f0
+2016-11-25 12:29:56,701 Writer-1 MainProcess INFO: Calling ec2:run_instances with {'UserData': u'#!/bin/bash\nsudo cp /home/ubuntu/.aws /root/ -r\ncd /home/ubuntu/git/CellsCycle/\nsudo echo BEGIN OF LOGFILE > logFile.txt\nsudo git checkout ListCycleNewVersionTest  >> logFile.txt 2>&1\nsudo git fetch --all >> logFile.txt 2>&1\nsudo git reset --hard origin/ListCycleNewVersionTest >> logFile.txt 2>&1\nsudo /usr/bin/python startOnBoot.py \'{"slave": {"ip": "172.31.20.2", "max_key": "1717986917", "id": "2", "min_key": "858993459"}, "myself": {"ip": null, "max_key": "858993458", "id": "1.5", "min_key": "429496730"}, "master_of_master": {"ip": "172.31.20.5", "max_key": "4294967294", "id": "5", "min_key": "3435973836"}, "master": {"ip": "172.31.20.1", "max_key": "858993458", "id": "1", "min_key": "0"}, "slave_of_slave": {"ip": "172.31.20.3", "max_key": "2147483647", "id": "3", "min_key": "1717986918"}}\' \'{"MemoryObjectPort": ["5559"], "SlaveSetPort": ["5552"], "MasterGetPort": ["5551"], "ClientEntrypointPort": ["5555"], "ValueMaxSize": ["4096"], "GitBranch": ["ListCycleNewVersionTest"], "LogFile": ["logFile.txt"], "ServiceThreadNumber": ["16"], "StartFileRelativePath": ["startOnBoot.py"], "GetterThreadNumber": ["1"], "PreallocatedPool": ["200000000"], "MasterSetPort": ["5550"], "SetScaleDownLevel": ["0"], "AwsImageId": ["ami-9fc501f0"], "IntPort": ["5557"], "GetScaleUpLevel": ["0.06"], "AwsProfileName": ["andrea_gennusa"], "AwsKeyName": ["CellCycleBot"], "ExtPort": ["5558"], "GetScaleDownLevel": ["0"], "SetScaleUpLevel": ["0.10"], "AwsSecurityGroup": ["SSHToAll"], "Verbose": ["False"], "MinInstance": ["4"], "SlaveGetPort": ["5553"], "MaxInstance": ["14"], "ScalePeriod": ["120"], "SlabSize": ["100000"]}\' >> extremeLog.log 2>&1\n', 'KeyName': 'CellCycleBot', 'SecurityGroups': ['SSHToAll'], 'MaxCount': 1, 'MinCount': 1, 'InstanceType': 't2.micro', 'ImageId': 'ami-9fc501f0'}
+2016-11-25 12:29:56,702 Writer-1 MainProcess DEBUG: Event before-parameter-build.ec2.RunInstances: calling handler <bound method ParameterAlias.alias_parameter_in_call of <botocore.handlers.ParameterAlias object at 0x7f01acffafd0>>
+2016-11-25 12:29:56,716 Writer-1 MainProcess DEBUG: Event before-parameter-build.ec2.RunInstances: calling handler <function base64_encode_user_data at 0x7f01ad004848>
+2016-11-25 12:29:56,725 Writer-1 MainProcess DEBUG: Making request for OperationModel(name=RunInstances) (verify_ssl=True) with params: {'body': {'UserData': u'IyEvYmluL2Jhc2gKc3VkbyBjcCAvaG9tZS91YnVudHUvLmF3cyAvcm9vdC8gLXIKY2QgL2hvbWUvdWJ1bnR1L2dpdC9DZWxsc0N5Y2xlLwpzdWRvIGVjaG8gQkVHSU4gT0YgTE9HRklMRSA+IGxvZ0ZpbGUudHh0CnN1ZG8gZ2l0IGNoZWNrb3V0IExpc3RDeWNsZU5ld1ZlcnNpb25UZXN0ICA+PiBsb2dGaWxlLnR4dCAyPiYxCnN1ZG8gZ2l0IGZldGNoIC0tYWxsID4+IGxvZ0ZpbGUudHh0IDI+JjEKc3VkbyBnaXQgcmVzZXQgLS1oYXJkIG9yaWdpbi9MaXN0Q3ljbGVOZXdWZXJzaW9uVGVzdCA+PiBsb2dGaWxlLnR4dCAyPiYxCnN1ZG8gL3Vzci9iaW4vcHl0aG9uIHN0YXJ0T25Cb290LnB5ICd7InNsYXZlIjogeyJpcCI6ICIxNzIuMzEuMjAuMiIsICJtYXhfa2V5IjogIjE3MTc5ODY5MTciLCAiaWQiOiAiMiIsICJtaW5fa2V5IjogIjg1ODk5MzQ1OSJ9LCAibXlzZWxmIjogeyJpcCI6IG51bGwsICJtYXhfa2V5IjogIjg1ODk5MzQ1OCIsICJpZCI6ICIxLjUiLCAibWluX2tleSI6ICI0Mjk0OTY3MzAifSwgIm1hc3Rlcl9vZl9tYXN0ZXIiOiB7ImlwIjogIjE3Mi4zMS4yMC41IiwgIm1heF9rZXkiOiAiNDI5NDk2NzI5NCIsICJpZCI6ICI1IiwgIm1pbl9rZXkiOiAiMzQzNTk3MzgzNiJ9LCAibWFzdGVyIjogeyJpcCI6ICIxNzIuMzEuMjAuMSIsICJtYXhfa2V5IjogIjg1ODk5MzQ1OCIsICJpZCI6ICIxIiwgIm1pbl9rZXkiOiAiMCJ9LCAic2xhdmVfb2Zfc2xhdmUiOiB7ImlwIjogIjE3Mi4zMS4yMC4zIiwgIm1heF9rZXkiOiAiMjE0NzQ4MzY0NyIsICJpZCI6ICIzIiwgIm1pbl9rZXkiOiAiMTcxNzk4NjkxOCJ9fScgJ3siTWVtb3J5T2JqZWN0UG9ydCI6IFsiNTU1OSJdLCAiU2xhdmVTZXRQb3J0IjogWyI1NTUyIl0sICJNYXN0ZXJHZXRQb3J0IjogWyI1NTUxIl0sICJDbGllbnRFbnRyeXBvaW50UG9ydCI6IFsiNTU1NSJdLCAiVmFsdWVNYXhTaXplIjogWyI0MDk2Il0sICJHaXRCcmFuY2giOiBbIkxpc3RDeWNsZU5ld1ZlcnNpb25UZXN0Il0sICJMb2dGaWxlIjogWyJsb2dGaWxlLnR4dCJdLCAiU2VydmljZVRocmVhZE51bWJlciI6IFsiMTYiXSwgIlN0YXJ0RmlsZVJlbGF0aXZlUGF0aCI6IFsic3RhcnRPbkJvb3QucHkiXSwgIkdldHRlclRocmVhZE51bWJlciI6IFsiMSJdLCAiUHJlYWxsb2NhdGVkUG9vbCI6IFsiMjAwMDAwMDAwIl0sICJNYXN0ZXJTZXRQb3J0IjogWyI1NTUwIl0sICJTZXRTY2FsZURvd25MZXZlbCI6IFsiMCJdLCAiQXdzSW1hZ2VJZCI6IFsiYW1pLTlmYzUwMWYwIl0sICJJbnRQb3J0IjogWyI1NTU3Il0sICJHZXRTY2FsZVVwTGV2ZWwiOiBbIjAuMDYiXSwgIkF3c1Byb2ZpbGVOYW1lIjogWyJhbmRyZWFfZ2VubnVzYSJdLCAiQXdzS2V5TmFtZSI6IFsiQ2VsbEN5Y2xlQm90Il0sICJFeHRQb3J0IjogWyI1NTU4Il0sICJHZXRTY2FsZURvd25MZXZlbCI6IFsiMCJdLCAiU2V0U2NhbGVVcExldmVsIjogWyIwLjEwIl0sICJBd3NTZWN1cml0eUdyb3VwIjogWyJTU0hUb0FsbCJdLCAiVmVyYm9zZSI6IFsiRmFsc2UiXSwgIk1pbkluc3RhbmNlIjogWyI0Il0sICJTbGF2ZUdldFBvcnQiOiBbIjU1NTMiXSwgIk1heEluc3RhbmNlIjogWyIxNCJdLCAiU2NhbGVQZXJpb2QiOiBbIjEyMCJdLCAiU2xhYlNpemUiOiBbIjEwMDAwMCJdfScgPj4gZXh0cmVtZUxvZy5sb2cgMj4mMQo=', 'Version': u'2016-09-15', u'SecurityGroup.1': 'SSHToAll', 'ImageId': 'ami-9fc501f0', 'KeyName': 'CellCycleBot', 'MaxCount': 1, 'Action': u'RunInstances', 'MinCount': 1, 'InstanceType': 't2.micro'}, 'url': u'https://ec2.eu-central-1.amazonaws.com/', 'headers': {'User-Agent': 'Boto3/1.4.1 Python/2.7.6 Linux/3.13.0-100-generic Botocore/1.4.70 Resource'}, 'context': {'client_region': 'eu-central-1', 'has_streaming_input': False, 'client_config': <botocore.config.Config object at 0x7f01a4784e90>}, 'query_string': '', 'url_path': '/', 'method': u'POST'}
+2016-11-25 12:29:56,725 Writer-1 MainProcess DEBUG: Event request-created.ec2.RunInstances: calling handler <bound method RequestSigner.handler of <botocore.signers.RequestSigner object at 0x7f01a4784ed0>>
+2016-11-25 12:29:56,726 Writer-1 MainProcess DEBUG: Calculating signature using v4 auth.
+2016-11-25 12:29:56,726 Writer-1 MainProcess DEBUG: CanonicalRequest:
+POST
+/
+
+host:ec2.eu-central-1.amazonaws.com
+x-amz-date:20161125T122956Z
+
+host;x-amz-date
+5d096cf8f6b724367a77a8bbf6c1e7cd68fcaf581e835e3817edf8617ad1652e
+2016-11-25 12:29:56,726 Writer-1 MainProcess DEBUG: StringToSign:
+AWS4-HMAC-SHA256
+20161125T122956Z
+20161125/eu-central-1/ec2/aws4_request
+e97f53f7145fa78dd18b91bb6d87fa3c9f7aebc257a82f06fc4239bacbdc5fdb
+2016-11-25 12:29:56,726 Writer-1 MainProcess DEBUG: Signature:
+e25c09c99374e2a4ffba450e6756bc7b5eb8b6823b09db0118366599c58c242c
+2016-11-25 12:29:56,745 Writer-1 MainProcess DEBUG: Sending http request: <PreparedRequest [POST]>
+2016-11-25 12:29:56,748 Writer-1 MainProcess INFO: Starting new HTTPS connection (1): ec2.eu-central-1.amazonaws.com
+2016-11-25 12:29:57,341 Writer-1 MainProcess DEBUG: "POST / HTTP/1.1" 200 None
+2016-11-25 12:29:57,341 Writer-1 MainProcess DEBUG: Response headers: {'transfer-encoding': 'chunked', 'vary': 'Accept-Encoding', 'server': 'AmazonEC2', 'content-type': 'text/xml;charset=UTF-8', 'date': 'Fri, 25 Nov 2016 12:29:56 GMT'}
+2016-11-25 12:29:57,342 Writer-1 MainProcess DEBUG: Response body:
+<?xml version="1.0" encoding="UTF-8"?>
+<RunInstancesResponse xmlns="http://ec2.amazonaws.com/doc/2016-09-15/">
+    <requestId>834bd1dd-ffc9-4b54-aa69-5ca0471f8a8e</requestId>
+    <reservationId>r-01865277c4390b3f4</reservationId>
+    <ownerId>116189005786</ownerId>
+    <groupSet/>
+    <instancesSet>
+        <item>
+            <instanceId>i-035d52bcac80d418b</instanceId>
+            <imageId>ami-9fc501f0</imageId>
+            <instanceState>
+                <code>0</code>
+                <name>pending</name>
+            </instanceState>
+            <privateDnsName>ip-172-31-24-155.eu-central-1.compute.internal</privateDnsName>
+            <dnsName/>
+            <reason/>
+            <keyName>CellCycleBot</keyName>
+            <amiLaunchIndex>0</amiLaunchIndex>
+            <productCodes/>
+            <instanceType>t2.micro</instanceType>
+            <launchTime>2016-11-25T12:29:57.000Z</launchTime>
+            <placement>
+                <availabilityZone>eu-central-1b</availabilityZone>
+                <groupName/>
+                <tenancy>default</tenancy>
+            </placement>
+            <monitoring>
+                <state>disabled</state>
+            </monitoring>
+            <subnetId>subnet-2adbcb51</subnetId>
+            <vpcId>vpc-088c8461</vpcId>
+            <privateIpAddress>172.31.24.155</privateIpAddress>
+            <sourceDestCheck>true</sourceDestCheck>
+            <groupSet>
+                <item>
+                    <groupId>sg-97d59dff</groupId>
+                    <groupName>SSHToAll</groupName>
+                </item>
+            </groupSet>
+            <stateReason>
+                <code>pending</code>
+                <message>pending</message>
+            </stateReason>
+            <architecture>x86_64</architecture>
+            <rootDeviceType>ebs</rootDeviceType>
+            <rootDeviceName>/dev/sda1</rootDeviceName>
+            <blockDeviceMapping/>
+            <virtualizationType>hvm</virtualizationType>
+            <clientToken/>
+            <hypervisor>xen</hypervisor>
+            <networkInterfaceSet>
+                <item>
+                    <networkInterfaceId>eni-a59a38da</networkInterfaceId>
+                    <subnetId>subnet-2adbcb51</subnetId>
+                    <vpcId>vpc-088c8461</vpcId>
+                    <description/>
+                    <ownerId>116189005786</ownerId>
+                    <status>in-use</status>
+                    <macAddress>06:49:07:d4:b5:f5</macAddress>
+                    <privateIpAddress>172.31.24.155</privateIpAddress>
+                    <privateDnsName>ip-172-31-24-155.eu-central-1.compute.internal</privateDnsName>
+                    <sourceDestCheck>true</sourceDestCheck>
+                    <groupSet>
+                        <item>
+                            <groupId>sg-97d59dff</groupId>
+                            <groupName>SSHToAll</groupName>
+                        </item>
+                    </groupSet>
+                    <attachment>
+                        <attachmentId>eni-attach-5f94d4df</attachmentId>
+                        <deviceIndex>0</deviceIndex>
+                        <status>attaching</status>
+                        <attachTime>2016-11-25T12:29:57.000Z</attachTime>
+                        <deleteOnTermination>true</deleteOnTermination>
+                    </attachment>
+                    <privateIpAddressesSet>
+                        <item>
+                            <privateIpAddress>172.31.24.155</privateIpAddress>
+                            <privateDnsName>ip-172-31-24-155.eu-central-1.compute.internal</privateDnsName>
+                            <primary>true</primary>
+                        </item>
+                    </privateIpAddressesSet>
+                </item>
+            </networkInterfaceSet>
+            <ebsOptimized>false</ebsOptimized>
+        </item>
+    </instancesSet>
+</RunInstancesResponse>
+2016-11-25 12:29:57,380 Writer-1 MainProcess DEBUG: Event needs-retry.ec2.RunInstances: calling handler <botocore.retryhandler.RetryHandler object at 0x7f017bfdab90>
+2016-11-25 12:29:57,381 Writer-1 MainProcess DEBUG: No retry needed.
+2016-11-25 12:29:57,381 Writer-1 MainProcess DEBUG: Response: {u'OwnerId': '116189005786', u'ReservationId': 'r-01865277c4390b3f4', 'ResponseMetadata': {'RetryAttempts': 0, 'HTTPStatusCode': 200, 'RequestId': '834bd1dd-ffc9-4b54-aa69-5ca0471f8a8e', 'HTTPHeaders': {'transfer-encoding': 'chunked', 'vary': 'Accept-Encoding', 'server': 'AmazonEC2', 'content-type': 'text/xml;charset=UTF-8', 'date': 'Fri, 25 Nov 2016 12:29:56 GMT'}}, u'Groups': [], u'Instances': [{u'Monitoring': {u'State': 'disabled'}, u'PublicDnsName': '', u'RootDeviceType': 'ebs', u'State': {u'Code': 0, u'Name': 'pending'}, u'EbsOptimized': False, u'LaunchTime': datetime.datetime(2016, 11, 25, 12, 29, 57, tzinfo=tzlocal()), u'PrivateIpAddress': '172.31.24.155', u'ProductCodes': [], u'VpcId': 'vpc-088c8461', u'StateTransitionReason': '', u'InstanceId': 'i-035d52bcac80d418b', u'ImageId': 'ami-9fc501f0', u'PrivateDnsName': 'ip-172-31-24-155.eu-central-1.compute.internal', u'KeyName': 'CellCycleBot', u'SecurityGroups': [{u'GroupName': 'SSHToAll', u'GroupId': 'sg-97d59dff'}], u'ClientToken': '', u'SubnetId': 'subnet-2adbcb51', u'InstanceType': 't2.micro', u'NetworkInterfaces': [{u'Status': 'in-use', u'MacAddress': '06:49:07:d4:b5:f5', u'SourceDestCheck': True, u'VpcId': 'vpc-088c8461', u'Description': '', u'NetworkInterfaceId': 'eni-a59a38da', u'PrivateIpAddresses': [{u'PrivateDnsName': 'ip-172-31-24-155.eu-central-1.compute.internal', u'Primary': True, u'PrivateIpAddress': '172.31.24.155'}], u'PrivateDnsName': 'ip-172-31-24-155.eu-central-1.compute.internal', u'Attachment': {u'Status': 'attaching', u'DeviceIndex': 0, u'DeleteOnTermination': True, u'AttachmentId': 'eni-attach-5f94d4df', u'AttachTime': datetime.datetime(2016, 11, 25, 12, 29, 57, tzinfo=tzlocal())}, u'Groups': [{u'GroupName': 'SSHToAll', u'GroupId': 'sg-97d59dff'}], u'SubnetId': 'subnet-2adbcb51', u'OwnerId': '116189005786', u'PrivateIpAddress': '172.31.24.155'}], u'SourceDestCheck': True, u'Placement': {u'Tenancy': 'default', u'GroupName': '', u'AvailabilityZone': 'eu-central-1b'}, u'Hypervisor': 'xen', u'BlockDeviceMappings': [], u'Architecture': 'x86_64', u'StateReason': {u'Message': 'pending', u'Code': 'pending'}, u'RootDeviceName': '/dev/sda1', u'VirtualizationType': 'hvm', u'AmiLaunchIndex': 0}]}
+2016-11-25 12:29:57,381 Writer-1 MainProcess DEBUG: Loading ec2:Instance
+2016-11-25 12:29:57,409 Writer-1 MainProcess DEBUG: Renaming Instance attribute network_interfaces
+2016-11-25 12:29:57,441 Writer-1 MainProcess DEBUG: Event creating-resource-class.ec2.Instance: calling handler <function _handler at 0x7f01ac730938>
+2016-11-25 12:29:57,448 Writer-1 MainProcess DEBUG: ADD CYCLE completed
+2016-11-25 12:30:36,343 MainThread python-CCMemoryMaster DEBUG: Transferring memory to tcp://172.31.24.155:5550....
+2016-11-25 12:30:59,120 MainThread python-CCMemoryMaster DEBUG: Transfer complete!
+2016-11-25 12:30:59,120 MainThread python-CCMemoryMaster DEBUG: Transferring memory to tcp://172.31.24.155:5552....
+2016-11-25 12:30:59,250 Writer-1 MainProcess DEBUG: i'm 1, these are my nodes to compute keys
+Node myself, id 1, keys 0:858993458
+Node master, id 5, keys 3435973836:4294967294
+Node master_of_master, id 4.5, keys 3006477107:3435973835
+Node slave, id 2, keys 858993459:1717986917
+Node slave_of_slave, id 3, keys 1717986918:2147483647
+
+2016-11-25 12:30:59,251 Writer-1 MainProcess DEBUG: i'm 1, these are my computed keys
+myself, (0,429496729)
+slave, (858993459,1717986917)
+master, (3435973836,4294967294)
+slave_of_slave, (1717986918,2147483647)
+newNode, (429496730,858993458)
+master_of_master, (3006477107,3435973835)
+
+2016-11-25 12:30:59,251 Writer-1 MainProcess DEBUG: i'm 1
+2016-11-25 12:30:59,251 Writer-1 MainProcess DEBUG: adding this node in list, id: 1, master: 5, slave: 2
+2016-11-25 12:30:59,251 Writer-1 MainProcess DEBUG: adding this node in list, id: 5, master: 4.5, slave: 1
+2016-11-25 12:30:59,251 Writer-1 MainProcess DEBUG: adding this node in list, id: 2, master: 1, slave: 3
+2016-11-25 12:30:59,251 Writer-1 MainProcess DEBUG: adding this node in list, id: 4.5, master: 4.25, slave: 5
+2016-11-25 12:30:59,251 Writer-1 MainProcess DEBUG: adding this node in list, id: 3, master: 2, slave: 3.5
+2016-11-25 12:30:59,251 Writer-1 MainProcess DEBUG: adding this node in list
+min_key, 429496730
+ip, 172.31.24.155
+int_addr, 172.31.24.155:5557
+ext_port, 5558
+ext_addr, 172.31.24.155:5558
+max_key, 858993458
+id, 1.5
+memory_port, 
+int_port, 5557
+
+2016-11-25 12:30:59,251 Writer-1 MainProcess DEBUG: sending message to tcp://*:5557
+2016-11-25 12:30:59,718 Reader-1 MainProcess DEBUG: New node added, it's Reader 1.5
+2016-11-25 12:30:59,755 Writer-1 MainProcess DEBUG: I am in state Free
+2016-11-25 12:30:59,755 Writer-1 MainProcess DEBUG: the cycle is over, now i am able to accept scale up requests
+2016-11-25 12:30:59,755 Writer-1 MainProcess DEBUG: ADDED CYCLE completed, this is my list
+Node 4.5, Node : myself 4.5, master 4.25, slave 5
+Keys : master 2791728742:3006477106, myself 3006477107:3435973835, slave 3435973836:4294967294
+Node 1.5, Node : myself 1.5, master 1, slave 2
+Keys : master 0:429496729, myself 429496730:858993458, slave 858993459:1717986917
+Node 3.5, Node : myself 3.5, master 3, slave 4
+Keys : master 1717986918:2147483647, myself 2147483648:2576980376, slave 2576980377:2684354559
+Node 4.125, Node : myself 4.125, master 4, slave 4.25
+Keys : master 2576980377:2684354559, myself 2684354560:2791728741, slave 2791728742:3006477106
+Node 1, Node : myself 1, master 5, slave 1.5
+Keys : master 3435973836:4294967294, myself 0:429496729, slave 429496730:858993458
+Node 3, Node : myself 3, master 2, slave 3.5
+Keys : master 858993459:1717986917, myself 1717986918:2147483647, slave 2147483648:2576980376
+Node 2, Node : myself 2, master 1.5, slave 3
+Keys : master 429496730:858993458, myself 858993459:1717986917, slave 1717986918:2147483647
+Node 5, Node : myself 5, master 4.5, slave 1
+Keys : master 3006477107:3435973835, myself 3435973836:4294967294, slave 0:429496729
+Node 4, Node : myself 4, master 3.5, slave 4.125
+Keys : master 2147483648:2576980376, myself 2576980377:2684354559, slave 2684354560:2791728741
+Node 4.25, Node : myself 4.25, master 4.125, slave 4.5
+Keys : master 2684354560:2791728741, myself 2791728742:3006477106, slave 3006477107:3435973835
+
+2016-11-25 12:31:20,013 MainThread python-CCMemoryMaster DEBUG: Transfer complete!
+2016-11-25 12:31:20,626 MainThread python-CCMemoryMaster DEBUG: Slave is dead, new info: <CellCycle.ChainModule.MemoryObject.MemoryObject instance at 0x7f01acdbc248>
+2016-11-25 12:31:20,626 MemorySlaveSetter python-CCMemoryMaster DEBUG: Change of slave:tcp://172.31.24.155:5552
+2016-11-25 12:31:55,605 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.377966935387, getters (mean): 0.0555465870315
+2016-11-25 12:31:55,605 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Up!
+2016-11-25 12:31:55,605 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-11-25 12:31:55,606 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-11-25 12:31:55,630 Writer-1 MainProcess DEBUG: sending message to tcp://*:5557
+2016-11-25 12:31:55,631 Writer-1 MainProcess DEBUG: I am in state BusyAddPS
+2016-11-25 12:31:55,631 Writer-1 MainProcess DEBUG: now i'm busy : ScaleUpThread asked to scale up
+2016-11-25 12:31:56,033 Writer-1 MainProcess DEBUG: LAST ADD message
+2016-11-25 12:31:56,033 Writer-1 MainProcess DEBUG: contact amazon
+2016-11-25 12:31:56,057 Writer-1 MainProcess DEBUG: Loading JSON file: /usr/local/lib/python2.7/dist-packages/boto3/data/ec2/2016-09-15/resources-1.json
+2016-11-25 12:31:56,188 Writer-1 MainProcess DEBUG: Looking for credentials via: assume-role
+2016-11-25 12:31:56,188 Writer-1 MainProcess DEBUG: Looking for credentials via: shared-credentials-file
+2016-11-25 12:31:56,191 Writer-1 MainProcess INFO: Found credentials in shared credentials file: ~/.aws/credentials
+2016-11-25 12:31:56,197 Writer-1 MainProcess DEBUG: Loading JSON file: /usr/local/lib/python2.7/dist-packages/botocore/data/endpoints.json
+2016-11-25 12:31:56,310 Writer-1 MainProcess DEBUG: Loading JSON file: /usr/local/lib/python2.7/dist-packages/botocore/data/ec2/2016-09-15/service-2.json
+2016-11-25 12:31:56,661 Writer-1 MainProcess DEBUG: Loading JSON file: /usr/local/lib/python2.7/dist-packages/botocore/data/_retry.json
+2016-11-25 12:31:56,678 Writer-1 MainProcess DEBUG: Registering retry handlers for service: ec2
+2016-11-25 12:31:56,698 Writer-1 MainProcess DEBUG: Event creating-client-class.ec2: calling handler <function add_generate_presigned_url at 0x7f01ad056668>
+2016-11-25 12:31:56,698 Writer-1 MainProcess DEBUG: The s3 config key is not a dictionary type, ignoring its value of: None
+2016-11-25 12:31:56,701 Writer-1 MainProcess DEBUG: Setting ec2 timeout as (60, 60)
+2016-11-25 12:31:56,701 Writer-1 MainProcess DEBUG: Loading ec2:ec2
+2016-11-25 12:31:56,753 Writer-1 MainProcess DEBUG: Event creating-resource-class.ec2.ServiceResource: calling handler <function _handler at 0x7f01a4732398>
+2016-11-25 12:31:56,753 Writer-1 MainProcess DEBUG: id image: ami-9fc501f0
+2016-11-25 12:31:56,753 Writer-1 MainProcess INFO: Calling ec2:run_instances with {'UserData': u'#!/bin/bash\nsudo cp /home/ubuntu/.aws /root/ -r\ncd /home/ubuntu/git/CellsCycle/\nsudo echo BEGIN OF LOGFILE > logFile.txt\nsudo git checkout ListCycleNewVersionTest  >> logFile.txt 2>&1\nsudo git fetch --all >> logFile.txt 2>&1\nsudo git reset --hard origin/ListCycleNewVersionTest >> logFile.txt 2>&1\nsudo /usr/bin/python startOnBoot.py \'{"slave": {"ip": "172.31.24.155", "max_key": "858993458", "id": "1.5", "min_key": "429496730"}, "myself": {"ip": null, "max_key": "429496729", "id": "1.25", "min_key": "214748365"}, "master_of_master": {"ip": "172.31.20.5", "max_key": "4294967294", "id": "5", "min_key": "3435973836"}, "master": {"ip": "172.31.20.1", "max_key": "429496729", "id": "1", "min_key": "0"}, "slave_of_slave": {"ip": "172.31.20.2", "max_key": "1717986917", "id": "2", "min_key": "858993459"}}\' \'{"MemoryObjectPort": ["5559"], "SlaveSetPort": ["5552"], "MasterGetPort": ["5551"], "ClientEntrypointPort": ["5555"], "ValueMaxSize": ["4096"], "GitBranch": ["ListCycleNewVersionTest"], "LogFile": ["logFile.txt"], "ServiceThreadNumber": ["16"], "StartFileRelativePath": ["startOnBoot.py"], "GetterThreadNumber": ["1"], "PreallocatedPool": ["200000000"], "MasterSetPort": ["5550"], "SetScaleDownLevel": ["0"], "AwsImageId": ["ami-9fc501f0"], "IntPort": ["5557"], "GetScaleUpLevel": ["0.06"], "AwsProfileName": ["andrea_gennusa"], "AwsKeyName": ["CellCycleBot"], "ExtPort": ["5558"], "GetScaleDownLevel": ["0"], "SetScaleUpLevel": ["0.10"], "AwsSecurityGroup": ["SSHToAll"], "Verbose": ["False"], "MinInstance": ["4"], "SlaveGetPort": ["5553"], "MaxInstance": ["14"], "ScalePeriod": ["120"], "SlabSize": ["100000"]}\' >> extremeLog.log 2>&1\n', 'KeyName': 'CellCycleBot', 'SecurityGroups': ['SSHToAll'], 'MaxCount': 1, 'MinCount': 1, 'InstanceType': 't2.micro', 'ImageId': 'ami-9fc501f0'}
+2016-11-25 12:31:56,755 Writer-1 MainProcess DEBUG: Event before-parameter-build.ec2.RunInstances: calling handler <bound method ParameterAlias.alias_parameter_in_call of <botocore.handlers.ParameterAlias object at 0x7f01acffafd0>>
+2016-11-25 12:31:56,758 Writer-1 MainProcess DEBUG: Event before-parameter-build.ec2.RunInstances: calling handler <function base64_encode_user_data at 0x7f01ad004848>
+2016-11-25 12:31:56,765 Writer-1 MainProcess DEBUG: Making request for OperationModel(name=RunInstances) (verify_ssl=True) with params: {'body': {'UserData': u'IyEvYmluL2Jhc2gKc3VkbyBjcCAvaG9tZS91YnVudHUvLmF3cyAvcm9vdC8gLXIKY2QgL2hvbWUvdWJ1bnR1L2dpdC9DZWxsc0N5Y2xlLwpzdWRvIGVjaG8gQkVHSU4gT0YgTE9HRklMRSA+IGxvZ0ZpbGUudHh0CnN1ZG8gZ2l0IGNoZWNrb3V0IExpc3RDeWNsZU5ld1ZlcnNpb25UZXN0ICA+PiBsb2dGaWxlLnR4dCAyPiYxCnN1ZG8gZ2l0IGZldGNoIC0tYWxsID4+IGxvZ0ZpbGUudHh0IDI+JjEKc3VkbyBnaXQgcmVzZXQgLS1oYXJkIG9yaWdpbi9MaXN0Q3ljbGVOZXdWZXJzaW9uVGVzdCA+PiBsb2dGaWxlLnR4dCAyPiYxCnN1ZG8gL3Vzci9iaW4vcHl0aG9uIHN0YXJ0T25Cb290LnB5ICd7InNsYXZlIjogeyJpcCI6ICIxNzIuMzEuMjQuMTU1IiwgIm1heF9rZXkiOiAiODU4OTkzNDU4IiwgImlkIjogIjEuNSIsICJtaW5fa2V5IjogIjQyOTQ5NjczMCJ9LCAibXlzZWxmIjogeyJpcCI6IG51bGwsICJtYXhfa2V5IjogIjQyOTQ5NjcyOSIsICJpZCI6ICIxLjI1IiwgIm1pbl9rZXkiOiAiMjE0NzQ4MzY1In0sICJtYXN0ZXJfb2ZfbWFzdGVyIjogeyJpcCI6ICIxNzIuMzEuMjAuNSIsICJtYXhfa2V5IjogIjQyOTQ5NjcyOTQiLCAiaWQiOiAiNSIsICJtaW5fa2V5IjogIjM0MzU5NzM4MzYifSwgIm1hc3RlciI6IHsiaXAiOiAiMTcyLjMxLjIwLjEiLCAibWF4X2tleSI6ICI0Mjk0OTY3MjkiLCAiaWQiOiAiMSIsICJtaW5fa2V5IjogIjAifSwgInNsYXZlX29mX3NsYXZlIjogeyJpcCI6ICIxNzIuMzEuMjAuMiIsICJtYXhfa2V5IjogIjE3MTc5ODY5MTciLCAiaWQiOiAiMiIsICJtaW5fa2V5IjogIjg1ODk5MzQ1OSJ9fScgJ3siTWVtb3J5T2JqZWN0UG9ydCI6IFsiNTU1OSJdLCAiU2xhdmVTZXRQb3J0IjogWyI1NTUyIl0sICJNYXN0ZXJHZXRQb3J0IjogWyI1NTUxIl0sICJDbGllbnRFbnRyeXBvaW50UG9ydCI6IFsiNTU1NSJdLCAiVmFsdWVNYXhTaXplIjogWyI0MDk2Il0sICJHaXRCcmFuY2giOiBbIkxpc3RDeWNsZU5ld1ZlcnNpb25UZXN0Il0sICJMb2dGaWxlIjogWyJsb2dGaWxlLnR4dCJdLCAiU2VydmljZVRocmVhZE51bWJlciI6IFsiMTYiXSwgIlN0YXJ0RmlsZVJlbGF0aXZlUGF0aCI6IFsic3RhcnRPbkJvb3QucHkiXSwgIkdldHRlclRocmVhZE51bWJlciI6IFsiMSJdLCAiUHJlYWxsb2NhdGVkUG9vbCI6IFsiMjAwMDAwMDAwIl0sICJNYXN0ZXJTZXRQb3J0IjogWyI1NTUwIl0sICJTZXRTY2FsZURvd25MZXZlbCI6IFsiMCJdLCAiQXdzSW1hZ2VJZCI6IFsiYW1pLTlmYzUwMWYwIl0sICJJbnRQb3J0IjogWyI1NTU3Il0sICJHZXRTY2FsZVVwTGV2ZWwiOiBbIjAuMDYiXSwgIkF3c1Byb2ZpbGVOYW1lIjogWyJhbmRyZWFfZ2VubnVzYSJdLCAiQXdzS2V5TmFtZSI6IFsiQ2VsbEN5Y2xlQm90Il0sICJFeHRQb3J0IjogWyI1NTU4Il0sICJHZXRTY2FsZURvd25MZXZlbCI6IFsiMCJdLCAiU2V0U2NhbGVVcExldmVsIjogWyIwLjEwIl0sICJBd3NTZWN1cml0eUdyb3VwIjogWyJTU0hUb0FsbCJdLCAiVmVyYm9zZSI6IFsiRmFsc2UiXSwgIk1pbkluc3RhbmNlIjogWyI0Il0sICJTbGF2ZUdldFBvcnQiOiBbIjU1NTMiXSwgIk1heEluc3RhbmNlIjogWyIxNCJdLCAiU2NhbGVQZXJpb2QiOiBbIjEyMCJdLCAiU2xhYlNpemUiOiBbIjEwMDAwMCJdfScgPj4gZXh0cmVtZUxvZy5sb2cgMj4mMQo=', 'Version': u'2016-09-15', u'SecurityGroup.1': 'SSHToAll', 'ImageId': 'ami-9fc501f0', 'KeyName': 'CellCycleBot', 'MaxCount': 1, 'Action': u'RunInstances', 'MinCount': 1, 'InstanceType': 't2.micro'}, 'url': u'https://ec2.eu-central-1.amazonaws.com/', 'headers': {'User-Agent': 'Boto3/1.4.1 Python/2.7.6 Linux/3.13.0-100-generic Botocore/1.4.70 Resource'}, 'context': {'client_region': 'eu-central-1', 'has_streaming_input': False, 'client_config': <botocore.config.Config object at 0x7f017b5a5a50>}, 'query_string': '', 'url_path': '/', 'method': u'POST'}
+2016-11-25 12:31:56,768 Writer-1 MainProcess DEBUG: Event request-created.ec2.RunInstances: calling handler <bound method RequestSigner.handler of <botocore.signers.RequestSigner object at 0x7f017b5a5a10>>
+2016-11-25 12:31:56,771 Writer-1 MainProcess DEBUG: Calculating signature using v4 auth.
+2016-11-25 12:31:56,772 Writer-1 MainProcess DEBUG: CanonicalRequest:
+POST
+/
+
+host:ec2.eu-central-1.amazonaws.com
+x-amz-date:20161125T123156Z
+
+host;x-amz-date
+b86f75d3cd93776b74c721f0eab48c923802ffc2c290f5d0d9c0a9bf7c77c6db
+2016-11-25 12:31:56,773 Writer-1 MainProcess DEBUG: StringToSign:
+AWS4-HMAC-SHA256
+20161125T123156Z
+20161125/eu-central-1/ec2/aws4_request
+eddd73fa42225bfa7045d7e58199b1f559672047834cf9a7fa2d510ec28f2d05
+2016-11-25 12:31:56,774 Writer-1 MainProcess DEBUG: Signature:
+6036de914b792cf07109c3bcc56a94231153da80d8f0f4099168fec1b2d3ab31
+2016-11-25 12:31:56,778 Writer-1 MainProcess DEBUG: Sending http request: <PreparedRequest [POST]>
+2016-11-25 12:31:56,780 Writer-1 MainProcess INFO: Starting new HTTPS connection (1): ec2.eu-central-1.amazonaws.com
+2016-11-25 12:31:57,420 Writer-1 MainProcess DEBUG: "POST / HTTP/1.1" 200 None
+2016-11-25 12:31:57,421 Writer-1 MainProcess DEBUG: Response headers: {'transfer-encoding': 'chunked', 'vary': 'Accept-Encoding', 'server': 'AmazonEC2', 'content-type': 'text/xml;charset=UTF-8', 'date': 'Fri, 25 Nov 2016 12:31:56 GMT'}
+2016-11-25 12:31:57,421 Writer-1 MainProcess DEBUG: Response body:
+<?xml version="1.0" encoding="UTF-8"?>
+<RunInstancesResponse xmlns="http://ec2.amazonaws.com/doc/2016-09-15/">
+    <requestId>ba6e96f4-3a45-433e-bbad-9c42d5a728da</requestId>
+    <reservationId>r-0f6f6dc0bc729ebcd</reservationId>
+    <ownerId>116189005786</ownerId>
+    <groupSet/>
+    <instancesSet>
+        <item>
+            <instanceId>i-097227a5432558e93</instanceId>
+            <imageId>ami-9fc501f0</imageId>
+            <instanceState>
+                <code>0</code>
+                <name>pending</name>
+            </instanceState>
+            <privateDnsName>ip-172-31-18-178.eu-central-1.compute.internal</privateDnsName>
+            <dnsName/>
+            <reason/>
+            <keyName>CellCycleBot</keyName>
+            <amiLaunchIndex>0</amiLaunchIndex>
+            <productCodes/>
+            <instanceType>t2.micro</instanceType>
+            <launchTime>2016-11-25T12:31:57.000Z</launchTime>
+            <placement>
+                <availabilityZone>eu-central-1b</availabilityZone>
+                <groupName/>
+                <tenancy>default</tenancy>
+            </placement>
+            <monitoring>
+                <state>disabled</state>
+            </monitoring>
+            <subnetId>subnet-2adbcb51</subnetId>
+            <vpcId>vpc-088c8461</vpcId>
+            <privateIpAddress>172.31.18.178</privateIpAddress>
+            <sourceDestCheck>true</sourceDestCheck>
+            <groupSet>
+                <item>
+                    <groupId>sg-97d59dff</groupId>
+                    <groupName>SSHToAll</groupName>
+                </item>
+            </groupSet>
+            <stateReason>
+                <code>pending</code>
+                <message>pending</message>
+            </stateReason>
+            <architecture>x86_64</architecture>
+            <rootDeviceType>ebs</rootDeviceType>
+            <rootDeviceName>/dev/sda1</rootDeviceName>
+            <blockDeviceMapping/>
+            <virtualizationType>hvm</virtualizationType>
+            <clientToken/>
+            <hypervisor>xen</hypervisor>
+            <networkInterfaceSet>
+                <item>
+                    <networkInterfaceId>eni-ac983ad3</networkInterfaceId>
+                    <subnetId>subnet-2adbcb51</subnetId>
+                    <vpcId>vpc-088c8461</vpcId>
+                    <description/>
+                    <ownerId>116189005786</ownerId>
+                    <status>in-use</status>
+                    <macAddress>06:ac:e4:bd:dc:7f</macAddress>
+                    <privateIpAddress>172.31.18.178</privateIpAddress>
+                    <privateDnsName>ip-172-31-18-178.eu-central-1.compute.internal</privateDnsName>
+                    <sourceDestCheck>true</sourceDestCheck>
+                    <groupSet>
+                        <item>
+                            <groupId>sg-97d59dff</groupId>
+                            <groupName>SSHToAll</groupName>
+                        </item>
+                    </groupSet>
+                    <attachment>
+                        <attachmentId>eni-attach-d395d553</attachmentId>
+                        <deviceIndex>0</deviceIndex>
+                        <status>attaching</status>
+                        <attachTime>2016-11-25T12:31:57.000Z</attachTime>
+                        <deleteOnTermination>true</deleteOnTermination>
+                    </attachment>
+                    <privateIpAddressesSet>
+                        <item>
+                            <privateIpAddress>172.31.18.178</privateIpAddress>
+                            <privateDnsName>ip-172-31-18-178.eu-central-1.compute.internal</privateDnsName>
+                            <primary>true</primary>
+                        </item>
+                    </privateIpAddressesSet>
+                </item>
+            </networkInterfaceSet>
+            <ebsOptimized>false</ebsOptimized>
+        </item>
+    </instancesSet>
+</RunInstancesResponse>
+2016-11-25 12:31:57,434 Writer-1 MainProcess DEBUG: Event needs-retry.ec2.RunInstances: calling handler <botocore.retryhandler.RetryHandler object at 0x7f017b60d990>
+2016-11-25 12:31:57,435 Writer-1 MainProcess DEBUG: No retry needed.
+2016-11-25 12:31:57,435 Writer-1 MainProcess DEBUG: Response: {u'OwnerId': '116189005786', u'ReservationId': 'r-0f6f6dc0bc729ebcd', 'ResponseMetadata': {'RetryAttempts': 0, 'HTTPStatusCode': 200, 'RequestId': 'ba6e96f4-3a45-433e-bbad-9c42d5a728da', 'HTTPHeaders': {'transfer-encoding': 'chunked', 'vary': 'Accept-Encoding', 'server': 'AmazonEC2', 'content-type': 'text/xml;charset=UTF-8', 'date': 'Fri, 25 Nov 2016 12:31:56 GMT'}}, u'Groups': [], u'Instances': [{u'Monitoring': {u'State': 'disabled'}, u'PublicDnsName': '', u'RootDeviceType': 'ebs', u'State': {u'Code': 0, u'Name': 'pending'}, u'EbsOptimized': False, u'LaunchTime': datetime.datetime(2016, 11, 25, 12, 31, 57, tzinfo=tzlocal()), u'PrivateIpAddress': '172.31.18.178', u'ProductCodes': [], u'VpcId': 'vpc-088c8461', u'StateTransitionReason': '', u'InstanceId': 'i-097227a5432558e93', u'ImageId': 'ami-9fc501f0', u'PrivateDnsName': 'ip-172-31-18-178.eu-central-1.compute.internal', u'KeyName': 'CellCycleBot', u'SecurityGroups': [{u'GroupName': 'SSHToAll', u'GroupId': 'sg-97d59dff'}], u'ClientToken': '', u'SubnetId': 'subnet-2adbcb51', u'InstanceType': 't2.micro', u'NetworkInterfaces': [{u'Status': 'in-use', u'MacAddress': '06:ac:e4:bd:dc:7f', u'SourceDestCheck': True, u'VpcId': 'vpc-088c8461', u'Description': '', u'NetworkInterfaceId': 'eni-ac983ad3', u'PrivateIpAddresses': [{u'PrivateDnsName': 'ip-172-31-18-178.eu-central-1.compute.internal', u'Primary': True, u'PrivateIpAddress': '172.31.18.178'}], u'PrivateDnsName': 'ip-172-31-18-178.eu-central-1.compute.internal', u'Attachment': {u'Status': 'attaching', u'DeviceIndex': 0, u'DeleteOnTermination': True, u'AttachmentId': 'eni-attach-d395d553', u'AttachTime': datetime.datetime(2016, 11, 25, 12, 31, 57, tzinfo=tzlocal())}, u'Groups': [{u'GroupName': 'SSHToAll', u'GroupId': 'sg-97d59dff'}], u'SubnetId': 'subnet-2adbcb51', u'OwnerId': '116189005786', u'PrivateIpAddress': '172.31.18.178'}], u'SourceDestCheck': True, u'Placement': {u'Tenancy': 'default', u'GroupName': '', u'AvailabilityZone': 'eu-central-1b'}, u'Hypervisor': 'xen', u'BlockDeviceMappings': [], u'Architecture': 'x86_64', u'StateReason': {u'Message': 'pending', u'Code': 'pending'}, u'RootDeviceName': '/dev/sda1', u'VirtualizationType': 'hvm', u'AmiLaunchIndex': 0}]}
+2016-11-25 12:31:57,437 Writer-1 MainProcess DEBUG: Loading ec2:Instance
+2016-11-25 12:31:57,447 Writer-1 MainProcess DEBUG: Renaming Instance attribute network_interfaces
+2016-11-25 12:31:57,463 Writer-1 MainProcess DEBUG: Event creating-resource-class.ec2.Instance: calling handler <function _handler at 0x7f01a47327d0>
+2016-11-25 12:31:57,464 Writer-1 MainProcess DEBUG: ADD CYCLE completed
+2016-11-25 12:32:44,969 MainThread python-CCMemoryMaster DEBUG: Transferring memory to tcp://172.31.18.178:5550....
+2016-11-25 12:32:53,948 MainThread python-CCMemoryMaster DEBUG: Transfer complete!
+2016-11-25 12:32:53,950 MainThread python-CCMemoryMaster DEBUG: Transferring memory to tcp://172.31.18.178:5552....
+2016-11-25 12:32:54,052 Writer-1 MainProcess DEBUG: i'm 1, these are my nodes to compute keys
+Node myself, id 1, keys 0:429496729
+Node master, id 5, keys 3435973836:4294967294
+Node master_of_master, id 4.5, keys 3006477107:3435973835
+Node slave, id 1.5, keys 429496730:858993458
+Node slave_of_slave, id 2, keys 858993459:1717986917
+
+2016-11-25 12:32:54,052 Writer-1 MainProcess DEBUG: i'm 1, these are my computed keys
+myself, (0,214748364)
+slave, (429496730,858993458)
+master, (3435973836,4294967294)
+slave_of_slave, (858993459,1717986917)
+newNode, (214748365,429496729)
+master_of_master, (3006477107,3435973835)
+
+2016-11-25 12:32:54,052 Writer-1 MainProcess DEBUG: i'm 1
+2016-11-25 12:32:54,052 Writer-1 MainProcess DEBUG: adding this node in list, id: 1, master: 5, slave: 1.5
+2016-11-25 12:32:54,052 Writer-1 MainProcess DEBUG: adding this node in list, id: 5, master: 4.5, slave: 1
+2016-11-25 12:32:54,053 Writer-1 MainProcess DEBUG: adding this node in list, id: 1.5, master: 1, slave: 2
+2016-11-25 12:32:54,053 Writer-1 MainProcess DEBUG: adding this node in list, id: 4.5, master: 4.25, slave: 5
+2016-11-25 12:32:54,053 Writer-1 MainProcess DEBUG: adding this node in list, id: 2, master: 1.5, slave: 3
+2016-11-25 12:32:54,053 Writer-1 MainProcess DEBUG: adding this node in list
+min_key, 214748365
+ip, 172.31.18.178
+int_addr, 172.31.18.178:5557
+ext_port, 5558
+ext_addr, 172.31.18.178:5558
+max_key, 429496729
+id, 1.25
+memory_port, 
+int_port, 5557
+
+2016-11-25 12:32:54,053 Writer-1 MainProcess DEBUG: sending message to tcp://*:5557
+2016-11-25 12:32:54,676 Reader-1 MainProcess DEBUG: New node added, it's Reader 1.25
+2016-11-25 12:32:54,757 Writer-1 MainProcess DEBUG: I am in state Free
+2016-11-25 12:32:54,757 Writer-1 MainProcess DEBUG: the cycle is over, now i am able to accept scale up requests
+2016-11-25 12:32:54,757 Writer-1 MainProcess DEBUG: ADDED CYCLE completed, this is my list
+Node 4.5, Node : myself 4.5, master 4.25, slave 5
+Keys : master 2791728742:3006477106, myself 3006477107:3435973835, slave 3435973836:4294967294
+Node 1.5, Node : myself 1.5, master 1.25, slave 2
+Keys : master 214748365:429496729, myself 429496730:858993458, slave 858993459:1717986917
+Node 3.5, Node : myself 3.5, master 3, slave 4
+Keys : master 1717986918:2147483647, myself 2147483648:2576980376, slave 2576980377:2684354559
+Node 4.125, Node : myself 4.125, master 4, slave 4.25
+Keys : master 2576980377:2684354559, myself 2684354560:2791728741, slave 2791728742:3006477106
+Node 1, Node : myself 1, master 5, slave 1.25
+Keys : master 3435973836:4294967294, myself 0:214748364, slave 214748365:429496729
+Node 3, Node : myself 3, master 2, slave 3.5
+Keys : master 858993459:1717986917, myself 1717986918:2147483647, slave 2147483648:2576980376
+Node 2, Node : myself 2, master 1.5, slave 3
+Keys : master 429496730:858993458, myself 858993459:1717986917, slave 1717986918:2147483647
+Node 5, Node : myself 5, master 4.5, slave 1
+Keys : master 3006477107:3435973835, myself 3435973836:4294967294, slave 0:214748364
+Node 4, Node : myself 4, master 3.5, slave 4.125
+Keys : master 2147483648:2576980376, myself 2576980377:2684354559, slave 2684354560:2791728741
+Node 4.25, Node : myself 4.25, master 4.125, slave 4.5
+Keys : master 2684354560:2791728741, myself 2791728742:3006477106, slave 3006477107:3435973835
+Node 1.25, Node : myself 1.25, master 1, slave 1.5
+Keys : master 0:214748364, myself 214748365:429496729, slave 429496730:858993458
+
+2016-11-25 12:32:57,165 Writer-1 MainProcess DEBUG: this message from 2 can be forwarded due to higher priority than 0
+target_addr: 
+target_key: 1288490189:1717986917
+random: 8441
+target_id: 2.5
+priority: 1
+version: 4
+source_id: 2
+source_flag: 1
+target_relative_id: 3
+
+2016-11-25 12:32:57,165 Writer-1 MainProcess DEBUG: I am in state BusyAddPL
+2016-11-25 12:32:57,165 Writer-1 MainProcess DEBUG: forwarding ADD message
+target_addr: 
+target_key: 1288490189:1717986917
+random: 8441
+target_id: 2.5
+priority: 1
+version: 4
+source_id: 2
+source_flag: 1
+target_relative_id: 3
+
+2016-11-25 12:33:07,525 MainThread python-CCMemoryMaster DEBUG: Transfer complete!
+2016-11-25 12:33:07,951 MainThread python-CCMemoryMaster DEBUG: Slave is dead, new info: <CellCycle.ChainModule.MemoryObject.MemoryObject instance at 0x7f01a6a0a488>
+2016-11-25 12:33:07,952 MemorySlaveSetter python-CCMemoryMaster DEBUG: Change of slave:tcp://172.31.18.178:5552
+2016-11-25 12:33:53,561 Reader-1 MainProcess DEBUG: New node added, it's Reader 2.5
+2016-11-25 12:33:53,645 Writer-1 MainProcess DEBUG: my version is 5, uuu we have a new NODE
+target_addr: 172.31.18.115
+target_key: 1288490189:1717986917
+random: 7433
+target_id: 2.5
+priority: 2
+version: 4
+source_id: 2
+source_flag: 1
+target_relative_id: 3
+
+2016-11-25 12:33:53,645 Writer-1 MainProcess DEBUG: i'm 1, these are my nodes to compute keys
+Node myself, id 2, keys 858993459:1717986917
+Node master, id 1.5, keys 429496730:858993458
+Node master_of_master, id 1.25, keys 214748365:429496729
+Node slave, id 3, keys 1717986918:2147483647
+Node slave_of_slave, id 3.5, keys 2147483648:2576980376
+
+2016-11-25 12:33:53,645 Writer-1 MainProcess DEBUG: i'm 1, these are my computed keys
+myself, (858993459,1288490188)
+slave, (1717986918,2147483647)
+master, (429496730,858993458)
+slave_of_slave, (2147483648,2576980376)
+newNode, (1288490189,1717986917)
+master_of_master, (214748365,429496729)
+
+2016-11-25 12:33:53,645 Writer-1 MainProcess DEBUG: i'm 1
+2016-11-25 12:33:53,645 Writer-1 MainProcess DEBUG: adding this node in list, id: 2, master: 1.5, slave: 3
+2016-11-25 12:33:53,645 Writer-1 MainProcess DEBUG: adding this node in list, id: 1.5, master: 1.25, slave: 2
+2016-11-25 12:33:53,645 Writer-1 MainProcess DEBUG: adding this node in list, id: 3, master: 2, slave: 3.5
+2016-11-25 12:33:53,645 Writer-1 MainProcess DEBUG: adding this node in list, id: 1.25, master: 1, slave: 1.5
+2016-11-25 12:33:53,645 Writer-1 MainProcess DEBUG: adding this node in list, id: 3.5, master: 3, slave: 4
+2016-11-25 12:33:53,645 Writer-1 MainProcess DEBUG: adding this node in list
+min_key, 1288490189
+ip, 172.31.18.115
+int_addr, 172.31.18.115:5557
+ext_port, 5558
+ext_addr, 172.31.18.115:5558
+max_key, 1717986917
+id, 2.5
+memory_port, 
+int_port, 5557
+
+2016-11-25 12:33:53,646 Writer-1 MainProcess DEBUG: this is my new list
+Node 4.5, Node : myself 4.5, master 4.25, slave 5
+Keys : master 2791728742:3006477106, myself 3006477107:3435973835, slave 3435973836:4294967294
+Node 1.5, Node : myself 1.5, master 1.25, slave 2
+Keys : master 214748365:429496729, myself 429496730:858993458, slave 858993459:1288490188
+Node 3.5, Node : myself 3.5, master 3, slave 4
+Keys : master 1717986918:2147483647, myself 2147483648:2576980376, slave 2576980377:2684354559
+Node 4.125, Node : myself 4.125, master 4, slave 4.25
+Keys : master 2576980377:2684354559, myself 2684354560:2791728741, slave 2791728742:3006477106
+Node 2.5, Node : myself 2.5, master 2, slave 3
+Keys : master 858993459:1288490188, myself 1288490189:1717986917, slave 1717986918:2147483647
+Node 1, Node : myself 1, master 5, slave 1.25
+Keys : master 3435973836:4294967294, myself 0:214748364, slave 214748365:429496729
+Node 3, Node : myself 3, master 2.5, slave 3.5
+Keys : master 1288490189:1717986917, myself 1717986918:2147483647, slave 2147483648:2576980376
+Node 2, Node : myself 2, master 1.5, slave 2.5
+Keys : master 429496730:858993458, myself 858993459:1288490188, slave 1288490189:1717986917
+Node 5, Node : myself 5, master 4.5, slave 1
+Keys : master 3006477107:3435973835, myself 3435973836:4294967294, slave 0:214748364
+Node 4, Node : myself 4, master 3.5, slave 4.125
+Keys : master 2147483648:2576980376, myself 2576980377:2684354559, slave 2684354560:2791728741
+Node 4.25, Node : myself 4.25, master 4.125, slave 4.5
+Keys : master 2684354560:2791728741, myself 2791728742:3006477106, slave 3006477107:3435973835
+Node 1.25, Node : myself 1.25, master 1, slave 1.5
+Keys : master 0:214748364, myself 214748365:429496729, slave 429496730:858993458
+
+2016-11-25 12:33:53,646 Writer-1 MainProcess DEBUG: I am in state Free
+2016-11-25 12:33:53,646 Writer-1 MainProcess DEBUG: welcome new relative! now i am able to receive new scale ups, relatives:
+4.5, 5, 1, 1.25, 1.5
+2016-11-25 12:33:53,646 Writer-1 MainProcess DEBUG: forwarding this ADDED message
+target_addr: 172.31.18.115
+target_key: 1288490189:1717986917
+random: 7433
+target_id: 2.5
+priority: 2
+version: 4
+source_id: 2
+source_flag: 1
+target_relative_id: 3
+
+2016-11-25 12:34:06,292 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.1837547481, getters (mean): 0.0228168346398
+2016-11-25 12:34:06,292 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Up!
+2016-11-25 12:34:06,292 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-11-25 12:34:06,293 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-11-25 12:34:06,387 Writer-1 MainProcess DEBUG: sending message to tcp://*:5557
+2016-11-25 12:34:06,389 Writer-1 MainProcess DEBUG: I am in state BusyAddPS
+2016-11-25 12:34:06,389 Writer-1 MainProcess DEBUG: now i'm busy : ScaleUpThread asked to scale up
+2016-11-25 12:34:07,191 Writer-1 MainProcess DEBUG: LAST ADD message
+2016-11-25 12:34:07,192 Writer-1 MainProcess DEBUG: contact amazon
+2016-11-25 12:34:07,195 Writer-1 MainProcess DEBUG: Loading JSON file: /usr/local/lib/python2.7/dist-packages/boto3/data/ec2/2016-09-15/resources-1.json
+2016-11-25 12:34:07,206 Writer-1 MainProcess DEBUG: Looking for credentials via: assume-role
+2016-11-25 12:34:07,207 Writer-1 MainProcess DEBUG: Looking for credentials via: shared-credentials-file
+2016-11-25 12:34:07,207 Writer-1 MainProcess INFO: Found credentials in shared credentials file: ~/.aws/credentials
+2016-11-25 12:34:07,207 Writer-1 MainProcess DEBUG: Loading JSON file: /usr/local/lib/python2.7/dist-packages/botocore/data/endpoints.json
+2016-11-25 12:34:07,222 Writer-1 MainProcess DEBUG: Loading JSON file: /usr/local/lib/python2.7/dist-packages/botocore/data/ec2/2016-09-15/service-2.json
+2016-11-25 12:34:07,343 Writer-1 MainProcess DEBUG: Loading JSON file: /usr/local/lib/python2.7/dist-packages/botocore/data/_retry.json
+2016-11-25 12:34:07,344 Writer-1 MainProcess DEBUG: Registering retry handlers for service: ec2
+2016-11-25 12:34:07,347 Writer-1 MainProcess DEBUG: Event creating-client-class.ec2: calling handler <function add_generate_presigned_url at 0x7f01ad056668>
+2016-11-25 12:34:07,347 Writer-1 MainProcess DEBUG: The s3 config key is not a dictionary type, ignoring its value of: None
+2016-11-25 12:34:07,348 Writer-1 MainProcess DEBUG: Setting ec2 timeout as (60, 60)
+2016-11-25 12:34:07,348 Writer-1 MainProcess DEBUG: Loading ec2:ec2
+2016-11-25 12:34:07,352 Writer-1 MainProcess DEBUG: Event creating-resource-class.ec2.ServiceResource: calling handler <function _handler at 0x7f017b5b2140>
+2016-11-25 12:34:07,352 Writer-1 MainProcess DEBUG: id image: ami-9fc501f0
+2016-11-25 12:34:07,352 Writer-1 MainProcess INFO: Calling ec2:run_instances with {'UserData': u'#!/bin/bash\nsudo cp /home/ubuntu/.aws /root/ -r\ncd /home/ubuntu/git/CellsCycle/\nsudo echo BEGIN OF LOGFILE > logFile.txt\nsudo git checkout ListCycleNewVersionTest  >> logFile.txt 2>&1\nsudo git fetch --all >> logFile.txt 2>&1\nsudo git reset --hard origin/ListCycleNewVersionTest >> logFile.txt 2>&1\nsudo /usr/bin/python startOnBoot.py \'{"slave": {"ip": "172.31.18.178", "max_key": "429496729", "id": "1.25", "min_key": "214748365"}, "myself": {"ip": null, "max_key": "214748364", "id": "1.125", "min_key": "107374183"}, "master_of_master": {"ip": "172.31.20.5", "max_key": "4294967294", "id": "5", "min_key": "3435973836"}, "master": {"ip": "172.31.20.1", "max_key": "214748364", "id": "1", "min_key": "0"}, "slave_of_slave": {"ip": "172.31.24.155", "max_key": "858993458", "id": "1.5", "min_key": "429496730"}}\' \'{"MemoryObjectPort": ["5559"], "SlaveSetPort": ["5552"], "MasterGetPort": ["5551"], "ClientEntrypointPort": ["5555"], "ValueMaxSize": ["4096"], "GitBranch": ["ListCycleNewVersionTest"], "LogFile": ["logFile.txt"], "ServiceThreadNumber": ["16"], "StartFileRelativePath": ["startOnBoot.py"], "GetterThreadNumber": ["1"], "PreallocatedPool": ["200000000"], "MasterSetPort": ["5550"], "SetScaleDownLevel": ["0"], "AwsImageId": ["ami-9fc501f0"], "IntPort": ["5557"], "GetScaleUpLevel": ["0.06"], "AwsProfileName": ["andrea_gennusa"], "AwsKeyName": ["CellCycleBot"], "ExtPort": ["5558"], "GetScaleDownLevel": ["0"], "SetScaleUpLevel": ["0.10"], "AwsSecurityGroup": ["SSHToAll"], "Verbose": ["False"], "MinInstance": ["4"], "SlaveGetPort": ["5553"], "MaxInstance": ["14"], "ScalePeriod": ["120"], "SlabSize": ["100000"]}\' >> extremeLog.log 2>&1\n', 'KeyName': 'CellCycleBot', 'SecurityGroups': ['SSHToAll'], 'MaxCount': 1, 'MinCount': 1, 'InstanceType': 't2.micro', 'ImageId': 'ami-9fc501f0'}
+2016-11-25 12:34:07,352 Writer-1 MainProcess DEBUG: Event before-parameter-build.ec2.RunInstances: calling handler <bound method ParameterAlias.alias_parameter_in_call of <botocore.handlers.ParameterAlias object at 0x7f01acffafd0>>
+2016-11-25 12:34:07,353 Writer-1 MainProcess DEBUG: Event before-parameter-build.ec2.RunInstances: calling handler <function base64_encode_user_data at 0x7f01ad004848>
+2016-11-25 12:34:07,353 Writer-1 MainProcess DEBUG: Making request for OperationModel(name=RunInstances) (verify_ssl=True) with params: {'body': {'UserData': u'IyEvYmluL2Jhc2gKc3VkbyBjcCAvaG9tZS91YnVudHUvLmF3cyAvcm9vdC8gLXIKY2QgL2hvbWUvdWJ1bnR1L2dpdC9DZWxsc0N5Y2xlLwpzdWRvIGVjaG8gQkVHSU4gT0YgTE9HRklMRSA+IGxvZ0ZpbGUudHh0CnN1ZG8gZ2l0IGNoZWNrb3V0IExpc3RDeWNsZU5ld1ZlcnNpb25UZXN0ICA+PiBsb2dGaWxlLnR4dCAyPiYxCnN1ZG8gZ2l0IGZldGNoIC0tYWxsID4+IGxvZ0ZpbGUudHh0IDI+JjEKc3VkbyBnaXQgcmVzZXQgLS1oYXJkIG9yaWdpbi9MaXN0Q3ljbGVOZXdWZXJzaW9uVGVzdCA+PiBsb2dGaWxlLnR4dCAyPiYxCnN1ZG8gL3Vzci9iaW4vcHl0aG9uIHN0YXJ0T25Cb290LnB5ICd7InNsYXZlIjogeyJpcCI6ICIxNzIuMzEuMTguMTc4IiwgIm1heF9rZXkiOiAiNDI5NDk2NzI5IiwgImlkIjogIjEuMjUiLCAibWluX2tleSI6ICIyMTQ3NDgzNjUifSwgIm15c2VsZiI6IHsiaXAiOiBudWxsLCAibWF4X2tleSI6ICIyMTQ3NDgzNjQiLCAiaWQiOiAiMS4xMjUiLCAibWluX2tleSI6ICIxMDczNzQxODMifSwgIm1hc3Rlcl9vZl9tYXN0ZXIiOiB7ImlwIjogIjE3Mi4zMS4yMC41IiwgIm1heF9rZXkiOiAiNDI5NDk2NzI5NCIsICJpZCI6ICI1IiwgIm1pbl9rZXkiOiAiMzQzNTk3MzgzNiJ9LCAibWFzdGVyIjogeyJpcCI6ICIxNzIuMzEuMjAuMSIsICJtYXhfa2V5IjogIjIxNDc0ODM2NCIsICJpZCI6ICIxIiwgIm1pbl9rZXkiOiAiMCJ9LCAic2xhdmVfb2Zfc2xhdmUiOiB7ImlwIjogIjE3Mi4zMS4yNC4xNTUiLCAibWF4X2tleSI6ICI4NTg5OTM0NTgiLCAiaWQiOiAiMS41IiwgIm1pbl9rZXkiOiAiNDI5NDk2NzMwIn19JyAneyJNZW1vcnlPYmplY3RQb3J0IjogWyI1NTU5Il0sICJTbGF2ZVNldFBvcnQiOiBbIjU1NTIiXSwgIk1hc3RlckdldFBvcnQiOiBbIjU1NTEiXSwgIkNsaWVudEVudHJ5cG9pbnRQb3J0IjogWyI1NTU1Il0sICJWYWx1ZU1heFNpemUiOiBbIjQwOTYiXSwgIkdpdEJyYW5jaCI6IFsiTGlzdEN5Y2xlTmV3VmVyc2lvblRlc3QiXSwgIkxvZ0ZpbGUiOiBbImxvZ0ZpbGUudHh0Il0sICJTZXJ2aWNlVGhyZWFkTnVtYmVyIjogWyIxNiJdLCAiU3RhcnRGaWxlUmVsYXRpdmVQYXRoIjogWyJzdGFydE9uQm9vdC5weSJdLCAiR2V0dGVyVGhyZWFkTnVtYmVyIjogWyIxIl0sICJQcmVhbGxvY2F0ZWRQb29sIjogWyIyMDAwMDAwMDAiXSwgIk1hc3RlclNldFBvcnQiOiBbIjU1NTAiXSwgIlNldFNjYWxlRG93bkxldmVsIjogWyIwIl0sICJBd3NJbWFnZUlkIjogWyJhbWktOWZjNTAxZjAiXSwgIkludFBvcnQiOiBbIjU1NTciXSwgIkdldFNjYWxlVXBMZXZlbCI6IFsiMC4wNiJdLCAiQXdzUHJvZmlsZU5hbWUiOiBbImFuZHJlYV9nZW5udXNhIl0sICJBd3NLZXlOYW1lIjogWyJDZWxsQ3ljbGVCb3QiXSwgIkV4dFBvcnQiOiBbIjU1NTgiXSwgIkdldFNjYWxlRG93bkxldmVsIjogWyIwIl0sICJTZXRTY2FsZVVwTGV2ZWwiOiBbIjAuMTAiXSwgIkF3c1NlY3VyaXR5R3JvdXAiOiBbIlNTSFRvQWxsIl0sICJWZXJib3NlIjogWyJGYWxzZSJdLCAiTWluSW5zdGFuY2UiOiBbIjQiXSwgIlNsYXZlR2V0UG9ydCI6IFsiNTU1MyJdLCAiTWF4SW5zdGFuY2UiOiBbIjE0Il0sICJTY2FsZVBlcmlvZCI6IFsiMTIwIl0sICJTbGFiU2l6ZSI6IFsiMTAwMDAwIl19JyA+PiBleHRyZW1lTG9nLmxvZyAyPiYxCg==', 'Version': u'2016-09-15', u'SecurityGroup.1': 'SSHToAll', 'ImageId': 'ami-9fc501f0', 'KeyName': 'CellCycleBot', 'MaxCount': 1, 'Action': u'RunInstances', 'MinCount': 1, 'InstanceType': 't2.micro'}, 'url': u'https://ec2.eu-central-1.amazonaws.com/', 'headers': {'User-Agent': 'Boto3/1.4.1 Python/2.7.6 Linux/3.13.0-100-generic Botocore/1.4.70 Resource'}, 'context': {'client_region': 'eu-central-1', 'has_streaming_input': False, 'client_config': <botocore.config.Config object at 0x7f01a4348490>}, 'query_string': '', 'url_path': '/', 'method': u'POST'}
+2016-11-25 12:34:07,354 Writer-1 MainProcess DEBUG: Event request-created.ec2.RunInstances: calling handler <bound method RequestSigner.handler of <botocore.signers.RequestSigner object at 0x7f01a4348510>>
+2016-11-25 12:34:07,355 Writer-1 MainProcess DEBUG: Calculating signature using v4 auth.
+2016-11-25 12:34:07,355 Writer-1 MainProcess DEBUG: CanonicalRequest:
+POST
+/
+
+host:ec2.eu-central-1.amazonaws.com
+x-amz-date:20161125T123407Z
+
+host;x-amz-date
+c5e266734414a403b8041de03f188227e9251646e0bd191b849cc05b32cef483
+2016-11-25 12:34:07,355 Writer-1 MainProcess DEBUG: StringToSign:
+AWS4-HMAC-SHA256
+20161125T123407Z
+20161125/eu-central-1/ec2/aws4_request
+f461ff799f54727b6fe1b4f3417d262070f9326179215adbb63d2176eade1a19
+2016-11-25 12:34:07,355 Writer-1 MainProcess DEBUG: Signature:
+9bc5a1db0263f78753e8b2a4064e8a470014a19a53a7a2f5324798e40748f4a3
+2016-11-25 12:34:07,355 Writer-1 MainProcess DEBUG: Sending http request: <PreparedRequest [POST]>
+2016-11-25 12:34:07,356 Writer-1 MainProcess INFO: Starting new HTTPS connection (1): ec2.eu-central-1.amazonaws.com
+2016-11-25 12:34:08,941 Writer-1 MainProcess DEBUG: "POST / HTTP/1.1" 200 None
+2016-11-25 12:34:08,942 Writer-1 MainProcess DEBUG: Response headers: {'transfer-encoding': 'chunked', 'vary': 'Accept-Encoding', 'server': 'AmazonEC2', 'content-type': 'text/xml;charset=UTF-8', 'date': 'Fri, 25 Nov 2016 12:34:08 GMT'}
+2016-11-25 12:34:08,942 Writer-1 MainProcess DEBUG: Response body:
+<?xml version="1.0" encoding="UTF-8"?>
+<RunInstancesResponse xmlns="http://ec2.amazonaws.com/doc/2016-09-15/">
+    <requestId>afa410d2-5a78-4ef2-a447-f197d3e965a3</requestId>
+    <reservationId>r-0c0d6f65484ef6d92</reservationId>
+    <ownerId>116189005786</ownerId>
+    <groupSet/>
+    <instancesSet>
+        <item>
+            <instanceId>i-0edee7a5cb59157e6</instanceId>
+            <imageId>ami-9fc501f0</imageId>
+            <instanceState>
+                <code>0</code>
+                <name>pending</name>
+            </instanceState>
+            <privateDnsName>ip-172-31-30-111.eu-central-1.compute.internal</privateDnsName>
+            <dnsName/>
+            <reason/>
+            <keyName>CellCycleBot</keyName>
+            <amiLaunchIndex>0</amiLaunchIndex>
+            <productCodes/>
+            <instanceType>t2.micro</instanceType>
+            <launchTime>2016-11-25T12:34:08.000Z</launchTime>
+            <placement>
+                <availabilityZone>eu-central-1b</availabilityZone>
+                <groupName/>
+                <tenancy>default</tenancy>
+            </placement>
+            <monitoring>
+                <state>disabled</state>
+            </monitoring>
+            <subnetId>subnet-2adbcb51</subnetId>
+            <vpcId>vpc-088c8461</vpcId>
+            <privateIpAddress>172.31.30.111</privateIpAddress>
+            <sourceDestCheck>true</sourceDestCheck>
+            <groupSet>
+                <item>
+                    <groupId>sg-97d59dff</groupId>
+                    <groupName>SSHToAll</groupName>
+                </item>
+            </groupSet>
+            <stateReason>
+                <code>pending</code>
+                <message>pending</message>
+            </stateReason>
+            <architecture>x86_64</architecture>
+            <rootDeviceType>ebs</rootDeviceType>
+            <rootDeviceName>/dev/sda1</rootDeviceName>
+            <blockDeviceMapping/>
+            <virtualizationType>hvm</virtualizationType>
+            <clientToken/>
+            <hypervisor>xen</hypervisor>
+            <networkInterfaceSet>
+                <item>
+                    <networkInterfaceId>eni-5f983a20</networkInterfaceId>
+                    <subnetId>subnet-2adbcb51</subnetId>
+                    <vpcId>vpc-088c8461</vpcId>
+                    <description/>
+                    <ownerId>116189005786</ownerId>
+                    <status>in-use</status>
+                    <macAddress>06:11:14:87:6a:75</macAddress>
+                    <privateIpAddress>172.31.30.111</privateIpAddress>
+                    <privateDnsName>ip-172-31-30-111.eu-central-1.compute.internal</privateDnsName>
+                    <sourceDestCheck>true</sourceDestCheck>
+                    <groupSet>
+                        <item>
+                            <groupId>sg-97d59dff</groupId>
+                            <groupName>SSHToAll</groupName>
+                        </item>
+                    </groupSet>
+                    <attachment>
+                        <attachmentId>eni-attach-e497d764</attachmentId>
+                        <deviceIndex>0</deviceIndex>
+                        <status>attaching</status>
+                        <attachTime>2016-11-25T12:34:08.000Z</attachTime>
+                        <deleteOnTermination>true</deleteOnTermination>
+                    </attachment>
+                    <privateIpAddressesSet>
+                        <item>
+                            <privateIpAddress>172.31.30.111</privateIpAddress>
+                            <privateDnsName>ip-172-31-30-111.eu-central-1.compute.internal</privateDnsName>
+                            <primary>true</primary>
+                        </item>
+                    </privateIpAddressesSet>
+                </item>
+            </networkInterfaceSet>
+            <ebsOptimized>false</ebsOptimized>
+        </item>
+    </instancesSet>
+</RunInstancesResponse>
+2016-11-25 12:34:08,950 Writer-1 MainProcess DEBUG: Event needs-retry.ec2.RunInstances: calling handler <botocore.retryhandler.RetryHandler object at 0x7f017b498c90>
+2016-11-25 12:34:08,951 Writer-1 MainProcess DEBUG: No retry needed.
+2016-11-25 12:34:08,951 Writer-1 MainProcess DEBUG: Response: {u'OwnerId': '116189005786', u'ReservationId': 'r-0c0d6f65484ef6d92', 'ResponseMetadata': {'RetryAttempts': 0, 'HTTPStatusCode': 200, 'RequestId': 'afa410d2-5a78-4ef2-a447-f197d3e965a3', 'HTTPHeaders': {'transfer-encoding': 'chunked', 'vary': 'Accept-Encoding', 'server': 'AmazonEC2', 'content-type': 'text/xml;charset=UTF-8', 'date': 'Fri, 25 Nov 2016 12:34:08 GMT'}}, u'Groups': [], u'Instances': [{u'Monitoring': {u'State': 'disabled'}, u'PublicDnsName': '', u'RootDeviceType': 'ebs', u'State': {u'Code': 0, u'Name': 'pending'}, u'EbsOptimized': False, u'LaunchTime': datetime.datetime(2016, 11, 25, 12, 34, 8, tzinfo=tzlocal()), u'PrivateIpAddress': '172.31.30.111', u'ProductCodes': [], u'VpcId': 'vpc-088c8461', u'StateTransitionReason': '', u'InstanceId': 'i-0edee7a5cb59157e6', u'ImageId': 'ami-9fc501f0', u'PrivateDnsName': 'ip-172-31-30-111.eu-central-1.compute.internal', u'KeyName': 'CellCycleBot', u'SecurityGroups': [{u'GroupName': 'SSHToAll', u'GroupId': 'sg-97d59dff'}], u'ClientToken': '', u'SubnetId': 'subnet-2adbcb51', u'InstanceType': 't2.micro', u'NetworkInterfaces': [{u'Status': 'in-use', u'MacAddress': '06:11:14:87:6a:75', u'SourceDestCheck': True, u'VpcId': 'vpc-088c8461', u'Description': '', u'NetworkInterfaceId': 'eni-5f983a20', u'PrivateIpAddresses': [{u'PrivateDnsName': 'ip-172-31-30-111.eu-central-1.compute.internal', u'Primary': True, u'PrivateIpAddress': '172.31.30.111'}], u'PrivateDnsName': 'ip-172-31-30-111.eu-central-1.compute.internal', u'Attachment': {u'Status': 'attaching', u'DeviceIndex': 0, u'DeleteOnTermination': True, u'AttachmentId': 'eni-attach-e497d764', u'AttachTime': datetime.datetime(2016, 11, 25, 12, 34, 8, tzinfo=tzlocal())}, u'Groups': [{u'GroupName': 'SSHToAll', u'GroupId': 'sg-97d59dff'}], u'SubnetId': 'subnet-2adbcb51', u'OwnerId': '116189005786', u'PrivateIpAddress': '172.31.30.111'}], u'SourceDestCheck': True, u'Placement': {u'Tenancy': 'default', u'GroupName': '', u'AvailabilityZone': 'eu-central-1b'}, u'Hypervisor': 'xen', u'BlockDeviceMappings': [], u'Architecture': 'x86_64', u'StateReason': {u'Message': 'pending', u'Code': 'pending'}, u'RootDeviceName': '/dev/sda1', u'VirtualizationType': 'hvm', u'AmiLaunchIndex': 0}]}
+2016-11-25 12:34:08,952 Writer-1 MainProcess DEBUG: Loading ec2:Instance
+2016-11-25 12:34:08,959 Writer-1 MainProcess DEBUG: Renaming Instance attribute network_interfaces
+2016-11-25 12:34:08,974 Writer-1 MainProcess DEBUG: Event creating-resource-class.ec2.Instance: calling handler <function _handler at 0x7f017b5b21b8>
+2016-11-25 12:34:08,977 Writer-1 MainProcess DEBUG: ADD CYCLE completed
+2016-11-25 12:34:48,141 MainThread python-CCMemoryMaster DEBUG: Transferring memory to tcp://172.31.30.111:5550....
+2016-11-25 12:34:51,945 MainThread python-CCMemoryMaster DEBUG: Transfer complete!
+2016-11-25 12:34:51,945 MainThread python-CCMemoryMaster DEBUG: Transferring memory to tcp://172.31.30.111:5552....
+2016-11-25 12:34:52,420 Writer-1 MainProcess DEBUG: i'm 1, these are my nodes to compute keys
+Node myself, id 1, keys 0:214748364
+Node master, id 5, keys 3435973836:4294967294
+Node master_of_master, id 4.5, keys 3006477107:3435973835
+Node slave, id 1.25, keys 214748365:429496729
+Node slave_of_slave, id 1.5, keys 429496730:858993458
+
+2016-11-25 12:34:52,420 Writer-1 MainProcess DEBUG: i'm 1, these are my computed keys
+myself, (0,107374182)
+slave, (214748365,429496729)
+master, (3435973836,4294967294)
+slave_of_slave, (429496730,858993458)
+newNode, (107374183,214748364)
+master_of_master, (3006477107,3435973835)
+
+2016-11-25 12:34:52,420 Writer-1 MainProcess DEBUG: i'm 1
+2016-11-25 12:34:52,420 Writer-1 MainProcess DEBUG: adding this node in list, id: 1, master: 5, slave: 1.25
+2016-11-25 12:34:52,420 Writer-1 MainProcess DEBUG: adding this node in list, id: 5, master: 4.5, slave: 1
+2016-11-25 12:34:52,420 Writer-1 MainProcess DEBUG: adding this node in list, id: 1.25, master: 1, slave: 1.5
+2016-11-25 12:34:52,420 Writer-1 MainProcess DEBUG: adding this node in list, id: 4.5, master: 4.25, slave: 5
+2016-11-25 12:34:52,420 Writer-1 MainProcess DEBUG: adding this node in list, id: 1.5, master: 1.25, slave: 2
+2016-11-25 12:34:52,420 Writer-1 MainProcess DEBUG: adding this node in list
+min_key, 107374183
+ip, 172.31.30.111
+int_addr, 172.31.30.111:5557
+ext_port, 5558
+ext_addr, 172.31.30.111:5558
+max_key, 214748364
+id, 1.125
+memory_port, 
+int_port, 5557
+
+2016-11-25 12:34:52,421 Writer-1 MainProcess DEBUG: sending message to tcp://*:5557
+2016-11-25 12:34:53,146 Reader-1 MainProcess DEBUG: New node added, it's Reader 1.125
+2016-11-25 12:34:53,225 Writer-1 MainProcess DEBUG: I am in state Free
+2016-11-25 12:34:53,225 Writer-1 MainProcess DEBUG: the cycle is over, now i am able to accept scale up requests
+2016-11-25 12:34:53,225 Writer-1 MainProcess DEBUG: ADDED CYCLE completed, this is my list
+Node 4.5, Node : myself 4.5, master 4.25, slave 5
+Keys : master 2791728742:3006477106, myself 3006477107:3435973835, slave 3435973836:4294967294
+Node 1.5, Node : myself 1.5, master 1.25, slave 2
+Keys : master 214748365:429496729, myself 429496730:858993458, slave 858993459:1288490188
+Node 3.5, Node : myself 3.5, master 3, slave 4
+Keys : master 1717986918:2147483647, myself 2147483648:2576980376, slave 2576980377:2684354559
+Node 4.125, Node : myself 4.125, master 4, slave 4.25
+Keys : master 2576980377:2684354559, myself 2684354560:2791728741, slave 2791728742:3006477106
+Node 1.125, Node : myself 1.125, master 1, slave 1.25
+Keys : master 0:107374182, myself 107374183:214748364, slave 214748365:429496729
+Node 2.5, Node : myself 2.5, master 2, slave 3
+Keys : master 858993459:1288490188, myself 1288490189:1717986917, slave 1717986918:2147483647
+Node 1, Node : myself 1, master 5, slave 1.125
+Keys : master 3435973836:4294967294, myself 0:107374182, slave 107374183:214748364
+Node 3, Node : myself 3, master 2.5, slave 3.5
+Keys : master 1288490189:1717986917, myself 1717986918:2147483647, slave 2147483648:2576980376
+Node 2, Node : myself 2, master 1.5, slave 2.5
+Keys : master 429496730:858993458, myself 858993459:1288490188, slave 1288490189:1717986917
+Node 5, Node : myself 5, master 4.5, slave 1
+Keys : master 3006477107:3435973835, myself 3435973836:4294967294, slave 0:107374182
+Node 4, Node : myself 4, master 3.5, slave 4.125
+Keys : master 2147483648:2576980376, myself 2576980377:2684354559, slave 2684354560:2791728741
+Node 4.25, Node : myself 4.25, master 4.125, slave 4.5
+Keys : master 2684354560:2791728741, myself 2791728742:3006477106, slave 3006477107:3435973835
+Node 1.25, Node : myself 1.25, master 1.125, slave 1.5
+Keys : master 107374183:214748364, myself 214748365:429496729, slave 429496730:858993458
+
+2016-11-25 12:34:59,505 MainThread python-CCMemoryMaster DEBUG: Transfer complete!
+2016-11-25 12:34:59,530 MainThread python-CCMemoryMaster DEBUG: Slave is dead, new info: <CellCycle.ChainModule.MemoryObject.MemoryObject instance at 0x7f01a695f200>
+2016-11-25 12:34:59,531 MemorySlaveSetter python-CCMemoryMaster DEBUG: Change of slave:tcp://172.31.30.111:5552
+2016-11-25 12:35:53,448 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.109212045769, getters (mean): 0.0111495012861
+2016-11-25 12:35:53,448 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Up!
+2016-11-25 12:35:53,448 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-11-25 12:35:53,449 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-11-25 12:35:53,523 Writer-1 MainProcess DEBUG: sending message to tcp://*:5557
+2016-11-25 12:35:53,525 Writer-1 MainProcess DEBUG: I am in state BusyAddPS
+2016-11-25 12:35:53,525 Writer-1 MainProcess DEBUG: now i'm busy : ScaleUpThread asked to scale up
+2016-11-25 12:36:45,900 Writer-1 MainProcess DEBUG: this message from 5 can be forwarded due to higher random than 2693
+target_addr: 
+target_key: 3865470566:4294967294
+random: 7347
+target_id: 7.0
+priority: 1
+version: 6
+source_id: 5
+source_flag: 1
+target_relative_id: 1
+
+2016-11-25 12:36:45,900 Writer-1 MainProcess DEBUG: I am in state BusyAddPS
+2016-11-25 12:36:45,900 Writer-1 MainProcess DEBUG: i've just asked for scale up, but this node beats me : 5
+2016-11-25 12:36:45,900 Writer-1 MainProcess DEBUG: forwarding ADD message
+target_addr: 
+target_key: 3865470566:4294967294
+random: 7347
+target_id: 7.0
+priority: 1
+version: 6
+source_id: 5
+source_flag: 1
+target_relative_id: 1
+
+2016-11-25 12:37:25,117 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00215392870616, getters (mean): 0.00730846394682
+2016-11-25 12:39:14,040 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00241331561483, getters (mean): 0.00795415991229
+2016-11-25 12:41:15,164 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00236167147049, getters (mean): 0.00793111236086
+2016-11-25 12:43:03,516 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.000118697888912, getters (mean): 0.000330771546681
+2016-11-25 12:45:07,594 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00106451232619, getters (mean): 0.00385905223584
+2016-11-25 12:47:19,167 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00222987848425, getters (mean): 0.0073507652051
+2016-11-25 12:49:28,168 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00244031722072, getters (mean): 0.00828611021378
+2016-11-25 12:51:42,308 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00240674786057, getters (mean): 0.00843875531446
+2016-11-25 12:53:30,388 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0022238402343, getters (mean): 0.00813356821918
+2016-11-25 12:55:31,944 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00224791591396, getters (mean): 0.0079012741492
+2016-11-25 12:57:43,548 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00220874762176, getters (mean): 0.00812133215565
+2016-11-25 12:59:43,568 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00224511753935, getters (mean): 0.00795250276236
+2016-11-25 13:01:51,344 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00240439352495, getters (mean): 0.00790833273424
+2016-11-25 13:02:15,498 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:02:18,207 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:02:22,003 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:02:24,778 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:02:28,204 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:02:29,186 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:02:29,906 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:02:30,657 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:02:31,487 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:02:32,213 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:02:32,977 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:02:33,783 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:02:34,525 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:02:35,552 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:02:36,206 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:02:37,926 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:02:40,069 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:02:41,469 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:02:42,454 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:02:43,227 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:02:44,294 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:02:44,964 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:02:45,734 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:02:46,514 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:02:47,978 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:02:48,778 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:02:50,032 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:02:50,941 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:02:52,237 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:02:52,921 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:02:53,958 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:02:54,765 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:02:55,687 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:02:56,802 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:02:57,857 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:02:58,642 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:02:59,536 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:03:00,849 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:03:01,622 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:03:02,609 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:03:03,406 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:03:04,753 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:03:05,749 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:03:06,508 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:03:07,343 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:03:08,818 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:03:10,185 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:03:11,721 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:03:12,763 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:03:14,418 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:03:16,030 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:03:17,580 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:03:20,209 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:03:23,891 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:03:27,787 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:03:29,069 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:03:29,689 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:03:30,403 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:03:31,101 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:03:31,771 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:03:32,615 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:03:33,347 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:03:34,171 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:03:34,908 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:03:35,853 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:03:36,747 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:03:38,432 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:03:40,447 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:03:41,830 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:03:43,006 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:03:43,656 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:03:44,351 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:03:45,517 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:03:46,251 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:03:47,045 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:03:48,459 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:03:49,004 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00236361620382, getters (mean): 0.00813052836298
+2016-11-25 13:03:49,324 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:03:50,600 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:03:51,668 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:03:52,669 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:03:53,381 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:03:54,294 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:03:55,075 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:03:55,974 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:03:56,871 MainThread python-CCMemorySlave DEBUG: Slab purged!
+2016-11-25 13:03:57,864 MainThread python-CCMemorySlave DEBUG: Slab purged!

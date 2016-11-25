@@ -1,0 +1,895 @@
+BEGIN OF LOGFILE
+Switched to a new branch 'ListCycleNewVersionTest'
+Branch ListCycleNewVersionTest set up to track remote branch ListCycleNewVersionTest from origin.
+Fetching origin
+From https://github.com/AQuadroTeam/CellsCycle
+   5c66bd7..6c97e6a  ListCycleNewVersionTest -> origin/ListCycleNewVersionTest
+HEAD is now at 6c97e6a Merge branch 'ListCycleNewVersionTest' of https://github.com/AQuadroTeam/CellsCycle into ListCycleNewVersionTest
+2016-11-25 12:24:45,016 MainThread MainProcess DEBUG: Starting with params: {u'master': {u'ip': u'172.31.20.4', u'min_key': u'2576980377', u'id': u'4', u'max_key': u'3435973835'}, u'myself': {u'ip': None, u'min_key': u'3006477107', u'id': u'4.5', u'max_key': u'3435973835'}, u'master_of_master': {u'ip': u'172.31.20.3', u'min_key': u'1717986918', u'id': u'3', u'max_key': u'2576980376'}, u'slave': {u'ip': u'172.31.20.5', u'min_key': u'3435973836', u'id': u'5', u'max_key': u'4294967294'}, u'slave_of_slave': {u'ip': u'172.31.20.1', u'min_key': u'0', u'id': u'1', u'max_key': u'858993458'}}
+2016-11-25 12:24:45,019 MainThread python-CCMemorySlave DEBUG: Cache: Initializing cache with totalSize:200.0MB, slabSize:0.1MB
+2016-11-25 12:24:45,020 MainThread MainProcess DEBUG: These are my features: (Writer 4.5) Master ID : 4 , SlaveID: 5, IntPort 5557, ExtPort 5558, IP 172.31.29.87
+2016-11-25 12:24:45,021 MainThread python-CCMemoryMaster DEBUG: Cache: Initializing cache with totalSize:200.0MB, slabSize:0.1MB
+2016-11-25 12:24:45,022 MainThread MainProcess DEBUG: These are my features: (Reader 4.5) Master ID : 4 , SlaveID: 5, IntPort 5557, ExtPort 5558, IP 172.31.29.87
+2016-11-25 12:24:45,022 MainThread MainProcess DEBUG: list_manager : <DeadWriter(Writer-4.5, initial)>
+2016-11-25 12:24:45,030 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-25 12:24:45,031 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-25 12:24:45,031 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-25 12:24:45,038 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-25 12:24:45,038 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-25 12:24:45,046 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-25 12:24:45,046 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-25 12:24:45,047 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-25 12:24:45,047 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-25 12:24:45,054 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-25 12:24:45,055 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-25 12:24:45,058 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-25 12:24:45,062 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-25 12:24:45,062 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-25 12:24:45,066 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-25 12:24:45,070 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-25 12:24:45,070 ServiceEntrypointRouterThread MainProcess DEBUG: Interface receiver is started
+2016-11-25 12:24:45,075 Reader-4.5 MainProcess DEBUG: Starting Reader 4.5
+2016-11-25 12:24:45,075 Reader-4.5 MainProcess DEBUG: new birth sync init
+2016-11-25 12:24:45,075 Reader-4.5 MainProcess DEBUG: hello everyone! this is my situation
+Node myself, id 4.5, keys 3006477107:3435973835
+Node master, id 4, keys 2576980377:3435973835
+Node master_of_master, id 3, keys 1717986918:2576980376
+Node slave, id 5, keys 3435973836:4294967294
+Node slave_of_slave, id 1, keys 0:858993458
+
+new start request is coming!!!
+2016-11-25 12:24:45,075 Reader-4.5 MainProcess DEBUG: new internal channel server created with destination tcp://*:5559
+2016-11-25 12:24:45,075 Reader-4.5 MainProcess DEBUG: waiting for a request
+2016-11-25 12:24:45,078 Writer-4.5 MainProcess DEBUG: Starting Writer 4.5
+2016-11-25 12:24:45,078 Writer-4.5 MainProcess DEBUG: new internal channel server created with destination tcp://*:5557
+2016-11-25 12:24:45,078 Writer-4.5 MainProcess DEBUG: waiting for a request
+2016-11-25 12:24:45,224 MainThread python-CCMemoryMaster DEBUG: Cache: End of Initialization Cache, Success!
+2016-11-25 12:24:45,224 MainThread python-CCMemoryMaster DEBUG: Memory Process initialized:200000000B, get# = 1
+2016-11-25 12:24:45,226 MainThread python-CCMemorySlave DEBUG: Cache: End of Initialization Cache, Success!
+2016-11-25 12:24:45,226 MainThread python-CCMemorySlave DEBUG: Memory Process initialized:200000000B, get# = 1
+2016-11-25 12:24:45,226 MemoryGetProxy python-CCMemoryMaster DEBUG: Routing from tcp://*:5551 to inproc://get_memorymaster
+2016-11-25 12:24:45,227 MemoryGetProxy python-CCMemorySlave DEBUG: Routing from tcp://*:5553 to inproc://get_memoryslave
+2016-11-25 12:24:45,227 MemoryGetter python-CCMemoryMaster DEBUG: Listening in new task for get on inproc://get_memorymaster
+2016-11-25 12:24:45,227 MemoryGetter python-CCMemorySlave DEBUG: Listening in new task for get on inproc://get_memoryslave
+2016-11-25 12:24:45,228 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Metricator alive, period: 120s, getThrLevel: [-inf,0.06], setThrLevel: [-inf,0.1]
+2016-11-25 12:24:45,228 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: new internal channel client created with destination tcp://127.0.0.1:5557
+2016-11-25 12:24:45,228 MainThread python-CCMemorySlave DEBUG: Listening in new task for set on tcp://*:5552
+2016-11-25 12:24:45,229 MainThread python-CCMemorySlave DEBUG: new internal channel client created with destination tcp://127.0.0.1:5559
+2016-11-25 12:24:45,229 MainThread python-CCMemorySlave DEBUG: new internal channel client created with destination tcp://127.0.0.1:5557
+2016-11-25 12:24:45,229 MainThread python-CCMemoryMaster DEBUG: Listening in new task for set on tcp://*:5550
+2016-11-25 12:24:45,229 MainThread python-CCMemoryMaster DEBUG: new internal channel client created with destination tcp://127.0.0.1:5559
+2016-11-25 12:24:45,229 MainThread python-CCMemoryMaster DEBUG: new internal channel client created with destination tcp://127.0.0.1:5557
+2016-11-25 12:24:45,230 MemorySlaveSetter python-CCMemoryMaster DEBUG: cannot send to slave, net info: None
+2016-11-25 12:24:45,407 MainThread python-CCMemoryMaster DEBUG: This is the ip of the vm: 
+master_of_master 172.31.20.3
+master 172.31.20.4
+myself 172.31.29.87
+slave 172.31.20.5
+slave_of_slave172.31.20.1
+2016-11-25 12:24:45,407 MainThread python-CCMemoryMaster DEBUG: Memory needs to be configured, first bootup of this memory node, new info: Node myself, id 4.5, keys 3006477107:3435973835
+Node master, id 4, keys 2576980377:3435973835
+Node master_of_master, id 3, keys 1717986918:2576980376
+Node slave, id 5, keys 3435973836:4294967294
+Node slave_of_slave, id 1, keys 0:858993458
+
+2016-11-25 12:24:46,231 MemorySlaveSetter python-CCMemoryMaster DEBUG: Finally I'm configured
+2016-11-25 12:24:54,813 MainThread python-CCMemoryMaster DEBUG: I'm communicating that transfer is completed
+2016-11-25 12:24:54,813 MainThread python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5559
+2016-11-25 12:24:54,836 Reader-4.5 MainProcess DEBUG: sending message to tcp://*:5559
+2016-11-25 12:24:54,838 Reader-4.5 MainProcess DEBUG: new internal channel client created with destination tcp://172.31.20.4:5557
+2016-11-25 12:24:54,839 Reader-4.5 MainProcess DEBUG: sending message to tcp://172.31.20.4:5557
+2016-11-25 12:24:54,839 MainThread python-CCMemoryMaster DEBUG: waiting for a request
+2016-11-25 12:24:54,839 MainThread python-CCMemoryMaster WARNING: new master state recovery: DONE
+2016-11-25 12:24:54,840 Reader-4.5 MainProcess DEBUG: waiting for a request
+2016-11-25 12:24:54,887 Reader-4.5 MainProcess DEBUG: received the new list
+Node 4.5, Node : myself 4.5, master 4, slave 5
+Keys : master 2576980377:3006477106, myself 3006477107:3435973835, slave 3435973836:4294967294
+Node 1, Node : myself 1, master 5, slave 2
+Keys : master 3435973836:4294967294, myself 0:858993458, slave 858993459:1717986917
+Node 3, Node : myself 3, master 2, slave 4
+Keys : master 858993459:1717986917, myself 1717986918:2576980376, slave 2576980377:3006477106
+Node 2, Node : myself 2, master 1, slave 3
+Keys : master 0:858993458, myself 858993459:1717986917, slave 1717986918:2576980376
+Node 5, Node : myself 5, master 4.5, slave 1
+Keys : master 3006477107:3435973835, myself 3435973836:4294967294, slave 0:858993458
+Node 4, Node : myself 4, master 3, slave 4.5
+Keys : master 1717986918:2576980376, myself 2576980377:3006477106, slave 3006477107:3435973835
+
+2016-11-25 12:24:54,887 Reader-4.5 MainProcess DEBUG: new accepted by master 4
+2016-11-25 12:24:54,888 Reader-4.5 MainProcess DEBUG: Generating client connection point tcp://172.31.20.4:5558
+2016-11-25 12:24:54,888 Reader-4.5 MainProcess DEBUG: new birth sync completed
+2016-11-25 12:24:54,888 Writer-4.5 MainProcess DEBUG: sending message to tcp://*:5557
+2016-11-25 12:24:54,890 Writer-4.5 MainProcess DEBUG: Generating server connection point tcp://172.31.29.87:5558
+2016-11-25 12:24:55,890 Writer-4.5 MainProcess DEBUG: this is my list
+Node 4.5, Node : myself 4.5, master 4, slave 5
+Keys : master 2576980377:3006477106, myself 3006477107:3435973835, slave 3435973836:4294967294
+Node 1, Node : myself 1, master 5, slave 2
+Keys : master 3435973836:4294967294, myself 0:858993458, slave 858993459:1717986917
+Node 3, Node : myself 3, master 2, slave 4
+Keys : master 858993459:1717986917, myself 1717986918:2576980376, slave 2576980377:3006477106
+Node 2, Node : myself 2, master 1, slave 3
+Keys : master 0:858993458, myself 858993459:1717986917, slave 1717986918:2576980376
+Node 5, Node : myself 5, master 4.5, slave 1
+Keys : master 3006477107:3435973835, myself 3435973836:4294967294, slave 0:858993458
+Node 4, Node : myself 4, master 3, slave 4.5
+Keys : master 1717986918:2576980376, myself 2576980377:3006477106, slave 3006477107:3435973835
+
+2016-11-25 12:24:55,890 Writer-4.5 MainProcess DEBUG: Send that i'm ALIVE (4.5) to 5
+2016-11-25 12:26:04,900 Writer-4.5 MainProcess DEBUG: this message from 4 can be forwarded due to higher priority than 0
+target_addr: 
+target_key: 2791728742:3006477106
+random: 4755
+target_id: 4.25
+priority: 1
+version: 1
+source_id: 4
+source_flag: 1
+target_relative_id: 4.5
+
+2016-11-25 12:26:04,900 Writer-4.5 MainProcess DEBUG: I am in state BusyAddPS
+2016-11-25 12:26:04,900 Writer-4.5 MainProcess DEBUG: forwarding ADD message
+target_addr: 
+target_key: 2791728742:3006477106
+random: 4755
+target_id: 4.25
+priority: 1
+version: 1
+source_id: 4
+source_flag: 1
+target_relative_id: 4.5
+
+2016-11-25 12:27:01,046 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0269513015584, getters (mean): 0.0386795997952
+2016-11-25 12:27:07,554 Reader-4.5 MainProcess DEBUG: added node as new master
+min_key, 2791728742
+ip, 172.31.19.82
+int_addr, 172.31.19.82:5557
+ext_port, 5558
+ext_addr, 172.31.19.82:5558
+max_key, 3006477106
+id, 4.25
+memory_port, 
+int_port, 5557
+
+2016-11-25 12:27:07,554 Reader-4.5 MainProcess DEBUG: Closing socket with tcp://172.31.20.4:5558
+2016-11-25 12:27:07,555 Reader-4.5 MainProcess DEBUG: Closing socket with tcp://172.31.20.4:5557
+2016-11-25 12:27:07,555 Reader-4.5 MainProcess DEBUG: New node added, it's Reader 4.25
+2016-11-25 12:27:07,555 Reader-4.5 MainProcess DEBUG: my IP is not none : 172.31.29.87
+2016-11-25 12:27:07,555 Reader-4.5 MainProcess DEBUG: sync init
+2016-11-25 12:27:07,555 Reader-4.5 MainProcess DEBUG: new internal channel client created with destination tcp://172.31.19.82:5557
+2016-11-25 12:27:07,555 Reader-4.5 MainProcess DEBUG: sending message to tcp://172.31.19.82:5557
+2016-11-25 12:27:07,558 Reader-4.5 MainProcess DEBUG: waiting for a request
+2016-11-25 12:27:07,559 Reader-4.5 MainProcess DEBUG: accepted by master 4.25, achieved new master_of_master id 4
+2016-11-25 12:27:07,559 Reader-4.5 MainProcess DEBUG: Generating client connection point tcp://172.31.19.82:5558
+2016-11-25 12:27:07,559 Reader-4.5 MainProcess DEBUG: sync completed
+2016-11-25 12:27:07,587 Writer-4.5 MainProcess DEBUG: my version is 2, uuu we have a new NODE
+target_addr: 172.31.19.82
+target_key: 2791728742:3006477106
+random: 4782
+target_id: 4.25
+priority: 2
+version: 1
+source_id: 4
+source_flag: 1
+target_relative_id: 4.5
+
+2016-11-25 12:27:07,588 Writer-4.5 MainProcess DEBUG: i'm 4.5, these are my nodes to compute keys
+Node myself, id 4, keys 2576980377:3006477106
+Node master, id 3, keys 1717986918:2576980376
+Node master_of_master, id 2, keys 858993459:1717986917
+Node slave, id 4.5, keys 3006477107:3435973835
+Node slave_of_slave, id 5, keys 3435973836:4294967294
+
+2016-11-25 12:27:07,588 Writer-4.5 MainProcess DEBUG: i'm 4.5, these are my computed keys
+myself, (2576980377,2791728741)
+slave, (3006477107,3435973835)
+master, (1717986918,2576980376)
+slave_of_slave, (3435973836,4294967294)
+newNode, (2791728742,3006477106)
+master_of_master, (858993459,1717986917)
+
+2016-11-25 12:27:07,588 Writer-4.5 MainProcess DEBUG: i'm 4.5
+2016-11-25 12:27:07,588 Writer-4.5 MainProcess DEBUG: adding this node in list, id: 4, master: 3, slave: 4.5
+2016-11-25 12:27:07,588 Writer-4.5 MainProcess DEBUG: adding this node in list, id: 3, master: 2, slave: 4
+2016-11-25 12:27:07,588 Writer-4.5 MainProcess DEBUG: adding this node in list, id: 4.5, master: 4, slave: 5
+2016-11-25 12:27:07,588 Writer-4.5 MainProcess DEBUG: adding this node in list, id: 2, master: 1, slave: 3
+2016-11-25 12:27:07,588 Writer-4.5 MainProcess DEBUG: adding this node in list, id: 5, master: 4.5, slave: 1
+2016-11-25 12:27:07,588 Writer-4.5 MainProcess DEBUG: adding this node in list
+min_key, 2791728742
+ip, 172.31.19.82
+int_addr, 172.31.19.82:5557
+ext_port, 5558
+ext_addr, 172.31.19.82:5558
+max_key, 3006477106
+id, 4.25
+memory_port, 
+int_port, 5557
+
+2016-11-25 12:27:07,588 Writer-4.5 MainProcess DEBUG: this is my new list
+Node 4.5, Node : myself 4.5, master 4.25, slave 5
+Keys : master 2791728742:3006477106, myself 3006477107:3435973835, slave 3435973836:4294967294
+Node 1, Node : myself 1, master 5, slave 2
+Keys : master 3435973836:4294967294, myself 0:858993458, slave 858993459:1717986917
+Node 3, Node : myself 3, master 2, slave 4
+Keys : master 858993459:1717986917, myself 1717986918:2576980376, slave 2576980377:2791728741
+Node 2, Node : myself 2, master 1, slave 3
+Keys : master 0:858993458, myself 858993459:1717986917, slave 1717986918:2576980376
+Node 5, Node : myself 5, master 4.5, slave 1
+Keys : master 3006477107:3435973835, myself 3435973836:4294967294, slave 0:858993458
+Node 4, Node : myself 4, master 3, slave 4.25
+Keys : master 1717986918:2576980376, myself 2576980377:2791728741, slave 2791728742:3006477106
+Node 4.25, Node : myself 4.25, master 4, slave 4.5
+Keys : master 2576980377:2791728741, myself 2791728742:3006477106, slave 3006477107:3435973835
+
+2016-11-25 12:27:07,588 Writer-4.5 MainProcess DEBUG: I am in state Free
+2016-11-25 12:27:07,588 Writer-4.5 MainProcess DEBUG: welcome new relative! now i am able to receive new scale ups, relatives:
+4, 4.25, 4.5, 5, 1
+2016-11-25 12:27:07,588 Writer-4.5 MainProcess DEBUG: forwarding this ADDED message
+target_addr: 172.31.19.82
+target_key: 2791728742:3006477106
+random: 4782
+target_id: 4.25
+priority: 2
+version: 1
+source_id: 4
+source_flag: 1
+target_relative_id: 4.5
+
+2016-11-25 12:27:48,318 Writer-4.5 MainProcess DEBUG: this message from 4 can be forwarded due to higher priority than 0
+target_addr: 
+target_key: 2684354560:2791728741
+random: 5270
+target_id: 4.125
+priority: 1
+version: 1
+source_id: 4
+source_flag: 1
+target_relative_id: 4.25
+
+2016-11-25 12:27:48,318 Writer-4.5 MainProcess DEBUG: I am in state BusyAddPS
+2016-11-25 12:27:48,318 Writer-4.5 MainProcess DEBUG: forwarding ADD message
+target_addr: 
+target_key: 2684354560:2791728741
+random: 5270
+target_id: 4.125
+priority: 1
+version: 1
+source_id: 4
+source_flag: 1
+target_relative_id: 4.25
+
+2016-11-25 12:28:31,145 Reader-4.5 MainProcess DEBUG: added node as new master_of_master
+min_key, 2684354560
+ip, 172.31.25.108
+int_addr, 172.31.25.108:5557
+ext_port, 5558
+ext_addr, 172.31.25.108:5558
+max_key, 2791728741
+id, 4.125
+memory_port, 
+int_port, 5557
+
+2016-11-25 12:28:31,145 Reader-4.5 MainProcess DEBUG: New node added, it's Reader 4.125
+2016-11-25 12:28:31,156 Writer-4.5 MainProcess DEBUG: my version is 2, uuu we have a new NODE
+target_addr: 172.31.25.108
+target_key: 2684354560:2791728741
+random: 9475
+target_id: 4.125
+priority: 2
+version: 1
+source_id: 4
+source_flag: 1
+target_relative_id: 4.25
+
+2016-11-25 12:28:31,156 Writer-4.5 MainProcess DEBUG: i'm 4.5, these are my nodes to compute keys
+Node myself, id 4, keys 2576980377:2791728741
+Node master, id 3, keys 1717986918:2576980376
+Node master_of_master, id 2, keys 858993459:1717986917
+Node slave, id 4.25, keys 2791728742:3006477106
+Node slave_of_slave, id 4.5, keys 3006477107:3435973835
+
+2016-11-25 12:28:31,156 Writer-4.5 MainProcess DEBUG: i'm 4.5, these are my computed keys
+myself, (2576980377,2684354559)
+slave, (2791728742,3006477106)
+master, (1717986918,2576980376)
+slave_of_slave, (3006477107,3435973835)
+newNode, (2684354560,2791728741)
+master_of_master, (858993459,1717986917)
+
+2016-11-25 12:28:31,156 Writer-4.5 MainProcess DEBUG: i'm 4.5
+2016-11-25 12:28:31,156 Writer-4.5 MainProcess DEBUG: adding this node in list, id: 4, master: 3, slave: 4.25
+2016-11-25 12:28:31,157 Writer-4.5 MainProcess DEBUG: adding this node in list, id: 3, master: 2, slave: 4
+2016-11-25 12:28:31,157 Writer-4.5 MainProcess DEBUG: adding this node in list, id: 4.25, master: 4, slave: 4.5
+2016-11-25 12:28:31,157 Writer-4.5 MainProcess DEBUG: adding this node in list, id: 2, master: 1, slave: 3
+2016-11-25 12:28:31,157 Writer-4.5 MainProcess DEBUG: adding this node in list, id: 4.5, master: 4.25, slave: 5
+2016-11-25 12:28:31,157 Writer-4.5 MainProcess DEBUG: adding this node in list
+min_key, 2684354560
+ip, 172.31.25.108
+int_addr, 172.31.25.108:5557
+ext_port, 5558
+ext_addr, 172.31.25.108:5558
+max_key, 2791728741
+id, 4.125
+memory_port, 
+int_port, 5557
+
+2016-11-25 12:28:31,157 Writer-4.5 MainProcess DEBUG: this is my new list
+Node 4.5, Node : myself 4.5, master 4.25, slave 5
+Keys : master 2791728742:3006477106, myself 3006477107:3435973835, slave 3435973836:4294967294
+Node 4.125, Node : myself 4.125, master 4, slave 4.25
+Keys : master 2576980377:2684354559, myself 2684354560:2791728741, slave 2791728742:3006477106
+Node 1, Node : myself 1, master 5, slave 2
+Keys : master 3435973836:4294967294, myself 0:858993458, slave 858993459:1717986917
+Node 3, Node : myself 3, master 2, slave 4
+Keys : master 858993459:1717986917, myself 1717986918:2576980376, slave 2576980377:2684354559
+Node 2, Node : myself 2, master 1, slave 3
+Keys : master 0:858993458, myself 858993459:1717986917, slave 1717986918:2576980376
+Node 5, Node : myself 5, master 4.5, slave 1
+Keys : master 3006477107:3435973835, myself 3435973836:4294967294, slave 0:858993458
+Node 4, Node : myself 4, master 3, slave 4.125
+Keys : master 1717986918:2576980376, myself 2576980377:2684354559, slave 2684354560:2791728741
+Node 4.25, Node : myself 4.25, master 4.125, slave 4.5
+Keys : master 2684354560:2791728741, myself 2791728742:3006477106, slave 3006477107:3435973835
+
+2016-11-25 12:28:31,157 Writer-4.5 MainProcess DEBUG: I am in state Free
+2016-11-25 12:28:31,157 Writer-4.5 MainProcess DEBUG: welcome new relative! now i am able to receive new scale ups, relatives:
+4.125, 4.25, 4.5, 5, 1
+2016-11-25 12:28:31,157 Writer-4.5 MainProcess DEBUG: forwarding this ADDED message
+target_addr: 172.31.25.108
+target_key: 2684354560:2791728741
+random: 9475
+target_id: 4.125
+priority: 2
+version: 1
+source_id: 4
+source_flag: 1
+target_relative_id: 4.25
+
+2016-11-25 12:28:44,798 Writer-4.5 MainProcess DEBUG: this message from 3 can be forwarded due to higher priority than 0
+target_addr: 
+target_key: 2147483648:2576980376
+random: 2084
+target_id: 3.5
+priority: 1
+version: 2
+source_id: 3
+source_flag: 1
+target_relative_id: 4
+
+2016-11-25 12:28:44,799 Writer-4.5 MainProcess DEBUG: I am in state BusyAddPL
+2016-11-25 12:28:44,799 Writer-4.5 MainProcess DEBUG: forwarding ADD message
+target_addr: 
+target_key: 2147483648:2576980376
+random: 2084
+target_id: 3.5
+priority: 1
+version: 2
+source_id: 3
+source_flag: 1
+target_relative_id: 4
+
+2016-11-25 12:28:51,754 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00899487571832, getters (mean): 0.0403940360865
+2016-11-25 12:29:53,434 Reader-4.5 MainProcess DEBUG: New node added, it's Reader 3.5
+2016-11-25 12:29:53,512 Writer-4.5 MainProcess DEBUG: my version is 3, uuu we have a new NODE
+target_addr: 172.31.21.31
+target_key: 2147483648:2576980376
+random: 6078
+target_id: 3.5
+priority: 2
+version: 2
+source_id: 3
+source_flag: 1
+target_relative_id: 4
+
+2016-11-25 12:29:53,512 Writer-4.5 MainProcess DEBUG: i'm 4.5, these are my nodes to compute keys
+Node myself, id 3, keys 1717986918:2576980376
+Node master, id 2, keys 858993459:1717986917
+Node master_of_master, id 1, keys 0:858993458
+Node slave, id 4, keys 2576980377:2684354559
+Node slave_of_slave, id 4.125, keys 2684354560:2791728741
+
+2016-11-25 12:29:53,512 Writer-4.5 MainProcess DEBUG: i'm 4.5, these are my computed keys
+myself, (1717986918,2147483647)
+slave, (2576980377,2684354559)
+master, (858993459,1717986917)
+slave_of_slave, (2684354560,2791728741)
+newNode, (2147483648,2576980376)
+master_of_master, (0,858993458)
+
+2016-11-25 12:29:53,512 Writer-4.5 MainProcess DEBUG: i'm 4.5
+2016-11-25 12:29:53,512 Writer-4.5 MainProcess DEBUG: adding this node in list, id: 3, master: 2, slave: 4
+2016-11-25 12:29:53,512 Writer-4.5 MainProcess DEBUG: adding this node in list, id: 2, master: 1, slave: 3
+2016-11-25 12:29:53,512 Writer-4.5 MainProcess DEBUG: adding this node in list, id: 4, master: 3, slave: 4.125
+2016-11-25 12:29:53,512 Writer-4.5 MainProcess DEBUG: adding this node in list, id: 1, master: 5, slave: 2
+2016-11-25 12:29:53,512 Writer-4.5 MainProcess DEBUG: adding this node in list, id: 4.125, master: 4, slave: 4.25
+2016-11-25 12:29:53,513 Writer-4.5 MainProcess DEBUG: adding this node in list
+min_key, 2147483648
+ip, 172.31.21.31
+int_addr, 172.31.21.31:5557
+ext_port, 5558
+ext_addr, 172.31.21.31:5558
+max_key, 2576980376
+id, 3.5
+memory_port, 
+int_port, 5557
+
+2016-11-25 12:29:53,513 Writer-4.5 MainProcess DEBUG: this is my new list
+Node 4.5, Node : myself 4.5, master 4.25, slave 5
+Keys : master 2791728742:3006477106, myself 3006477107:3435973835, slave 3435973836:4294967294
+Node 3.5, Node : myself 3.5, master 3, slave 4
+Keys : master 1717986918:2147483647, myself 2147483648:2576980376, slave 2576980377:2684354559
+Node 4.125, Node : myself 4.125, master 4, slave 4.25
+Keys : master 2576980377:2684354559, myself 2684354560:2791728741, slave 2791728742:3006477106
+Node 1, Node : myself 1, master 5, slave 2
+Keys : master 3435973836:4294967294, myself 0:858993458, slave 858993459:1717986917
+Node 3, Node : myself 3, master 2, slave 3.5
+Keys : master 858993459:1717986917, myself 1717986918:2147483647, slave 2147483648:2576980376
+Node 2, Node : myself 2, master 1, slave 3
+Keys : master 0:858993458, myself 858993459:1717986917, slave 1717986918:2147483647
+Node 5, Node : myself 5, master 4.5, slave 1
+Keys : master 3006477107:3435973835, myself 3435973836:4294967294, slave 0:858993458
+Node 4, Node : myself 4, master 3.5, slave 4.125
+Keys : master 2147483648:2576980376, myself 2576980377:2684354559, slave 2684354560:2791728741
+Node 4.25, Node : myself 4.25, master 4.125, slave 4.5
+Keys : master 2684354560:2791728741, myself 2791728742:3006477106, slave 3006477107:3435973835
+
+2016-11-25 12:29:53,513 Writer-4.5 MainProcess DEBUG: I am in state Free
+2016-11-25 12:29:53,513 Writer-4.5 MainProcess DEBUG: welcome new relative! now i am able to receive new scale ups, relatives:
+4.125, 4.25, 4.5, 5, 1
+2016-11-25 12:29:53,513 Writer-4.5 MainProcess DEBUG: forwarding this ADDED message
+target_addr: 172.31.21.31
+target_key: 2147483648:2576980376
+random: 6078
+target_id: 3.5
+priority: 2
+version: 2
+source_id: 3
+source_flag: 1
+target_relative_id: 4
+
+2016-11-25 12:29:55,519 Writer-4.5 MainProcess DEBUG: this message from 1 can be forwarded due to higher priority than 0
+target_addr: 
+target_key: 429496730:858993458
+random: 1953
+target_id: 1.5
+priority: 1
+version: 3
+source_id: 1
+source_flag: 1
+target_relative_id: 2
+
+2016-11-25 12:29:55,519 Writer-4.5 MainProcess DEBUG: I am in state BusyAddPS
+2016-11-25 12:29:55,519 Writer-4.5 MainProcess DEBUG: forwarding ADD message
+target_addr: 
+target_key: 429496730:858993458
+random: 1953
+target_id: 1.5
+priority: 1
+version: 3
+source_id: 1
+source_flag: 1
+target_relative_id: 2
+
+2016-11-25 12:30:59,582 Reader-4.5 MainProcess DEBUG: New node added, it's Reader 1.5
+2016-11-25 12:30:59,614 Writer-4.5 MainProcess DEBUG: my version is 4, uuu we have a new NODE
+target_addr: 172.31.24.155
+target_key: 429496730:858993458
+random: 1621
+target_id: 1.5
+priority: 2
+version: 3
+source_id: 1
+source_flag: 1
+target_relative_id: 2
+
+2016-11-25 12:30:59,614 Writer-4.5 MainProcess DEBUG: i'm 4.5, these are my nodes to compute keys
+Node myself, id 1, keys 0:858993458
+Node master, id 5, keys 3435973836:4294967294
+Node master_of_master, id 4.5, keys 3006477107:3435973835
+Node slave, id 2, keys 858993459:1717986917
+Node slave_of_slave, id 3, keys 1717986918:2147483647
+
+2016-11-25 12:30:59,615 Writer-4.5 MainProcess DEBUG: i'm 4.5, these are my computed keys
+myself, (0,429496729)
+slave, (858993459,1717986917)
+master, (3435973836,4294967294)
+slave_of_slave, (1717986918,2147483647)
+newNode, (429496730,858993458)
+master_of_master, (3006477107,3435973835)
+
+2016-11-25 12:30:59,615 Writer-4.5 MainProcess DEBUG: i'm 4.5
+2016-11-25 12:30:59,615 Writer-4.5 MainProcess DEBUG: adding this node in list, id: 1, master: 5, slave: 2
+2016-11-25 12:30:59,615 Writer-4.5 MainProcess DEBUG: adding this node in list, id: 5, master: 4.5, slave: 1
+2016-11-25 12:30:59,615 Writer-4.5 MainProcess DEBUG: adding this node in list, id: 2, master: 1, slave: 3
+2016-11-25 12:30:59,615 Writer-4.5 MainProcess DEBUG: adding this node in list, id: 4.5, master: 4.25, slave: 5
+2016-11-25 12:30:59,615 Writer-4.5 MainProcess DEBUG: adding this node in list, id: 3, master: 2, slave: 3.5
+2016-11-25 12:30:59,615 Writer-4.5 MainProcess DEBUG: adding this node in list
+min_key, 429496730
+ip, 172.31.24.155
+int_addr, 172.31.24.155:5557
+ext_port, 5558
+ext_addr, 172.31.24.155:5558
+max_key, 858993458
+id, 1.5
+memory_port, 
+int_port, 5557
+
+2016-11-25 12:30:59,615 Writer-4.5 MainProcess DEBUG: this is my new list
+Node 4.5, Node : myself 4.5, master 4.25, slave 5
+Keys : master 2791728742:3006477106, myself 3006477107:3435973835, slave 3435973836:4294967294
+Node 1.5, Node : myself 1.5, master 1, slave 2
+Keys : master 0:429496729, myself 429496730:858993458, slave 858993459:1717986917
+Node 3.5, Node : myself 3.5, master 3, slave 4
+Keys : master 1717986918:2147483647, myself 2147483648:2576980376, slave 2576980377:2684354559
+Node 4.125, Node : myself 4.125, master 4, slave 4.25
+Keys : master 2576980377:2684354559, myself 2684354560:2791728741, slave 2791728742:3006477106
+Node 1, Node : myself 1, master 5, slave 1.5
+Keys : master 3435973836:4294967294, myself 0:429496729, slave 429496730:858993458
+Node 3, Node : myself 3, master 2, slave 3.5
+Keys : master 858993459:1717986917, myself 1717986918:2147483647, slave 2147483648:2576980376
+Node 2, Node : myself 2, master 1.5, slave 3
+Keys : master 429496730:858993458, myself 858993459:1717986917, slave 1717986918:2147483647
+Node 5, Node : myself 5, master 4.5, slave 1
+Keys : master 3006477107:3435973835, myself 3435973836:4294967294, slave 0:429496729
+Node 4, Node : myself 4, master 3.5, slave 4.125
+Keys : master 2147483648:2576980376, myself 2576980377:2684354559, slave 2684354560:2791728741
+Node 4.25, Node : myself 4.25, master 4.125, slave 4.5
+Keys : master 2684354560:2791728741, myself 2791728742:3006477106, slave 3006477107:3435973835
+
+2016-11-25 12:30:59,615 Writer-4.5 MainProcess DEBUG: I am in state Free
+2016-11-25 12:30:59,615 Writer-4.5 MainProcess DEBUG: welcome new relative! now i am able to receive new scale ups, relatives:
+4.125, 4.25, 4.5, 5, 1
+2016-11-25 12:30:59,615 Writer-4.5 MainProcess DEBUG: forwarding this ADDED message
+target_addr: 172.31.24.155
+target_key: 429496730:858993458
+random: 1621
+target_id: 1.5
+priority: 2
+version: 3
+source_id: 1
+source_flag: 1
+target_relative_id: 2
+
+2016-11-25 12:31:11,142 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00843934873802, getters (mean): 0.0392044674553
+2016-11-25 12:31:55,884 Writer-4.5 MainProcess DEBUG: this message from 1 can be forwarded due to higher priority than 0
+target_addr: 
+target_key: 214748365:429496729
+random: 5765
+target_id: 1.25
+priority: 1
+version: 3
+source_id: 1
+source_flag: 1
+target_relative_id: 1.5
+
+2016-11-25 12:31:55,885 Writer-4.5 MainProcess DEBUG: I am in state BusyAddPS
+2016-11-25 12:31:55,885 Writer-4.5 MainProcess DEBUG: forwarding ADD message
+target_addr: 
+target_key: 214748365:429496729
+random: 5765
+target_id: 1.25
+priority: 1
+version: 3
+source_id: 1
+source_flag: 1
+target_relative_id: 1.5
+
+2016-11-25 12:32:54,489 Reader-4.5 MainProcess DEBUG: New node added, it's Reader 1.25
+2016-11-25 12:32:54,568 Writer-4.5 MainProcess DEBUG: my version is 4, uuu we have a new NODE
+target_addr: 172.31.18.178
+target_key: 214748365:429496729
+random: 1844
+target_id: 1.25
+priority: 2
+version: 3
+source_id: 1
+source_flag: 1
+target_relative_id: 1.5
+
+2016-11-25 12:32:54,568 Writer-4.5 MainProcess DEBUG: i'm 4.5, these are my nodes to compute keys
+Node myself, id 1, keys 0:429496729
+Node master, id 5, keys 3435973836:4294967294
+Node master_of_master, id 4.5, keys 3006477107:3435973835
+Node slave, id 1.5, keys 429496730:858993458
+Node slave_of_slave, id 2, keys 858993459:1717986917
+
+2016-11-25 12:32:54,568 Writer-4.5 MainProcess DEBUG: i'm 4.5, these are my computed keys
+myself, (0,214748364)
+slave, (429496730,858993458)
+master, (3435973836,4294967294)
+slave_of_slave, (858993459,1717986917)
+newNode, (214748365,429496729)
+master_of_master, (3006477107,3435973835)
+
+2016-11-25 12:32:54,569 Writer-4.5 MainProcess DEBUG: i'm 4.5
+2016-11-25 12:32:54,569 Writer-4.5 MainProcess DEBUG: adding this node in list, id: 1, master: 5, slave: 1.5
+2016-11-25 12:32:54,569 Writer-4.5 MainProcess DEBUG: adding this node in list, id: 5, master: 4.5, slave: 1
+2016-11-25 12:32:54,569 Writer-4.5 MainProcess DEBUG: adding this node in list, id: 1.5, master: 1, slave: 2
+2016-11-25 12:32:54,569 Writer-4.5 MainProcess DEBUG: adding this node in list, id: 4.5, master: 4.25, slave: 5
+2016-11-25 12:32:54,569 Writer-4.5 MainProcess DEBUG: adding this node in list, id: 2, master: 1.5, slave: 3
+2016-11-25 12:32:54,569 Writer-4.5 MainProcess DEBUG: adding this node in list
+min_key, 214748365
+ip, 172.31.18.178
+int_addr, 172.31.18.178:5557
+ext_port, 5558
+ext_addr, 172.31.18.178:5558
+max_key, 429496729
+id, 1.25
+memory_port, 
+int_port, 5557
+
+2016-11-25 12:32:54,569 Writer-4.5 MainProcess DEBUG: this is my new list
+Node 4.5, Node : myself 4.5, master 4.25, slave 5
+Keys : master 2791728742:3006477106, myself 3006477107:3435973835, slave 3435973836:4294967294
+Node 1.5, Node : myself 1.5, master 1.25, slave 2
+Keys : master 214748365:429496729, myself 429496730:858993458, slave 858993459:1717986917
+Node 3.5, Node : myself 3.5, master 3, slave 4
+Keys : master 1717986918:2147483647, myself 2147483648:2576980376, slave 2576980377:2684354559
+Node 4.125, Node : myself 4.125, master 4, slave 4.25
+Keys : master 2576980377:2684354559, myself 2684354560:2791728741, slave 2791728742:3006477106
+Node 1, Node : myself 1, master 5, slave 1.25
+Keys : master 3435973836:4294967294, myself 0:214748364, slave 214748365:429496729
+Node 3, Node : myself 3, master 2, slave 3.5
+Keys : master 858993459:1717986917, myself 1717986918:2147483647, slave 2147483648:2576980376
+Node 2, Node : myself 2, master 1.5, slave 3
+Keys : master 429496730:858993458, myself 858993459:1717986917, slave 1717986918:2147483647
+Node 5, Node : myself 5, master 4.5, slave 1
+Keys : master 3006477107:3435973835, myself 3435973836:4294967294, slave 0:214748364
+Node 4, Node : myself 4, master 3.5, slave 4.125
+Keys : master 2147483648:2576980376, myself 2576980377:2684354559, slave 2684354560:2791728741
+Node 4.25, Node : myself 4.25, master 4.125, slave 4.5
+Keys : master 2684354560:2791728741, myself 2791728742:3006477106, slave 3006477107:3435973835
+Node 1.25, Node : myself 1.25, master 1, slave 1.5
+Keys : master 0:214748364, myself 214748365:429496729, slave 429496730:858993458
+
+2016-11-25 12:32:54,569 Writer-4.5 MainProcess DEBUG: I am in state Free
+2016-11-25 12:32:54,569 Writer-4.5 MainProcess DEBUG: welcome new relative! now i am able to receive new scale ups, relatives:
+4.125, 4.25, 4.5, 5, 1
+2016-11-25 12:32:54,569 Writer-4.5 MainProcess DEBUG: forwarding this ADDED message
+target_addr: 172.31.18.178
+target_key: 214748365:429496729
+random: 1844
+target_id: 1.25
+priority: 2
+version: 3
+source_id: 1
+source_flag: 1
+target_relative_id: 1.5
+
+2016-11-25 12:32:56,977 Writer-4.5 MainProcess DEBUG: this message from 2 can be forwarded due to higher priority than 0
+target_addr: 
+target_key: 1288490189:1717986917
+random: 8441
+target_id: 2.5
+priority: 1
+version: 4
+source_id: 2
+source_flag: 1
+target_relative_id: 3
+
+2016-11-25 12:32:56,977 Writer-4.5 MainProcess DEBUG: none of my relatives : 2
+2016-11-25 12:32:56,977 Writer-4.5 MainProcess DEBUG: forwarding ADD message
+target_addr: 
+target_key: 1288490189:1717986917
+random: 8441
+target_id: 2.5
+priority: 1
+version: 4
+source_id: 2
+source_flag: 1
+target_relative_id: 3
+
+2016-11-25 12:33:00,450 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00799901362579, getters (mean): 0.0373784266712
+2016-11-25 12:33:53,397 Reader-4.5 MainProcess DEBUG: New node added, it's Reader 2.5
+2016-11-25 12:33:53,450 Writer-4.5 MainProcess DEBUG: my version is 5, uuu we have a new NODE
+target_addr: 172.31.18.115
+target_key: 1288490189:1717986917
+random: 7433
+target_id: 2.5
+priority: 2
+version: 4
+source_id: 2
+source_flag: 1
+target_relative_id: 3
+
+2016-11-25 12:33:53,450 Writer-4.5 MainProcess DEBUG: i'm 4.5, these are my nodes to compute keys
+Node myself, id 2, keys 858993459:1717986917
+Node master, id 1.5, keys 429496730:858993458
+Node master_of_master, id 1.25, keys 214748365:429496729
+Node slave, id 3, keys 1717986918:2147483647
+Node slave_of_slave, id 3.5, keys 2147483648:2576980376
+
+2016-11-25 12:33:53,450 Writer-4.5 MainProcess DEBUG: i'm 4.5, these are my computed keys
+myself, (858993459,1288490188)
+slave, (1717986918,2147483647)
+master, (429496730,858993458)
+slave_of_slave, (2147483648,2576980376)
+newNode, (1288490189,1717986917)
+master_of_master, (214748365,429496729)
+
+2016-11-25 12:33:53,450 Writer-4.5 MainProcess DEBUG: i'm 4.5
+2016-11-25 12:33:53,450 Writer-4.5 MainProcess DEBUG: adding this node in list, id: 2, master: 1.5, slave: 3
+2016-11-25 12:33:53,450 Writer-4.5 MainProcess DEBUG: adding this node in list, id: 1.5, master: 1.25, slave: 2
+2016-11-25 12:33:53,450 Writer-4.5 MainProcess DEBUG: adding this node in list, id: 3, master: 2, slave: 3.5
+2016-11-25 12:33:53,450 Writer-4.5 MainProcess DEBUG: adding this node in list, id: 1.25, master: 1, slave: 1.5
+2016-11-25 12:33:53,450 Writer-4.5 MainProcess DEBUG: adding this node in list, id: 3.5, master: 3, slave: 4
+2016-11-25 12:33:53,450 Writer-4.5 MainProcess DEBUG: adding this node in list
+min_key, 1288490189
+ip, 172.31.18.115
+int_addr, 172.31.18.115:5557
+ext_port, 5558
+ext_addr, 172.31.18.115:5558
+max_key, 1717986917
+id, 2.5
+memory_port, 
+int_port, 5557
+
+2016-11-25 12:33:53,450 Writer-4.5 MainProcess DEBUG: this is my new list
+Node 4.5, Node : myself 4.5, master 4.25, slave 5
+Keys : master 2791728742:3006477106, myself 3006477107:3435973835, slave 3435973836:4294967294
+Node 1.5, Node : myself 1.5, master 1.25, slave 2
+Keys : master 214748365:429496729, myself 429496730:858993458, slave 858993459:1288490188
+Node 3.5, Node : myself 3.5, master 3, slave 4
+Keys : master 1717986918:2147483647, myself 2147483648:2576980376, slave 2576980377:2684354559
+Node 4.125, Node : myself 4.125, master 4, slave 4.25
+Keys : master 2576980377:2684354559, myself 2684354560:2791728741, slave 2791728742:3006477106
+Node 2.5, Node : myself 2.5, master 2, slave 3
+Keys : master 858993459:1288490188, myself 1288490189:1717986917, slave 1717986918:2147483647
+Node 1, Node : myself 1, master 5, slave 1.25
+Keys : master 3435973836:4294967294, myself 0:214748364, slave 214748365:429496729
+Node 3, Node : myself 3, master 2.5, slave 3.5
+Keys : master 1288490189:1717986917, myself 1717986918:2147483647, slave 2147483648:2576980376
+Node 2, Node : myself 2, master 1.5, slave 2.5
+Keys : master 429496730:858993458, myself 858993459:1288490188, slave 1288490189:1717986917
+Node 5, Node : myself 5, master 4.5, slave 1
+Keys : master 3006477107:3435973835, myself 3435973836:4294967294, slave 0:214748364
+Node 4, Node : myself 4, master 3.5, slave 4.125
+Keys : master 2147483648:2576980376, myself 2576980377:2684354559, slave 2684354560:2791728741
+Node 4.25, Node : myself 4.25, master 4.125, slave 4.5
+Keys : master 2684354560:2791728741, myself 2791728742:3006477106, slave 3006477107:3435973835
+Node 1.25, Node : myself 1.25, master 1, slave 1.5
+Keys : master 0:214748364, myself 214748365:429496729, slave 429496730:858993458
+
+2016-11-25 12:33:53,451 Writer-4.5 MainProcess DEBUG: forwarding this ADDED message
+target_addr: 172.31.18.115
+target_key: 1288490189:1717986917
+random: 7433
+target_id: 2.5
+priority: 2
+version: 4
+source_id: 2
+source_flag: 1
+target_relative_id: 3
+
+2016-11-25 12:34:06,993 Writer-4.5 MainProcess DEBUG: this message from 1 can be forwarded due to higher random than 8441
+target_addr: 
+target_key: 107374183:214748364
+random: 8953
+target_id: 1.125
+priority: 1
+version: 5
+source_id: 1
+source_flag: 1
+target_relative_id: 1.25
+
+2016-11-25 12:34:06,993 Writer-4.5 MainProcess DEBUG: I am in state BusyAddPS
+2016-11-25 12:34:06,993 Writer-4.5 MainProcess DEBUG: forwarding ADD message
+target_addr: 
+target_key: 107374183:214748364
+random: 8953
+target_id: 1.125
+priority: 1
+version: 5
+source_id: 1
+source_flag: 1
+target_relative_id: 1.25
+
+2016-11-25 12:34:52,370 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00800376219075, getters (mean): 0.0357815538122
+2016-11-25 12:34:53,008 Reader-4.5 MainProcess DEBUG: New node added, it's Reader 1.125
+2016-11-25 12:34:53,035 Writer-4.5 MainProcess DEBUG: my version is 6, uuu we have a new NODE
+target_addr: 172.31.30.111
+target_key: 107374183:214748364
+random: 5908
+target_id: 1.125
+priority: 2
+version: 5
+source_id: 1
+source_flag: 1
+target_relative_id: 1.25
+
+2016-11-25 12:34:53,035 Writer-4.5 MainProcess DEBUG: i'm 4.5, these are my nodes to compute keys
+Node myself, id 1, keys 0:214748364
+Node master, id 5, keys 3435973836:4294967294
+Node master_of_master, id 4.5, keys 3006477107:3435973835
+Node slave, id 1.25, keys 214748365:429496729
+Node slave_of_slave, id 1.5, keys 429496730:858993458
+
+2016-11-25 12:34:53,035 Writer-4.5 MainProcess DEBUG: i'm 4.5, these are my computed keys
+myself, (0,107374182)
+slave, (214748365,429496729)
+master, (3435973836,4294967294)
+slave_of_slave, (429496730,858993458)
+newNode, (107374183,214748364)
+master_of_master, (3006477107,3435973835)
+
+2016-11-25 12:34:53,035 Writer-4.5 MainProcess DEBUG: i'm 4.5
+2016-11-25 12:34:53,035 Writer-4.5 MainProcess DEBUG: adding this node in list, id: 1, master: 5, slave: 1.25
+2016-11-25 12:34:53,035 Writer-4.5 MainProcess DEBUG: adding this node in list, id: 5, master: 4.5, slave: 1
+2016-11-25 12:34:53,036 Writer-4.5 MainProcess DEBUG: adding this node in list, id: 1.25, master: 1, slave: 1.5
+2016-11-25 12:34:53,036 Writer-4.5 MainProcess DEBUG: adding this node in list, id: 4.5, master: 4.25, slave: 5
+2016-11-25 12:34:53,036 Writer-4.5 MainProcess DEBUG: adding this node in list, id: 1.5, master: 1.25, slave: 2
+2016-11-25 12:34:53,036 Writer-4.5 MainProcess DEBUG: adding this node in list
+min_key, 107374183
+ip, 172.31.30.111
+int_addr, 172.31.30.111:5557
+ext_port, 5558
+ext_addr, 172.31.30.111:5558
+max_key, 214748364
+id, 1.125
+memory_port, 
+int_port, 5557
+
+2016-11-25 12:34:53,036 Writer-4.5 MainProcess DEBUG: this is my new list
+Node 4.5, Node : myself 4.5, master 4.25, slave 5
+Keys : master 2791728742:3006477106, myself 3006477107:3435973835, slave 3435973836:4294967294
+Node 1.5, Node : myself 1.5, master 1.25, slave 2
+Keys : master 214748365:429496729, myself 429496730:858993458, slave 858993459:1288490188
+Node 3.5, Node : myself 3.5, master 3, slave 4
+Keys : master 1717986918:2147483647, myself 2147483648:2576980376, slave 2576980377:2684354559
+Node 4.125, Node : myself 4.125, master 4, slave 4.25
+Keys : master 2576980377:2684354559, myself 2684354560:2791728741, slave 2791728742:3006477106
+Node 1.125, Node : myself 1.125, master 1, slave 1.25
+Keys : master 0:107374182, myself 107374183:214748364, slave 214748365:429496729
+Node 2.5, Node : myself 2.5, master 2, slave 3
+Keys : master 858993459:1288490188, myself 1288490189:1717986917, slave 1717986918:2147483647
+Node 1, Node : myself 1, master 5, slave 1.125
+Keys : master 3435973836:4294967294, myself 0:107374182, slave 107374183:214748364
+Node 3, Node : myself 3, master 2.5, slave 3.5
+Keys : master 1288490189:1717986917, myself 1717986918:2147483647, slave 2147483648:2576980376
+Node 2, Node : myself 2, master 1.5, slave 2.5
+Keys : master 429496730:858993458, myself 858993459:1288490188, slave 1288490189:1717986917
+Node 5, Node : myself 5, master 4.5, slave 1
+Keys : master 3006477107:3435973835, myself 3435973836:4294967294, slave 0:107374182
+Node 4, Node : myself 4, master 3.5, slave 4.125
+Keys : master 2147483648:2576980376, myself 2576980377:2684354559, slave 2684354560:2791728741
+Node 4.25, Node : myself 4.25, master 4.125, slave 4.5
+Keys : master 2684354560:2791728741, myself 2791728742:3006477106, slave 3006477107:3435973835
+Node 1.25, Node : myself 1.25, master 1.125, slave 1.5
+Keys : master 107374183:214748364, myself 214748365:429496729, slave 429496730:858993458
+
+2016-11-25 12:34:53,036 Writer-4.5 MainProcess DEBUG: I am in state Free
+2016-11-25 12:34:53,036 Writer-4.5 MainProcess DEBUG: welcome new relative! now i am able to receive new scale ups, relatives:
+4.125, 4.25, 4.5, 5, 1
+2016-11-25 12:34:53,036 Writer-4.5 MainProcess DEBUG: forwarding this ADDED message
+target_addr: 172.31.30.111
+target_key: 107374183:214748364
+random: 5908
+target_id: 1.125
+priority: 2
+version: 5
+source_id: 1
+source_flag: 1
+target_relative_id: 1.25
+
+2016-11-25 12:37:18,562 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0079185155411, getters (mean): 0.0362263792093
+2016-11-25 12:39:21,692 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00776511429873, getters (mean): 0.0361188898764
+2016-11-25 12:41:21,019 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00782696920238, getters (mean): 0.0360592244572
+2016-11-25 12:43:29,677 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-25 12:45:44,078 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00573406675113, getters (mean): 0.0277419311292
+2016-11-25 12:47:56,363 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00819975986342, getters (mean): 0.0380821553287
+2016-11-25 12:49:53,910 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00776429190386, getters (mean): 0.0360042982159
+2016-11-25 12:51:53,094 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00776077725602, getters (mean): 0.0365430497507
+2016-11-25 12:54:00,346 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00802782147535, getters (mean): 0.0378343761251
+2016-11-25 12:56:01,324 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0078781198733, getters (mean): 0.0365270120951
+2016-11-25 12:57:52,562 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00745994290578, getters (mean): 0.0347894603773
+2016-11-25 12:59:51,970 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00811249677615, getters (mean): 0.0366835609441
+2016-11-25 13:01:41,958 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00780357886932, getters (mean): 0.0353174405125
+2016-11-25 13:03:35,918 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00790628122739, getters (mean): 0.0364244033909
+2016-11-25 13:05:38,973 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00291739401486, getters (mean): 0.0131288768307
+2016-11-25 13:07:30,874 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-25 13:09:28,770 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-25 13:11:21,561 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-25 13:13:43,919 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-25 13:15:46,936 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-25 13:17:51,033 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-25 13:19:53,890 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-25 13:21:44,648 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
