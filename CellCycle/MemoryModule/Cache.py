@@ -83,7 +83,6 @@ class CacheSlubLRU(object):
     # purge an entire slab, move it from complete/partial to unused
     def purgeLRUSlab(self):
         #activate lru purge
-        self.logger.debug("Slab purged!")
         self.purged += 1
         #print "slab purged"
         #get the last slab in lru list
@@ -91,6 +90,7 @@ class CacheSlubLRU(object):
         slab = getTail(self,self.taglru)
         bringToFirst(self, self.taglru,slab)
         self.lrumutex.release()
+        self.logger.debug("Slab purged: "+str(slab))
 
         if (slab.state == 1):#partial
             pop(self, self.tagpartial, slab)
