@@ -59,8 +59,9 @@ class DeadReader(ProducerThread):
         self.logger.debug("received the new list\n{}".format(self.node_list.print_list()))
         self.writer_instance.set_version(rep_msg.version)
         self.writer_instance.set_last_seen_version(rep_msg.last_seen_version)
-        self.writer_instance.set_last_seen_priority(rep_msg.last_seen_priority)
-        self.writer_instance.set_last_seen_random(rep_msg.last_seen_random)
+        # Commented these lines to avoid fake update of priority and random
+        # self.writer_instance.set_last_seen_priority(rep_msg.last_seen_priority)
+        # self.writer_instance.set_last_seen_random(rep_msg.last_seen_random)
 
     def retry_until_success(self, msg, times):
         stop = False
