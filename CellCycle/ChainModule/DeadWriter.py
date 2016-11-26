@@ -638,7 +638,7 @@ class DeadWriter (ConsumerThread):
                 startInstanceAWS(self.settings, self.logger, create_specific_instance_parameters(specific_parameters))
                 self.logger.debug("ADD CYCLE completed")
             elif is_my_last_add_message(msg, self.last_scale_down_message):
-                terminateThisInstanceAWS(settings=self.settings, logger=self.logger)
+                stopThisInstanceAWS(settings=self.settings, logger=self.logger)
             elif is_my_last_added_message(msg, self.last_added_message):
                 # The cycle is over
                 self.last_added_message = ''
