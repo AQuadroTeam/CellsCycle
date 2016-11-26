@@ -592,7 +592,7 @@ class DeadWriter (ConsumerThread):
 
             if is_scale_down_message(msg):
                 nodes_number = len(self.node_list.dictionary)
-                reached_limit = nodes_number < int(self.settings.getMinInstance())
+                reached_limit = nodes_number <= int(self.settings.getMinInstance())
                 if self.transition_table.get_current_state().can_scale_down() and (not reached_limit):
                     self.internal_channel.reply_to_int_message(OK)
 
