@@ -59,10 +59,9 @@ def keyCalcWhenSlaveDies(oldInfo):
     oldSlave_of_slavePair = _getPairFromObject(oldSlave_of_slave)
     oldMaster_of_masterPair = _getPairFromObject(oldMaster_of_master)
 
-
-    master = Node(oldMaster)
+    master = Node(oldMasterPair)
     slave = None
-    myself = Node(oldMyself)
+    myself = Node(oldMyselfPair)
 
     slave_of_slave = Node(_joinKeys(oldSlavePair, oldSlave_of_slavePair))
     master_of_master = Node(oldMaster_of_masterPair)
