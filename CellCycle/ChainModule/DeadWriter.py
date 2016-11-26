@@ -423,14 +423,16 @@ class DeadWriter (ConsumerThread):
         # else:
         self.version = int(self.last_seen_version) + 1
         # generate a new channel to the slave_of_slave
-        self.internal_channel.resync(msg=self.master_of_master.id)
+        mm = self.node_list.get_value(self.master_of_master.id).master
+        self.internal_channel.resync(msg=mm.id)
 
         msg_to_send = to_external_message(self.version, dead_message)
         string_message = dumps(msg_to_send)
-        # Sleep for 100ms
-        time.sleep(0.1)
+        # Sleep for 1000ms
+        time.sleep(1)
         self.logger.debug("sending DEAD message")
-        self.external_channel.forward(string_message)
+        # self.external_channel.forward()
+        self.forward_message(string_message)
         self.logger.debug("DEAD message sent")
 
         self.last_dead_message = msg_to_send

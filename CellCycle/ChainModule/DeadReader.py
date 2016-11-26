@@ -148,7 +148,7 @@ class DeadReader(ProducerThread):
     def wait_for_a_dead(self):
         first_step = True
         while True:
-            if not self.canonical_check() and first_step:
+            if (not self.canonical_check()) and first_step:
                 self.new_birth_connection()
                 first_step = False
             else:
@@ -166,7 +166,7 @@ class DeadReader(ProducerThread):
                     message = loads(message)
 
                     if not is_alive_message(message):
-
+                        self.logger.debug("received something that is not ALIVE message")
                         if is_added_message(message):
                             if self.is_my_new_master(message):
                                 # This is the part when i connect to another publisher
