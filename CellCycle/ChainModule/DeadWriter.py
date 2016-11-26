@@ -469,7 +469,13 @@ class DeadWriter (ConsumerThread):
 
     def consider_message(self, msg, origin_message):
         if is_dead_message(msg):
-            self.consider_dead_message(msg, origin_message)
+            try:
+                self.consider_dead_message(msg, origin_message)
+            except Exception as e:
+                self.logger.error(str(e))
+                import traceback
+                self.logger.error(traceback.format_exc())
+
         if is_restore_message(msg):
             self.consider_restore_message(msg, origin_message)
         elif is_add_message(msg):
@@ -647,6 +653,7 @@ class DeadWriter (ConsumerThread):
                 startInstanceAWS(self.settings, self.logger, create_specific_instance_parameters(specific_parameters))
                 self.logger.debug("ADD CYCLE completed")
             elif is_my_last_add_message(msg, self.last_scale_down_message):
+                self.logger.debug("LAST SCALE_DOWN message")
                 terminateThisInstanceAWS(settings=self.settings, logger=self.logger)
             elif is_my_last_added_message(msg, self.last_added_message):
                 # The cycle is over
