@@ -221,6 +221,7 @@ class DeadWriter (ConsumerThread):
         self.logger.debug("forwarding RESTORE message\n{}".format(msg.printable_message()))
 
     def consider_dead_message(self, msg, origin_message):
+        self.logger.debug("THIS IS A DEAD MESSAGE")
         one_of_my_relatives = self.is_one_of_my_relatives(msg.target_id)
         one_of_my_r_of_r = self.is_one_of_my_r_of_r(msg.target_id)
 
