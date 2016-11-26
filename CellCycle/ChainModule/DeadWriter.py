@@ -471,12 +471,12 @@ class DeadWriter (ConsumerThread):
 
     def consider_message(self, msg, origin_message):
         if is_dead_message(msg):
-            # try:
-            self.consider_dead_message(msg, origin_message)
-            # except Exception as e:
-            #     self.logger.error(str(e))
-            #     import traceback
-            #     self.logger.error(traceback.format_exc())
+            try:
+                self.consider_dead_message(msg, origin_message)
+            except Exception as e:
+                self.logger.error(str(e))
+                import traceback
+                self.logger.error(traceback.format_exc())
         if is_restore_message(msg):
             self.consider_restore_message(msg, origin_message)
         elif is_add_message(msg):
