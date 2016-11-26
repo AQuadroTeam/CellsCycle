@@ -427,6 +427,8 @@ class DeadWriter (ConsumerThread):
 
         msg_to_send = to_external_message(self.version, dead_message)
         string_message = dumps(msg_to_send)
+        # Sleep for 100ms
+        time.sleep(0.1)
         self.external_channel.forward(string_message)
         self.last_dead_message = msg_to_send
 
