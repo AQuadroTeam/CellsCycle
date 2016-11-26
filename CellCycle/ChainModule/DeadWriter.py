@@ -221,7 +221,7 @@ class DeadWriter (ConsumerThread):
         self.logger.debug("forwarding RESTORE message\n{}".format(msg.printable_message()))
 
     def consider_dead_message(self, msg, origin_message):
-        self.logger.debug("THIS IS A DEAD MESSAGE")
+        # self.logger.debug("THIS IS A DEAD MESSAGE")
         one_of_my_relatives = self.is_one_of_my_relatives(msg.target_id)
         one_of_my_r_of_r = self.is_one_of_my_r_of_r(msg.target_id)
 
@@ -471,13 +471,12 @@ class DeadWriter (ConsumerThread):
 
     def consider_message(self, msg, origin_message):
         if is_dead_message(msg):
-            try:
-                self.consider_dead_message(msg, origin_message)
-            except Exception as e:
-                self.logger.error(str(e))
-                import traceback
-                self.logger.error(traceback.format_exc())
-
+            # try:
+            self.consider_dead_message(msg, origin_message)
+            # except Exception as e:
+            #     self.logger.error(str(e))
+            #     import traceback
+            #     self.logger.error(traceback.format_exc())
         if is_restore_message(msg):
             self.consider_restore_message(msg, origin_message)
         elif is_add_message(msg):
@@ -632,7 +631,7 @@ class DeadWriter (ConsumerThread):
             origin_message = dumps(msg)
             # Now we have a simple object to handle with
             # msg = msg
-            self.logger.debug("this is the message received\n{}".format(msg.printable_message()))
+            # self.logger.debug("this is the message received\n{}".format(msg.printable_message()))
 
             # This is an external message, let's check if it's none of my business
             if is_my_last_add_message(msg, self.last_add_message):
