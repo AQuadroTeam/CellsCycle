@@ -268,8 +268,9 @@ class DeadWriter (ConsumerThread):
         can_scale_up = self.transition_table.get_current_state().can_scale_up()
         if one_of_my_relatives and can_scale_up:
             self.transition_table.change_state("pas")
-        if one_of_my_r_of_r and can_scale_up:
-            self.transition_table.change_state("pal")
+        else:
+            if one_of_my_r_of_r and can_scale_up:
+                self.transition_table.change_state("pal")
 
         self.remove_from_list(msg.target_id)
         # FIXME pay attention that i have already updated my parents
