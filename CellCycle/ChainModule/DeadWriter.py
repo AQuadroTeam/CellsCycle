@@ -252,8 +252,7 @@ class DeadWriter (ConsumerThread):
         else:
             self.deads.add_in_list(msg.target_id, "None")
 
-        # self.change_dead_keys_to(msg.source_id)
-        self.change_dead_keys_to(msg.target_id)
+        self.change_dead_keys_to(msg.source_id)
         target_id = msg.target_id
         target_slave = msg.target_relative_id
         target_master = msg.source_id
