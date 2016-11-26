@@ -1,0 +1,246 @@
+BEGIN OF LOGFILE
+Switched to a new branch 'ListCycleNewVersionTest'
+Branch ListCycleNewVersionTest set up to track remote branch ListCycleNewVersionTest from origin.
+Fetching origin
+From https://github.com/AQuadroTeam/CellsCycle
+   5c66bd7..4e5e341  ListCycleNewVersionTest -> origin/ListCycleNewVersionTest
+HEAD is now at 4e5e341 reverted
+2016-11-26 11:48:52,151 MainThread MainProcess DEBUG: Starting with params: {u'master': {u'ip': u'172.31.20.3', u'min_key': u'1717986918', u'id': u'3', u'max_key': u'2576980376'}, u'myself': {u'ip': u'172.31.20.4', u'min_key': u'2576980377', u'id': u'4', u'max_key': u'3435973835'}, u'master_of_master': {u'ip': u'172.31.20.2', u'min_key': u'858993459', u'id': u'2', u'max_key': u'1717986917'}, u'slave': {u'ip': u'172.31.20.5', u'min_key': u'3435973836', u'id': u'5', u'max_key': u'4294967294'}, u'slave_of_slave': {u'ip': u'172.31.20.1', u'min_key': u'0', u'id': u'1', u'max_key': u'858993458'}}
+2016-11-26 11:48:52,153 MainThread MainProcess DEBUG: These are my features: (Writer 4) Master ID : 3 , SlaveID: 5, IntPort 5557, ExtPort 5558, IP 172.31.20.4
+2016-11-26 11:48:52,155 MainThread MainProcess DEBUG: These are my features: (Reader 4) Master ID : 3 , SlaveID: 5, IntPort 5557, ExtPort 5558, IP 172.31.20.4
+2016-11-26 11:48:52,155 MainThread MainProcess DEBUG: list_manager : <DeadWriter(Writer-4, initial)>
+2016-11-26 11:48:52,156 MainThread python-CCMemoryMaster DEBUG: Cache: Initializing cache with totalSize:200.0MB, slabSize:0.1MB
+2016-11-26 11:48:52,158 MainThread python-CCMemorySlave DEBUG: Cache: Initializing cache with totalSize:200.0MB, slabSize:0.1MB
+2016-11-26 11:48:52,162 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-26 11:48:52,162 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-26 11:48:52,166 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-26 11:48:52,170 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-26 11:48:52,170 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-26 11:48:52,174 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-26 11:48:52,178 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-26 11:48:52,178 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-26 11:48:52,182 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-26 11:48:52,186 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-26 11:48:52,190 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-26 11:48:52,190 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-26 11:48:52,194 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-26 11:48:52,198 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-26 11:48:52,198 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-26 11:48:52,202 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-11-26 11:48:52,206 ServiceEntrypointRouterThread MainProcess DEBUG: Interface receiver is started
+2016-11-26 11:48:52,206 Reader-4 MainProcess DEBUG: Starting Reader 4
+2016-11-26 11:48:52,206 Reader-4 MainProcess DEBUG: my IP is not none : 172.31.20.4
+2016-11-26 11:48:52,206 Reader-4 MainProcess DEBUG: sync init
+2016-11-26 11:48:52,206 Reader-4 MainProcess DEBUG: new internal channel client created with destination tcp://172.31.20.3:5557
+2016-11-26 11:48:52,207 Reader-4 MainProcess DEBUG: sending message to tcp://172.31.20.3:5557
+2016-11-26 11:48:52,232 Writer-4 MainProcess DEBUG: Starting Writer 4
+2016-11-26 11:48:52,232 Writer-4 MainProcess DEBUG: new internal channel server created with destination tcp://*:5557
+2016-11-26 11:48:52,232 Writer-4 MainProcess DEBUG: waiting for a request
+2016-11-26 11:48:52,239 Reader-4 MainProcess DEBUG: waiting for a request
+2016-11-26 11:48:52,239 Reader-4 MainProcess DEBUG: accepted by master 3, achieved new master_of_master id 2
+2016-11-26 11:48:52,239 Reader-4 MainProcess DEBUG: Generating client connection point tcp://172.31.20.3:5558
+2016-11-26 11:48:52,239 Reader-4 MainProcess DEBUG: sync completed
+2016-11-26 11:48:52,359 MainThread python-CCMemorySlave DEBUG: Cache: End of Initialization Cache, Success!
+2016-11-26 11:48:52,359 MainThread python-CCMemorySlave DEBUG: Memory Process initialized:200000000B, get# = 1
+2016-11-26 11:48:52,358 MainThread python-CCMemoryMaster DEBUG: Cache: End of Initialization Cache, Success!
+2016-11-26 11:48:52,360 MainThread python-CCMemoryMaster DEBUG: Memory Process initialized:200000000B, get# = 1
+2016-11-26 11:48:52,360 MemoryGetProxy python-CCMemorySlave DEBUG: Routing from tcp://*:5553 to inproc://get_memoryslave
+2016-11-26 11:48:52,360 MemoryGetProxy python-CCMemoryMaster DEBUG: Routing from tcp://*:5551 to inproc://get_memorymaster
+2016-11-26 11:48:52,360 MemoryGetter python-CCMemorySlave DEBUG: Listening in new task for get on inproc://get_memoryslave
+2016-11-26 11:48:52,361 MemoryGetter python-CCMemoryMaster DEBUG: Listening in new task for get on inproc://get_memorymaster
+2016-11-26 11:48:52,361 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Metricator alive, period: 120s, getThrLevel: [1e-05,0.06], setThrLevel: [1e-06,0.5]
+2016-11-26 11:48:52,361 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: new internal channel client created with destination tcp://127.0.0.1:5557
+2016-11-26 11:48:52,362 MainThread python-CCMemorySlave DEBUG: Listening in new task for set on tcp://*:5552
+2016-11-26 11:48:52,362 MainThread python-CCMemorySlave DEBUG: new internal channel client created with destination tcp://127.0.0.1:5559
+2016-11-26 11:48:52,363 MainThread python-CCMemorySlave DEBUG: new internal channel client created with destination tcp://127.0.0.1:5557
+2016-11-26 11:48:52,363 MainThread python-CCMemoryMaster DEBUG: Listening in new task for set on tcp://*:5550
+2016-11-26 11:48:52,364 MainThread python-CCMemoryMaster DEBUG: new internal channel client created with destination tcp://127.0.0.1:5559
+2016-11-26 11:48:52,364 MainThread python-CCMemoryMaster DEBUG: new internal channel client created with destination tcp://127.0.0.1:5557
+2016-11-26 11:48:52,364 MemorySlaveSetter python-CCMemoryMaster DEBUG: cannot send to slave, net info: None
+2016-11-26 11:48:52,376 MainThread python-CCMemoryMaster DEBUG: Configuration of net data: <CellCycle.ChainModule.MemoryObject.MemoryObject instance at 0x7fb7b84c7bd8>
+2016-11-26 11:48:53,365 MemorySlaveSetter python-CCMemoryMaster DEBUG: Finally I'm configured
+2016-11-26 11:48:56,884 Writer-4 MainProcess DEBUG: sending message to tcp://*:5557
+2016-11-26 11:48:56,885 Writer-4 MainProcess DEBUG: Generating server connection point tcp://172.31.20.4:5558
+2016-11-26 11:48:57,887 Writer-4 MainProcess DEBUG: this is my list
+Node 1, Node : myself 1, master 5, slave 2
+Keys : master 3435973836:4294967294, myself 0:858993458, slave 858993459:1717986917
+Node 3, Node : myself 3, master 2, slave 4
+Keys : master 858993459:1717986917, myself 1717986918:2576980376, slave 2576980377:3435973835
+Node 2, Node : myself 2, master 1, slave 3
+Keys : master 0:858993458, myself 858993459:1717986917, slave 1717986918:2576980376
+Node 5, Node : myself 5, master 4, slave 1
+Keys : master 2576980377:3435973835, myself 3435973836:4294967294, slave 0:858993458
+Node 4, Node : myself 4, master 3, slave 5
+Keys : master 1717986918:2576980376, myself 2576980377:3435973835, slave 3435973836:4294967294
+
+2016-11-26 11:48:57,887 Writer-4 MainProcess DEBUG: Send that i'm ALIVE (4) to 5
+2016-11-26 11:50:54,646 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 1.72552285393e-06, getters (mean): 0.0
+2016-11-26 11:50:54,646 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-11-26 11:50:54,646 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-11-26 11:50:54,649 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-11-26 11:50:54,724 Writer-4 MainProcess DEBUG: sending message to tcp://*:5557
+2016-11-26 11:51:39,290 Writer-4 MainProcess DEBUG: this message from 2 can be forwarded due to higher priority than 0
+target_addr: 
+target_key: 1288490189:1717986917
+random: 2444
+target_id: 2.5
+priority: 1
+version: 1
+source_id: 2
+source_flag: 1
+target_relative_id: 3
+
+2016-11-26 11:51:39,290 Writer-4 MainProcess DEBUG: I am in state BusyAddPS
+2016-11-26 11:51:39,291 Writer-4 MainProcess DEBUG: forwarding ADD message
+target_addr: 
+target_key: 1288490189:1717986917
+random: 2444
+target_id: 2.5
+priority: 1
+version: 1
+source_id: 2
+source_flag: 1
+target_relative_id: 3
+
+2016-11-26 11:52:22,906 Reader-4 MainProcess DEBUG: added node as new master_of_master
+min_key, 1288490189
+ip, 172.31.26.91
+int_addr, 172.31.26.91:5557
+ext_port, 5558
+ext_addr, 172.31.26.91:5558
+max_key, 1717986917
+id, 2.5
+memory_port, 
+int_port, 5557
+
+2016-11-26 11:52:22,907 Reader-4 MainProcess DEBUG: New node added, it's Reader 2.5
+2016-11-26 11:52:22,955 Writer-4 MainProcess DEBUG: my version is 2, uuu we have a new NODE
+target_addr: 172.31.26.91
+target_key: 1288490189:1717986917
+random: 5738
+target_id: 2.5
+priority: 2
+version: 1
+source_id: 2
+source_flag: 1
+target_relative_id: 3
+
+2016-11-26 11:52:22,956 Writer-4 MainProcess DEBUG: i'm 4, these are my nodes to compute keys
+Node myself, id 2, keys 858993459:1717986917
+Node master, id 1, keys 0:858993458
+Node master_of_master, id 5, keys 3435973836:4294967294
+Node slave, id 3, keys 1717986918:2576980376
+Node slave_of_slave, id 4, keys 2576980377:3435973835
+
+2016-11-26 11:52:22,956 Writer-4 MainProcess DEBUG: i'm 4, these are my computed keys
+myself, (858993459,1288490188)
+slave, (1717986918,2576980376)
+master, (0,858993458)
+slave_of_slave, (2576980377,3435973835)
+newNode, (1288490189,1717986917)
+master_of_master, (3435973836,4294967294)
+
+2016-11-26 11:52:22,956 Writer-4 MainProcess DEBUG: i'm 4
+2016-11-26 11:52:22,956 Writer-4 MainProcess DEBUG: adding this node in list, id: 2, master: 1, slave: 3
+2016-11-26 11:52:22,956 Writer-4 MainProcess DEBUG: adding this node in list, id: 1, master: 5, slave: 2
+2016-11-26 11:52:22,956 Writer-4 MainProcess DEBUG: adding this node in list, id: 3, master: 2, slave: 4
+2016-11-26 11:52:22,956 Writer-4 MainProcess DEBUG: adding this node in list, id: 5, master: 4, slave: 1
+2016-11-26 11:52:22,956 Writer-4 MainProcess DEBUG: adding this node in list, id: 4, master: 3, slave: 5
+2016-11-26 11:52:22,956 Writer-4 MainProcess DEBUG: adding this node in list
+min_key, 1288490189
+ip, 172.31.26.91
+int_addr, 172.31.26.91:5557
+ext_port, 5558
+ext_addr, 172.31.26.91:5558
+max_key, 1717986917
+id, 2.5
+memory_port, 
+int_port, 5557
+
+2016-11-26 11:52:22,956 Writer-4 MainProcess DEBUG: this is my new list
+Node 1, Node : myself 1, master 5, slave 2
+Keys : master 3435973836:4294967294, myself 0:858993458, slave 858993459:1288490188
+Node 3, Node : myself 3, master 2.5, slave 4
+Keys : master 1288490189:1717986917, myself 1717986918:2576980376, slave 2576980377:3435973835
+Node 2, Node : myself 2, master 1, slave 2.5
+Keys : master 0:858993458, myself 858993459:1288490188, slave 1288490189:1717986917
+Node 5, Node : myself 5, master 4, slave 1
+Keys : master 2576980377:3435973835, myself 3435973836:4294967294, slave 0:858993458
+Node 4, Node : myself 4, master 3, slave 5
+Keys : master 1717986918:2576980376, myself 2576980377:3435973835, slave 3435973836:4294967294
+Node 2.5, Node : myself 2.5, master 2, slave 3
+Keys : master 858993459:1288490188, myself 1288490189:1717986917, slave 1717986918:2576980376
+
+2016-11-26 11:52:22,956 Writer-4 MainProcess DEBUG: I am in state Free
+2016-11-26 11:52:22,957 Writer-4 MainProcess DEBUG: welcome new relative! now i am able to receive new scale ups, relatives:
+2.5, 3, 4, 5, 1
+2016-11-26 11:52:22,957 Writer-4 MainProcess DEBUG: forwarding this ADDED message
+target_addr: 172.31.26.91
+target_key: 1288490189:1717986917
+random: 5738
+target_id: 2.5
+priority: 2
+version: 1
+source_id: 2
+source_flag: 1
+target_relative_id: 3
+
+2016-11-26 11:52:54,578 Writer-4 MainProcess DEBUG: this message from 1 can be forwarded due to higher priority than 0
+target_addr: 
+target_key: 0:858993458
+random: 4455
+target_id: 1
+priority: 1
+version: 2
+source_id: 1
+source_flag: 1
+target_relative_id: 2
+
+2016-11-26 11:52:54,578 Writer-4 MainProcess DEBUG: I am in state BusyAddPS
+2016-11-26 11:52:54,578 Writer-4 MainProcess DEBUG: forwarding ADD message
+target_addr: 
+target_key: 0:858993458
+random: 4455
+target_id: 1
+priority: 1
+version: 2
+source_id: 1
+source_flag: 1
+target_relative_id: 2
+
+2016-11-26 11:53:04,560 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-26 11:53:04,560 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-11-26 11:53:04,561 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-11-26 11:53:04,562 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-11-26 11:53:04,613 Writer-4 MainProcess DEBUG: sending message to tcp://*:5557
+2016-11-26 11:53:14,850 Writer-4 MainProcess DEBUG: slave 5 is DEAD, and why i don't realized it?
+2016-11-26 11:53:14,850 Writer-4 MainProcess DEBUG: sending message to tcp://*:5557
+2016-11-26 11:53:14,851 Writer-4 MainProcess DEBUG: waiting for a request
+2016-11-26 11:53:24,859 Writer-4 MainProcess DEBUG: sending message to tcp://*:5557
+2016-11-26 11:53:25,861 Writer-4 MainProcess DEBUG: I am in state BusyAddPS
+2016-11-26 11:53:34,954 Reader-4 MainProcess DEBUG: my master 3 is dead
+2016-11-26 11:53:34,954 Reader-4 MainProcess DEBUG: Closing socket with tcp://172.31.20.3:5558
+2016-11-26 11:53:34,955 Reader-4 MainProcess DEBUG: Closing socket with tcp://172.31.20.3:5557
+2016-11-26 11:53:34,955 Reader-4 MainProcess DEBUG: my IP is not none : 172.31.20.4
+2016-11-26 11:53:34,955 Reader-4 MainProcess DEBUG: sync init
+2016-11-26 11:53:34,955 Reader-4 MainProcess DEBUG: new internal channel client created with destination tcp://172.31.26.91:5557
+2016-11-26 11:53:34,955 Reader-4 MainProcess DEBUG: sending message to tcp://172.31.26.91:5557
+2016-11-26 11:53:34,959 Reader-4 MainProcess DEBUG: waiting for a request
+2016-11-26 11:53:34,990 Reader-4 MainProcess DEBUG: accepted by master 2.5, achieved new master_of_master id 2.5
+2016-11-26 11:53:34,990 Reader-4 MainProcess DEBUG: Generating client connection point tcp://172.31.26.91:5558
+2016-11-26 11:53:34,991 Reader-4 MainProcess DEBUG: sync completed
+2016-11-26 11:53:45,001 Reader-4 MainProcess DEBUG: my master 2.5 is dead
+2016-11-26 11:53:45,001 Reader-4 MainProcess DEBUG: Closing socket with tcp://172.31.26.91:5558
+2016-11-26 11:53:45,001 Reader-4 MainProcess DEBUG: Closing socket with tcp://172.31.26.91:5557
+2016-11-26 11:53:45,002 Reader-4 MainProcess DEBUG: my IP is not none : 172.31.20.4
+2016-11-26 11:53:45,002 Reader-4 MainProcess DEBUG: sync init
+2016-11-26 11:53:45,002 Reader-4 MainProcess DEBUG: new internal channel client created with destination tcp://172.31.26.91:5557
+2016-11-26 11:53:45,002 Reader-4 MainProcess DEBUG: sending message to tcp://172.31.26.91:5557
+2016-11-26 11:53:45,003 Reader-4 MainProcess DEBUG: waiting for a request
+2016-11-26 11:53:45,004 Reader-4 MainProcess DEBUG: accepted by master 2.5, achieved new master_of_master id 2.5
+2016-11-26 11:53:45,004 Reader-4 MainProcess DEBUG: Generating client connection point tcp://172.31.26.91:5558
+2016-11-26 11:53:45,004 Reader-4 MainProcess DEBUG: sync completed
+2016-11-26 11:54:38,689 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-11-26 11:54:38,690 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-11-26 11:54:38,690 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-11-26 11:54:38,691 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request

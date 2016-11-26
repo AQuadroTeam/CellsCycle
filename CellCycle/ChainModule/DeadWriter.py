@@ -1,5 +1,5 @@
 #! /usr/bin/env python
-from CellCycle.AWS.AWSlib import startInstanceAWS, terminateThisInstanceAWS
+from CellCycle.AWS.AWSlib import startInstanceAWS, stopThisInstanceAWS
 from CellCycle.ChainModule.MemoryObject import MemoryObject
 from CellCycle.ChainModule.Message import InformationMessage
 from CellCycle.KeyCalcManager import keyCalcToCreateANewNode
@@ -221,17 +221,8 @@ class DeadWriter (ConsumerThread):
         self.logger.debug("forwarding RESTORE message\n{}".format(msg.printable_message()))
 
     def consider_dead_message(self, msg, origin_message):
-        self.change_dead_keys_to(msg.source_id)
-        target_id = msg.target_id
-        target_slave = msg.target_relative_id
-        target_master = msg.source_id
-        # TODO check controls for r or r_of_r
-        # Update the target ID
-        self.update_list(target_node=target_id, target_master=target_master, target_slave=target_slave)
-        # Update the master node, the new master of target_slave is target_master
-        self.change_master_to(target_node=target_slave, target_master=target_master)
-        # Update the slave node, the new slave of target_master is target_slave
-        self.change_slave_to(target_node=target_master, target_slave=target_slave)
+        one_of_my_relatives = self.is_one_of_my_relatives(msg.target_id)
+        one_of_my_r_of_r = self.is_one_of_my_r_of_r(msg.target_id)
 
         # if this node is one of my relatives, let's update our static attributes
         mmm_result = self.node_list.get_value(self.master_of_master.id).master
@@ -260,10 +251,22 @@ class DeadWriter (ConsumerThread):
         else:
             self.deads.add_in_list(msg.target_id, "None")
 
+        self.change_dead_keys_to(msg.source_id)
+        target_id = msg.target_id
+        target_slave = msg.target_relative_id
+        target_master = msg.source_id
+
+        # Update the target ID
+        self.update_list(target_node=target_id, target_master=target_master, target_slave=target_slave)
+        # Update the master node, the new master of target_slave is target_master
+        self.change_master_to(target_node=target_slave, target_master=target_master)
+        # Update the slave node, the new slave of target_master is target_slave
+        self.change_slave_to(target_node=target_master, target_slave=target_slave)
+
         can_scale_up = self.transition_table.get_current_state().can_scale_up()
-        if self.is_one_of_my_relatives(msg.target_id) and can_scale_up:
+        if one_of_my_relatives and can_scale_up:
             self.transition_table.change_state("pas")
-        if self.is_one_of_my_r_of_r(msg.target_id) and can_scale_up:
+        if one_of_my_r_of_r and can_scale_up:
             self.transition_table.change_state("pal")
 
         self.remove_from_list(msg.target_id)
