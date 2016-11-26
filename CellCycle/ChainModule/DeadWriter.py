@@ -423,16 +423,14 @@ class DeadWriter (ConsumerThread):
         # else:
         self.version = int(self.last_seen_version) + 1
         # generate a new channel to the slave_of_slave
-        mm = self.node_list.get_value(self.master_of_master.id).master
-        self.internal_channel.resync(msg=mm.id)
+        self.internal_channel.resync(msg=dumps(self.master))
 
         msg_to_send = to_external_message(self.version, dead_message)
         string_message = dumps(msg_to_send)
         # Sleep for 1000ms
-        time.sleep(1)
+        # time.sleep(1)
         self.logger.debug("sending DEAD message")
-        # self.external_channel.forward()
-        self.forward_message(string_message)
+        self.external_channel.forward(string_message)
         self.logger.debug("DEAD message sent")
 
         self.last_dead_message = msg_to_send
@@ -626,6 +624,7 @@ class DeadWriter (ConsumerThread):
             origin_message = dumps(msg)
             # Now we have a simple object to handle with
             # msg = msg
+            self.logger.debug("this is the message received\n{}".format(msg.printable_message()))
 
             # This is an external message, let's check if it's none of my business
             if is_my_last_add_message(msg, self.last_add_message):
@@ -704,6 +703,9 @@ class DeadWriter (ConsumerThread):
                 if is_neutral_message(msg):
                     if int(msg.version) >= int(self.last_seen_version):
                         self.consider_message(msg, origin_message)
+                    else:
+                        self.logger.debug("this message will never be forwarded due to lower "
+                                          "last seen version:\n"+msg.printable_message())
                 else:
                     # if msg_variable_version_check(msg, self.last_seen_version):
                     #     self.consider_message(msg, origin_message, test="v")

@@ -206,6 +206,7 @@ class DeadReader(ProducerThread):
 
                     self.logger.debug("my master {} is dead".format(self.master.id))
                     self.change_master()
+                    self.master_of_master = None
 
                     # This is the part when i connect to another publisher
                     self.external_channel.close()
