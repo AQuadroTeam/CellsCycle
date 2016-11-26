@@ -1,5 +1,5 @@
 #! /usr/bin/env python
-from CellCycle.AWS.AWSlib import startInstanceAWS, stopThisInstanceAWS
+from CellCycle.AWS.AWSlib import startInstanceAWS, terminateThisInstanceAWS
 from CellCycle.ChainModule.MemoryObject import MemoryObject
 from CellCycle.ChainModule.Message import InformationMessage
 from CellCycle.KeyCalcManager import keyCalcToCreateANewNode
@@ -429,7 +429,10 @@ class DeadWriter (ConsumerThread):
         string_message = dumps(msg_to_send)
         # Sleep for 100ms
         time.sleep(0.1)
+        self.logger.debug("sending DEAD message")
         self.external_channel.forward(string_message)
+        self.logger.debug("DEAD message sent")
+
         self.last_dead_message = msg_to_send
 
         self.last_dead_node = self.slave
@@ -643,7 +646,7 @@ class DeadWriter (ConsumerThread):
                 startInstanceAWS(self.settings, self.logger, create_specific_instance_parameters(specific_parameters))
                 self.logger.debug("ADD CYCLE completed")
             elif is_my_last_add_message(msg, self.last_scale_down_message):
-                stopThisInstanceAWS(settings=self.settings, logger=self.logger)
+                terminateThisInstanceAWS(settings=self.settings, logger=self.logger)
             elif is_my_last_added_message(msg, self.last_added_message):
                 # The cycle is over
                 self.last_added_message = ''
