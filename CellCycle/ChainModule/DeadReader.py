@@ -199,8 +199,7 @@ class DeadReader(ProducerThread):
                                     self.master_of_master.print_values()))
                         elif is_dead_message(message):
                             if float(message.target_id) == float(self.master_of_master.id):
-                                self.master_of_master = self.writer_instance.get_new_master_of_master(
-                                    self.master_of_master.id)
+                                self.master_of_master = self.writer_instance.get_new_master_of_master()
 
                                 self.logger.debug("changed master_of_master to\n{}".format(
                                     self.master_of_master.print_values()))
