@@ -69,6 +69,9 @@ class DeadWriter (ConsumerThread):
     def get_list(self):
         return self.node_list
 
+    def get_new_master_of_master(self, id_to_change):
+        return self.node_list.get_value(id_to_change).master
+
     def logger_debug(self, msg):
         return self.logger.debug(msg)
 
