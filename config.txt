@@ -23,6 +23,6 @@ StartFileRelativePath startOnBoot.py
 IntPort 5557
 ExtPort 5558
 MinInstance 5
-MaxInstance 14
+MaxInstance 9
 MemoryObjectPort 5559
 AwsProfileName alessandro_fazio
