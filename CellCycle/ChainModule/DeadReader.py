@@ -197,8 +197,18 @@ class DeadReader(ProducerThread):
 
                                 self.logger.debug("added node as new master_of_master\n{}".format(
                                     self.master_of_master.print_values()))
+                        elif is_dead_message(message):
+                            if float(message.target_id) == float(self.master_of_master.id):
+                                # This is the part when i connect to another publisher
 
-                            self.logger.debug(new_node_added(message.target_id))
+                                min_max_key = Node.to_min_max_key_obj(message.target_key)
+                                self.master_of_master = Node(node_id=message.target_id, ip=message.target_addr,
+                                                             min_key=min_max_key.min_key, max_key=min_max_key.max_key,
+                                                             int_port=self.settings.getIntPort(),
+                                                             ext_port=self.settings.getExtPort())
+
+                                self.logger.debug("changed master_of_master to\n{}".format(
+                                    self.master_of_master.print_values()))
 
                         self.produce(origin_message)
 
