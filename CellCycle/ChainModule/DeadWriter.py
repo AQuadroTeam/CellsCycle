@@ -432,7 +432,17 @@ class DeadWriter (ConsumerThread):
         # else:
         self.version = int(self.last_seen_version) + 1
         # generate a new channel to the slave_of_slave
-        self.internal_channel.resync(msg=dumps(self.master))
+        # can't use this function, i have to prevent scale up / down messages
+        # self.internal_channel.resync(msg=dumps(self.master))
+
+        dead_sync_msg = loads(self.internal_channel.wait_int_message(dont_wait=False))
+        while not (is_alive_message(dead_sync_msg) and (float(dead_sync_msg.target_id) == float(self.slave_of_slave.id))):
+            self.logger.debug("Message not for this moment\n{}".format(dead_sync_msg.printable_message()))
+            self.internal_channel.reply_to_int_message(msg=NOK)
+            dead_sync_msg = loads(self.internal_channel.wait_int_message(dont_wait=False))
+
+        self.internal_channel.reply_to_int_message(msg=OK)
+        time.sleep(1)
 
         msg_to_send = to_external_message(self.version, dead_message)
         string_message = dumps(msg_to_send)
