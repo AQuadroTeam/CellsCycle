@@ -481,13 +481,33 @@ class DeadWriter (ConsumerThread):
                 import traceback
                 self.logger.error(traceback.format_exc())
         if is_restore_message(msg):
-            self.consider_restore_message(msg, origin_message)
+            try:
+                self.consider_restore_message(msg, origin_message)
+            except Exception as e:
+                self.logger.error(str(e))
+                import traceback
+                self.logger.error(traceback.format_exc())
         elif is_add_message(msg):
-            self.consider_add_message(msg, origin_message)
+            try:
+                self.consider_add_message(msg, origin_message)
+            except Exception as e:
+                self.logger.error(str(e))
+                import traceback
+                self.logger.error(traceback.format_exc())
         elif is_added_message(msg):
-            self.consider_added_message(msg, origin_message)
+            try:
+                self.consider_added_message(msg, origin_message)
+            except Exception as e:
+                self.logger.error(str(e))
+                import traceback
+                self.logger.error(traceback.format_exc())
         elif is_restored_message(msg):
-            self.consider_restored_message(msg, origin_message)
+            try:
+                self.consider_restored_message(msg, origin_message)
+            except Exception as e:
+                self.logger.error(str(e))
+                import traceback
+                self.logger.error(traceback.format_exc())
 
     def analyze_message(self, msg):
         # Message from another process or a new node
