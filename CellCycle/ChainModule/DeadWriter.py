@@ -341,7 +341,7 @@ class DeadWriter (ConsumerThread):
             self.first_boot_new_master_request()
 
         first_received_msg = loads(self.internal_channel.wait_int_message(dont_wait=False))
-        while not (is_alive_message(first_received_msg) and (float(first_received_msg.target_id) == float(self.master.id))):
+        while not (is_alive_message(first_received_msg) and (float(first_received_msg.target_id) == float(self.slave.id))):
             self.logger.debug("Message not for this moment\n{}".format(first_received_msg.printable_message()))
             self.internal_channel.reply_to_int_message(msg=NOK)
             first_received_msg = loads(self.internal_channel.wait_int_message(dont_wait=False))
