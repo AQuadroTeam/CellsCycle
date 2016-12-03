@@ -119,6 +119,8 @@ class DeadReader(ProducerThread):
                                                target_master_id=self.master.id)))
 
             rep_msg = self.internal_channel.wait_int_message(dont_wait=False)
+            self.logger.debug("received rep_msg")
+
             if self.master_of_master is None:
                 if not (rep_msg == NOK or rep_msg == DIE):
                     rep_msg = loads(rep_msg)

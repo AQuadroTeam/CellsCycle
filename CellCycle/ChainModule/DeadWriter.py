@@ -441,7 +441,8 @@ class DeadWriter (ConsumerThread):
             self.internal_channel.reply_to_int_message(msg=NOK)
             dead_sync_msg = loads(self.internal_channel.wait_int_message(dont_wait=False))
 
-        self.internal_channel.reply_to_int_message(msg=OK)
+        self.logger.debug("This is the right message\n{}".format(dead_sync_msg.printable_message()))
+        self.internal_channel.reply_to_int_message(msg=dumps(self.master))
         time.sleep(1)
 
         msg_to_send = to_external_message(self.version, dead_message)
