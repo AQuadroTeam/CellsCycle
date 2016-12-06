@@ -186,8 +186,10 @@ class DeadWriter (ConsumerThread):
             self.last_seen_priority = '0'
             self.last_seen_random = '0'
         self.deads.remove_from_list(msg.target_id)
-        self.logger.debug("forwarding this RESTORED message\n{}\nThis is my new list\n{}".
-                          format(msg.printable_message(), self.node_list.print_list()))
+        temp_m = MemoryObject(self.master_of_master, self.master, self.myself,
+                              self.slave, self.slave_of_slave).print_elements()
+        self.logger.debug("forwarding this RESTORED message\n{}\nThis is my new list\n{}\nThese are my relatives\n{}".
+                          format(msg.printable_message(), self.node_list.print_list(), temp_m))
 
     def consider_restore_message(self, msg, origin_message):
         dead_to_check = self.deads.get_value(msg.target_id)
@@ -279,7 +281,13 @@ class DeadWriter (ConsumerThread):
         self.change_parents_from_list()
 
         self.forward_message(origin_message)
-        self.logger.debug("forwarding this DEAD message\n{}".format(msg.printable_message()))
+        temp_m = MemoryObject(self.master_of_master, self.master, self.myself,
+                              self.slave, self.slave_of_slave).print_elements()
+        self.logger.debug("forwarding this DEAD message\n{}\n"
+                          "This is my list\n{}"
+                          "\nThese are my relatives\n{}".format(msg.printable_message(),
+                                                                self.node_list.print_values(),
+                                                                temp_m))
 
     def consider_added_message(self, msg, origin_message):
         self.logger.debug("my version is {}, uuu we have a new NODE\n{}".
@@ -313,8 +321,10 @@ class DeadWriter (ConsumerThread):
         self.change_master_to(target_node=target_slave, target_master=target_id)
         # Update the slave node, the new master of target_master is target_id
         self.change_slave_to(target_node=target_master, target_slave=target_id)
-
-        self.logger.debug("this is my new list\n{}".format(self.node_list.print_list()))
+        temp_m = MemoryObject(self.master_of_master, self.master, self.myself,
+                              self.slave, self.slave_of_slave).print_elements()
+        self.logger.debug("this is my new list\n{}\nThese are my relatives\n{}".format(
+            self.node_list.print_list(), temp_m))
 
         if relatives_check or r_of_r_check:
             # TODO is this really SAFE ? Allow old added messages? you can remove the below if
@@ -703,7 +713,10 @@ class DeadWriter (ConsumerThread):
                 if not self.transition_table.get_current_state().can_scale_up():
                     self.transition_table.change_state("added_or_pa")
                 self.logger.debug("the cycle is over, now i am able to accept scale up requests")
-                self.logger.debug("ADDED CYCLE completed, this is my list\n{}".format(self.node_list.print_list()))
+                temp_m = MemoryObject(self.master_of_master, self.master, self.myself,
+                                      self.slave, self.slave_of_slave).print_elements()
+                self.logger.debug("ADDED CYCLE completed, this is my list\n{}"
+                                  "These are my relatives\n{}".format(self.node_list.print_list(), temp_m))
             elif is_my_last_dead_message(msg, self.last_dead_message):
                 # The cycle is over
                 restore_message = self.make_restore_node_msg(target_id=msg.target_id,
@@ -743,8 +756,10 @@ class DeadWriter (ConsumerThread):
                 self.last_dead_node = None
                 self.transition_table.change_state("restored_or_pa")
                 self.last_restored_message = ''
+                temp_m = MemoryObject(self.master_of_master, self.master, self.myself,
+                                      self.slave, self.slave_of_slave).print_elements()
                 self.logger.debug("RESTORED CYCLE completed, now i am able to receive scale up requests, "
-                                  "this is my list\n{}".format(self.node_list.print_list()))
+                                  "this is my list\n{}These are my relatives\n{}".format(self.node_list.print_list(), temp_m))
             else:
                 if is_neutral_message(msg):
                     if int(msg.version) >= int(self.last_seen_version):
