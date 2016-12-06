@@ -286,7 +286,7 @@ class DeadWriter (ConsumerThread):
         self.logger.debug("forwarding this DEAD message\n{}\n"
                           "This is my list\n{}"
                           "\nThese are my relatives\n{}".format(msg.printable_message(),
-                                                                self.node_list.print_values(),
+                                                                self.node_list.print_list(),
                                                                 temp_m))
 
     def consider_added_message(self, msg, origin_message):
