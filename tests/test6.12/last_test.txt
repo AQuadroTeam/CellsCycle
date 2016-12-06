@@ -1,0 +1,1168 @@
+2016-12-06 18:33:22,972 MainThread MainProcess DEBUG: Starting with params: {u'master': {u'ip': u'172.31.20.5', u'min_key': u'3435973836', u'id': u'5', u'max_key': u'4294967294'}, u'myself': {u'ip': None, u'min_key': u'3865470566', u'id': u'7.0', u'max_key': u'4294967294'}, u'master_of_master': {u'ip': u'172.31.20.4', u'min_key': u'2576980377', u'id': u'4', u'max_key': u'3435973835'}, u'slave': {u'ip': u'172.31.20.1', u'min_key': u'0', u'id': u'1', u'max_key': u'858993458'}, u'slave_of_slave': {u'ip': u'172.31.20.2', u'min_key': u'858993459', u'id': u'2', u'max_key': u'1717986917'}}
+2016-12-06 18:33:22,976 MainThread MainProcess DEBUG: These are my features: (Writer 7.0) Master ID : 5 , SlaveID: 1, IntPort 5557, ExtPort 5558, IP 172.31.16.209
+2016-12-06 18:33:22,976 MainThread python-CCMemoryMaster DEBUG: Cache: Initializing cache with totalSize:200.0MB, slabSize:0.1MB
+2016-12-06 18:33:22,977 MainThread MainProcess DEBUG: These are my features: (Reader 7.0) Master ID : 5 , SlaveID: 1, IntPort 5557, ExtPort 5558, IP 172.31.16.209
+2016-12-06 18:33:22,977 MainThread MainProcess DEBUG: list_manager : <DeadWriter(Writer-7.0, initial)>
+2016-12-06 18:33:22,975 MainThread python-CCMemorySlave DEBUG: Cache: Initializing cache with totalSize:200.0MB, slabSize:0.1MB
+2016-12-06 18:33:22,982 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-12-06 18:33:22,988 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-12-06 18:33:22,991 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-12-06 18:33:22,991 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-12-06 18:33:22,995 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-12-06 18:33:22,999 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-12-06 18:33:22,999 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-12-06 18:33:23,003 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-12-06 18:33:23,008 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-12-06 18:33:23,008 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-12-06 18:33:23,011 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-12-06 18:33:23,015 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-12-06 18:33:23,016 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-12-06 18:33:23,019 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-12-06 18:33:23,023 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-12-06 18:33:23,024 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-12-06 18:33:23,027 ServiceEntrypointRouterThread MainProcess DEBUG: Interface receiver is started
+2016-12-06 18:33:23,027 Reader-7.0 MainProcess DEBUG: Starting Reader 7.0
+2016-12-06 18:33:23,027 Reader-7.0 MainProcess DEBUG: new birth sync init
+2016-12-06 18:33:23,028 Reader-7.0 MainProcess DEBUG: hello everyone! this is my situation
+Node myself, id 7.0, keys 3865470566:4294967294
+Node master, id 5, keys 3435973836:4294967294
+Node master_of_master, id 4, keys 2576980377:3435973835
+Node slave, id 1, keys 0:858993458
+Node slave_of_slave, id 2, keys 858993459:1717986917
+
+new start request is coming!!!
+2016-12-06 18:33:23,028 Reader-7.0 MainProcess DEBUG: new internal channel server created with destination tcp://*:5559
+2016-12-06 18:33:23,028 Reader-7.0 MainProcess DEBUG: waiting for a request
+2016-12-06 18:33:23,031 Writer-7.0 MainProcess DEBUG: Starting Writer 7.0
+2016-12-06 18:33:23,032 Writer-7.0 MainProcess DEBUG: new internal channel server created with destination tcp://*:5557
+2016-12-06 18:33:23,032 Writer-7.0 MainProcess DEBUG: waiting for a request
+2016-12-06 18:33:23,184 MainThread python-CCMemorySlave DEBUG: Cache: End of Initialization Cache, Success!
+2016-12-06 18:33:23,184 MainThread python-CCMemorySlave DEBUG: Memory Process initialized:200000000B, get# = 1
+2016-12-06 18:33:23,185 MainThread python-CCMemoryMaster DEBUG: Cache: End of Initialization Cache, Success!
+2016-12-06 18:33:23,185 MainThread python-CCMemoryMaster DEBUG: Memory Process initialized:200000000B, get# = 1
+2016-12-06 18:33:23,185 MemoryGetProxy python-CCMemorySlave DEBUG: Routing from tcp://*:5553 to inproc://get_memoryslave
+2016-12-06 18:33:23,186 MemoryGetProxy python-CCMemoryMaster DEBUG: Routing from tcp://*:5551 to inproc://get_memorymaster
+2016-12-06 18:33:23,187 MemoryGetter python-CCMemorySlave DEBUG: Listening in new task for get on inproc://get_memoryslave
+2016-12-06 18:33:23,187 MemoryGetter python-CCMemoryMaster DEBUG: Listening in new task for get on inproc://get_memorymaster
+2016-12-06 18:33:23,187 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Metricator alive, period: 10s, getThrLevel: [1e-05,0.06], setThrLevel: [1e-06,0.5]
+2016-12-06 18:33:23,188 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: new internal channel client created with destination tcp://127.0.0.1:5557
+2016-12-06 18:33:23,188 MainThread python-CCMemorySlave DEBUG: Listening in new task for set on tcp://*:5552
+2016-12-06 18:33:23,188 MainThread python-CCMemorySlave DEBUG: new internal channel client created with destination tcp://127.0.0.1:5559
+2016-12-06 18:33:23,188 MainThread python-CCMemorySlave DEBUG: new internal channel client created with destination tcp://127.0.0.1:5557
+2016-12-06 18:33:23,189 MainThread python-CCMemoryMaster DEBUG: Listening in new task for set on tcp://*:5550
+2016-12-06 18:33:23,189 MainThread python-CCMemoryMaster DEBUG: new internal channel client created with destination tcp://127.0.0.1:5559
+2016-12-06 18:33:23,189 MainThread python-CCMemoryMaster DEBUG: new internal channel client created with destination tcp://127.0.0.1:5557
+2016-12-06 18:33:23,189 MemorySlaveSetter python-CCMemoryMaster DEBUG: cannot send to slave, net info: None
+2016-12-06 18:33:23,344 MainThread python-CCMemoryMaster DEBUG: This is the ip of the vm: 
+master_of_master 172.31.20.4
+master 172.31.20.5
+myself 172.31.16.209
+slave 172.31.20.1
+slave_of_slave172.31.20.2
+2016-12-06 18:33:23,344 MainThread python-CCMemoryMaster DEBUG: Memory needs to be configured, first bootup of this memory node, new info: Node myself, id 7.0, keys 3865470566:4294967294
+Node master, id 5, keys 3435973836:4294967294
+Node master_of_master, id 4, keys 2576980377:3435973835
+Node slave, id 1, keys 0:858993458
+Node slave_of_slave, id 2, keys 858993459:1717986917
+
+2016-12-06 18:33:24,190 MemorySlaveSetter python-CCMemoryMaster DEBUG: Finally I'm configured
+2016-12-06 18:33:24,528 MainThread python-CCMemoryMaster DEBUG: I'm communicating that transfer is completed
+2016-12-06 18:33:24,529 MainThread python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5559
+2016-12-06 18:33:24,664 Reader-7.0 MainProcess DEBUG: sending message to tcp://*:5559
+2016-12-06 18:33:24,667 MainThread python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-06 18:33:24,667 MainThread python-CCMemoryMaster WARNING: new master state recovery: DONE
+2016-12-06 18:33:24,669 Reader-7.0 MainProcess DEBUG: new internal channel client created with destination tcp://172.31.20.5:5557
+2016-12-06 18:33:24,669 Reader-7.0 MainProcess DEBUG: sending message to tcp://172.31.20.5:5557
+2016-12-06 18:33:24,672 Reader-7.0 MainProcess DEBUG: waiting for a request
+2016-12-06 18:33:24,674 Reader-7.0 MainProcess DEBUG: received the new list
+Node 3, Node : myself 3, master 2, slave 4
+Keys : master 858993459:1717986917, myself 1717986918:2576980376, slave 2576980377:3435973835
+Node 1, Node : myself 1, master 7.0, slave 2
+Keys : master 3865470566:4294967294, myself 0:858993458, slave 858993459:1717986917
+Node 7.0, Node : myself 7.0, master 5, slave 1
+Keys : master 3435973836:3865470565, myself 3865470566:4294967294, slave 0:858993458
+Node 2, Node : myself 2, master 1, slave 3
+Keys : master 0:858993458, myself 858993459:1717986917, slave 1717986918:2576980376
+Node 5, Node : myself 5, master 4, slave 7.0
+Keys : master 2576980377:3435973835, myself 3435973836:3865470565, slave 3865470566:4294967294
+Node 4, Node : myself 4, master 3, slave 5
+Keys : master 1717986918:2576980376, myself 2576980377:3435973835, slave 3435973836:3865470565
+
+2016-12-06 18:33:24,674 Reader-7.0 MainProcess DEBUG: new accepted by master 5
+2016-12-06 18:33:24,674 Reader-7.0 MainProcess DEBUG: Generating client connection point tcp://172.31.20.5:5558
+2016-12-06 18:33:24,674 Reader-7.0 MainProcess DEBUG: new birth sync completed
+2016-12-06 18:33:24,689 Writer-7.0 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-06 18:33:24,690 Writer-7.0 MainProcess DEBUG: Generating server connection point tcp://172.31.16.209:5558
+2016-12-06 18:33:25,691 Writer-7.0 MainProcess DEBUG: this is my list
+Node 3, Node : myself 3, master 2, slave 4
+Keys : master 858993459:1717986917, myself 1717986918:2576980376, slave 2576980377:3435973835
+Node 1, Node : myself 1, master 7.0, slave 2
+Keys : master 3865470566:4294967294, myself 0:858993458, slave 858993459:1717986917
+Node 7.0, Node : myself 7.0, master 5, slave 1
+Keys : master 3435973836:3865470565, myself 3865470566:4294967294, slave 0:858993458
+Node 2, Node : myself 2, master 1, slave 3
+Keys : master 0:858993458, myself 858993459:1717986917, slave 1717986918:2576980376
+Node 5, Node : myself 5, master 4, slave 7.0
+Keys : master 2576980377:3435973835, myself 3435973836:3865470565, slave 3865470566:4294967294
+Node 4, Node : myself 4, master 3, slave 5
+Keys : master 1717986918:2576980376, myself 2576980377:3435973835, slave 3435973836:3865470565
+
+2016-12-06 18:33:25,691 Writer-7.0 MainProcess DEBUG: Send that i'm ALIVE (7.0) to 1
+2016-12-06 18:33:26,624 Writer-7.0 MainProcess DEBUG: this message from 2 can be forwarded due to higher version than 1
+target_addr: 
+target_key: 3650722201:3865470565
+random: 2234
+target_id: 6.0
+priority: 1
+version: 2
+source_id: 5
+source_flag: 1
+target_relative_id: 7.0
+
+2016-12-06 18:33:26,624 Writer-7.0 MainProcess DEBUG: I am in state BusyAddPS
+2016-12-06 18:33:26,624 Writer-7.0 MainProcess DEBUG: forwarding ADD message
+target_addr: 
+target_key: 3650722201:3865470565
+random: 2234
+target_id: 6.0
+priority: 1
+version: 2
+source_id: 5
+source_flag: 1
+target_relative_id: 7.0
+
+2016-12-06 18:33:32,780 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0572920197541, getters (mean): 0.024108278477
+2016-12-06 18:33:43,272 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00834445415187, getters (mean): 0.0278627802163
+2016-12-06 18:33:53,572 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00867640426363, getters (mean): 0.0285113189742
+2016-12-06 18:34:02,743 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00815828837792, getters (mean): 0.028307532975
+2016-12-06 18:34:10,460 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00740750467507, getters (mean): 0.024095403546
+2016-12-06 18:34:13,859 Reader-7.0 MainProcess DEBUG: added node as new master
+min_key, 3650722201
+ip, 172.31.29.64
+int_addr, 172.31.29.64:5557
+ext_port, 5558
+ext_addr, 172.31.29.64:5558
+max_key, 3865470565
+id, 6.0
+memory_port, 
+int_port, 5557
+
+2016-12-06 18:34:13,859 Reader-7.0 MainProcess DEBUG: Closing socket with tcp://172.31.20.5:5558
+2016-12-06 18:34:13,859 Reader-7.0 MainProcess DEBUG: Closing socket with tcp://172.31.20.5:5557
+2016-12-06 18:34:13,859 Reader-7.0 MainProcess DEBUG: my IP is not none : 172.31.16.209
+2016-12-06 18:34:13,859 Reader-7.0 MainProcess DEBUG: sync init
+2016-12-06 18:34:13,860 Reader-7.0 MainProcess DEBUG: new internal channel client created with destination tcp://172.31.29.64:5557
+2016-12-06 18:34:13,860 Reader-7.0 MainProcess DEBUG: sending message to tcp://172.31.29.64:5557
+2016-12-06 18:34:13,860 Writer-7.0 MainProcess DEBUG: my version is 3, uuu we have a new NODE
+target_addr: 172.31.29.64
+target_key: 3650722201:3865470565
+random: 9554
+target_id: 6.0
+priority: 2
+version: 3
+source_id: 5
+source_flag: 1
+target_relative_id: 7.0
+
+2016-12-06 18:34:13,860 Writer-7.0 MainProcess DEBUG: i'm 7.0, these are my nodes to compute keys
+Node myself, id 5, keys 3435973836:3865470565
+Node master, id 4, keys 2576980377:3435973835
+Node master_of_master, id 3, keys 1717986918:2576980376
+Node slave, id 7.0, keys 3865470566:4294967294
+Node slave_of_slave, id 1, keys 0:858993458
+
+2016-12-06 18:34:13,860 Writer-7.0 MainProcess DEBUG: i'm 7.0, these are my computed keys
+myself, (3435973836,3650722200)
+slave, (3865470566,4294967294)
+master, (2576980377,3435973835)
+slave_of_slave, (0,858993458)
+newNode, (3650722201,3865470565)
+master_of_master, (1717986918,2576980376)
+
+2016-12-06 18:34:13,860 Writer-7.0 MainProcess DEBUG: i'm 7.0
+2016-12-06 18:34:13,860 Writer-7.0 MainProcess DEBUG: adding this node in list, id: 5, master: 4, slave: 7.0
+2016-12-06 18:34:13,861 Writer-7.0 MainProcess DEBUG: adding this node in list, id: 4, master: 3, slave: 5
+2016-12-06 18:34:13,861 Writer-7.0 MainProcess DEBUG: adding this node in list, id: 7.0, master: 5, slave: 1
+2016-12-06 18:34:13,861 Writer-7.0 MainProcess DEBUG: adding this node in list, id: 3, master: 2, slave: 4
+2016-12-06 18:34:13,861 Writer-7.0 MainProcess DEBUG: adding this node in list, id: 1, master: 7.0, slave: 2
+2016-12-06 18:34:13,861 Writer-7.0 MainProcess DEBUG: adding this node in list
+min_key, 3650722201
+ip, 172.31.29.64
+int_addr, 172.31.29.64:5557
+ext_port, 5558
+ext_addr, 172.31.29.64:5558
+max_key, 3865470565
+id, 6.0
+memory_port, 
+int_port, 5557
+
+2016-12-06 18:34:13,861 Writer-7.0 MainProcess DEBUG: this is my new list
+Node 3, Node : myself 3, master 2, slave 4
+Keys : master 858993459:1717986917, myself 1717986918:2576980376, slave 2576980377:3435973835
+Node 1, Node : myself 1, master 7.0, slave 2
+Keys : master 3865470566:4294967294, myself 0:858993458, slave 858993459:1717986917
+Node 7.0, Node : myself 7.0, master 6.0, slave 1
+Keys : master 3650722201:3865470565, myself 3865470566:4294967294, slave 0:858993458
+Node 2, Node : myself 2, master 1, slave 3
+Keys : master 0:858993458, myself 858993459:1717986917, slave 1717986918:2576980376
+Node 5, Node : myself 5, master 4, slave 6.0
+Keys : master 2576980377:3435973835, myself 3435973836:3650722200, slave 3650722201:3865470565
+Node 4, Node : myself 4, master 3, slave 5
+Keys : master 1717986918:2576980376, myself 2576980377:3435973835, slave 3435973836:3650722200
+Node 6.0, Node : myself 6.0, master 5, slave 7.0
+Keys : master 3435973836:3650722200, myself 3650722201:3865470565, slave 3865470566:4294967294
+
+These are my relatives
+Node myself, id 7.0, keys 3865470566:4294967294
+Node master, id 5, keys 3435973836:4294967294
+Node master_of_master, id 4, keys 2576980377:3435973835
+Node slave, id 1, keys 0:858993458
+Node slave_of_slave, id 2, keys 858993459:1717986917
+
+2016-12-06 18:34:13,861 Writer-7.0 MainProcess DEBUG: I am in state Free
+2016-12-06 18:34:13,861 Writer-7.0 MainProcess DEBUG: welcome new relative! now i am able to receive new scale ups, relatives:
+5, 6.0, 7.0, 1, 2
+2016-12-06 18:34:13,861 Writer-7.0 MainProcess DEBUG: forwarding this ADDED message
+target_addr: 172.31.29.64
+target_key: 3650722201:3865470565
+random: 9554
+target_id: 6.0
+priority: 2
+version: 3
+source_id: 5
+source_flag: 1
+target_relative_id: 7.0
+
+2016-12-06 18:34:13,863 Reader-7.0 MainProcess DEBUG: waiting for a request
+2016-12-06 18:34:13,863 Reader-7.0 MainProcess DEBUG: received rep_msg
+2016-12-06 18:34:13,863 Reader-7.0 MainProcess DEBUG: accepted by master 6.0, achieved new master_of_master id 5
+2016-12-06 18:34:13,863 Reader-7.0 MainProcess DEBUG: Generating client connection point tcp://172.31.29.64:5558
+2016-12-06 18:34:13,864 Reader-7.0 MainProcess DEBUG: sync completed
+2016-12-06 18:34:16,368 Writer-7.0 MainProcess DEBUG: this message from 3 can be forwarded due to higher version than 2
+target_addr: 
+target_key: 1288490189:1717986917
+random: 2184
+target_id: 2.5
+priority: 1
+version: 3
+source_id: 2
+source_flag: 1
+target_relative_id: 3
+
+2016-12-06 18:34:16,368 Writer-7.0 MainProcess DEBUG: I am in state BusyAddPS
+2016-12-06 18:34:16,368 Writer-7.0 MainProcess DEBUG: forwarding ADD message
+target_addr: 
+target_key: 1288490189:1717986917
+random: 2184
+target_id: 2.5
+priority: 1
+version: 3
+source_id: 2
+source_flag: 1
+target_relative_id: 3
+
+2016-12-06 18:34:19,152 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00746302187088, getters (mean): 0.0270530130696
+2016-12-06 18:34:28,878 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00810229531452, getters (mean): 0.0285716701926
+2016-12-06 18:34:38,540 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.008248918259, getters (mean): 0.0291075728252
+2016-12-06 18:34:46,835 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00776432760931, getters (mean): 0.0267710306663
+2016-12-06 18:34:54,828 Writer-7.0 MainProcess DEBUG: my version is 4, uuu we have a new NODE
+target_addr: 172.31.23.31
+target_key: 1288490189:1717986917
+random: 5152
+target_id: 2.5
+priority: 2
+version: 4
+source_id: 2
+source_flag: 1
+target_relative_id: 3
+
+2016-12-06 18:34:54,828 Writer-7.0 MainProcess DEBUG: i'm 7.0, these are my nodes to compute keys
+Node myself, id 2, keys 858993459:1717986917
+Node master, id 1, keys 0:858993458
+Node master_of_master, id 7.0, keys 3865470566:4294967294
+Node slave, id 3, keys 1717986918:2576980376
+Node slave_of_slave, id 4, keys 2576980377:3435973835
+
+2016-12-06 18:34:54,828 Writer-7.0 MainProcess DEBUG: i'm 7.0, these are my computed keys
+myself, (858993459,1288490188)
+slave, (1717986918,2576980376)
+master, (0,858993458)
+slave_of_slave, (2576980377,3435973835)
+newNode, (1288490189,1717986917)
+master_of_master, (3865470566,4294967294)
+
+2016-12-06 18:34:54,828 Writer-7.0 MainProcess DEBUG: i'm 7.0
+2016-12-06 18:34:54,828 Writer-7.0 MainProcess DEBUG: adding this node in list, id: 2, master: 1, slave: 3
+2016-12-06 18:34:54,828 Writer-7.0 MainProcess DEBUG: adding this node in list, id: 1, master: 7.0, slave: 2
+2016-12-06 18:34:54,829 Writer-7.0 MainProcess DEBUG: adding this node in list, id: 3, master: 2, slave: 4
+2016-12-06 18:34:54,829 Writer-7.0 MainProcess DEBUG: adding this node in list, id: 7.0, master: 6.0, slave: 1
+2016-12-06 18:34:54,829 Writer-7.0 MainProcess DEBUG: adding this node in list, id: 4, master: 3, slave: 5
+2016-12-06 18:34:54,829 Writer-7.0 MainProcess DEBUG: adding this node in list
+min_key, 1288490189
+ip, 172.31.23.31
+int_addr, 172.31.23.31:5557
+ext_port, 5558
+ext_addr, 172.31.23.31:5558
+max_key, 1717986917
+id, 2.5
+memory_port, 
+int_port, 5557
+
+2016-12-06 18:34:54,829 Writer-7.0 MainProcess DEBUG: this is my new list
+Node 3, Node : myself 3, master 2.5, slave 4
+Keys : master 1288490189:1717986917, myself 1717986918:2576980376, slave 2576980377:3435973835
+Node 1, Node : myself 1, master 7.0, slave 2
+Keys : master 3865470566:4294967294, myself 0:858993458, slave 858993459:1288490188
+Node 7.0, Node : myself 7.0, master 6.0, slave 1
+Keys : master 3650722201:3865470565, myself 3865470566:4294967294, slave 0:858993458
+Node 2, Node : myself 2, master 1, slave 2.5
+Keys : master 0:858993458, myself 858993459:1288490188, slave 1288490189:1717986917
+Node 5, Node : myself 5, master 4, slave 6.0
+Keys : master 2576980377:3435973835, myself 3435973836:3650722200, slave 3650722201:3865470565
+Node 4, Node : myself 4, master 3, slave 5
+Keys : master 1717986918:2576980376, myself 2576980377:3435973835, slave 3435973836:3650722200
+Node 6.0, Node : myself 6.0, master 5, slave 7.0
+Keys : master 3435973836:3650722200, myself 3650722201:3865470565, slave 3865470566:4294967294
+Node 2.5, Node : myself 2.5, master 2, slave 3
+Keys : master 858993459:1288490188, myself 1288490189:1717986917, slave 1717986918:2576980376
+
+These are my relatives
+Node myself, id 7.0, keys 3865470566:4294967294
+Node master, id 6.0, keys 3650722201:3865470565
+Node master_of_master, id 5, keys 3435973836:3650722200
+Node slave, id 1, keys 0:858993458
+Node slave_of_slave, id 2, keys 858993459:1288490188
+
+2016-12-06 18:34:54,829 Writer-7.0 MainProcess DEBUG: I am in state Free
+2016-12-06 18:34:54,830 Writer-7.0 MainProcess DEBUG: welcome new relative! now i am able to receive new scale ups, relatives:
+5, 6.0, 7.0, 1, 2
+2016-12-06 18:34:54,830 Writer-7.0 MainProcess DEBUG: forwarding this ADDED message
+target_addr: 172.31.23.31
+target_key: 1288490189:1717986917
+random: 5152
+target_id: 2.5
+priority: 2
+version: 4
+source_id: 2
+source_flag: 1
+target_relative_id: 3
+
+2016-12-06 18:34:55,839 Writer-7.0 MainProcess DEBUG: this message from 4 can be forwarded due to higher version than 3
+target_addr: 
+target_key: 429496730:858993458
+random: 5003
+target_id: 1.5
+priority: 1
+version: 4
+source_id: 1
+source_flag: 1
+target_relative_id: 2
+
+2016-12-06 18:34:55,840 Writer-7.0 MainProcess DEBUG: I am in state BusyAddPS
+2016-12-06 18:34:55,840 Writer-7.0 MainProcess DEBUG: forwarding ADD message
+target_addr: 
+target_key: 429496730:858993458
+random: 5003
+target_id: 1.5
+priority: 1
+version: 4
+source_id: 1
+source_flag: 1
+target_relative_id: 2
+
+2016-12-06 18:34:56,355 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0082003910713, getters (mean): 0.0280742118195
+2016-12-06 18:35:06,508 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00860933357663, getters (mean): 0.029629302073
+2016-12-06 18:35:16,792 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00925174809758, getters (mean): 0.0289120631951
+2016-12-06 18:35:27,231 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00818735076986, getters (mean): 0.030730092735
+2016-12-06 18:35:38,340 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00893788731695, getters (mean): 0.0314096316297
+2016-12-06 18:35:46,569 Writer-7.0 MainProcess DEBUG: my version is 5, uuu we have a new NODE
+target_addr: 172.31.23.164
+target_key: 429496730:858993458
+random: 5309
+target_id: 1.5
+priority: 2
+version: 5
+source_id: 1
+source_flag: 1
+target_relative_id: 2
+
+2016-12-06 18:35:46,570 Writer-7.0 MainProcess DEBUG: i'm 7.0, these are my nodes to compute keys
+Node myself, id 1, keys 0:858993458
+Node master, id 7.0, keys 3865470566:4294967294
+Node master_of_master, id 6.0, keys 3650722201:3865470565
+Node slave, id 2, keys 858993459:1288490188
+Node slave_of_slave, id 2.5, keys 1288490189:1717986917
+
+2016-12-06 18:35:46,570 Writer-7.0 MainProcess DEBUG: i'm 7.0, these are my computed keys
+myself, (0,429496729)
+slave, (858993459,1288490188)
+master, (3865470566,4294967294)
+slave_of_slave, (1288490189,1717986917)
+newNode, (429496730,858993458)
+master_of_master, (3650722201,3865470565)
+
+2016-12-06 18:35:46,570 Writer-7.0 MainProcess DEBUG: i'm 7.0
+2016-12-06 18:35:46,570 Writer-7.0 MainProcess DEBUG: adding this node in list, id: 1, master: 7.0, slave: 2
+2016-12-06 18:35:46,570 Writer-7.0 MainProcess DEBUG: adding this node in list, id: 7.0, master: 6.0, slave: 1
+2016-12-06 18:35:46,570 Writer-7.0 MainProcess DEBUG: adding this node in list, id: 2, master: 1, slave: 2.5
+2016-12-06 18:35:46,570 Writer-7.0 MainProcess DEBUG: adding this node in list, id: 6.0, master: 5, slave: 7.0
+2016-12-06 18:35:46,570 Writer-7.0 MainProcess DEBUG: adding this node in list, id: 2.5, master: 2, slave: 3
+2016-12-06 18:35:46,570 Writer-7.0 MainProcess DEBUG: adding this node in list
+min_key, 429496730
+ip, 172.31.23.164
+int_addr, 172.31.23.164:5557
+ext_port, 5558
+ext_addr, 172.31.23.164:5558
+max_key, 858993458
+id, 1.5
+memory_port, 
+int_port, 5557
+
+2016-12-06 18:35:46,570 Writer-7.0 MainProcess DEBUG: this is my new list
+Node 1.5, Node : myself 1.5, master 1, slave 2
+Keys : master 0:429496729, myself 429496730:858993458, slave 858993459:1288490188
+Node 3, Node : myself 3, master 2.5, slave 4
+Keys : master 1288490189:1717986917, myself 1717986918:2576980376, slave 2576980377:3435973835
+Node 1, Node : myself 1, master 7.0, slave 1.5
+Keys : master 3865470566:4294967294, myself 0:429496729, slave 429496730:858993458
+Node 7.0, Node : myself 7.0, master 6.0, slave 1
+Keys : master 3650722201:3865470565, myself 3865470566:4294967294, slave 0:429496729
+Node 2, Node : myself 2, master 1.5, slave 2.5
+Keys : master 429496730:858993458, myself 858993459:1288490188, slave 1288490189:1717986917
+Node 5, Node : myself 5, master 4, slave 6.0
+Keys : master 2576980377:3435973835, myself 3435973836:3650722200, slave 3650722201:3865470565
+Node 4, Node : myself 4, master 3, slave 5
+Keys : master 1717986918:2576980376, myself 2576980377:3435973835, slave 3435973836:3650722200
+Node 6.0, Node : myself 6.0, master 5, slave 7.0
+Keys : master 3435973836:3650722200, myself 3650722201:3865470565, slave 3865470566:4294967294
+Node 2.5, Node : myself 2.5, master 2, slave 3
+Keys : master 858993459:1288490188, myself 1288490189:1717986917, slave 1717986918:2576980376
+
+These are my relatives
+Node myself, id 7.0, keys 3865470566:4294967294
+Node master, id 6.0, keys 3650722201:3865470565
+Node master_of_master, id 5, keys 3435973836:3650722200
+Node slave, id 1, keys 0:429496729
+Node slave_of_slave, id 2, keys 858993459:1288490188
+
+2016-12-06 18:35:46,570 Writer-7.0 MainProcess DEBUG: I am in state Free
+2016-12-06 18:35:46,570 Writer-7.0 MainProcess DEBUG: welcome new relative! now i am able to receive new scale ups, relatives:
+5, 6.0, 7.0, 1, 1.5
+2016-12-06 18:35:46,570 Writer-7.0 MainProcess DEBUG: forwarding this ADDED message
+target_addr: 172.31.23.164
+target_key: 429496730:858993458
+random: 5309
+target_id: 1.5
+priority: 2
+version: 5
+source_id: 1
+source_flag: 1
+target_relative_id: 2
+
+2016-12-06 18:35:47,420 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0085939154396, getters (mean): 0.0327766773036
+2016-12-06 18:35:56,352 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00949440632612, getters (mean): 0.0323621922601
+2016-12-06 18:36:07,249 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00888937284288, getters (mean): 0.0316470569471
+2016-12-06 18:36:18,016 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00936800448072, getters (mean): 0.033020560274
+2016-12-06 18:36:28,581 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00893216684042, getters (mean): 0.032181211416
+2016-12-06 18:36:40,952 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0102706693489, getters (mean): 0.0344323627153
+2016-12-06 18:36:50,683 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00982256448022, getters (mean): 0.033434567796
+2016-12-06 18:36:59,719 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00924877298249, getters (mean): 0.0347187512492
+2016-12-06 18:37:10,096 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00927582459637, getters (mean): 0.0301204200568
+2016-12-06 18:37:18,635 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00877982348162, getters (mean): 0.0321968575427
+2016-12-06 18:37:29,592 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00956246827329, getters (mean): 0.0341424743708
+2016-12-06 18:37:41,776 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00975770895285, getters (mean): 0.0362978973366
+2016-12-06 18:37:51,752 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0099716108834, getters (mean): 0.0343727831837
+2016-12-06 18:38:01,126 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0102236842798, getters (mean): 0.0353125574397
+2016-12-06 18:38:09,576 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00832035598119, getters (mean): 0.0287751898982
+2016-12-06 18:38:20,608 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00979283433014, getters (mean): 0.0332503645033
+2016-12-06 18:38:30,016 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0114326272115, getters (mean): 0.0383235846905
+2016-12-06 18:38:39,039 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00914275230157, getters (mean): 0.0329690610493
+2016-12-06 18:38:50,012 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00999795053346, getters (mean): 0.0355906291176
+2016-12-06 18:39:00,085 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0102745147882, getters (mean): 0.0334987780109
+2016-12-06 18:39:09,796 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00881622094104, getters (mean): 0.0309262561017
+2016-12-06 18:39:20,464 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0097685791632, getters (mean): 0.0323033255884
+2016-12-06 18:39:31,108 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00883848478164, getters (mean): 0.0323809668452
+2016-12-06 18:39:40,186 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0103611610797, getters (mean): 0.0346466006346
+2016-12-06 18:39:51,216 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00969852208375, getters (mean): 0.0344332972317
+2016-12-06 18:40:00,940 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00858134896918, getters (mean): 0.0330797724192
+2016-12-06 18:40:10,452 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00887210251133, getters (mean): 0.0295457230285
+2016-12-06 18:40:20,713 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0088128761331, getters (mean): 0.031320185345
+2016-12-06 18:40:30,684 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00893323460864, getters (mean): 0.0333051181941
+2016-12-06 18:40:39,176 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0101283731145, getters (mean): 0.0337419877561
+2016-12-06 18:40:49,047 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0106092508855, getters (mean): 0.0357722361256
+2016-12-06 18:40:59,979 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00953908090081, getters (mean): 0.0329410620975
+2016-12-06 18:41:08,987 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0081196340838, getters (mean): 0.0296370211758
+2016-12-06 18:41:19,868 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00911061690884, getters (mean): 0.0328608402443
+2016-12-06 18:41:29,748 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00947192643643, getters (mean): 0.0332281951131
+2016-12-06 18:41:40,111 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00928477217716, getters (mean): 0.0354268606307
+2016-12-06 18:41:50,144 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00995527570988, getters (mean): 0.0360082179354
+2016-12-06 18:41:58,943 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00984427448549, getters (mean): 0.0346254883753
+2016-12-06 18:42:09,216 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00842506915348, getters (mean): 0.0301946612917
+2016-12-06 18:42:19,728 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00829882464392, getters (mean): 0.0292146057174
+2016-12-06 18:42:30,784 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0101211868884, getters (mean): 0.0315930867426
+2016-12-06 18:42:42,551 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00812013169901, getters (mean): 0.0308193998465
+2016-12-06 18:42:52,439 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.000382158693875, getters (mean): 0.00112479825704
+2016-12-06 18:42:53,068 Writer-7.0 MainProcess DEBUG: this message from 5 can be forwarded due to higher version than 4
+target_addr: 
+target_key: 3435973836:3650722200
+random: 6275
+target_id: 5
+priority: 1
+version: 5
+source_id: 5
+source_flag: 1
+target_relative_id: 6.0
+
+2016-12-06 18:42:53,069 Writer-7.0 MainProcess DEBUG: I am in state BusyAddPS
+2016-12-06 18:42:53,069 Writer-7.0 MainProcess DEBUG: forwarding ADD message
+target_addr: 
+target_key: 3435973836:3650722200
+random: 6275
+target_id: 5
+priority: 1
+version: 5
+source_id: 5
+source_flag: 1
+target_relative_id: 6.0
+
+2016-12-06 18:43:03,871 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-06 18:43:03,871 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-06 18:43:03,871 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-06 18:43:03,872 Writer-7.0 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-06 18:43:03,873 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-06 18:43:05,570 Reader-7.0 MainProcess DEBUG: changed master_of_master to
+min_key, 2576980377
+ip, 172.31.20.4
+int_addr, 172.31.20.4:5557
+ext_port, 5558
+ext_addr, 172.31.20.4:5558
+max_key, 3435973835
+id, 4
+memory_port, 5559
+int_port, 5557
+
+2016-12-06 18:43:05,571 Writer-7.0 MainProcess DEBUG: forwarding this DEAD message
+target_addr: 172.31.20.5
+target_key: 3435973836:3650722200
+random: 4904
+target_id: 5
+priority: 5
+version: 6
+source_id: 4
+source_flag: 1
+target_relative_id: 6.0
+
+This is my list
+Node 1.5, Node : myself 1.5, master 1, slave 2
+Keys : master 0:429496729, myself 429496730:858993458, slave 858993459:1288490188
+Node 3, Node : myself 3, master 2.5, slave 4
+Keys : master 1288490189:1717986917, myself 1717986918:2576980376, slave 2576980377:3435973835
+Node 1, Node : myself 1, master 7.0, slave 1.5
+Keys : master 3865470566:4294967294, myself 0:429496729, slave 429496730:858993458
+Node 7.0, Node : myself 7.0, master 6.0, slave 1
+Keys : master 3435973836:3865470565, myself 3865470566:4294967294, slave 0:429496729
+Node 2, Node : myself 2, master 1.5, slave 2.5
+Keys : master 429496730:858993458, myself 858993459:1288490188, slave 1288490189:1717986917
+Node 4, Node : myself 4, master 3, slave 6.0
+Keys : master 1717986918:2576980376, myself 2576980377:3435973835, slave 3435973836:3865470565
+Node 6.0, Node : myself 6.0, master 4, slave 7.0
+Keys : master 2576980377:3435973835, myself 3435973836:3865470565, slave 3865470566:4294967294
+Node 2.5, Node : myself 2.5, master 2, slave 3
+Keys : master 858993459:1288490188, myself 1288490189:1717986917, slave 1717986918:2576980376
+
+These are my relatives
+Node myself, id 7.0, keys 3865470566:4294967294
+Node master, id 6.0, keys 3435973836:3865470565
+Node master_of_master, id 4, keys 2576980377:3435973835
+Node slave, id 1, keys 0:429496729
+Node slave_of_slave, id 1.5, keys 429496730:858993458
+
+2016-12-06 18:43:05,581 Writer-7.0 MainProcess DEBUG: this message from 6 can be forwarded due to higher version than 5
+target_addr: 172.31.20.5
+target_key: 3435973836:3650722200
+random: 7123
+target_id: 5
+priority: 4
+version: 6
+source_id: 4
+source_flag: 1
+target_relative_id: 3
+
+2016-12-06 18:43:05,581 Writer-7.0 MainProcess DEBUG: I am in state BusyDeadPS
+2016-12-06 18:43:05,581 Writer-7.0 MainProcess DEBUG: this node has just gained privilege to restore : 4
+2016-12-06 18:43:05,581 Writer-7.0 MainProcess DEBUG: forwarding RESTORE message
+target_addr: 172.31.20.5
+target_key: 3435973836:3650722200
+random: 7123
+target_id: 5
+priority: 4
+version: 6
+source_id: 4
+source_flag: 1
+target_relative_id: 3
+
+2016-12-06 18:43:13,272 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-06 18:43:13,272 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-06 18:43:13,272 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-06 18:43:13,273 Writer-7.0 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-06 18:43:13,273 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-06 18:43:14,401 Writer-7.0 MainProcess DEBUG: I am in state Free
+2016-12-06 18:43:14,401 Writer-7.0 MainProcess DEBUG: forwarding this RESTORED message
+target_addr: 172.31.20.5
+target_key: 3435973836:3650722200
+random: 8204
+target_id: 5
+priority: 3
+version: 7
+source_id: 4
+source_flag: 1
+target_relative_id: 4
+
+This is my new list
+Node 1.5, Node : myself 1.5, master 1, slave 2
+Keys : master 0:429496729, myself 429496730:858993458, slave 858993459:1288490188
+Node 3, Node : myself 3, master 2.5, slave 4
+Keys : master 1288490189:1717986917, myself 1717986918:2576980376, slave 2576980377:3435973835
+Node 1, Node : myself 1, master 7.0, slave 1.5
+Keys : master 3865470566:4294967294, myself 0:429496729, slave 429496730:858993458
+Node 7.0, Node : myself 7.0, master 6.0, slave 1
+Keys : master 3435973836:3865470565, myself 3865470566:4294967294, slave 0:429496729
+Node 2, Node : myself 2, master 1.5, slave 2.5
+Keys : master 429496730:858993458, myself 858993459:1288490188, slave 1288490189:1717986917
+Node 4, Node : myself 4, master 3, slave 6.0
+Keys : master 1717986918:2576980376, myself 2576980377:3435973835, slave 3435973836:3865470565
+Node 6.0, Node : myself 6.0, master 4, slave 7.0
+Keys : master 2576980377:3435973835, myself 3435973836:3865470565, slave 3865470566:4294967294
+Node 2.5, Node : myself 2.5, master 2, slave 3
+Keys : master 858993459:1288490188, myself 1288490189:1717986917, slave 1717986918:2576980376
+
+These are my relatives
+Node myself, id 7.0, keys 3865470566:4294967294
+Node master, id 6.0, keys 3435973836:3865470565
+Node master_of_master, id 4, keys 2576980377:3435973835
+Node slave, id 1, keys 0:429496729
+Node slave_of_slave, id 1.5, keys 429496730:858993458
+
+2016-12-06 18:43:18,122 Writer-7.0 MainProcess DEBUG: this message from 7 can be forwarded due to higher version than 6
+target_addr: 
+target_key: 429496730:858993458
+random: 6422
+target_id: 1.5
+priority: 1
+version: 7
+source_id: 1.5
+source_flag: 1
+target_relative_id: 2
+
+2016-12-06 18:43:18,122 Writer-7.0 MainProcess DEBUG: I am in state BusyAddPS
+2016-12-06 18:43:18,122 Writer-7.0 MainProcess DEBUG: forwarding ADD message
+target_addr: 
+target_key: 429496730:858993458
+random: 6422
+target_id: 1.5
+priority: 1
+version: 7
+source_id: 1.5
+source_flag: 1
+target_relative_id: 2
+
+2016-12-06 18:43:21,993 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-06 18:43:21,993 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-06 18:43:21,993 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-06 18:43:21,994 Writer-7.0 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-06 18:43:21,994 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-06 18:43:31,157 Writer-7.0 MainProcess DEBUG: forwarding this DEAD message
+target_addr: 172.31.23.164
+target_key: 429496730:858993458
+random: 9304
+target_id: 1.5
+priority: 5
+version: 8
+source_id: 1
+source_flag: 1
+target_relative_id: 2
+
+This is my list
+Node 3, Node : myself 3, master 2.5, slave 4
+Keys : master 1288490189:1717986917, myself 1717986918:2576980376, slave 2576980377:3435973835
+Node 1, Node : myself 1, master 7.0, slave 2
+Keys : master 3865470566:4294967294, myself 0:429496729, slave 429496730:1288490188
+Node 7.0, Node : myself 7.0, master 6.0, slave 1
+Keys : master 3435973836:3865470565, myself 3865470566:4294967294, slave 0:429496729
+Node 2, Node : myself 2, master 1, slave 2.5
+Keys : master 0:429496729, myself 429496730:1288490188, slave 1288490189:1717986917
+Node 4, Node : myself 4, master 3, slave 6.0
+Keys : master 1717986918:2576980376, myself 2576980377:3435973835, slave 3435973836:3865470565
+Node 6.0, Node : myself 6.0, master 4, slave 7.0
+Keys : master 2576980377:3435973835, myself 3435973836:3865470565, slave 3865470566:4294967294
+Node 2.5, Node : myself 2.5, master 2, slave 3
+Keys : master 429496730:1288490188, myself 1288490189:1717986917, slave 1717986918:2576980376
+
+These are my relatives
+Node myself, id 7.0, keys 3865470566:4294967294
+Node master, id 6.0, keys 3435973836:3865470565
+Node master_of_master, id 4, keys 2576980377:3435973835
+Node slave, id 1, keys 0:429496729
+Node slave_of_slave, id 2, keys 429496730:1288490188
+
+2016-12-06 18:43:31,166 Writer-7.0 MainProcess DEBUG: this message from 8 can be forwarded due to higher version than 7
+target_addr: 172.31.23.164
+target_key: 429496730:858993458
+random: 5662
+target_id: 1.5
+priority: 4
+version: 8
+source_id: 1
+source_flag: 1
+target_relative_id: 7.0
+
+2016-12-06 18:43:31,166 Writer-7.0 MainProcess DEBUG: I am in state BusyDeadPS
+2016-12-06 18:43:31,166 Writer-7.0 MainProcess DEBUG: this node has just gained privilege to restore : 1
+2016-12-06 18:43:31,166 Writer-7.0 MainProcess DEBUG: forwarding RESTORE message
+target_addr: 172.31.23.164
+target_key: 429496730:858993458
+random: 5662
+target_id: 1.5
+priority: 4
+version: 8
+source_id: 1
+source_flag: 1
+target_relative_id: 7.0
+
+2016-12-06 18:43:32,357 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-06 18:43:32,358 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-06 18:43:32,358 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-06 18:43:32,358 Writer-7.0 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-06 18:43:32,359 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-06 18:43:42,728 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-06 18:43:42,728 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-06 18:43:42,728 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-06 18:43:42,729 Writer-7.0 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-06 18:43:42,730 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-06 18:43:46,389 Writer-7.0 MainProcess DEBUG: I am in state Free
+2016-12-06 18:43:46,389 Writer-7.0 MainProcess DEBUG: forwarding this RESTORED message
+target_addr: 172.31.23.164
+target_key: 429496730:858993458
+random: 2686
+target_id: 1.5
+priority: 3
+version: 9
+source_id: 1
+source_flag: 1
+target_relative_id: 1
+
+This is my new list
+Node 3, Node : myself 3, master 2.5, slave 4
+Keys : master 1288490189:1717986917, myself 1717986918:2576980376, slave 2576980377:3435973835
+Node 1, Node : myself 1, master 7.0, slave 2
+Keys : master 3865470566:4294967294, myself 0:429496729, slave 429496730:1288490188
+Node 7.0, Node : myself 7.0, master 6.0, slave 1
+Keys : master 3435973836:3865470565, myself 3865470566:4294967294, slave 0:429496729
+Node 2, Node : myself 2, master 1, slave 2.5
+Keys : master 0:429496729, myself 429496730:1288490188, slave 1288490189:1717986917
+Node 4, Node : myself 4, master 3, slave 6.0
+Keys : master 1717986918:2576980376, myself 2576980377:3435973835, slave 3435973836:3865470565
+Node 6.0, Node : myself 6.0, master 4, slave 7.0
+Keys : master 2576980377:3435973835, myself 3435973836:3865470565, slave 3865470566:4294967294
+Node 2.5, Node : myself 2.5, master 2, slave 3
+Keys : master 429496730:1288490188, myself 1288490189:1717986917, slave 1717986918:2576980376
+
+These are my relatives
+Node myself, id 7.0, keys 3865470566:4294967294
+Node master, id 6.0, keys 3435973836:3865470565
+Node master_of_master, id 4, keys 2576980377:3435973835
+Node slave, id 1, keys 0:429496729
+Node slave_of_slave, id 2, keys 429496730:1288490188
+
+2016-12-06 18:43:47,841 Writer-7.0 MainProcess DEBUG: this message from 9 can be forwarded due to higher version than 8
+target_addr: 
+target_key: 1288490189:1717986917
+random: 6759
+target_id: 2.5
+priority: 1
+version: 9
+source_id: 2.5
+source_flag: 1
+target_relative_id: 3
+
+2016-12-06 18:43:47,841 Writer-7.0 MainProcess DEBUG: I am in state BusyAddPL
+2016-12-06 18:43:47,841 Writer-7.0 MainProcess DEBUG: forwarding ADD message
+target_addr: 
+target_key: 1288490189:1717986917
+random: 6759
+target_id: 2.5
+priority: 1
+version: 9
+source_id: 2.5
+source_flag: 1
+target_relative_id: 3
+
+2016-12-06 18:43:53,504 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-06 18:43:53,504 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-06 18:43:53,504 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-06 18:43:53,505 Writer-7.0 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-06 18:43:53,505 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-06 18:44:01,418 Writer-7.0 MainProcess DEBUG: forwarding this DEAD message
+target_addr: 172.31.23.31
+target_key: 1288490189:1717986917
+random: 8862
+target_id: 2.5
+priority: 5
+version: 10
+source_id: 2
+source_flag: 1
+target_relative_id: 3
+
+This is my list
+Node 3, Node : myself 3, master 2, slave 4
+Keys : master 429496730:1288490188, myself 1288490189:2576980376, slave 2576980377:3435973835
+Node 1, Node : myself 1, master 7.0, slave 2
+Keys : master 3865470566:4294967294, myself 0:429496729, slave 429496730:1288490188
+Node 7.0, Node : myself 7.0, master 6.0, slave 1
+Keys : master 3435973836:3865470565, myself 3865470566:4294967294, slave 0:429496729
+Node 2, Node : myself 2, master 1, slave 3
+Keys : master 0:429496729, myself 429496730:1288490188, slave 1288490189:2576980376
+Node 4, Node : myself 4, master 3, slave 6.0
+Keys : master 1288490189:2576980376, myself 2576980377:3435973835, slave 3435973836:3865470565
+Node 6.0, Node : myself 6.0, master 4, slave 7.0
+Keys : master 2576980377:3435973835, myself 3435973836:3865470565, slave 3865470566:4294967294
+
+These are my relatives
+Node myself, id 7.0, keys 3865470566:4294967294
+Node master, id 6.0, keys 3435973836:3865470565
+Node master_of_master, id 4, keys 2576980377:3435973835
+Node slave, id 1, keys 0:429496729
+Node slave_of_slave, id 2, keys 429496730:1288490188
+
+2016-12-06 18:44:01,426 Writer-7.0 MainProcess DEBUG: this message from 10 can be forwarded due to higher version than 9
+target_addr: 172.31.23.31
+target_key: 1288490189:1717986917
+random: 6525
+target_id: 2.5
+priority: 4
+version: 10
+source_id: 2
+source_flag: 1
+target_relative_id: 1
+
+2016-12-06 18:44:01,426 Writer-7.0 MainProcess DEBUG: I am in state BusyDeadPL
+2016-12-06 18:44:01,426 Writer-7.0 MainProcess DEBUG: this node has just gained privilege to restore : 2
+2016-12-06 18:44:01,426 Writer-7.0 MainProcess DEBUG: forwarding RESTORE message
+target_addr: 172.31.23.31
+target_key: 1288490189:1717986917
+random: 6525
+target_id: 2.5
+priority: 4
+version: 10
+source_id: 2
+source_flag: 1
+target_relative_id: 1
+
+2016-12-06 18:44:05,671 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-06 18:44:05,671 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-06 18:44:05,671 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-06 18:44:05,672 Writer-7.0 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-06 18:44:05,673 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-06 18:44:16,178 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-06 18:44:16,178 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-06 18:44:16,178 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-06 18:44:16,178 Writer-7.0 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-06 18:44:16,179 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-06 18:44:16,798 Writer-7.0 MainProcess DEBUG: I am in state Free
+2016-12-06 18:44:16,798 Writer-7.0 MainProcess DEBUG: forwarding this RESTORED message
+target_addr: 172.31.23.31
+target_key: 1288490189:1717986917
+random: 9739
+target_id: 2.5
+priority: 3
+version: 11
+source_id: 2
+source_flag: 1
+target_relative_id: 2
+
+This is my new list
+Node 3, Node : myself 3, master 2, slave 4
+Keys : master 429496730:1288490188, myself 1288490189:2576980376, slave 2576980377:3435973835
+Node 1, Node : myself 1, master 7.0, slave 2
+Keys : master 3865470566:4294967294, myself 0:429496729, slave 429496730:1288490188
+Node 7.0, Node : myself 7.0, master 6.0, slave 1
+Keys : master 3435973836:3865470565, myself 3865470566:4294967294, slave 0:429496729
+Node 2, Node : myself 2, master 1, slave 3
+Keys : master 0:429496729, myself 429496730:1288490188, slave 1288490189:2576980376
+Node 4, Node : myself 4, master 3, slave 6.0
+Keys : master 1288490189:2576980376, myself 2576980377:3435973835, slave 3435973836:3865470565
+Node 6.0, Node : myself 6.0, master 4, slave 7.0
+Keys : master 2576980377:3435973835, myself 3435973836:3865470565, slave 3865470566:4294967294
+
+These are my relatives
+Node myself, id 7.0, keys 3865470566:4294967294
+Node master, id 6.0, keys 3435973836:3865470565
+Node master_of_master, id 4, keys 2576980377:3435973835
+Node slave, id 1, keys 0:429496729
+Node slave_of_slave, id 2, keys 429496730:1288490188
+
+2016-12-06 18:44:21,258 Writer-7.0 MainProcess DEBUG: this message from 11 can be forwarded due to higher version than 10
+target_addr: 
+target_key: 0:429496729
+random: 8181
+target_id: 1
+priority: 1
+version: 11
+source_id: 1
+source_flag: 1
+target_relative_id: 2
+
+2016-12-06 18:44:21,258 Writer-7.0 MainProcess DEBUG: I am in state BusyAddPS
+2016-12-06 18:44:21,258 Writer-7.0 MainProcess DEBUG: forwarding ADD message
+target_addr: 
+target_key: 0:429496729
+random: 8181
+target_id: 1
+priority: 1
+version: 11
+source_id: 1
+source_flag: 1
+target_relative_id: 2
+
+2016-12-06 18:44:26,147 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-06 18:44:26,147 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-06 18:44:26,147 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-06 18:44:26,148 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-06 18:44:32,579 Writer-7.0 MainProcess DEBUG: my recipient is dead
+2016-12-06 18:44:32,580 Writer-7.0 MainProcess DEBUG: my slave is DEAD 
+2016-12-06 18:44:32,580 Writer-7.0 MainProcess DEBUG: waiting for a request
+2016-12-06 18:44:32,580 Writer-7.0 MainProcess DEBUG: This is the right message
+target_addr: 
+target_key: 
+random: 7745
+target_id: 2
+priority: 0
+version: 
+source_id: 2
+source_flag: 0
+target_relative_id: 7.0
+
+2016-12-06 18:44:32,580 Writer-7.0 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-06 18:44:33,582 Writer-7.0 MainProcess DEBUG: sending DEAD message
+2016-12-06 18:44:33,582 Writer-7.0 MainProcess DEBUG: DEAD message sent
+2016-12-06 18:44:33,583 Writer-7.0 MainProcess DEBUG: I am in state BusyAddPS
+2016-12-06 18:44:33,583 Writer-7.0 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-06 18:44:33,588 Writer-7.0 MainProcess DEBUG: DEAD CYCLE completed
+2016-12-06 18:44:33,588 Writer-7.0 MainProcess DEBUG: I am in state BusyDeadPS
+2016-12-06 18:44:33,593 Writer-7.0 MainProcess DEBUG: RESTORE CYCLE completed
+2016-12-06 18:44:33,594 MainThread python-CCMemoryMaster DEBUG: Slave is dead, new info: Node myself, id 7.0, keys 3865470566:4294967294
+Node master, id 5, keys 3435973836:4294967294
+Node master_of_master, id 4, keys 2576980377:3435973835
+Node slave, id 1, keys 0:858993458
+Node slave_of_slave, id 2, keys 858993459:1717986917
+
+2016-12-06 18:44:33,594 Writer-7.0 MainProcess DEBUG: new internal channel client created with destination tcp://172.31.20.2:5557
+2016-12-06 18:44:33,594 Writer-7.0 MainProcess DEBUG: sending message to tcp://172.31.20.2:5557
+2016-12-06 18:44:33,598 Writer-7.0 MainProcess DEBUG: waiting for a request
+2016-12-06 18:44:33,598 Writer-7.0 MainProcess DEBUG: Closing socket with tcp://172.31.20.2:5557
+2016-12-06 18:44:33,599 MainThread python-CCMemoryMaster DEBUG: Transferring memory to tcp://172.31.20.2:5552....
+2016-12-06 18:44:44,267 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 1.47888819343e-05, getters (mean): 0.0
+2016-12-06 18:44:44,268 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-06 18:44:44,268 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-06 18:44:44,268 Writer-7.0 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-06 18:44:44,269 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-06 18:44:53,495 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-06 18:44:53,495 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-06 18:44:53,495 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-06 18:44:53,495 Writer-7.0 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-06 18:44:53,496 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-06 18:45:03,496 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-06 18:45:03,496 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-06 18:45:03,496 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-06 18:45:03,496 Writer-7.0 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-06 18:45:03,497 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-06 18:45:12,012 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-06 18:45:12,012 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-06 18:45:12,012 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-06 18:45:12,013 Writer-7.0 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-06 18:45:12,014 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-06 18:45:21,762 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-06 18:45:21,762 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-06 18:45:21,762 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-06 18:45:21,762 Writer-7.0 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-06 18:45:21,763 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-06 18:45:32,607 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-06 18:45:32,607 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-06 18:45:32,607 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-06 18:45:32,607 Writer-7.0 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-06 18:45:32,608 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-06 18:45:43,990 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-06 18:45:43,990 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-06 18:45:43,990 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-06 18:45:43,990 Writer-7.0 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-06 18:45:43,991 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-06 18:45:54,233 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-06 18:45:54,233 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-06 18:45:54,233 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-06 18:45:54,234 Writer-7.0 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-06 18:45:54,235 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-06 18:46:05,283 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-06 18:46:05,283 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-06 18:46:05,283 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-06 18:46:05,284 Writer-7.0 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-06 18:46:05,285 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-06 18:46:16,630 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-06 18:46:16,630 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-06 18:46:16,631 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-06 18:46:16,631 Writer-7.0 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-06 18:46:16,632 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-06 18:46:25,420 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-06 18:46:25,420 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-06 18:46:25,420 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-06 18:46:25,421 Writer-7.0 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-06 18:46:25,421 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-06 18:46:34,309 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-06 18:46:34,309 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-06 18:46:34,310 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-06 18:46:34,310 Writer-7.0 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-06 18:46:34,311 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-06 18:46:43,541 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-06 18:46:43,541 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-06 18:46:43,541 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-06 18:46:43,542 Writer-7.0 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-06 18:46:43,543 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-06 18:46:54,061 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-06 18:46:54,061 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-06 18:46:54,061 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-06 18:46:54,062 Writer-7.0 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-06 18:46:54,062 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-06 18:47:02,516 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-06 18:47:02,516 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-06 18:47:02,516 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-06 18:47:02,517 Writer-7.0 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-06 18:47:02,518 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-06 18:47:13,654 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-06 18:47:13,654 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-06 18:47:13,654 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-06 18:47:13,655 Writer-7.0 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-06 18:47:13,656 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-06 18:47:23,518 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-06 18:47:23,519 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-06 18:47:23,519 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-06 18:47:23,519 Writer-7.0 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-06 18:47:23,520 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-06 18:47:33,305 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-06 18:47:33,306 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-06 18:47:33,306 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-06 18:47:33,306 Writer-7.0 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-06 18:47:33,307 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-06 18:47:42,375 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-06 18:47:42,375 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-06 18:47:42,376 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-06 18:47:42,376 Writer-7.0 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-06 18:47:42,377 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-06 18:47:51,449 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-06 18:47:51,449 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-06 18:47:51,449 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-06 18:47:51,450 Writer-7.0 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-06 18:47:51,451 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-06 18:48:03,554 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-06 18:48:03,554 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-06 18:48:03,555 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-06 18:48:03,555 Writer-7.0 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-06 18:48:03,556 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-06 18:48:14,268 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-06 18:48:14,268 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-06 18:48:14,268 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-06 18:48:14,269 Writer-7.0 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-06 18:48:14,270 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-06 18:48:26,337 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-06 18:48:26,338 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-06 18:48:26,338 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-06 18:48:26,338 Writer-7.0 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-06 18:48:26,339 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-06 18:48:37,292 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-06 18:48:37,292 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-06 18:48:37,293 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-06 18:48:37,293 Writer-7.0 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-06 18:48:37,294 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-06 18:48:46,663 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-06 18:48:46,663 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-06 18:48:46,663 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-06 18:48:46,663 Writer-7.0 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-06 18:48:46,664 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-06 18:48:54,651 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-06 18:48:54,651 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-06 18:48:54,651 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-06 18:48:54,652 Writer-7.0 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-06 18:48:54,653 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-06 18:49:04,261 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-06 18:49:04,261 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-06 18:49:04,261 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-06 18:49:04,262 Writer-7.0 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-06 18:49:04,263 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-06 18:49:13,934 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-06 18:49:13,934 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-06 18:49:13,934 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-06 18:49:13,935 Writer-7.0 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-06 18:49:13,935 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-06 18:49:24,007 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-06 18:49:24,007 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-06 18:49:24,007 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-06 18:49:24,008 Writer-7.0 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-06 18:49:24,008 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-06 18:49:33,990 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-06 18:49:33,990 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-06 18:49:33,991 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-06 18:49:33,991 Writer-7.0 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-06 18:49:33,992 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-06 18:49:43,107 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-06 18:49:43,107 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-06 18:49:43,108 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-06 18:49:43,108 Writer-7.0 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-06 18:49:43,109 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-06 18:49:51,917 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-06 18:49:51,918 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-06 18:49:51,918 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-06 18:49:51,918 Writer-7.0 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-06 18:49:51,919 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-06 18:50:02,697 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-06 18:50:02,697 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-06 18:50:02,697 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-06 18:50:02,698 Writer-7.0 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-06 18:50:02,699 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-06 18:50:12,301 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-06 18:50:12,301 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-06 18:50:12,301 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-06 18:50:12,301 Writer-7.0 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-06 18:50:12,302 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-06 18:50:20,663 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-06 18:50:20,663 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-06 18:50:20,663 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-06 18:50:20,664 Writer-7.0 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-06 18:50:20,665 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-06 18:50:29,727 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-06 18:50:29,728 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-06 18:50:29,728 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-06 18:50:29,728 Writer-7.0 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-06 18:50:29,729 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-06 18:50:38,606 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-06 18:50:38,606 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-06 18:50:38,606 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-06 18:50:38,606 Writer-7.0 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-06 18:50:38,607 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-06 18:50:48,334 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-06 18:50:48,334 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-06 18:50:48,334 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-06 18:50:48,335 Writer-7.0 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-06 18:50:48,335 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-06 18:51:00,660 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-06 18:51:00,660 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-06 18:51:00,660 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-06 18:51:00,661 Writer-7.0 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-06 18:51:00,662 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-06 18:51:10,954 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-06 18:51:10,954 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-06 18:51:10,955 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-06 18:51:10,955 Writer-7.0 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-06 18:51:10,956 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-06 18:51:20,960 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-06 18:51:20,960 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-06 18:51:20,960 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-06 18:51:20,960 Writer-7.0 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-06 18:51:20,961 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
