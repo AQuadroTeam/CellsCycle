@@ -683,6 +683,7 @@ class DeadWriter (ConsumerThread):
 
             # This is an external message, let's check if it's none of my business
             if is_my_last_add_message(msg, self.last_add_message):
+
                 self.logger.debug("LAST ADD message")
                 # The cycle is over
                 # We have to wait for a new node
@@ -698,10 +699,14 @@ class DeadWriter (ConsumerThread):
                                        self.slave_of_slave]
 
                 self.last_add_message = ''
+                self.update_last_seen(msg)
+                self.version = int(self.last_seen_version) + 1
                 self.node_to_add = msg.target_id
                 startInstanceAWS(self.settings, self.logger, create_specific_instance_parameters(specific_parameters))
                 self.logger.debug("ADD CYCLE completed")
             elif is_my_last_add_message(msg, self.last_scale_down_message):
+                self.update_last_seen(msg)
+                self.version = int(self.last_seen_version) + 1
                 self.logger.debug("LAST SCALE_DOWN message")
                 terminateThisInstanceAWS(settings=self.settings, logger=self.logger)
             elif is_my_last_added_message(msg, self.last_added_message):
@@ -741,6 +746,8 @@ class DeadWriter (ConsumerThread):
             elif is_my_last_restore_message(msg, self.last_restore_message):
                 # The cycle is over
                 self.last_restore_message = ''
+                self.update_last_seen(msg)
+                self.version = int(self.last_seen_version) + 1
                 self.logger.debug("RESTORE CYCLE completed")
                 self.restore_cycle_finished = True
                 # Notify to the memory module
