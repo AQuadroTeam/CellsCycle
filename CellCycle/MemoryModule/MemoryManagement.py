@@ -217,8 +217,9 @@ def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
                     logger.debug("Configuration of net data: "+ str(hostState["current"]))
 
                 else:
-                    logger.warning("master is dead. Recovering... "+ str(hostState["current"]))
                     hostState["current"] = command.optional
+                    logger.warning("master is dead. Recovering... "+ str(hostState["current"]))
+
                     # import keys of master, from this slave memory
                     thisMasterMemory = "tcp://"+hostState["current"].myself.ip+":"+ str(settings.getMasterSetPort())
                     thisSlaveMemory = "tcp://"+hostState["current"].myself.ip+":"+ str(settings.getSlaveSetPort())
@@ -239,8 +240,8 @@ def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
                     transferType = NEWMASTER
 
             elif command.type == NEWSLAVE:
-                logger.debug("Slave is dead, new info: "+ str(hostState["current"]))
                 hostState["current"] = command.optional
+                logger.debug("Slave is dead, new info: " + str(hostState["current"]))
 
             elif command.type == NEWSTART:
                 hostState["current"] = command.optional
