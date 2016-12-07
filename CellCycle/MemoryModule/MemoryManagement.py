@@ -229,7 +229,6 @@ def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
 
                     # create new slave memory for this node from new master
                     newMasterMasterMemory = "tcp://"+ hostState["current"].master.ip +":"+ str(settings.getMasterSetPort())
-                    # instead of localhost i must have command.optional.newmaster.url
                     thisSlaveMemory = "tcp://"+hostState["current"].myself.ip+":"+ str(settings.getSlaveSetPort())
                     beginSecond = hostState["current"].master.min_key #command.optional.newmaster.master.keys.begin
                     endSecond = hostState["current"].master.max_key #command.optional.newmaster.master.keys.end
@@ -268,24 +267,27 @@ def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
 
                 transferRequest(masterMasterMemory, [thisMasterMemory], beginFirst, endFirst)
                 transferRequest(masterMasterMemory, [thisSlaveMemory], beginSlave, endSlave)
-
+                logger.debug("Waiting for transferring")
                 transferToDoAfter = True
                 transferType = NEWSTART
 
             elif command.type == TRANSFERCOMPLETE:
+                logger.debug("Transfer Complete message received. ToDoAfter: "+str(transferToDoAfter))
                 if transferToDoAfter and master:
                     logger.debug("I'm communicating that transfer is completed")
                     # call the list communication for added or recovered
                     if transferType == NEWSTART:
                         internal_channel_added.send_first_internal_channel_message(message=b"FINISHED")
                         internal_channel_added.wait_int_message(dont_wait=False)
+                        logger.debug("MEMORY TRANSFER finished, notify list thread")
                     elif transferType == NEWMASTER:
-                        logger.debug("MEMORY TRANSFER finished , notify list thread")
+                        logger.debug("MEMORY TRANSFER finished for new master, notify list thread")
                         ListThread.notify_memory_request_finished(internal_channel_restored)
                     #avvertire gestore ciclo che E finito recovery TODO:
                     logger.warning("new master state recovery: DONE")
                     #do something with command and hostState
                     #command.optional --> hostState
+                    logger.debug("Waiting state off")
                     transferToDoAfter = False
 
             if master:
@@ -294,9 +296,9 @@ def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
             logger.error(e)
 
 def _transfer(settings,logger, dest, dataList, begin, end):
+    logger.debug("Transfer memory command received: Transferring memory to "+ str(dest))
     context = zmq.Context.instance()
     socketTM = context.socket(zmq.PUSH)
-
     socketTM.connect(dest)
     for data in dataList:
         key = int(data[0])
@@ -307,6 +309,7 @@ def _transfer(settings,logger, dest, dataList, begin, end):
 
             socketTM.send(dumps(Command(SETCOMMAND,key,value)))
     socketTM.send(dumps(Command(TRANSFERCOMPLETE)))
+    logger.debug("Transfer memory command completed: Transferred memory to "+ str(dest))
     socketTM.close()
 
 def _getThread(index, logger,settings, cache, master, url, timing):
