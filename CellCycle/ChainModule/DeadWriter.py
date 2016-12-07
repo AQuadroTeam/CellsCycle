@@ -465,6 +465,8 @@ class DeadWriter (ConsumerThread):
 
         self.last_dead_message = msg_to_send
 
+        self.change_dead_keys_to(self.myself.id)
+
         self.last_dead_node = self.slave
         self.remove_from_list(self.slave.id)
 
