@@ -787,12 +787,7 @@ class DeadWriter (ConsumerThread):
                 else:
                     # if msg_variable_version_check(msg, self.last_seen_version):
                     #     self.consider_message(msg, origin_message, test="v")
-                    if int(msg.version) > int(self.last_seen_version):
-                        self.logger.debug("this message from {} can be forwarded"
-                                          " due to higher version than {}\n{}".
-                                          format(msg.source_id, self.last_seen_version, msg.printable_message()))
-                        self.consider_message(msg, origin_message)
-                    elif int(msg.version) == int(self.last_seen_version):
+                    if int(msg.version) >= int(self.last_seen_version):
                         if int(self.last_seen_priority) < int(msg.priority):
                             self.logger.debug("this message from {} can be forwarded"
                                               " due to higher priority than {}\n{}".
