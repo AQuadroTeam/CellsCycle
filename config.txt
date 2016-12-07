@@ -18,6 +18,7 @@ SetScaleDownLevel 0.000001
 AwsImageId ami-9fc501f0
 AwsSecurityGroup SSHToAll
 AwsKeyName AWSCellCycle
+EC2Type t2.micro
 GitBranch AmazonTest
 StartFileRelativePath startOnBoot.py
 IntPort 5557

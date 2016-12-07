@@ -28,9 +28,9 @@ def startInstanceAWS(settings, logger, params, privateIp=None):
 
     logger.debug("id image: " + imageIdCellCycle)
     if(privateIp != None):
-        ec2.create_instances(ImageId=imageIdCellCycle, MinCount=1, MaxCount=1, InstanceType='t2.micro', KeyName=keyName, SecurityGroups=[securityGroup], UserData=userData,     PrivateIpAddress=privateIp)
+        ec2.create_instances(ImageId=imageIdCellCycle, MinCount=1, MaxCount=1, InstanceType=settings.getAWSType(), KeyName=keyName, SecurityGroups=[securityGroup], UserData=userData,     PrivateIpAddress=privateIp)
     else:
-        ec2.create_instances(ImageId=imageIdCellCycle, MinCount=1, MaxCount=1, InstanceType='t2.micro', KeyName=keyName, SecurityGroups=[securityGroup], UserData=userData)
+        ec2.create_instances(ImageId=imageIdCellCycle, MinCount=1, MaxCount=1, InstanceType=settings.getAWSType(), KeyName=keyName, SecurityGroups=[securityGroup], UserData=userData)
 
 
 def terminateThisInstanceAWS(settings, logger):

@@ -125,6 +125,8 @@ class SettingsObject(object):
         return str(self.configDict[Constants.AWSPROFILENAME][0])
     def setAwsProfileName(self, name):
         self.configDict[Constants.AWSPROFILENAME][0] = str(name)
+    def getAWSType(self):
+        return str(self.configDict[Constants.AWSTYPE][0])
     # end of aws settings
 
     def __str__(self):
