@@ -188,8 +188,8 @@ class DeadWriter (ConsumerThread):
         self.deads.remove_from_list(msg.target_id)
         temp_m = MemoryObject(self.master_of_master, self.master, self.myself,
                               self.slave, self.slave_of_slave).print_elements()
-        self.logger.debug("forwarding this RESTORED message\n{}\nThis is my new list\n{}\nThese are my relatives\n{}".
-                          format(msg.printable_message(), self.node_list.print_list(), temp_m))
+        self.logger.debug("forwarding this RESTORED message\n{}\nThis is my new list\n{}\nThese are my relatives\n{}\nThese are my lsv {}, lsp {}, lsr {}".
+                          format(msg.printable_message(), self.node_list.print_list(), temp_m, self.last_seen_version, self.last_seen_priority, self.last_seen_random))
 
     def consider_restore_message(self, msg, origin_message):
         dead_to_check = self.deads.get_value(msg.target_id)
@@ -285,9 +285,12 @@ class DeadWriter (ConsumerThread):
                               self.slave, self.slave_of_slave).print_elements()
         self.logger.debug("forwarding this DEAD message\n{}\n"
                           "This is my list\n{}"
-                          "\nThese are my relatives\n{}".format(msg.printable_message(),
-                                                                self.node_list.print_list(),
-                                                                temp_m))
+                          "\nThese are my relatives\n{}\n lsv {}, lsp {}, lsr {}".format(msg.printable_message(),
+                                                                                self.node_list.print_list(),
+                                                                                temp_m,
+                                                                                self.last_seen_version,
+                                                                                self.last_seen_priority,
+                                                                                self.last_seen_random))
 
     def consider_added_message(self, msg, origin_message):
         self.logger.debug("my version is {}, uuu we have a new NODE\n{}".
@@ -340,7 +343,7 @@ class DeadWriter (ConsumerThread):
             self.last_seen_priority = '0'
             self.last_seen_random = '0'
         self.forward_message(origin_message)
-        self.logger.debug("forwarding this ADDED message\n{}".format(msg.printable_message()))
+        self.logger.debug("forwarding this ADDED message\n{}\n lsv {}, lsp {}, lsr {}".format(msg.printable_message(), self.last_seen_version, self.last_seen_priority, self.last_seen_random))
 
     def writer_behavior(self):
 
@@ -498,6 +501,8 @@ class DeadWriter (ConsumerThread):
         self.update_last_seen(msg, source)
         self.version = int(self.last_seen_version) + 1
         self.forward_message(origin_message)
+
+        self.logger.debug("These are my:\n- last seen version {}\n- last seen priority {}\n- last seen random {}".format(self.last_seen_version, self.last_seen_priority, self.last_seen_random))
 
     def consider_message(self, msg, origin_message):
         if is_dead_message(msg):
@@ -705,11 +710,11 @@ class DeadWriter (ConsumerThread):
                 self.version = int(self.last_seen_version) + 1
                 self.node_to_add = msg.target_id
                 startInstanceAWS(self.settings, self.logger, create_specific_instance_parameters(specific_parameters))
-                self.logger.debug("ADD CYCLE completed")
+                self.logger.debug("ADD CYCLE completed\n lsv {}, lsp {}, lsr {}".format(self.last_seen_version, self.last_seen_priority, self.last_seen_random))
             elif is_my_last_add_message(msg, self.last_scale_down_message):
                 self.update_last_seen(msg)
                 self.version = int(self.last_seen_version) + 1
-                self.logger.debug("LAST SCALE_DOWN message")
+                self.logger.debug("LAST SCALE_DOWN message\n lsv {}, lsp {}, lsr {}".format(self.last_seen_version, self.last_seen_priority, self.last_seen_random))
                 terminateThisInstanceAWS(settings=self.settings, logger=self.logger)
             elif is_my_last_added_message(msg, self.last_added_message):
                 # The cycle is over
@@ -723,7 +728,7 @@ class DeadWriter (ConsumerThread):
                 temp_m = MemoryObject(self.master_of_master, self.master, self.myself,
                                       self.slave, self.slave_of_slave).print_elements()
                 self.logger.debug("ADDED CYCLE completed, this is my list\n{}"
-                                  "These are my relatives\n{}".format(self.node_list.print_list(), temp_m))
+                                  "These are my relatives\n{}\n lsv {}, lsp {}, lsr {}".format(self.node_list.print_list(), temp_m, self.last_seen_version, self.last_seen_priority, self.last_seen_random))
             elif is_my_last_dead_message(msg, self.last_dead_message):
                 # The cycle is over
                 restore_message = self.make_restore_node_msg(target_id=msg.target_id,
@@ -744,6 +749,7 @@ class DeadWriter (ConsumerThread):
                         self.transition_table.change_state("pad_and_ps")
                     else:
                         self.transition_table.change_state("pds")
+                self.logger.debug("lsv {}, lsp {}, lsr {}".format(self.last_seen_version, self.last_seen_priority, self.last_seen_random))
 
             elif is_my_last_restore_message(msg, self.last_restore_message):
                 # The cycle is over
@@ -760,6 +766,8 @@ class DeadWriter (ConsumerThread):
                 internal_channel_on_the_fly.generate_internal_channel_client_side()
                 self.notify_memory_request_started(internal_channel_on_the_fly)
                 internal_channel_on_the_fly.close()
+                self.logger.debug("lsv {}, lsp {}, lsr {}".format(self.last_seen_version, self.last_seen_priority, self.last_seen_random))
+
             elif is_my_last_restored_message(msg, self.last_restored_message):
                 # The cycle is over
                 self.last_dead_node = None
@@ -768,7 +776,7 @@ class DeadWriter (ConsumerThread):
                 temp_m = MemoryObject(self.master_of_master, self.master, self.myself,
                                       self.slave, self.slave_of_slave).print_elements()
                 self.logger.debug("RESTORED CYCLE completed, now i am able to receive scale up requests, "
-                                  "this is my list\n{}These are my relatives\n{}".format(self.node_list.print_list(), temp_m))
+                                  "this is my list\n{}These are my relatives\n{}\n lsv {}, lsp {}, lsr {}".format(self.node_list.print_list(), temp_m, self.last_seen_version, self.last_seen_priority, self.last_seen_random))
             else:
                 if is_neutral_message(msg):
                     if int(msg.version) >= int(self.last_seen_version):
@@ -782,7 +790,7 @@ class DeadWriter (ConsumerThread):
                     if int(msg.version) > int(self.last_seen_version):
                         self.logger.debug("this message from {} can be forwarded"
                                           " due to higher version than {}\n{}".
-                                          format(msg.version, self.last_seen_version, msg.printable_message()))
+                                          format(msg.source_id, self.last_seen_version, msg.printable_message()))
                         self.consider_message(msg, origin_message)
                     elif int(msg.version) == int(self.last_seen_version):
                         if int(self.last_seen_priority) < int(msg.priority):
