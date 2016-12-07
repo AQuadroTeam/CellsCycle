@@ -286,11 +286,11 @@ class DeadWriter (ConsumerThread):
         self.logger.debug("forwarding this DEAD message\n{}\n"
                           "This is my list\n{}"
                           "\nThese are my relatives\n{}\n lsv {}, lsp {}, lsr {}".format(msg.printable_message(),
-                                                                                self.node_list.print_list(),
-                                                                                temp_m,
-                                                                                self.last_seen_version,
-                                                                                self.last_seen_priority,
-                                                                                self.last_seen_random))
+                                                                                         self.node_list.print_list(),
+                                                                                         temp_m,
+                                                                                         self.last_seen_version,
+                                                                                         self.last_seen_priority,
+                                                                                         self.last_seen_random))
 
     def consider_added_message(self, msg, origin_message):
         self.logger.debug("my version is {}, uuu we have a new NODE\n{}".
