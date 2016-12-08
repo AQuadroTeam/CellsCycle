@@ -305,14 +305,14 @@ def _transfer(settings,logger, dest, dataList, begin, end):
         if(key >= int(begin) and  key <= int(end) ):
             value = data[1].getValue(key)
             if(settings.isVerbose()):
-                logger.debug("transferred: " + str(value))
+                logger.debug("transferred: key "+str(key)+",value " + str(value))
 
             socketTM.send(dumps(Command(SETCOMMAND,key,value)))
         else:
             if(settings.isVerbose()):
                 key = int(data[0])
                 value = data[1].getValue(key)
-                logger.debug("not transferred: " + str(value))
+                logger.debug("not transferred: key "+str(key)+",value " + str(value))
     socketTM.send(dumps(Command(TRANSFERCOMPLETE)))
     logger.debug("Transfer memory command completed: Transferred memory to "+ str(dest))
     socketTM.close()
