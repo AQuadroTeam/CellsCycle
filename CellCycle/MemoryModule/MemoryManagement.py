@@ -300,9 +300,24 @@ def _transfer(settings,logger, dest, dataList, begin, end):
     context = zmq.Context.instance()
     socketTM = context.socket(zmq.PUSH)
     socketTM.connect(dest)
+    if(int(begin) <= int(end)):
+        range1 = (int(begin), int(end))
+        range2 = (0, 0)
+    else:
+        #interval is double, example 11,7. it becomes 11->inf, -inf->7
+        range1 = (int(begin), float("inf"))
+        range2 = (-float("inf"), int(end))
+
+    def inRange(x,rangey):
+        x = int(x)
+        if(x>=rangey[0] and x<=rangey[1]):
+            return True
+        else:
+            return False
+
     for data in dataList:
         key = int(data[0])
-        if(key >= int(begin) and  key <= int(end) ):
+        if(inRange(key, range1) or inRange(key, range2)):
             value = data[1].getValue(key)
             if(settings.isVerbose()):
                 logger.debug("transferred: key "+str(key)+",value " + str(value))
