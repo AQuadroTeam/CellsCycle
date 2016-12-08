@@ -308,6 +308,11 @@ def _transfer(settings,logger, dest, dataList, begin, end):
                 logger.debug("transferred: " + str(value))
 
             socketTM.send(dumps(Command(SETCOMMAND,key,value)))
+        else:
+            if(settings.isVerbose()):
+                key = int(data[0])
+                value = data[1].getValue(key)
+                logger.debug("not transferred: " + str(value))
     socketTM.send(dumps(Command(TRANSFERCOMPLETE)))
     logger.debug("Transfer memory command completed: Transferred memory to "+ str(dest))
     socketTM.close()
