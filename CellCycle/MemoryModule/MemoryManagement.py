@@ -219,7 +219,6 @@ def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
                 else:
                     hostState["current"] = command.optional
                     logger.warning("master is dead. Recovering... "+ str(hostState["current"]))
-
                     # import keys of master, from this slave memory
                     thisMasterMemory = "tcp://"+hostState["current"].myself.ip+":"+ str(settings.getMasterSetPort())
                     thisSlaveMemory = "tcp://"+hostState["current"].myself.ip+":"+ str(settings.getSlaveSetPort())
@@ -297,7 +296,7 @@ def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
             logger.error(e)
 
 def _transfer(settings,logger, dest, dataList, begin, end):
-    logger.debug("Transfer memory command received: Transferring memory to "+ str(dest))
+    logger.debug("Transfer memory command received: Transferring memory to "+ str(dest)+", b,e: "+str(begin)+","+str(end))
     context = zmq.Context.instance()
     socketTM = context.socket(zmq.PUSH)
     socketTM.connect(dest)
