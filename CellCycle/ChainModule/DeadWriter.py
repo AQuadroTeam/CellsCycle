@@ -123,6 +123,7 @@ class DeadWriter (ConsumerThread):
     def new_master_request(self):
         memory_object = MemoryObject(self.master_of_master, self.master, self.myself,
                                      self.slave, self.slave_of_slave)
+        self.logger.debug("new master request with object\n{}".format(memory_object.print_elements()))
         newMasterRequest("tcp://localhost:" + str(self.settings.getMasterSetPort()), memory_object)
 
     def first_boot_new_master_request(self):
