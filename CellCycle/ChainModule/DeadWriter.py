@@ -1,5 +1,5 @@
 #! /usr/bin/env python
-from CellCycle.AWS.AWSlib import startInstanceAWS, stopThisInstanceAWS
+from CellCycle.AWS.AWSlib import startInstanceAWS, terminateThisInstanceAWS
 from CellCycle.ChainModule.MemoryObject import MemoryObject
 from CellCycle.ChainModule.Message import InformationMessage
 from CellCycle.KeyCalcManager import keyCalcToCreateANewNode
@@ -716,7 +716,7 @@ class DeadWriter (ConsumerThread):
                 self.update_last_seen(msg)
                 self.version = int(self.last_seen_version) + 1
                 self.logger.debug("LAST SCALE_DOWN message\n lsv {}, lsp {}, lsr {}".format(self.last_seen_version, self.last_seen_priority, self.last_seen_random))
-                stopThisInstanceAWS(settings=self.settings, logger=self.logger)
+                terminateThisInstanceAWS(settings=self.settings, logger=self.logger)
             elif is_my_last_added_message(msg, self.last_added_message):
                 # The cycle is over
                 self.last_added_message = ''
