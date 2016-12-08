@@ -1461,3 +1461,78 @@ Node slave_of_slave, id 1.5, keys 0:429496729
 2016-12-08 10:47:37,365 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
 2016-12-08 10:47:37,366 Writer-3 MainProcess DEBUG: sending message to tcp://*:5557
 2016-12-08 10:47:37,367 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-08 10:48:05,808 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-08 10:48:05,808 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-08 10:48:05,809 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-08 10:48:05,809 Writer-3 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-08 10:48:05,810 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-08 10:48:36,207 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-08 10:48:36,208 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-08 10:48:36,208 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-08 10:48:36,208 Writer-3 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-08 10:48:36,209 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-08 10:49:04,238 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-08 10:49:04,238 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-08 10:49:04,238 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-08 10:49:04,238 Writer-3 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-08 10:49:04,239 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-08 10:49:35,760 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-08 10:49:35,760 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-08 10:49:35,760 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-08 10:49:35,760 Writer-3 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-08 10:49:35,761 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-08 10:50:01,970 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-08 10:50:01,970 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-08 10:50:01,970 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-08 10:50:01,971 Writer-3 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-08 10:50:01,972 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-08 10:50:33,558 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-08 10:50:33,558 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-08 10:50:33,558 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-08 10:50:33,559 Writer-3 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-08 10:50:33,560 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-08 10:51:02,718 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-08 10:51:02,718 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-08 10:51:02,718 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-08 10:51:02,719 Writer-3 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-08 10:51:02,720 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-08 10:51:27,546 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-08 10:51:27,547 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-08 10:51:27,547 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-08 10:51:27,547 Writer-3 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-08 10:51:27,548 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-08 10:51:57,413 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-08 10:51:57,414 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-08 10:51:57,414 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-08 10:51:57,414 Writer-3 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-08 10:51:57,415 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-08 10:52:26,934 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-08 10:52:26,934 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-08 10:52:26,934 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-08 10:52:26,935 Writer-3 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-08 10:52:26,935 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-08 10:53:01,582 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-08 10:53:01,583 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-08 10:53:01,583 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-08 10:53:01,583 Writer-3 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-08 10:53:01,584 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-08 10:53:30,995 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-08 10:53:30,995 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-08 10:53:30,995 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-08 10:53:30,995 Writer-3 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-08 10:53:30,996 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-08 10:53:59,034 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-08 10:53:59,034 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-08 10:53:59,034 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-08 10:53:59,035 Writer-3 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-08 10:53:59,036 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-08 10:54:24,934 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-08 10:54:24,935 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-08 10:54:24,935 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-08 10:54:24,935 Writer-3 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-08 10:54:24,936 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-08 10:54:58,959 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-08 10:54:58,959 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-08 10:54:58,959 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-08 10:54:58,959 Writer-3 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-08 10:54:58,960 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
