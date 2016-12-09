@@ -1,0 +1,59 @@
+ubuntu@ip-172-31-21-1:~$ telnet 172.31.20.1 5555
+Trying 172.31.20.1...
+Connected to 172.31.20.1.
+Escape character is '^]'.
+help
+ERROR
+SUPPORTED OPERATIONS:
+-SET (SET <key> <flag> <exp> <byte> <data>)
+-ADD (ADD <key> <flag> <exp> <byte> <data>)
+-GET (GET <key>)
+-DELETE (DELETE <key>)
+-CELLCYCLE
+        KILLYOURSELF <TERMINATE or STOP>
+        KILLALL <TERMINATE or STOP>
+        NEWCELL <params>
+        SCALEUP
+        SCALEDOWN
+        KEYS
+        WHOHAS <key>
+        LOG
+
+BYE
+cellcycle keys
+Node 1, Node : myself 1, master 5, slave 2
+Keys : master 3435973836:4294967294, myself 0:858993458, slave 858993459:1717986917
+Node 3, Node : myself 3, master 2, slave 4
+Keys : master 858993459:1717986917, myself 1717986918:2576980376, slave 2576980377:3435973835
+Node 2, Node : myself 2, master 1, slave 3
+Keys : master 0:858993458, myself 858993459:1717986917, slave 1717986918:2576980376
+Node 5, Node : myself 5, master 4, slave 1
+Keys : master 2576980377:3435973835, myself 3435973836:4294967294, slave 0:858993458
+Node 4, Node : myself 4, master 3, slave 5
+Keys : master 1717986918:2576980376, myself 2576980377:3435973835, slave 3435973836:4294967294
+
+cellcycle whohas ciao
+Key 3996799345 is assigned to: 172.31.20.5
+set ciao 1 1 4 ciaone
+STORED
+get ciao
+VALUE 3996799345 1 6
+ciaone
+END
+quit
+Connection closed by foreign host.
+ubuntu@ip-172-31-21-1:~$ telnet 172.31.20.5 5555
+Trying 172.31.20.5...
+Connected to 172.31.20.5.
+Escape character is '^]'.
+cellcycle killyourself terminate
+HELLO DARKNESS MY OLD FRIEND...
+Connection closed by foreign host.
+ubuntu@ip-172-31-21-1:~$ telnet 172.31.20.1 5555
+Trying 172.31.20.1...
+Connected to 172.31.20.1.
+Escape character is '^]'.
+get ciao
+VALUE 3996799345 1 6
+ciaone
+END
