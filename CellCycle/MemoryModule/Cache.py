@@ -90,7 +90,7 @@ class CacheSlubLRU(object):
         slab = getTail(self,self.taglru)
         bringToFirst(self, self.taglru,slab)
         self.lrumutex.release()
-        self.logger.debug("Slab purged: "+str(slab))
+        #self.logger.debug("Slab purged: "+str(slab))
 
         if (slab.state == 1):#partial
             pop(self, self.tagpartial, slab)
