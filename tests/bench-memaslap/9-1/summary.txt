@@ -1,0 +1,14 @@
+22:37:01 start 2 x memaslap
+22:37:59 new node 4.5
+22:38:49 new node 3.5
+22:39:56 new node 7.0
+22:40:55 new node 2.5
+22:41:34 new node 2.25
+22:42:36 new node 1.5
+22:47:03 memaslap finish
+22:47:30 recovered death of 7.0
+22:47:58 recovered death of 4.5
+22:48:32 recovered death of 1
+22:49:16 recovered death of 5
+22:50:02 recovered death of 4
+22:50:54 recovered death of 2

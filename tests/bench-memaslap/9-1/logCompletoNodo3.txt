@@ -1,0 +1,1832 @@
+2016-12-09 21:30:37,691 MainThread MainProcess DEBUG: Starting with params: {u'master': {u'ip': u'172.31.20.2', u'min_key': u'858993459', u'id': u'2', u'max_key': u'1717986917'}, u'myself': {u'ip': u'172.31.20.3', u'min_key': u'1717986918', u'id': u'3', u'max_key': u'2576980376'}, u'master_of_master': {u'ip': u'172.31.20.1', u'min_key': u'0', u'id': u'1', u'max_key': u'858993458'}, u'slave': {u'ip': u'172.31.20.4', u'min_key': u'2576980377', u'id': u'4', u'max_key': u'3435973835'}, u'slave_of_slave': {u'ip': u'172.31.20.5', u'min_key': u'3435973836', u'id': u'5', u'max_key': u'4294967294'}}
+2016-12-09 21:30:37,694 MainThread MainProcess DEBUG: These are my features: (Writer 3) Master ID : 2 , SlaveID: 4, IntPort 5557, ExtPort 5558, IP 172.31.20.3
+2016-12-09 21:30:37,695 MainThread MainProcess DEBUG: These are my features: (Reader 3) Master ID : 2 , SlaveID: 4, IntPort 5557, ExtPort 5558, IP 172.31.20.3
+2016-12-09 21:30:37,695 MainThread MainProcess DEBUG: list_manager : <DeadWriter(Writer-3, initial)>
+2016-12-09 21:30:37,696 MainThread python-CCMemoryMaster DEBUG: Cache: Initializing cache with totalSize:200.0MB, slabSize:0.1MB
+2016-12-09 21:30:37,697 MainThread python-CCMemorySlave DEBUG: Cache: Initializing cache with totalSize:200.0MB, slabSize:0.1MB
+2016-12-09 21:30:37,705 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-12-09 21:30:37,705 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-12-09 21:30:37,705 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-12-09 21:30:37,709 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-12-09 21:30:37,713 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-12-09 21:30:37,717 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-12-09 21:30:37,718 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-12-09 21:30:37,721 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-12-09 21:30:37,725 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-12-09 21:30:37,729 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-12-09 21:30:37,729 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-12-09 21:30:37,729 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-12-09 21:30:37,737 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-12-09 21:30:37,738 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-12-09 21:30:37,741 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-12-09 21:30:37,741 ServiceEntrypointThread MainProcess DEBUG: Listening for clients on tcp://*:5555
+2016-12-09 21:30:37,745 ServiceEntrypointRouterThread MainProcess DEBUG: Interface receiver is started
+2016-12-09 21:30:37,749 Reader-3 MainProcess DEBUG: Starting Reader 3
+2016-12-09 21:30:37,749 Reader-3 MainProcess DEBUG: my IP is not none : 172.31.20.3
+2016-12-09 21:30:37,749 Reader-3 MainProcess DEBUG: sync init
+2016-12-09 21:30:37,750 Reader-3 MainProcess DEBUG: new internal channel client created with destination tcp://172.31.20.2:5557
+2016-12-09 21:30:37,750 Reader-3 MainProcess DEBUG: sending message to tcp://172.31.20.2:5557
+2016-12-09 21:30:37,772 Writer-3 MainProcess DEBUG: Starting Writer 3
+2016-12-09 21:30:37,772 Writer-3 MainProcess DEBUG: new internal channel server created with destination tcp://*:5557
+2016-12-09 21:30:37,773 Writer-3 MainProcess DEBUG: waiting for a request
+2016-12-09 21:30:37,906 MainThread python-CCMemorySlave DEBUG: Cache: End of Initialization Cache, Success!
+2016-12-09 21:30:37,907 MainThread python-CCMemorySlave DEBUG: Memory Process initialized:200000000B, get# = 1
+2016-12-09 21:30:37,908 MainThread python-CCMemoryMaster DEBUG: Cache: End of Initialization Cache, Success!
+2016-12-09 21:30:37,908 MainThread python-CCMemoryMaster DEBUG: Memory Process initialized:200000000B, get# = 1
+2016-12-09 21:30:37,908 MemoryGetProxy python-CCMemorySlave DEBUG: Routing from tcp://*:5553 to inproc://get_memoryslave
+2016-12-09 21:30:37,909 MemoryGetProxy python-CCMemoryMaster DEBUG: Routing from tcp://*:5551 to inproc://get_memorymaster
+2016-12-09 21:30:37,909 MemoryGetter python-CCMemorySlave DEBUG: Listening in new task for get on inproc://get_memoryslave
+2016-12-09 21:30:37,909 MemoryGetter python-CCMemoryMaster DEBUG: Listening in new task for get on inproc://get_memorymaster
+2016-12-09 21:30:37,910 MainThread python-CCMemorySlave DEBUG: Listening in new task for set on tcp://*:5552
+2016-12-09 21:30:37,910 MainThread python-CCMemorySlave DEBUG: new internal channel client created with destination tcp://127.0.0.1:5559
+2016-12-09 21:30:37,910 MainThread python-CCMemorySlave DEBUG: new internal channel client created with destination tcp://127.0.0.1:5557
+2016-12-09 21:30:37,911 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Metricator alive, period: 30s, getThrLevel: [1e-06,0.06], setThrLevel: [1e-07,0.5]
+2016-12-09 21:30:37,911 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: new internal channel client created with destination tcp://127.0.0.1:5557
+2016-12-09 21:30:37,912 MainThread python-CCMemoryMaster DEBUG: Listening in new task for set on tcp://*:5550
+2016-12-09 21:30:37,912 MainThread python-CCMemoryMaster DEBUG: new internal channel client created with destination tcp://127.0.0.1:5559
+2016-12-09 21:30:37,913 MainThread python-CCMemoryMaster DEBUG: new internal channel client created with destination tcp://127.0.0.1:5557
+2016-12-09 21:30:37,913 MemorySlaveSetter python-CCMemoryMaster DEBUG: cannot send to slave, net info: None
+2016-12-09 21:30:37,968 MainThread python-CCMemoryMaster DEBUG: Configuration of net data: Node myself, id 3, keys 1717986918:2576980376
+Node master, id 2, keys 858993459:1717986917
+Node master_of_master, id 1, keys 0:858993458
+Node slave, id 4, keys 2576980377:3435973835
+Node slave_of_slave, id 5, keys 3435973836:4294967294
+
+2016-12-09 21:30:38,914 MemorySlaveSetter python-CCMemoryMaster DEBUG: Finally I'm configured
+2016-12-09 21:30:44,909 Writer-3 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-09 21:30:44,910 Writer-3 MainProcess DEBUG: Generating server connection point tcp://172.31.20.3:5558
+2016-12-09 21:30:44,970 Reader-3 MainProcess DEBUG: waiting for a request
+2016-12-09 21:30:44,970 Reader-3 MainProcess DEBUG: received rep_msg
+2016-12-09 21:30:44,970 Reader-3 MainProcess DEBUG: accepted by master 2, achieved new master_of_master id 1
+2016-12-09 21:30:44,970 Reader-3 MainProcess DEBUG: Generating client connection point tcp://172.31.20.2:5558
+2016-12-09 21:30:44,970 Reader-3 MainProcess DEBUG: sync completed
+2016-12-09 21:30:45,912 Writer-3 MainProcess DEBUG: this is my list
+Node 1, Node : myself 1, master 5, slave 2
+Keys : master 3435973836:4294967294, myself 0:858993458, slave 858993459:1717986917
+Node 3, Node : myself 3, master 2, slave 4
+Keys : master 858993459:1717986917, myself 1717986918:2576980376, slave 2576980377:3435973835
+Node 2, Node : myself 2, master 1, slave 3
+Keys : master 0:858993458, myself 858993459:1717986917, slave 1717986918:2576980376
+Node 5, Node : myself 5, master 4, slave 1
+Keys : master 2576980377:3435973835, myself 3435973836:4294967294, slave 0:858993458
+Node 4, Node : myself 4, master 3, slave 5
+Keys : master 1717986918:2576980376, myself 2576980377:3435973835, slave 3435973836:4294967294
+
+2016-12-09 21:30:45,912 Writer-3 MainProcess DEBUG: Send that i'm ALIVE (3) to 4
+2016-12-09 21:30:45,912 Writer-3 MainProcess DEBUG: lsv 0, lsp 0, lsr 0
+2016-12-09 21:31:03,214 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 1.54542154591e-05, getters (mean): 0.0
+2016-12-09 21:31:03,214 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-09 21:31:03,214 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-09 21:31:03,217 Writer-3 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-09 21:31:03,217 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-09 21:31:30,674 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-09 21:31:30,674 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-09 21:31:30,674 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-09 21:31:30,675 Writer-3 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-09 21:31:30,675 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-09 21:31:57,294 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-09 21:31:57,295 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-09 21:31:57,295 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-09 21:31:57,295 Writer-3 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-09 21:31:57,296 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-09 21:32:29,658 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-09 21:32:29,658 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-09 21:32:29,658 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-09 21:32:29,658 Writer-3 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-09 21:32:29,659 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-09 21:33:00,054 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-09 21:33:00,054 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-09 21:33:00,054 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-09 21:33:00,055 Writer-3 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-09 21:33:00,056 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-09 21:33:35,210 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-09 21:33:35,210 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-09 21:33:35,210 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-09 21:33:35,211 Writer-3 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-09 21:33:35,211 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-09 21:34:01,641 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-09 21:34:01,641 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-09 21:34:01,641 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-09 21:34:01,642 Writer-3 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-09 21:34:01,642 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-09 21:34:28,004 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-09 21:34:28,004 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-09 21:34:28,004 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-09 21:34:28,004 Writer-3 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-09 21:34:28,005 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-09 21:35:02,095 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-09 21:35:02,095 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-09 21:35:02,095 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-09 21:35:02,096 Writer-3 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-09 21:35:02,097 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-09 21:35:33,203 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-09 21:35:33,203 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-09 21:35:33,203 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-09 21:35:33,204 Writer-3 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-09 21:35:33,204 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-09 21:35:59,800 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-09 21:35:59,801 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-09 21:35:59,801 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-09 21:35:59,801 Writer-3 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-09 21:35:59,802 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-09 21:36:25,185 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-09 21:36:25,185 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-09 21:36:25,185 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-09 21:36:25,186 Writer-3 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-09 21:36:25,187 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-09 21:36:56,833 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00551302198148, getters (mean): 0.0217428449358
+2016-12-09 21:37:21,990 Writer-3 MainProcess DEBUG: this message from 4 can be forwarded due to higher priority than 0
+target_addr: 
+target_key: 3006477107:3435973835
+random: 1735
+target_id: 4.5
+priority: 1
+version: 1
+source_id: 4
+source_flag: 1
+target_relative_id: 5
+
+2016-12-09 21:37:21,990 Writer-3 MainProcess DEBUG: I am in state BusyAddPS
+2016-12-09 21:37:21,991 Writer-3 MainProcess DEBUG: These are my:
+- last seen version 1
+- last seen priority 1
+- last seen random 1735
+2016-12-09 21:37:21,991 Writer-3 MainProcess DEBUG: forwarding ADD message
+target_addr: 
+target_key: 3006477107:3435973835
+random: 1735
+target_id: 4.5
+priority: 1
+version: 1
+source_id: 4
+source_flag: 1
+target_relative_id: 5
+
+2016-12-09 21:37:28,453 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0130307474542, getters (mean): 0.0591699003921
+2016-12-09 21:37:59,481 Writer-3 MainProcess DEBUG: my version is 2, uuu we have a new NODE
+target_addr: 172.31.18.124
+target_key: 3006477107:3435973835
+random: 7694
+target_id: 4.5
+priority: 2
+version: 2
+source_id: 4
+source_flag: 1
+target_relative_id: 5
+
+2016-12-09 21:37:59,481 Writer-3 MainProcess DEBUG: i'm 3, these are my nodes to compute keys
+Node myself, id 4, keys 2576980377:3435973835
+Node master, id 3, keys 1717986918:2576980376
+Node master_of_master, id 2, keys 858993459:1717986917
+Node slave, id 5, keys 3435973836:4294967294
+Node slave_of_slave, id 1, keys 0:858993458
+
+2016-12-09 21:37:59,481 Writer-3 MainProcess DEBUG: i'm 3, these are my computed keys
+myself, (2576980377,3006477106)
+slave, (3435973836,4294967294)
+master, (1717986918,2576980376)
+slave_of_slave, (0,858993458)
+newNode, (3006477107,3435973835)
+master_of_master, (858993459,1717986917)
+
+2016-12-09 21:37:59,481 Writer-3 MainProcess DEBUG: i'm 3
+2016-12-09 21:37:59,481 Writer-3 MainProcess DEBUG: adding this node in list, id: 4, master: 3, slave: 5
+2016-12-09 21:37:59,481 Writer-3 MainProcess DEBUG: adding this node in list, id: 3, master: 2, slave: 4
+2016-12-09 21:37:59,481 Writer-3 MainProcess DEBUG: adding this node in list, id: 5, master: 4, slave: 1
+2016-12-09 21:37:59,481 Writer-3 MainProcess DEBUG: adding this node in list, id: 2, master: 1, slave: 3
+2016-12-09 21:37:59,482 Writer-3 MainProcess DEBUG: adding this node in list, id: 1, master: 5, slave: 2
+2016-12-09 21:37:59,483 Writer-3 MainProcess DEBUG: adding this node in list
+min_key, 3006477107
+ip, 172.31.18.124
+int_addr, 172.31.18.124:5557
+ext_port, 5558
+ext_addr, 172.31.18.124:5558
+max_key, 3435973835
+id, 4.5
+memory_port, 
+int_port, 5557
+
+2016-12-09 21:37:59,483 Writer-3 MainProcess DEBUG: this is my new list
+Node 4.5, Node : myself 4.5, master 4, slave 5
+Keys : master 2576980377:3006477106, myself 3006477107:3435973835, slave 3435973836:4294967294
+Node 1, Node : myself 1, master 5, slave 2
+Keys : master 3435973836:4294967294, myself 0:858993458, slave 858993459:1717986917
+Node 3, Node : myself 3, master 2, slave 4
+Keys : master 858993459:1717986917, myself 1717986918:2576980376, slave 2576980377:3006477106
+Node 2, Node : myself 2, master 1, slave 3
+Keys : master 0:858993458, myself 858993459:1717986917, slave 1717986918:2576980376
+Node 5, Node : myself 5, master 4.5, slave 1
+Keys : master 3006477107:3435973835, myself 3435973836:4294967294, slave 0:858993458
+Node 4, Node : myself 4, master 3, slave 4.5
+Keys : master 1717986918:2576980376, myself 2576980377:3006477106, slave 3006477107:3435973835
+
+These are my relatives
+Node myself, id 3, keys 1717986918:2576980376
+Node master, id 2, keys 858993459:1717986917
+Node master_of_master, id 1, keys 0:858993458
+Node slave, id 4, keys 2576980377:3006477106
+Node slave_of_slave, id 5, keys 3435973836:4294967294
+
+2016-12-09 21:37:59,483 Writer-3 MainProcess DEBUG: I am in state Free
+2016-12-09 21:37:59,483 Writer-3 MainProcess DEBUG: welcome new relative! now i am able to receive new scale ups, relatives:
+1, 2, 3, 4, 4.5
+2016-12-09 21:37:59,483 Writer-3 MainProcess DEBUG: forwarding this ADDED message
+target_addr: 172.31.18.124
+target_key: 3006477107:3435973835
+random: 7694
+target_id: 4.5
+priority: 2
+version: 2
+source_id: 4
+source_flag: 1
+target_relative_id: 5
+
+ lsv 1, lsp 0, lsr 0
+2016-12-09 21:38:00,494 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0134547870167, getters (mean): 0.06405088783
+2016-12-09 21:38:00,494 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Up!
+2016-12-09 21:38:00,494 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-09 21:38:00,494 Writer-3 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-09 21:38:00,495 Writer-3 MainProcess DEBUG: I am in state BusyAddPS
+2016-12-09 21:38:00,495 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-09 21:38:00,495 Writer-3 MainProcess DEBUG: now i'm busy : ScaleUpThread asked to scale up
+2016-12-09 21:38:00,496 Writer-3 MainProcess DEBUG: These are my:
+- last seen version 1
+- last seen priority 1
+- last seen random 4493
+2016-12-09 21:38:00,514 Writer-3 MainProcess DEBUG: LAST ADD message
+2016-12-09 21:38:00,514 Writer-3 MainProcess DEBUG: contact amazon
+2016-12-09 21:38:00,640 Writer-3 MainProcess DEBUG: Loading JSON file: /usr/local/lib/python2.7/dist-packages/boto3/data/ec2/2016-09-15/resources-1.json
+2016-12-09 21:38:00,666 Writer-3 MainProcess DEBUG: Looking for credentials via: assume-role
+2016-12-09 21:38:00,666 Writer-3 MainProcess DEBUG: Looking for credentials via: shared-credentials-file
+2016-12-09 21:38:00,667 Writer-3 MainProcess INFO: Found credentials in shared credentials file: ~/.aws/credentials
+2016-12-09 21:38:00,670 Writer-3 MainProcess DEBUG: Loading JSON file: /usr/local/lib/python2.7/dist-packages/botocore/data/endpoints.json
+2016-12-09 21:38:00,699 Writer-3 MainProcess DEBUG: Loading JSON file: /usr/local/lib/python2.7/dist-packages/botocore/data/ec2/2016-09-15/service-2.json
+2016-12-09 21:38:00,786 Writer-3 MainProcess DEBUG: Loading JSON file: /usr/local/lib/python2.7/dist-packages/botocore/data/_retry.json
+2016-12-09 21:38:00,787 Writer-3 MainProcess DEBUG: Registering retry handlers for service: ec2
+2016-12-09 21:38:00,800 Writer-3 MainProcess DEBUG: Event creating-client-class.ec2: calling handler <function add_generate_presigned_url at 0x7efe57704848>
+2016-12-09 21:38:00,801 Writer-3 MainProcess DEBUG: The s3 config key is not a dictionary type, ignoring its value of: None
+2016-12-09 21:38:00,803 Writer-3 MainProcess DEBUG: Setting ec2 timeout as (60, 60)
+2016-12-09 21:38:00,803 Writer-3 MainProcess DEBUG: Loading ec2:ec2
+2016-12-09 21:38:00,810 Writer-3 MainProcess DEBUG: Event creating-resource-class.ec2.ServiceResource: calling handler <function _handler at 0x7efe575e0a28>
+2016-12-09 21:38:00,813 Writer-3 MainProcess DEBUG: id image: ami-9fc501f0
+2016-12-09 21:38:00,813 Writer-3 MainProcess INFO: Calling ec2:run_instances with {'UserData': u'#!/bin/bash\nsudo cp /home/ubuntu/.aws /root/ -r\ncd /home/ubuntu/git/CellsCycle/\nsudo echo BEGIN OF LOGFILE > logFile.txt\nsudo git checkout master  >> logFile.txt 2>&1\nsudo git fetch --all >> logFile.txt 2>&1\nsudo git reset --hard origin/master >> logFile.txt 2>&1\nsudo /usr/bin/python startOnBoot.py \'{"slave": {"ip": "172.31.20.4", "max_key": "3006477106", "id": "4", "min_key": "2576980377"}, "myself": {"ip": null, "max_key": "2576980376", "id": "3.5", "min_key": "2147483648"}, "master_of_master": {"ip": "172.31.20.2", "max_key": "1717986917", "id": "2", "min_key": "858993459"}, "master": {"ip": "172.31.20.3", "max_key": "2576980376", "id": "3", "min_key": "1717986918"}, "slave_of_slave": {"ip": "172.31.18.124", "max_key": "3435973835", "id": "4.5", "min_key": "3006477107"}}\' \'{"MemoryObjectPort": ["5559"], "SlaveSetPort": ["5552"], "MasterGetPort": ["5551"], "ClientEntrypointPort": ["5555"], "ValueMaxSize": ["4096"], "GitBranch": ["master"], "LogFile": ["logFile.txt"], "ServiceThreadNumber": ["16"], "StartFileRelativePath": ["startOnBoot.py"], "GetterThreadNumber": ["1"], "PreallocatedPool": ["200000000"], "MasterSetPort": ["5550"], "SetScaleDownLevel": ["0.0000001"], "AwsImageId": ["ami-9fc501f0"], "IntPort": ["5557"], "GetScaleUpLevel": ["0.06"], "AwsProfileName": ["andrea_gennusa"], "AwsKeyName": ["CellCycleBot"], "ExtPort": ["5558"], "GetScaleDownLevel": ["0.000001"], "SetScaleUpLevel": ["0.50"], "AwsSecurityGroup": ["SSHToAll"], "EC2Type": ["t2.micro"], "Verbose": ["False"], "MinInstance": ["5"], "SlaveGetPort": ["5553"], "MaxInstance": ["13"], "ScalePeriod": ["30"], "SlabSize": ["100000"]}\' >> extremeLog.log 2>&1\n', 'KeyName': 'CellCycleBot', 'SecurityGroups': ['SSHToAll'], 'MaxCount': 1, 'MinCount': 1, 'InstanceType': 't2.micro', 'ImageId': 'ami-9fc501f0'}
+2016-12-09 21:38:00,814 Writer-3 MainProcess DEBUG: Event before-parameter-build.ec2.RunInstances: calling handler <bound method ParameterAlias.alias_parameter_in_call of <botocore.handlers.ParameterAlias object at 0x7efe576b81d0>>
+2016-12-09 21:38:00,815 Writer-3 MainProcess DEBUG: Event before-parameter-build.ec2.RunInstances: calling handler <function base64_encode_user_data at 0x7efe576b2a28>
+2016-12-09 21:38:00,816 Writer-3 MainProcess DEBUG: Making request for OperationModel(name=RunInstances) (verify_ssl=True) with params: {'body': {'UserData': u'IyEvYmluL2Jhc2gKc3VkbyBjcCAvaG9tZS91YnVudHUvLmF3cyAvcm9vdC8gLXIKY2QgL2hvbWUvdWJ1bnR1L2dpdC9DZWxsc0N5Y2xlLwpzdWRvIGVjaG8gQkVHSU4gT0YgTE9HRklMRSA+IGxvZ0ZpbGUudHh0CnN1ZG8gZ2l0IGNoZWNrb3V0IG1hc3RlciAgPj4gbG9nRmlsZS50eHQgMj4mMQpzdWRvIGdpdCBmZXRjaCAtLWFsbCA+PiBsb2dGaWxlLnR4dCAyPiYxCnN1ZG8gZ2l0IHJlc2V0IC0taGFyZCBvcmlnaW4vbWFzdGVyID4+IGxvZ0ZpbGUudHh0IDI+JjEKc3VkbyAvdXNyL2Jpbi9weXRob24gc3RhcnRPbkJvb3QucHkgJ3sic2xhdmUiOiB7ImlwIjogIjE3Mi4zMS4yMC40IiwgIm1heF9rZXkiOiAiMzAwNjQ3NzEwNiIsICJpZCI6ICI0IiwgIm1pbl9rZXkiOiAiMjU3Njk4MDM3NyJ9LCAibXlzZWxmIjogeyJpcCI6IG51bGwsICJtYXhfa2V5IjogIjI1NzY5ODAzNzYiLCAiaWQiOiAiMy41IiwgIm1pbl9rZXkiOiAiMjE0NzQ4MzY0OCJ9LCAibWFzdGVyX29mX21hc3RlciI6IHsiaXAiOiAiMTcyLjMxLjIwLjIiLCAibWF4X2tleSI6ICIxNzE3OTg2OTE3IiwgImlkIjogIjIiLCAibWluX2tleSI6ICI4NTg5OTM0NTkifSwgIm1hc3RlciI6IHsiaXAiOiAiMTcyLjMxLjIwLjMiLCAibWF4X2tleSI6ICIyNTc2OTgwMzc2IiwgImlkIjogIjMiLCAibWluX2tleSI6ICIxNzE3OTg2OTE4In0sICJzbGF2ZV9vZl9zbGF2ZSI6IHsiaXAiOiAiMTcyLjMxLjE4LjEyNCIsICJtYXhfa2V5IjogIjM0MzU5NzM4MzUiLCAiaWQiOiAiNC41IiwgIm1pbl9rZXkiOiAiMzAwNjQ3NzEwNyJ9fScgJ3siTWVtb3J5T2JqZWN0UG9ydCI6IFsiNTU1OSJdLCAiU2xhdmVTZXRQb3J0IjogWyI1NTUyIl0sICJNYXN0ZXJHZXRQb3J0IjogWyI1NTUxIl0sICJDbGllbnRFbnRyeXBvaW50UG9ydCI6IFsiNTU1NSJdLCAiVmFsdWVNYXhTaXplIjogWyI0MDk2Il0sICJHaXRCcmFuY2giOiBbIm1hc3RlciJdLCAiTG9nRmlsZSI6IFsibG9nRmlsZS50eHQiXSwgIlNlcnZpY2VUaHJlYWROdW1iZXIiOiBbIjE2Il0sICJTdGFydEZpbGVSZWxhdGl2ZVBhdGgiOiBbInN0YXJ0T25Cb290LnB5Il0sICJHZXR0ZXJUaHJlYWROdW1iZXIiOiBbIjEiXSwgIlByZWFsbG9jYXRlZFBvb2wiOiBbIjIwMDAwMDAwMCJdLCAiTWFzdGVyU2V0UG9ydCI6IFsiNTU1MCJdLCAiU2V0U2NhbGVEb3duTGV2ZWwiOiBbIjAuMDAwMDAwMSJdLCAiQXdzSW1hZ2VJZCI6IFsiYW1pLTlmYzUwMWYwIl0sICJJbnRQb3J0IjogWyI1NTU3Il0sICJHZXRTY2FsZVVwTGV2ZWwiOiBbIjAuMDYiXSwgIkF3c1Byb2ZpbGVOYW1lIjogWyJhbmRyZWFfZ2VubnVzYSJdLCAiQXdzS2V5TmFtZSI6IFsiQ2VsbEN5Y2xlQm90Il0sICJFeHRQb3J0IjogWyI1NTU4Il0sICJHZXRTY2FsZURvd25MZXZlbCI6IFsiMC4wMDAwMDEiXSwgIlNldFNjYWxlVXBMZXZlbCI6IFsiMC41MCJdLCAiQXdzU2VjdXJpdHlHcm91cCI6IFsiU1NIVG9BbGwiXSwgIkVDMlR5cGUiOiBbInQyLm1pY3JvIl0sICJWZXJib3NlIjogWyJGYWxzZSJdLCAiTWluSW5zdGFuY2UiOiBbIjUiXSwgIlNsYXZlR2V0UG9ydCI6IFsiNTU1MyJdLCAiTWF4SW5zdGFuY2UiOiBbIjEzIl0sICJTY2FsZVBlcmlvZCI6IFsiMzAiXSwgIlNsYWJTaXplIjogWyIxMDAwMDAiXX0nID4+IGV4dHJlbWVMb2cubG9nIDI+JjEK', 'Version': u'2016-09-15', u'SecurityGroup.1': 'SSHToAll', 'ImageId': 'ami-9fc501f0', 'KeyName': 'CellCycleBot', 'MaxCount': 1, 'Action': u'RunInstances', 'MinCount': 1, 'InstanceType': 't2.micro'}, 'url': u'https://ec2.eu-central-1.amazonaws.com/', 'headers': {'User-Agent': 'Boto3/1.4.1 Python/2.7.6 Linux/3.13.0-100-generic Botocore/1.4.70 Resource'}, 'context': {'client_region': 'eu-central-1', 'has_streaming_input': False, 'client_config': <botocore.config.Config object at 0x7efe3c6cf310>}, 'query_string': '', 'url_path': '/', 'method': u'POST'}
+2016-12-09 21:38:00,816 Writer-3 MainProcess DEBUG: Event request-created.ec2.RunInstances: calling handler <bound method RequestSigner.handler of <botocore.signers.RequestSigner object at 0x7efe3c6cf350>>
+2016-12-09 21:38:00,818 Writer-3 MainProcess DEBUG: Calculating signature using v4 auth.
+2016-12-09 21:38:00,818 Writer-3 MainProcess DEBUG: CanonicalRequest:
+POST
+/
+
+host:ec2.eu-central-1.amazonaws.com
+x-amz-date:20161209T213800Z
+
+host;x-amz-date
+6ede1af8852d5899304e13db3ac62b4b57521b00a9304a70d7d7dfd036e89dbd
+2016-12-09 21:38:00,818 Writer-3 MainProcess DEBUG: StringToSign:
+AWS4-HMAC-SHA256
+20161209T213800Z
+20161209/eu-central-1/ec2/aws4_request
+9af0f9c64c262f1a49b9e9ee1a0005c7fbb38289fff8077d78cec912448fb5a6
+2016-12-09 21:38:00,818 Writer-3 MainProcess DEBUG: Signature:
+64f026b2a7f26bbfe08222d163c283734a49f04af70cec8e0ab2750c63cf158b
+2016-12-09 21:38:00,825 Writer-3 MainProcess DEBUG: Sending http request: <PreparedRequest [POST]>
+2016-12-09 21:38:00,826 Writer-3 MainProcess INFO: Starting new HTTPS connection (1): ec2.eu-central-1.amazonaws.com
+2016-12-09 21:38:01,394 Writer-3 MainProcess DEBUG: "POST / HTTP/1.1" 200 None
+2016-12-09 21:38:01,395 Writer-3 MainProcess DEBUG: Response headers: {'transfer-encoding': 'chunked', 'vary': 'Accept-Encoding', 'server': 'AmazonEC2', 'content-type': 'text/xml;charset=UTF-8', 'date': 'Fri, 09 Dec 2016 21:38:01 GMT'}
+2016-12-09 21:38:01,395 Writer-3 MainProcess DEBUG: Response body:
+<?xml version="1.0" encoding="UTF-8"?>
+<RunInstancesResponse xmlns="http://ec2.amazonaws.com/doc/2016-09-15/">
+    <requestId>115952a1-99c0-4641-894b-fbb60316190b</requestId>
+    <reservationId>r-0b0d7a371c456eabd</reservationId>
+    <ownerId>116189005786</ownerId>
+    <groupSet/>
+    <instancesSet>
+        <item>
+            <instanceId>i-0d45f506f00e59e68</instanceId>
+            <imageId>ami-9fc501f0</imageId>
+            <instanceState>
+                <code>0</code>
+                <name>pending</name>
+            </instanceState>
+            <privateDnsName>ip-172-31-28-202.eu-central-1.compute.internal</privateDnsName>
+            <dnsName/>
+            <reason/>
+            <keyName>CellCycleBot</keyName>
+            <amiLaunchIndex>0</amiLaunchIndex>
+            <productCodes/>
+            <instanceType>t2.micro</instanceType>
+            <launchTime>2016-12-09T21:38:01.000Z</launchTime>
+            <placement>
+                <availabilityZone>eu-central-1b</availabilityZone>
+                <groupName/>
+                <tenancy>default</tenancy>
+            </placement>
+            <monitoring>
+                <state>disabled</state>
+            </monitoring>
+            <subnetId>subnet-2adbcb51</subnetId>
+            <vpcId>vpc-088c8461</vpcId>
+            <privateIpAddress>172.31.28.202</privateIpAddress>
+            <sourceDestCheck>true</sourceDestCheck>
+            <groupSet>
+                <item>
+                    <groupId>sg-97d59dff</groupId>
+                    <groupName>SSHToAll</groupName>
+                </item>
+            </groupSet>
+            <stateReason>
+                <code>pending</code>
+                <message>pending</message>
+            </stateReason>
+            <architecture>x86_64</architecture>
+            <rootDeviceType>ebs</rootDeviceType>
+            <rootDeviceName>/dev/sda1</rootDeviceName>
+            <blockDeviceMapping/>
+            <virtualizationType>hvm</virtualizationType>
+            <clientToken/>
+            <hypervisor>xen</hypervisor>
+            <networkInterfaceSet>
+                <item>
+                    <networkInterfaceId>eni-1037bc6f</networkInterfaceId>
+                    <subnetId>subnet-2adbcb51</subnetId>
+                    <vpcId>vpc-088c8461</vpcId>
+                    <description/>
+                    <ownerId>116189005786</ownerId>
+                    <status>in-use</status>
+                    <macAddress>06:2b:0d:91:41:9b</macAddress>
+                    <privateIpAddress>172.31.28.202</privateIpAddress>
+                    <privateDnsName>ip-172-31-28-202.eu-central-1.compute.internal</privateDnsName>
+                    <sourceDestCheck>true</sourceDestCheck>
+                    <groupSet>
+                        <item>
+                            <groupId>sg-97d59dff</groupId>
+                            <groupName>SSHToAll</groupName>
+                        </item>
+                    </groupSet>
+                    <attachment>
+                        <attachmentId>eni-attach-9e0f2e1e</attachmentId>
+                        <deviceIndex>0</deviceIndex>
+                        <status>attaching</status>
+                        <attachTime>2016-12-09T21:38:01.000Z</attachTime>
+                        <deleteOnTermination>true</deleteOnTermination>
+                    </attachment>
+                    <privateIpAddressesSet>
+                        <item>
+                            <privateIpAddress>172.31.28.202</privateIpAddress>
+                            <privateDnsName>ip-172-31-28-202.eu-central-1.compute.internal</privateDnsName>
+                            <primary>true</primary>
+                        </item>
+                    </privateIpAddressesSet>
+                </item>
+            </networkInterfaceSet>
+            <ebsOptimized>false</ebsOptimized>
+        </item>
+    </instancesSet>
+</RunInstancesResponse>
+2016-12-09 21:38:01,402 Writer-3 MainProcess DEBUG: Event needs-retry.ec2.RunInstances: calling handler <botocore.retryhandler.RetryHandler object at 0x7efe3060ae90>
+2016-12-09 21:38:01,403 Writer-3 MainProcess DEBUG: No retry needed.
+2016-12-09 21:38:01,403 Writer-3 MainProcess DEBUG: Response: {u'OwnerId': '116189005786', u'ReservationId': 'r-0b0d7a371c456eabd', 'ResponseMetadata': {'RetryAttempts': 0, 'HTTPStatusCode': 200, 'RequestId': '115952a1-99c0-4641-894b-fbb60316190b', 'HTTPHeaders': {'transfer-encoding': 'chunked', 'vary': 'Accept-Encoding', 'server': 'AmazonEC2', 'content-type': 'text/xml;charset=UTF-8', 'date': 'Fri, 09 Dec 2016 21:38:01 GMT'}}, u'Groups': [], u'Instances': [{u'Monitoring': {u'State': 'disabled'}, u'PublicDnsName': '', u'RootDeviceType': 'ebs', u'State': {u'Code': 0, u'Name': 'pending'}, u'EbsOptimized': False, u'LaunchTime': datetime.datetime(2016, 12, 9, 21, 38, 1, tzinfo=tzlocal()), u'PrivateIpAddress': '172.31.28.202', u'ProductCodes': [], u'VpcId': 'vpc-088c8461', u'StateTransitionReason': '', u'InstanceId': 'i-0d45f506f00e59e68', u'ImageId': 'ami-9fc501f0', u'PrivateDnsName': 'ip-172-31-28-202.eu-central-1.compute.internal', u'KeyName': 'CellCycleBot', u'SecurityGroups': [{u'GroupName': 'SSHToAll', u'GroupId': 'sg-97d59dff'}], u'ClientToken': '', u'SubnetId': 'subnet-2adbcb51', u'InstanceType': 't2.micro', u'NetworkInterfaces': [{u'Status': 'in-use', u'MacAddress': '06:2b:0d:91:41:9b', u'SourceDestCheck': True, u'VpcId': 'vpc-088c8461', u'Description': '', u'NetworkInterfaceId': 'eni-1037bc6f', u'PrivateIpAddresses': [{u'PrivateDnsName': 'ip-172-31-28-202.eu-central-1.compute.internal', u'Primary': True, u'PrivateIpAddress': '172.31.28.202'}], u'PrivateDnsName': 'ip-172-31-28-202.eu-central-1.compute.internal', u'Attachment': {u'Status': 'attaching', u'DeviceIndex': 0, u'DeleteOnTermination': True, u'AttachmentId': 'eni-attach-9e0f2e1e', u'AttachTime': datetime.datetime(2016, 12, 9, 21, 38, 1, tzinfo=tzlocal())}, u'Groups': [{u'GroupName': 'SSHToAll', u'GroupId': 'sg-97d59dff'}], u'SubnetId': 'subnet-2adbcb51', u'OwnerId': '116189005786', u'PrivateIpAddress': '172.31.28.202'}], u'SourceDestCheck': True, u'Placement': {u'Tenancy': 'default', u'GroupName': '', u'AvailabilityZone': 'eu-central-1b'}, u'Hypervisor': 'xen', u'BlockDeviceMappings': [], u'Architecture': 'x86_64', u'StateReason': {u'Message': 'pending', u'Code': 'pending'}, u'RootDeviceName': '/dev/sda1', u'VirtualizationType': 'hvm', u'AmiLaunchIndex': 0}]}
+2016-12-09 21:38:01,404 Writer-3 MainProcess DEBUG: Loading ec2:Instance
+2016-12-09 21:38:01,408 Writer-3 MainProcess DEBUG: Renaming Instance attribute network_interfaces
+2016-12-09 21:38:01,413 Writer-3 MainProcess DEBUG: Event creating-resource-class.ec2.Instance: calling handler <function _handler at 0x7efe575e0aa0>
+2016-12-09 21:38:01,416 Writer-3 MainProcess DEBUG: ADD CYCLE completed
+ lsv 2, lsp 1, lsr 4493
+2016-12-09 21:38:26,134 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0127006098826, getters (mean): 0.0520890344167
+2016-12-09 21:38:48,089 MainThread python-CCMemoryMaster DEBUG: Transferring memory to tcp://172.31.28.202:5550....
+2016-12-09 21:38:48,089 MainThread python-CCMemoryMaster DEBUG: Transfer memory command received: Transferring memory to tcp://172.31.28.202:5550, b,e: 2147483648,2576980376
+2016-12-09 21:38:49,051 MainThread python-CCMemoryMaster DEBUG: Transfer memory command completed: Transferred memory to tcp://172.31.28.202:5550
+2016-12-09 21:38:49,052 MainThread python-CCMemoryMaster DEBUG: Transfer complete!
+2016-12-09 21:38:49,052 MainThread python-CCMemoryMaster DEBUG: Transferring memory to tcp://172.31.28.202:5552....
+2016-12-09 21:38:49,052 MainThread python-CCMemoryMaster DEBUG: Transfer memory command received: Transferring memory to tcp://172.31.28.202:5552, b,e: 1717986918,2576980376
+2016-12-09 21:38:49,187 Writer-3 MainProcess DEBUG: i'm 3, these are my nodes to compute keys
+Node myself, id 3, keys 1717986918:2576980376
+Node master, id 2, keys 858993459:1717986917
+Node master_of_master, id 1, keys 0:858993458
+Node slave, id 4, keys 2576980377:3006477106
+Node slave_of_slave, id 4.5, keys 3006477107:3435973835
+
+2016-12-09 21:38:49,187 Writer-3 MainProcess DEBUG: i'm 3, these are my computed keys
+myself, (1717986918,2147483647)
+slave, (2576980377,3006477106)
+master, (858993459,1717986917)
+slave_of_slave, (3006477107,3435973835)
+newNode, (2147483648,2576980376)
+master_of_master, (0,858993458)
+
+2016-12-09 21:38:49,187 Writer-3 MainProcess DEBUG: i'm 3
+2016-12-09 21:38:49,187 Writer-3 MainProcess DEBUG: adding this node in list, id: 3, master: 2, slave: 4
+2016-12-09 21:38:49,187 Writer-3 MainProcess DEBUG: adding this node in list, id: 2, master: 1, slave: 3
+2016-12-09 21:38:49,187 Writer-3 MainProcess DEBUG: adding this node in list, id: 4, master: 3, slave: 4.5
+2016-12-09 21:38:49,187 Writer-3 MainProcess DEBUG: adding this node in list, id: 1, master: 5, slave: 2
+2016-12-09 21:38:49,187 Writer-3 MainProcess DEBUG: adding this node in list, id: 4.5, master: 4, slave: 5
+2016-12-09 21:38:49,187 Writer-3 MainProcess DEBUG: adding this node in list
+min_key, 2147483648
+ip, 172.31.28.202
+int_addr, 172.31.28.202:5557
+ext_port, 5558
+ext_addr, 172.31.28.202:5558
+max_key, 2576980376
+id, 3.5
+memory_port, 
+int_port, 5557
+
+2016-12-09 21:38:49,188 Writer-3 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-09 21:38:49,223 Writer-3 MainProcess DEBUG: I am in state Free
+2016-12-09 21:38:49,223 Writer-3 MainProcess DEBUG: the cycle is over, now i am able to accept scale up requests
+2016-12-09 21:38:49,223 Writer-3 MainProcess DEBUG: ADDED CYCLE completed, this is my list
+Node 4.5, Node : myself 4.5, master 4, slave 5
+Keys : master 2576980377:3006477106, myself 3006477107:3435973835, slave 3435973836:4294967294
+Node 3.5, Node : myself 3.5, master 3, slave 4
+Keys : master 1717986918:2147483647, myself 2147483648:2576980376, slave 2576980377:3006477106
+Node 1, Node : myself 1, master 5, slave 2
+Keys : master 3435973836:4294967294, myself 0:858993458, slave 858993459:1717986917
+Node 3, Node : myself 3, master 2, slave 3.5
+Keys : master 858993459:1717986917, myself 1717986918:2147483647, slave 2147483648:2576980376
+Node 2, Node : myself 2, master 1, slave 3
+Keys : master 0:858993458, myself 858993459:1717986917, slave 1717986918:2147483647
+Node 5, Node : myself 5, master 4.5, slave 1
+Keys : master 3006477107:3435973835, myself 3435973836:4294967294, slave 0:858993458
+Node 4, Node : myself 4, master 3.5, slave 4.5
+Keys : master 2147483648:2576980376, myself 2576980377:3006477106, slave 3006477107:3435973835
+These are my relatives
+Node myself, id 3, keys 1717986918:2147483647
+Node master, id 2, keys 858993459:1717986917
+Node master_of_master, id 1, keys 0:858993458
+Node slave, id 3.5, keys 2147483648:2576980376
+Node slave_of_slave, id 4, keys 2576980377:3006477106
+
+ lsv 2, lsp 0, lsr 0
+2016-12-09 21:38:50,896 MainThread python-CCMemoryMaster DEBUG: Transfer memory command completed: Transferred memory to tcp://172.31.28.202:5552
+2016-12-09 21:38:50,897 MainThread python-CCMemoryMaster DEBUG: Transfer complete!
+2016-12-09 21:38:50,911 MainThread python-CCMemoryMaster DEBUG: Slave is dead, new info: Node myself, id 3, keys 1717986918:2147483647
+Node master, id 2, keys 858993459:1717986917
+Node master_of_master, id 1, keys 0:858993458
+Node slave, id 3.5, keys 2147483648:2576980376
+Node slave_of_slave, id 4, keys 2576980377:3006477106
+
+2016-12-09 21:38:50,911 MemorySlaveSetter python-CCMemoryMaster DEBUG: Change of slave:tcp://172.31.28.202:5552
+2016-12-09 21:38:55,529 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.107854873078, getters (mean): 0.0531620188423
+2016-12-09 21:39:19,638 Writer-3 MainProcess DEBUG: this message from 5 can be forwarded due to higher priority than 0
+target_addr: 
+target_key: 3865470566:4294967294
+random: 1890
+target_id: 7.0
+priority: 1
+version: 3
+source_id: 5
+source_flag: 1
+target_relative_id: 1
+
+2016-12-09 21:39:19,638 Writer-3 MainProcess DEBUG: I am in state BusyAddPL
+2016-12-09 21:39:19,638 Writer-3 MainProcess DEBUG: These are my:
+- last seen version 3
+- last seen priority 1
+- last seen random 1890
+2016-12-09 21:39:19,638 Writer-3 MainProcess DEBUG: forwarding ADD message
+target_addr: 
+target_key: 3865470566:4294967294
+random: 1890
+target_id: 7.0
+priority: 1
+version: 3
+source_id: 5
+source_flag: 1
+target_relative_id: 1
+
+2016-12-09 21:39:28,405 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00715307277238, getters (mean): 0.0267937375358
+2016-12-09 21:39:56,691 Writer-3 MainProcess DEBUG: my version is 4, uuu we have a new NODE
+target_addr: 172.31.26.83
+target_key: 3865470566:4294967294
+random: 6054
+target_id: 7.0
+priority: 2
+version: 4
+source_id: 5
+source_flag: 1
+target_relative_id: 1
+
+2016-12-09 21:39:56,691 Writer-3 MainProcess DEBUG: i'm 3, these are my nodes to compute keys
+Node myself, id 5, keys 3435973836:4294967294
+Node master, id 4.5, keys 3006477107:3435973835
+Node master_of_master, id 4, keys 2576980377:3006477106
+Node slave, id 1, keys 0:858993458
+Node slave_of_slave, id 2, keys 858993459:1717986917
+
+2016-12-09 21:39:56,692 Writer-3 MainProcess DEBUG: i'm 3, these are my computed keys
+myself, (3435973836,3865470565)
+slave, (0,858993458)
+master, (3006477107,3435973835)
+slave_of_slave, (858993459,1717986917)
+newNode, (3865470566,4294967294)
+master_of_master, (2576980377,3006477106)
+
+2016-12-09 21:39:56,692 Writer-3 MainProcess DEBUG: i'm 3
+2016-12-09 21:39:56,692 Writer-3 MainProcess DEBUG: adding this node in list, id: 5, master: 4.5, slave: 1
+2016-12-09 21:39:56,692 Writer-3 MainProcess DEBUG: adding this node in list, id: 4.5, master: 4, slave: 5
+2016-12-09 21:39:56,693 Writer-3 MainProcess DEBUG: adding this node in list, id: 1, master: 5, slave: 2
+2016-12-09 21:39:56,693 Writer-3 MainProcess DEBUG: adding this node in list, id: 4, master: 3.5, slave: 4.5
+2016-12-09 21:39:56,693 Writer-3 MainProcess DEBUG: adding this node in list, id: 2, master: 1, slave: 3
+2016-12-09 21:39:56,693 Writer-3 MainProcess DEBUG: adding this node in list
+min_key, 3865470566
+ip, 172.31.26.83
+int_addr, 172.31.26.83:5557
+ext_port, 5558
+ext_addr, 172.31.26.83:5558
+max_key, 4294967294
+id, 7.0
+memory_port, 
+int_port, 5557
+
+2016-12-09 21:39:56,693 Writer-3 MainProcess DEBUG: this is my new list
+Node 4.5, Node : myself 4.5, master 4, slave 5
+Keys : master 2576980377:3006477106, myself 3006477107:3435973835, slave 3435973836:3865470565
+Node 3.5, Node : myself 3.5, master 3, slave 4
+Keys : master 1717986918:2147483647, myself 2147483648:2576980376, slave 2576980377:3006477106
+Node 7.0, Node : myself 7.0, master 5, slave 1
+Keys : master 3435973836:3865470565, myself 3865470566:4294967294, slave 0:858993458
+Node 1, Node : myself 1, master 7.0, slave 2
+Keys : master 3865470566:4294967294, myself 0:858993458, slave 858993459:1717986917
+Node 3, Node : myself 3, master 2, slave 3.5
+Keys : master 858993459:1717986917, myself 1717986918:2147483647, slave 2147483648:2576980376
+Node 2, Node : myself 2, master 1, slave 3
+Keys : master 0:858993458, myself 858993459:1717986917, slave 1717986918:2147483647
+Node 5, Node : myself 5, master 4.5, slave 7.0
+Keys : master 3006477107:3435973835, myself 3435973836:3865470565, slave 3865470566:4294967294
+Node 4, Node : myself 4, master 3.5, slave 4.5
+Keys : master 2147483648:2576980376, myself 2576980377:3006477106, slave 3006477107:3435973835
+
+These are my relatives
+Node myself, id 3, keys 1717986918:2147483647
+Node master, id 2, keys 858993459:1717986917
+Node master_of_master, id 1, keys 0:858993458
+Node slave, id 3.5, keys 2147483648:2576980376
+Node slave_of_slave, id 4, keys 2576980377:3006477106
+
+2016-12-09 21:39:56,693 Writer-3 MainProcess DEBUG: I am in state Free
+2016-12-09 21:39:56,693 Writer-3 MainProcess DEBUG: welcome new relative! now i am able to receive new scale ups, relatives:
+1, 2, 3, 3.5, 4
+2016-12-09 21:39:56,693 Writer-3 MainProcess DEBUG: forwarding this ADDED message
+target_addr: 172.31.26.83
+target_key: 3865470566:4294967294
+random: 6054
+target_id: 7.0
+priority: 2
+version: 4
+source_id: 5
+source_flag: 1
+target_relative_id: 1
+
+ lsv 3, lsp 0, lsr 0
+2016-12-09 21:40:00,637 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00742660215304, getters (mean): 0.0266053503855
+2016-12-09 21:40:04,302 Writer-3 MainProcess DEBUG: this message from 2 can be forwarded due to higher priority than 0
+target_addr: 
+target_key: 1288490189:1717986917
+random: 8416
+target_id: 2.5
+priority: 1
+version: 4
+source_id: 2
+source_flag: 1
+target_relative_id: 3
+
+2016-12-09 21:40:04,303 Writer-3 MainProcess DEBUG: I am in state BusyAddPS
+2016-12-09 21:40:04,303 Writer-3 MainProcess DEBUG: These are my:
+- last seen version 4
+- last seen priority 1
+- last seen random 8416
+2016-12-09 21:40:04,303 Writer-3 MainProcess DEBUG: forwarding ADD message
+target_addr: 
+target_key: 1288490189:1717986917
+random: 8416
+target_id: 2.5
+priority: 1
+version: 4
+source_id: 2
+source_flag: 1
+target_relative_id: 3
+
+2016-12-09 21:40:30,281 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00715897020989, getters (mean): 0.0265348320914
+2016-12-09 21:40:55,088 Reader-3 MainProcess DEBUG: added node as new master
+min_key, 1288490189
+ip, 172.31.20.139
+int_addr, 172.31.20.139:5557
+ext_port, 5558
+ext_addr, 172.31.20.139:5558
+max_key, 1717986917
+id, 2.5
+memory_port, 
+int_port, 5557
+
+2016-12-09 21:40:55,088 Reader-3 MainProcess DEBUG: Closing socket with tcp://172.31.20.2:5558
+2016-12-09 21:40:55,089 Reader-3 MainProcess DEBUG: Closing socket with tcp://172.31.20.2:5557
+2016-12-09 21:40:55,089 Reader-3 MainProcess DEBUG: my IP is not none : 172.31.20.3
+2016-12-09 21:40:55,089 Reader-3 MainProcess DEBUG: sync init
+2016-12-09 21:40:55,089 Reader-3 MainProcess DEBUG: new internal channel client created with destination tcp://172.31.20.139:5557
+2016-12-09 21:40:55,089 Reader-3 MainProcess DEBUG: sending message to tcp://172.31.20.139:5557
+2016-12-09 21:40:55,090 Writer-3 MainProcess DEBUG: my version is 5, uuu we have a new NODE
+target_addr: 172.31.20.139
+target_key: 1288490189:1717986917
+random: 1402
+target_id: 2.5
+priority: 2
+version: 5
+source_id: 2
+source_flag: 1
+target_relative_id: 3
+
+2016-12-09 21:40:55,091 Writer-3 MainProcess DEBUG: i'm 3, these are my nodes to compute keys
+Node myself, id 2, keys 858993459:1717986917
+Node master, id 1, keys 0:858993458
+Node master_of_master, id 7.0, keys 3865470566:4294967294
+Node slave, id 3, keys 1717986918:2147483647
+Node slave_of_slave, id 3.5, keys 2147483648:2576980376
+
+2016-12-09 21:40:55,091 Writer-3 MainProcess DEBUG: i'm 3, these are my computed keys
+myself, (858993459,1288490188)
+slave, (1717986918,2147483647)
+master, (0,858993458)
+slave_of_slave, (2147483648,2576980376)
+newNode, (1288490189,1717986917)
+master_of_master, (3865470566,4294967294)
+
+2016-12-09 21:40:55,091 Writer-3 MainProcess DEBUG: i'm 3
+2016-12-09 21:40:55,091 Writer-3 MainProcess DEBUG: adding this node in list, id: 2, master: 1, slave: 3
+2016-12-09 21:40:55,091 Writer-3 MainProcess DEBUG: adding this node in list, id: 1, master: 7.0, slave: 2
+2016-12-09 21:40:55,091 Writer-3 MainProcess DEBUG: adding this node in list, id: 3, master: 2, slave: 3.5
+2016-12-09 21:40:55,091 Writer-3 MainProcess DEBUG: adding this node in list, id: 7.0, master: 5, slave: 1
+2016-12-09 21:40:55,091 Writer-3 MainProcess DEBUG: adding this node in list, id: 3.5, master: 3, slave: 4
+2016-12-09 21:40:55,091 Writer-3 MainProcess DEBUG: adding this node in list
+min_key, 1288490189
+ip, 172.31.20.139
+int_addr, 172.31.20.139:5557
+ext_port, 5558
+ext_addr, 172.31.20.139:5558
+max_key, 1717986917
+id, 2.5
+memory_port, 
+int_port, 5557
+
+2016-12-09 21:40:55,091 Writer-3 MainProcess DEBUG: this is my new list
+Node 4.5, Node : myself 4.5, master 4, slave 5
+Keys : master 2576980377:3006477106, myself 3006477107:3435973835, slave 3435973836:3865470565
+Node 3.5, Node : myself 3.5, master 3, slave 4
+Keys : master 1717986918:2147483647, myself 2147483648:2576980376, slave 2576980377:3006477106
+Node 7.0, Node : myself 7.0, master 5, slave 1
+Keys : master 3435973836:3865470565, myself 3865470566:4294967294, slave 0:858993458
+Node 1, Node : myself 1, master 7.0, slave 2
+Keys : master 3865470566:4294967294, myself 0:858993458, slave 858993459:1288490188
+Node 3, Node : myself 3, master 2.5, slave 3.5
+Keys : master 1288490189:1717986917, myself 1717986918:2147483647, slave 2147483648:2576980376
+Node 2, Node : myself 2, master 1, slave 2.5
+Keys : master 0:858993458, myself 858993459:1288490188, slave 1288490189:1717986917
+Node 5, Node : myself 5, master 4.5, slave 7.0
+Keys : master 3006477107:3435973835, myself 3435973836:3865470565, slave 3865470566:4294967294
+Node 4, Node : myself 4, master 3.5, slave 4.5
+Keys : master 2147483648:2576980376, myself 2576980377:3006477106, slave 3006477107:3435973835
+Node 2.5, Node : myself 2.5, master 2, slave 3
+Keys : master 858993459:1288490188, myself 1288490189:1717986917, slave 1717986918:2147483647
+
+These are my relatives
+Node myself, id 3, keys 1717986918:2147483647
+Node master, id 2, keys 858993459:1288490188
+Node master_of_master, id 1, keys 0:858993458
+Node slave, id 3.5, keys 2147483648:2576980376
+Node slave_of_slave, id 4, keys 2576980377:3006477106
+
+2016-12-09 21:40:55,091 Writer-3 MainProcess DEBUG: I am in state Free
+2016-12-09 21:40:55,091 Writer-3 MainProcess DEBUG: welcome new relative! now i am able to receive new scale ups, relatives:
+2, 2.5, 3, 3.5, 4
+2016-12-09 21:40:55,092 Writer-3 MainProcess DEBUG: forwarding this ADDED message
+target_addr: 172.31.20.139
+target_key: 1288490189:1717986917
+random: 1402
+target_id: 2.5
+priority: 2
+version: 5
+source_id: 2
+source_flag: 1
+target_relative_id: 3
+
+ lsv 4, lsp 0, lsr 0
+2016-12-09 21:40:55,105 Reader-3 MainProcess DEBUG: waiting for a request
+2016-12-09 21:40:55,111 Reader-3 MainProcess DEBUG: received rep_msg
+2016-12-09 21:40:55,111 Reader-3 MainProcess DEBUG: accepted by master 2.5, achieved new master_of_master id 2
+2016-12-09 21:40:55,111 Reader-3 MainProcess DEBUG: Generating client connection point tcp://172.31.20.139:5558
+2016-12-09 21:40:55,111 Reader-3 MainProcess DEBUG: sync completed
+2016-12-09 21:40:57,003 Writer-3 MainProcess DEBUG: this message from 2 can be forwarded due to higher priority than 0
+target_addr: 
+target_key: 1073741824:1288490188
+random: 5885
+target_id: 2.25
+priority: 1
+version: 5
+source_id: 2
+source_flag: 1
+target_relative_id: 2.5
+
+2016-12-09 21:40:57,003 Writer-3 MainProcess DEBUG: I am in state BusyAddPS
+2016-12-09 21:40:57,003 Writer-3 MainProcess DEBUG: These are my:
+- last seen version 5
+- last seen priority 1
+- last seen random 5885
+2016-12-09 21:40:57,003 Writer-3 MainProcess DEBUG: forwarding ADD message
+target_addr: 
+target_key: 1073741824:1288490188
+random: 5885
+target_id: 2.25
+priority: 1
+version: 5
+source_id: 2
+source_flag: 1
+target_relative_id: 2.5
+
+2016-12-09 21:41:01,417 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00741108343143, getters (mean): 0.026046134553
+2016-12-09 21:41:34,729 Reader-3 MainProcess DEBUG: added node as new master_of_master
+min_key, 1073741824
+ip, 172.31.30.168
+int_addr, 172.31.30.168:5557
+ext_port, 5558
+ext_addr, 172.31.30.168:5558
+max_key, 1288490188
+id, 2.25
+memory_port, 
+int_port, 5557
+
+2016-12-09 21:41:34,730 Writer-3 MainProcess DEBUG: my version is 6, uuu we have a new NODE
+target_addr: 172.31.30.168
+target_key: 1073741824:1288490188
+random: 8357
+target_id: 2.25
+priority: 2
+version: 6
+source_id: 2
+source_flag: 1
+target_relative_id: 2.5
+
+2016-12-09 21:41:34,730 Writer-3 MainProcess DEBUG: i'm 3, these are my nodes to compute keys
+Node myself, id 2, keys 858993459:1288490188
+Node master, id 1, keys 0:858993458
+Node master_of_master, id 7.0, keys 3865470566:4294967294
+Node slave, id 2.5, keys 1288490189:1717986917
+Node slave_of_slave, id 3, keys 1717986918:2147483647
+
+2016-12-09 21:41:34,730 Writer-3 MainProcess DEBUG: i'm 3, these are my computed keys
+myself, (858993459,1073741823)
+slave, (1288490189,1717986917)
+master, (0,858993458)
+slave_of_slave, (1717986918,2147483647)
+newNode, (1073741824,1288490188)
+master_of_master, (3865470566,4294967294)
+
+2016-12-09 21:41:34,730 Writer-3 MainProcess DEBUG: i'm 3
+2016-12-09 21:41:34,730 Writer-3 MainProcess DEBUG: adding this node in list, id: 2, master: 1, slave: 2.5
+2016-12-09 21:41:34,731 Writer-3 MainProcess DEBUG: adding this node in list, id: 1, master: 7.0, slave: 2
+2016-12-09 21:41:34,731 Writer-3 MainProcess DEBUG: adding this node in list, id: 2.5, master: 2, slave: 3
+2016-12-09 21:41:34,731 Writer-3 MainProcess DEBUG: adding this node in list, id: 7.0, master: 5, slave: 1
+2016-12-09 21:41:34,731 Writer-3 MainProcess DEBUG: adding this node in list, id: 3, master: 2.5, slave: 3.5
+2016-12-09 21:41:34,731 Writer-3 MainProcess DEBUG: adding this node in list
+min_key, 1073741824
+ip, 172.31.30.168
+int_addr, 172.31.30.168:5557
+ext_port, 5558
+ext_addr, 172.31.30.168:5558
+max_key, 1288490188
+id, 2.25
+memory_port, 
+int_port, 5557
+
+2016-12-09 21:41:34,731 Writer-3 MainProcess DEBUG: this is my new list
+Node 4.5, Node : myself 4.5, master 4, slave 5
+Keys : master 2576980377:3006477106, myself 3006477107:3435973835, slave 3435973836:3865470565
+Node 3.5, Node : myself 3.5, master 3, slave 4
+Keys : master 1717986918:2147483647, myself 2147483648:2576980376, slave 2576980377:3006477106
+Node 7.0, Node : myself 7.0, master 5, slave 1
+Keys : master 3435973836:3865470565, myself 3865470566:4294967294, slave 0:858993458
+Node 1, Node : myself 1, master 7.0, slave 2
+Keys : master 3865470566:4294967294, myself 0:858993458, slave 858993459:1073741823
+Node 3, Node : myself 3, master 2.5, slave 3.5
+Keys : master 1288490189:1717986917, myself 1717986918:2147483647, slave 2147483648:2576980376
+Node 2, Node : myself 2, master 1, slave 2.25
+Keys : master 0:858993458, myself 858993459:1073741823, slave 1073741824:1288490188
+Node 5, Node : myself 5, master 4.5, slave 7.0
+Keys : master 3006477107:3435973835, myself 3435973836:3865470565, slave 3865470566:4294967294
+Node 4, Node : myself 4, master 3.5, slave 4.5
+Keys : master 2147483648:2576980376, myself 2576980377:3006477106, slave 3006477107:3435973835
+Node 2.5, Node : myself 2.5, master 2.25, slave 3
+Keys : master 1073741824:1288490188, myself 1288490189:1717986917, slave 1717986918:2147483647
+Node 2.25, Node : myself 2.25, master 2, slave 2.5
+Keys : master 858993459:1073741823, myself 1073741824:1288490188, slave 1288490189:1717986917
+
+These are my relatives
+Node myself, id 3, keys 1717986918:2147483647
+Node master, id 2.5, keys 1288490189:1717986917
+Node master_of_master, id 2, keys 858993459:1073741823
+Node slave, id 3.5, keys 2147483648:2576980376
+Node slave_of_slave, id 4, keys 2576980377:3006477106
+
+2016-12-09 21:41:34,731 Writer-3 MainProcess DEBUG: I am in state Free
+2016-12-09 21:41:34,731 Writer-3 MainProcess DEBUG: welcome new relative! now i am able to receive new scale ups, relatives:
+2.25, 2.5, 3, 3.5, 4
+2016-12-09 21:41:34,731 Writer-3 MainProcess DEBUG: forwarding this ADDED message
+target_addr: 172.31.30.168
+target_key: 1073741824:1288490188
+random: 8357
+target_id: 2.25
+priority: 2
+version: 6
+source_id: 2
+source_flag: 1
+target_relative_id: 2.5
+
+ lsv 5, lsp 0, lsr 0
+2016-12-09 21:41:34,874 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00716891912259, getters (mean): 0.0256628884049
+2016-12-09 21:41:48,274 Writer-3 MainProcess DEBUG: this message from 1 can be forwarded due to higher priority than 0
+target_addr: 
+target_key: 429496730:858993458
+random: 9448
+target_id: 1.5
+priority: 1
+version: 6
+source_id: 1
+source_flag: 1
+target_relative_id: 2
+
+2016-12-09 21:41:48,275 Writer-3 MainProcess DEBUG: I am in state BusyAddPL
+2016-12-09 21:41:48,275 Writer-3 MainProcess DEBUG: These are my:
+- last seen version 6
+- last seen priority 1
+- last seen random 9448
+2016-12-09 21:41:48,275 Writer-3 MainProcess DEBUG: forwarding ADD message
+target_addr: 
+target_key: 429496730:858993458
+random: 9448
+target_id: 1.5
+priority: 1
+version: 6
+source_id: 1
+source_flag: 1
+target_relative_id: 2
+
+2016-12-09 21:42:00,898 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00761011707984, getters (mean): 0.0258604494438
+2016-12-09 21:42:31,465 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0071952036458, getters (mean): 0.0259445549047
+2016-12-09 21:42:36,533 Writer-3 MainProcess DEBUG: my version is 7, uuu we have a new NODE
+target_addr: 172.31.23.182
+target_key: 429496730:858993458
+random: 4543
+target_id: 1.5
+priority: 2
+version: 7
+source_id: 1
+source_flag: 1
+target_relative_id: 2
+
+2016-12-09 21:42:36,535 Writer-3 MainProcess DEBUG: i'm 3, these are my nodes to compute keys
+Node myself, id 1, keys 0:858993458
+Node master, id 7.0, keys 3865470566:4294967294
+Node master_of_master, id 5, keys 3435973836:3865470565
+Node slave, id 2, keys 858993459:1073741823
+Node slave_of_slave, id 2.25, keys 1073741824:1288490188
+
+2016-12-09 21:42:36,535 Writer-3 MainProcess DEBUG: i'm 3, these are my computed keys
+myself, (0,429496729)
+slave, (858993459,1073741823)
+master, (3865470566,4294967294)
+slave_of_slave, (1073741824,1288490188)
+newNode, (429496730,858993458)
+master_of_master, (3435973836,3865470565)
+
+2016-12-09 21:42:36,535 Writer-3 MainProcess DEBUG: i'm 3
+2016-12-09 21:42:36,535 Writer-3 MainProcess DEBUG: adding this node in list, id: 1, master: 7.0, slave: 2
+2016-12-09 21:42:36,535 Writer-3 MainProcess DEBUG: adding this node in list, id: 7.0, master: 5, slave: 1
+2016-12-09 21:42:36,535 Writer-3 MainProcess DEBUG: adding this node in list, id: 2, master: 1, slave: 2.25
+2016-12-09 21:42:36,535 Writer-3 MainProcess DEBUG: adding this node in list, id: 5, master: 4.5, slave: 7.0
+2016-12-09 21:42:36,535 Writer-3 MainProcess DEBUG: adding this node in list, id: 2.25, master: 2, slave: 2.5
+2016-12-09 21:42:36,535 Writer-3 MainProcess DEBUG: adding this node in list
+min_key, 429496730
+ip, 172.31.23.182
+int_addr, 172.31.23.182:5557
+ext_port, 5558
+ext_addr, 172.31.23.182:5558
+max_key, 858993458
+id, 1.5
+memory_port, 
+int_port, 5557
+
+2016-12-09 21:42:36,535 Writer-3 MainProcess DEBUG: this is my new list
+Node 4.5, Node : myself 4.5, master 4, slave 5
+Keys : master 2576980377:3006477106, myself 3006477107:3435973835, slave 3435973836:3865470565
+Node 1.5, Node : myself 1.5, master 1, slave 2
+Keys : master 0:429496729, myself 429496730:858993458, slave 858993459:1073741823
+Node 3.5, Node : myself 3.5, master 3, slave 4
+Keys : master 1717986918:2147483647, myself 2147483648:2576980376, slave 2576980377:3006477106
+Node 7.0, Node : myself 7.0, master 5, slave 1
+Keys : master 3435973836:3865470565, myself 3865470566:4294967294, slave 0:429496729
+Node 1, Node : myself 1, master 7.0, slave 1.5
+Keys : master 3865470566:4294967294, myself 0:429496729, slave 429496730:858993458
+Node 3, Node : myself 3, master 2.5, slave 3.5
+Keys : master 1288490189:1717986917, myself 1717986918:2147483647, slave 2147483648:2576980376
+Node 2, Node : myself 2, master 1.5, slave 2.25
+Keys : master 429496730:858993458, myself 858993459:1073741823, slave 1073741824:1288490188
+Node 5, Node : myself 5, master 4.5, slave 7.0
+Keys : master 3006477107:3435973835, myself 3435973836:3865470565, slave 3865470566:4294967294
+Node 4, Node : myself 4, master 3.5, slave 4.5
+Keys : master 2147483648:2576980376, myself 2576980377:3006477106, slave 3006477107:3435973835
+Node 2.5, Node : myself 2.5, master 2.25, slave 3
+Keys : master 1073741824:1288490188, myself 1288490189:1717986917, slave 1717986918:2147483647
+Node 2.25, Node : myself 2.25, master 2, slave 2.5
+Keys : master 858993459:1073741823, myself 1073741824:1288490188, slave 1288490189:1717986917
+
+These are my relatives
+Node myself, id 3, keys 1717986918:2147483647
+Node master, id 2.5, keys 1288490189:1717986917
+Node master_of_master, id 2.25, keys 1073741824:1288490188
+Node slave, id 3.5, keys 2147483648:2576980376
+Node slave_of_slave, id 4, keys 2576980377:3006477106
+
+2016-12-09 21:42:36,535 Writer-3 MainProcess DEBUG: I am in state Free
+2016-12-09 21:42:36,535 Writer-3 MainProcess DEBUG: welcome new relative! now i am able to receive new scale ups, relatives:
+2.25, 2.5, 3, 3.5, 4
+2016-12-09 21:42:36,535 Writer-3 MainProcess DEBUG: forwarding this ADDED message
+target_addr: 172.31.23.182
+target_key: 429496730:858993458
+random: 4543
+target_id: 1.5
+priority: 2
+version: 7
+source_id: 1
+source_flag: 1
+target_relative_id: 2
+
+ lsv 6, lsp 0, lsr 0
+2016-12-09 21:42:57,849 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00690035521952, getters (mean): 0.0258964096984
+2016-12-09 21:43:27,038 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00638492859496, getters (mean): 0.0234647426741
+2016-12-09 21:43:57,725 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00641183486792, getters (mean): 0.0237327003032
+2016-12-09 21:44:24,166 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00622184667041, getters (mean): 0.0225142302525
+2016-12-09 21:44:57,437 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00692279973492, getters (mean): 0.024877489945
+2016-12-09 21:45:25,749 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00630640757961, getters (mean): 0.0232954593493
+2016-12-09 21:45:56,381 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00626071248282, getters (mean): 0.0240053535576
+2016-12-09 21:46:26,774 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00614478436052, getters (mean): 0.0216541181063
+2016-12-09 21:46:57,405 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.00436209917358, getters (mean): 0.0166010383196
+2016-12-09 21:47:17,685 Writer-3 MainProcess DEBUG: this message from 7.0 can be forwarded due to higher priority than 0
+target_addr: 
+target_key: 3865470566:4294967294
+random: 2926
+target_id: 7.0
+priority: 1
+version: 7
+source_id: 7.0
+source_flag: 1
+target_relative_id: 1
+
+2016-12-09 21:47:17,685 Writer-3 MainProcess DEBUG: none of my relatives : 7.0
+2016-12-09 21:47:17,685 Writer-3 MainProcess DEBUG: These are my:
+- last seen version 7
+- last seen priority 1
+- last seen random 2926
+2016-12-09 21:47:17,685 Writer-3 MainProcess DEBUG: forwarding ADD message
+target_addr: 
+target_key: 3865470566:4294967294
+random: 2926
+target_id: 7.0
+priority: 1
+version: 7
+source_id: 7.0
+source_flag: 1
+target_relative_id: 1
+
+2016-12-09 21:47:27,193 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-09 21:47:27,193 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-09 21:47:27,193 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-09 21:47:27,194 Writer-3 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-09 21:47:27,194 Writer-3 MainProcess DEBUG: I am in state BusyAddPS
+2016-12-09 21:47:27,195 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-09 21:47:27,194 Writer-3 MainProcess DEBUG: now i'm busy : ScaleDownThread asked to scale down
+2016-12-09 21:47:27,195 Writer-3 MainProcess DEBUG: These are my:
+- last seen version 7
+- last seen priority 1
+- last seen random 2582
+2016-12-09 21:47:30,785 Writer-3 MainProcess DEBUG: forwarding this DEAD message
+target_addr: 172.31.26.83
+target_key: 3865470566:4294967294
+random: 9700
+target_id: 7.0
+priority: 5
+version: 8
+source_id: 5
+source_flag: 1
+target_relative_id: 1
+
+This is my list
+Node 4.5, Node : myself 4.5, master 4, slave 5
+Keys : master 2576980377:3006477106, myself 3006477107:3435973835, slave 3435973836:3865470565
+Node 1.5, Node : myself 1.5, master 1, slave 2
+Keys : master 3865470566:429496729, myself 429496730:858993458, slave 858993459:1073741823
+Node 3.5, Node : myself 3.5, master 3, slave 4
+Keys : master 1717986918:2147483647, myself 2147483648:2576980376, slave 2576980377:3006477106
+Node 1, Node : myself 1, master 5, slave 1.5
+Keys : master 3435973836:3865470565, myself 3865470566:429496729, slave 429496730:858993458
+Node 3, Node : myself 3, master 2.5, slave 3.5
+Keys : master 1288490189:1717986917, myself 1717986918:2147483647, slave 2147483648:2576980376
+Node 2, Node : myself 2, master 1.5, slave 2.25
+Keys : master 429496730:858993458, myself 858993459:1073741823, slave 1073741824:1288490188
+Node 5, Node : myself 5, master 4.5, slave 1
+Keys : master 3006477107:3435973835, myself 3435973836:3865470565, slave 3865470566:429496729
+Node 4, Node : myself 4, master 3.5, slave 4.5
+Keys : master 2147483648:2576980376, myself 2576980377:3006477106, slave 3006477107:3435973835
+Node 2.5, Node : myself 2.5, master 2.25, slave 3
+Keys : master 1073741824:1288490188, myself 1288490189:1717986917, slave 1717986918:2147483647
+Node 2.25, Node : myself 2.25, master 2, slave 2.5
+Keys : master 858993459:1073741823, myself 1073741824:1288490188, slave 1288490189:1717986917
+
+These are my relatives
+Node myself, id 3, keys 1717986918:2147483647
+Node master, id 2.5, keys 1288490189:1717986917
+Node master_of_master, id 2.25, keys 1073741824:1288490188
+Node slave, id 3.5, keys 2147483648:2576980376
+Node slave_of_slave, id 4, keys 2576980377:3006477106
+
+ lsv 7, lsp 1, lsr 2582
+2016-12-09 21:47:30,794 Writer-3 MainProcess DEBUG: this message from 5 can be forwarded due to higher priority than 1
+target_addr: 172.31.26.83
+target_key: 3865470566:4294967294
+random: 7079
+target_id: 7.0
+priority: 4
+version: 8
+source_id: 5
+source_flag: 1
+target_relative_id: 4.5
+
+2016-12-09 21:47:30,794 Writer-3 MainProcess DEBUG: none of my relatives : 5
+2016-12-09 21:47:30,794 Writer-3 MainProcess DEBUG: These are my:
+- last seen version 8
+- last seen priority 4
+- last seen random 7079
+2016-12-09 21:47:30,794 Writer-3 MainProcess DEBUG: forwarding RESTORE message
+target_addr: 172.31.26.83
+target_key: 3865470566:4294967294
+random: 7079
+target_id: 7.0
+priority: 4
+version: 8
+source_id: 5
+source_flag: 1
+target_relative_id: 4.5
+
+2016-12-09 21:47:32,006 Writer-3 MainProcess DEBUG: this message from 2.5 can't be forwarded due to lower priority than 4
+target_addr: 
+target_key: 1288490189:1717986917
+random: 6054
+target_id: 2.5
+priority: 1
+version: 9
+source_id: 2.5
+source_flag: 1
+target_relative_id: 3
+
+2016-12-09 21:47:42,977 Writer-3 MainProcess DEBUG: forwarding this RESTORED message
+target_addr: 172.31.26.83
+target_key: 3865470566:4294967294
+random: 8117
+target_id: 7.0
+priority: 3
+version: 9
+source_id: 5
+source_flag: 1
+target_relative_id: 5
+
+This is my new list
+Node 4.5, Node : myself 4.5, master 4, slave 5
+Keys : master 2576980377:3006477106, myself 3006477107:3435973835, slave 3435973836:3865470565
+Node 1.5, Node : myself 1.5, master 1, slave 2
+Keys : master 3865470566:429496729, myself 429496730:858993458, slave 858993459:1073741823
+Node 3.5, Node : myself 3.5, master 3, slave 4
+Keys : master 1717986918:2147483647, myself 2147483648:2576980376, slave 2576980377:3006477106
+Node 1, Node : myself 1, master 5, slave 1.5
+Keys : master 3435973836:3865470565, myself 3865470566:429496729, slave 429496730:858993458
+Node 3, Node : myself 3, master 2.5, slave 3.5
+Keys : master 1288490189:1717986917, myself 1717986918:2147483647, slave 2147483648:2576980376
+Node 2, Node : myself 2, master 1.5, slave 2.25
+Keys : master 429496730:858993458, myself 858993459:1073741823, slave 1073741824:1288490188
+Node 5, Node : myself 5, master 4.5, slave 1
+Keys : master 3006477107:3435973835, myself 3435973836:3865470565, slave 3865470566:429496729
+Node 4, Node : myself 4, master 3.5, slave 4.5
+Keys : master 2147483648:2576980376, myself 2576980377:3006477106, slave 3006477107:3435973835
+Node 2.5, Node : myself 2.5, master 2.25, slave 3
+Keys : master 1073741824:1288490188, myself 1288490189:1717986917, slave 1717986918:2147483647
+Node 2.25, Node : myself 2.25, master 2, slave 2.5
+Keys : master 858993459:1073741823, myself 1073741824:1288490188, slave 1288490189:1717986917
+
+These are my relatives
+Node myself, id 3, keys 1717986918:2147483647
+Node master, id 2.5, keys 1288490189:1717986917
+Node master_of_master, id 2.25, keys 1073741824:1288490188
+Node slave, id 3.5, keys 2147483648:2576980376
+Node slave_of_slave, id 4, keys 2576980377:3006477106
+
+These are my lsv 8, lsp 0, lsr 0
+2016-12-09 21:47:45,650 Writer-3 MainProcess DEBUG: this message from 4.5 can be forwarded due to higher priority than 0
+target_addr: 
+target_key: 3006477107:3435973835
+random: 6166
+target_id: 4.5
+priority: 1
+version: 9
+source_id: 4.5
+source_flag: 1
+target_relative_id: 5
+
+2016-12-09 21:47:45,651 Writer-3 MainProcess DEBUG: I am in state BusyAddPL
+2016-12-09 21:47:45,651 Writer-3 MainProcess DEBUG: i've just asked for scale up, but this node beats me : 4.5
+2016-12-09 21:47:45,651 Writer-3 MainProcess DEBUG: These are my:
+- last seen version 9
+- last seen priority 1
+- last seen random 6166
+2016-12-09 21:47:45,651 Writer-3 MainProcess DEBUG: forwarding ADD message
+target_addr: 
+target_key: 3006477107:3435973835
+random: 6166
+target_id: 4.5
+priority: 1
+version: 9
+source_id: 4.5
+source_flag: 1
+target_relative_id: 5
+
+2016-12-09 21:47:55,534 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-09 21:47:55,534 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-09 21:47:55,534 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-09 21:47:55,535 Writer-3 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-09 21:47:55,536 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-09 21:47:58,660 Writer-3 MainProcess DEBUG: forwarding this DEAD message
+target_addr: 172.31.18.124
+target_key: 3006477107:3435973835
+random: 6001
+target_id: 4.5
+priority: 5
+version: 10
+source_id: 4
+source_flag: 1
+target_relative_id: 5
+
+This is my list
+Node 1.5, Node : myself 1.5, master 1, slave 2
+Keys : master 3865470566:429496729, myself 429496730:858993458, slave 858993459:1073741823
+Node 3.5, Node : myself 3.5, master 3, slave 4
+Keys : master 1717986918:2147483647, myself 2147483648:2576980376, slave 2576980377:3006477106
+Node 1, Node : myself 1, master 5, slave 1.5
+Keys : master 3006477107:3865470565, myself 3865470566:429496729, slave 429496730:858993458
+Node 3, Node : myself 3, master 2.5, slave 3.5
+Keys : master 1288490189:1717986917, myself 1717986918:2147483647, slave 2147483648:2576980376
+Node 2, Node : myself 2, master 1.5, slave 2.25
+Keys : master 429496730:858993458, myself 858993459:1073741823, slave 1073741824:1288490188
+Node 5, Node : myself 5, master 4, slave 1
+Keys : master 2576980377:3006477106, myself 3006477107:3865470565, slave 3865470566:429496729
+Node 4, Node : myself 4, master 3.5, slave 5
+Keys : master 2147483648:2576980376, myself 2576980377:3006477106, slave 3006477107:3865470565
+Node 2.5, Node : myself 2.5, master 2.25, slave 3
+Keys : master 1073741824:1288490188, myself 1288490189:1717986917, slave 1717986918:2147483647
+Node 2.25, Node : myself 2.25, master 2, slave 2.5
+Keys : master 858993459:1073741823, myself 1073741824:1288490188, slave 1288490189:1717986917
+
+These are my relatives
+Node myself, id 3, keys 1717986918:2147483647
+Node master, id 2.5, keys 1288490189:1717986917
+Node master_of_master, id 2.25, keys 1073741824:1288490188
+Node slave, id 3.5, keys 2147483648:2576980376
+Node slave_of_slave, id 4, keys 2576980377:3006477106
+
+ lsv 9, lsp 1, lsr 6166
+2016-12-09 21:47:58,671 Writer-3 MainProcess DEBUG: this message from 4 can be forwarded due to higher priority than 1
+target_addr: 172.31.18.124
+target_key: 3006477107:3435973835
+random: 2089
+target_id: 4.5
+priority: 4
+version: 10
+source_id: 4
+source_flag: 1
+target_relative_id: 3.5
+
+2016-12-09 21:47:58,671 Writer-3 MainProcess DEBUG: I am in state BusyDeadPL
+2016-12-09 21:47:58,671 Writer-3 MainProcess DEBUG: this node has just gained privilege to restore : 4
+2016-12-09 21:47:58,671 Writer-3 MainProcess DEBUG: These are my:
+- last seen version 10
+- last seen priority 4
+- last seen random 2089
+2016-12-09 21:47:58,671 Writer-3 MainProcess DEBUG: forwarding RESTORE message
+target_addr: 172.31.18.124
+target_key: 3006477107:3435973835
+random: 2089
+target_id: 4.5
+priority: 4
+version: 10
+source_id: 4
+source_flag: 1
+target_relative_id: 3.5
+
+2016-12-09 21:48:10,614 Writer-3 MainProcess DEBUG: I am in state Free
+2016-12-09 21:48:10,614 Writer-3 MainProcess DEBUG: forwarding this RESTORED message
+target_addr: 172.31.18.124
+target_key: 3006477107:3435973835
+random: 4115
+target_id: 4.5
+priority: 3
+version: 11
+source_id: 4
+source_flag: 1
+target_relative_id: 4
+
+This is my new list
+Node 1.5, Node : myself 1.5, master 1, slave 2
+Keys : master 3865470566:429496729, myself 429496730:858993458, slave 858993459:1073741823
+Node 3.5, Node : myself 3.5, master 3, slave 4
+Keys : master 1717986918:2147483647, myself 2147483648:2576980376, slave 2576980377:3006477106
+Node 1, Node : myself 1, master 5, slave 1.5
+Keys : master 3006477107:3865470565, myself 3865470566:429496729, slave 429496730:858993458
+Node 3, Node : myself 3, master 2.5, slave 3.5
+Keys : master 1288490189:1717986917, myself 1717986918:2147483647, slave 2147483648:2576980376
+Node 2, Node : myself 2, master 1.5, slave 2.25
+Keys : master 429496730:858993458, myself 858993459:1073741823, slave 1073741824:1288490188
+Node 5, Node : myself 5, master 4, slave 1
+Keys : master 2576980377:3006477106, myself 3006477107:3865470565, slave 3865470566:429496729
+Node 4, Node : myself 4, master 3.5, slave 5
+Keys : master 2147483648:2576980376, myself 2576980377:3006477106, slave 3006477107:3865470565
+Node 2.5, Node : myself 2.5, master 2.25, slave 3
+Keys : master 1073741824:1288490188, myself 1288490189:1717986917, slave 1717986918:2147483647
+Node 2.25, Node : myself 2.25, master 2, slave 2.5
+Keys : master 858993459:1073741823, myself 1073741824:1288490188, slave 1288490189:1717986917
+
+These are my relatives
+Node myself, id 3, keys 1717986918:2147483647
+Node master, id 2.5, keys 1288490189:1717986917
+Node master_of_master, id 2.25, keys 1073741824:1288490188
+Node slave, id 3.5, keys 2147483648:2576980376
+Node slave_of_slave, id 4, keys 2576980377:3006477106
+
+These are my lsv 10, lsp 0, lsr 0
+2016-12-09 21:48:19,586 Writer-3 MainProcess DEBUG: this message from 1 can be forwarded due to higher priority than 0
+target_addr: 
+target_key: 3865470566:429496729
+random: 8750
+target_id: 1
+priority: 1
+version: 11
+source_id: 1
+source_flag: 1
+target_relative_id: 1.5
+
+2016-12-09 21:48:19,586 Writer-3 MainProcess DEBUG: I am in state BusyAddPL
+2016-12-09 21:48:19,586 Writer-3 MainProcess DEBUG: These are my:
+- last seen version 11
+- last seen priority 1
+- last seen random 8750
+2016-12-09 21:48:19,586 Writer-3 MainProcess DEBUG: forwarding ADD message
+target_addr: 
+target_key: 3865470566:429496729
+random: 8750
+target_id: 1
+priority: 1
+version: 11
+source_id: 1
+source_flag: 1
+target_relative_id: 1.5
+
+2016-12-09 21:48:23,650 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-09 21:48:23,650 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-09 21:48:23,650 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-09 21:48:23,651 Writer-3 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-09 21:48:23,651 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-09 21:48:32,303 Writer-3 MainProcess DEBUG: forwarding this DEAD message
+target_addr: 172.31.20.1
+target_key: 3865470566:429496729
+random: 2987
+target_id: 1
+priority: 5
+version: 12
+source_id: 5
+source_flag: 1
+target_relative_id: 1.5
+
+This is my list
+Node 1.5, Node : myself 1.5, master 5, slave 2
+Keys : master 3006477107:3865470565, myself 3865470566:858993458, slave 858993459:1073741823
+Node 3.5, Node : myself 3.5, master 3, slave 4
+Keys : master 1717986918:2147483647, myself 2147483648:2576980376, slave 2576980377:3006477106
+Node 3, Node : myself 3, master 2.5, slave 3.5
+Keys : master 1288490189:1717986917, myself 1717986918:2147483647, slave 2147483648:2576980376
+Node 2, Node : myself 2, master 1.5, slave 2.25
+Keys : master 3865470566:858993458, myself 858993459:1073741823, slave 1073741824:1288490188
+Node 5, Node : myself 5, master 4, slave 1.5
+Keys : master 2576980377:3006477106, myself 3006477107:3865470565, slave 3865470566:858993458
+Node 4, Node : myself 4, master 3.5, slave 5
+Keys : master 2147483648:2576980376, myself 2576980377:3006477106, slave 3006477107:3865470565
+Node 2.5, Node : myself 2.5, master 2.25, slave 3
+Keys : master 1073741824:1288490188, myself 1288490189:1717986917, slave 1717986918:2147483647
+Node 2.25, Node : myself 2.25, master 2, slave 2.5
+Keys : master 858993459:1073741823, myself 1073741824:1288490188, slave 1288490189:1717986917
+
+These are my relatives
+Node myself, id 3, keys 1717986918:2147483647
+Node master, id 2.5, keys 1288490189:1717986917
+Node master_of_master, id 2.25, keys 1073741824:1288490188
+Node slave, id 3.5, keys 2147483648:2576980376
+Node slave_of_slave, id 4, keys 2576980377:3006477106
+
+ lsv 11, lsp 1, lsr 8750
+2016-12-09 21:48:32,312 Writer-3 MainProcess DEBUG: this message from 5 can be forwarded due to higher priority than 1
+target_addr: 172.31.20.1
+target_key: 3865470566:429496729
+random: 8215
+target_id: 1
+priority: 4
+version: 12
+source_id: 5
+source_flag: 1
+target_relative_id: 4
+
+2016-12-09 21:48:32,312 Writer-3 MainProcess DEBUG: I am in state BusyDeadPL
+2016-12-09 21:48:32,312 Writer-3 MainProcess DEBUG: this node has just gained privilege to restore : 5
+2016-12-09 21:48:32,312 Writer-3 MainProcess DEBUG: These are my:
+- last seen version 12
+- last seen priority 4
+- last seen random 8215
+2016-12-09 21:48:32,312 Writer-3 MainProcess DEBUG: forwarding RESTORE message
+target_addr: 172.31.20.1
+target_key: 3865470566:429496729
+random: 8215
+target_id: 1
+priority: 4
+version: 12
+source_id: 5
+source_flag: 1
+target_relative_id: 4
+
+2016-12-09 21:48:51,477 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-09 21:48:51,477 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-09 21:48:51,477 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-09 21:48:51,478 Writer-3 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-09 21:48:51,479 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-09 21:49:03,243 Writer-3 MainProcess DEBUG: I am in state Free
+2016-12-09 21:49:03,243 Writer-3 MainProcess DEBUG: forwarding this RESTORED message
+target_addr: 172.31.20.1
+target_key: 3865470566:429496729
+random: 7464
+target_id: 1
+priority: 3
+version: 13
+source_id: 5
+source_flag: 1
+target_relative_id: 5
+
+This is my new list
+Node 1.5, Node : myself 1.5, master 5, slave 2
+Keys : master 3006477107:3865470565, myself 3865470566:858993458, slave 858993459:1073741823
+Node 3.5, Node : myself 3.5, master 3, slave 4
+Keys : master 1717986918:2147483647, myself 2147483648:2576980376, slave 2576980377:3006477106
+Node 3, Node : myself 3, master 2.5, slave 3.5
+Keys : master 1288490189:1717986917, myself 1717986918:2147483647, slave 2147483648:2576980376
+Node 2, Node : myself 2, master 1.5, slave 2.25
+Keys : master 3865470566:858993458, myself 858993459:1073741823, slave 1073741824:1288490188
+Node 5, Node : myself 5, master 4, slave 1.5
+Keys : master 2576980377:3006477106, myself 3006477107:3865470565, slave 3865470566:858993458
+Node 4, Node : myself 4, master 3.5, slave 5
+Keys : master 2147483648:2576980376, myself 2576980377:3006477106, slave 3006477107:3865470565
+Node 2.5, Node : myself 2.5, master 2.25, slave 3
+Keys : master 1073741824:1288490188, myself 1288490189:1717986917, slave 1717986918:2147483647
+Node 2.25, Node : myself 2.25, master 2, slave 2.5
+Keys : master 858993459:1073741823, myself 1073741824:1288490188, slave 1288490189:1717986917
+
+These are my relatives
+Node myself, id 3, keys 1717986918:2147483647
+Node master, id 2.5, keys 1288490189:1717986917
+Node master_of_master, id 2.25, keys 1073741824:1288490188
+Node slave, id 3.5, keys 2147483648:2576980376
+Node slave_of_slave, id 4, keys 2576980377:3006477106
+
+These are my lsv 12, lsp 0, lsr 0
+2016-12-09 21:49:03,702 Writer-3 MainProcess DEBUG: this message from 5 can be forwarded due to higher priority than 0
+target_addr: 
+target_key: 3006477107:3865470565
+random: 8549
+target_id: 5
+priority: 1
+version: 13
+source_id: 5
+source_flag: 1
+target_relative_id: 1.5
+
+2016-12-09 21:49:03,702 Writer-3 MainProcess DEBUG: I am in state BusyAddPL
+2016-12-09 21:49:03,702 Writer-3 MainProcess DEBUG: These are my:
+- last seen version 13
+- last seen priority 1
+- last seen random 8549
+2016-12-09 21:49:03,702 Writer-3 MainProcess DEBUG: forwarding ADD message
+target_addr: 
+target_key: 3006477107:3865470565
+random: 8549
+target_id: 5
+priority: 1
+version: 13
+source_id: 5
+source_flag: 1
+target_relative_id: 1.5
+
+2016-12-09 21:49:16,417 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-09 21:49:16,417 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-09 21:49:16,417 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-09 21:49:16,418 Writer-3 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-09 21:49:16,418 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-09 21:49:16,586 Writer-3 MainProcess DEBUG: forwarding this DEAD message
+target_addr: 172.31.20.5
+target_key: 3006477107:3865470565
+random: 7226
+target_id: 5
+priority: 5
+version: 14
+source_id: 4
+source_flag: 1
+target_relative_id: 1.5
+
+This is my list
+Node 1.5, Node : myself 1.5, master 4, slave 2
+Keys : master 2576980377:3006477106, myself 3006477107:858993458, slave 858993459:1073741823
+Node 3.5, Node : myself 3.5, master 3, slave 4
+Keys : master 1717986918:2147483647, myself 2147483648:2576980376, slave 2576980377:3006477106
+Node 3, Node : myself 3, master 2.5, slave 3.5
+Keys : master 1288490189:1717986917, myself 1717986918:2147483647, slave 2147483648:2576980376
+Node 2, Node : myself 2, master 1.5, slave 2.25
+Keys : master 3006477107:858993458, myself 858993459:1073741823, slave 1073741824:1288490188
+Node 4, Node : myself 4, master 3.5, slave 1.5
+Keys : master 2147483648:2576980376, myself 2576980377:3006477106, slave 3006477107:858993458
+Node 2.5, Node : myself 2.5, master 2.25, slave 3
+Keys : master 1073741824:1288490188, myself 1288490189:1717986917, slave 1717986918:2147483647
+Node 2.25, Node : myself 2.25, master 2, slave 2.5
+Keys : master 858993459:1073741823, myself 1073741824:1288490188, slave 1288490189:1717986917
+
+These are my relatives
+Node myself, id 3, keys 1717986918:2147483647
+Node master, id 2.5, keys 1288490189:1717986917
+Node master_of_master, id 2.25, keys 1073741824:1288490188
+Node slave, id 3.5, keys 2147483648:2576980376
+Node slave_of_slave, id 4, keys 2576980377:3006477106
+
+ lsv 13, lsp 1, lsr 8549
+2016-12-09 21:49:16,595 Writer-3 MainProcess DEBUG: this message from 4 can be forwarded due to higher priority than 1
+target_addr: 172.31.20.5
+target_key: 3006477107:3865470565
+random: 5144
+target_id: 5
+priority: 4
+version: 14
+source_id: 4
+source_flag: 1
+target_relative_id: 3.5
+
+2016-12-09 21:49:16,595 Writer-3 MainProcess DEBUG: I am in state BusyDeadPL
+2016-12-09 21:49:16,595 Writer-3 MainProcess DEBUG: this node has just gained privilege to restore : 4
+2016-12-09 21:49:16,595 Writer-3 MainProcess DEBUG: These are my:
+- last seen version 14
+- last seen priority 4
+- last seen random 5144
+2016-12-09 21:49:16,595 Writer-3 MainProcess DEBUG: forwarding RESTORE message
+target_addr: 172.31.20.5
+target_key: 3006477107:3865470565
+random: 5144
+target_id: 5
+priority: 4
+version: 14
+source_id: 4
+source_flag: 1
+target_relative_id: 3.5
+
+2016-12-09 21:49:48,567 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-09 21:49:48,567 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-09 21:49:48,568 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-09 21:49:48,568 Writer-3 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-09 21:49:48,569 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-09 21:49:48,724 Writer-3 MainProcess DEBUG: I am in state Free
+2016-12-09 21:49:48,724 Writer-3 MainProcess DEBUG: forwarding this RESTORED message
+target_addr: 172.31.20.5
+target_key: 3006477107:3865470565
+random: 4251
+target_id: 5
+priority: 3
+version: 15
+source_id: 4
+source_flag: 1
+target_relative_id: 4
+
+This is my new list
+Node 1.5, Node : myself 1.5, master 4, slave 2
+Keys : master 2576980377:3006477106, myself 3006477107:858993458, slave 858993459:1073741823
+Node 3.5, Node : myself 3.5, master 3, slave 4
+Keys : master 1717986918:2147483647, myself 2147483648:2576980376, slave 2576980377:3006477106
+Node 3, Node : myself 3, master 2.5, slave 3.5
+Keys : master 1288490189:1717986917, myself 1717986918:2147483647, slave 2147483648:2576980376
+Node 2, Node : myself 2, master 1.5, slave 2.25
+Keys : master 3006477107:858993458, myself 858993459:1073741823, slave 1073741824:1288490188
+Node 4, Node : myself 4, master 3.5, slave 1.5
+Keys : master 2147483648:2576980376, myself 2576980377:3006477106, slave 3006477107:858993458
+Node 2.5, Node : myself 2.5, master 2.25, slave 3
+Keys : master 1073741824:1288490188, myself 1288490189:1717986917, slave 1717986918:2147483647
+Node 2.25, Node : myself 2.25, master 2, slave 2.5
+Keys : master 858993459:1073741823, myself 1073741824:1288490188, slave 1288490189:1717986917
+
+These are my relatives
+Node myself, id 3, keys 1717986918:2147483647
+Node master, id 2.5, keys 1288490189:1717986917
+Node master_of_master, id 2.25, keys 1073741824:1288490188
+Node slave, id 3.5, keys 2147483648:2576980376
+Node slave_of_slave, id 4, keys 2576980377:3006477106
+
+These are my lsv 14, lsp 0, lsr 0
+2016-12-09 21:49:50,216 Writer-3 MainProcess DEBUG: this message from 4 can be forwarded due to higher priority than 0
+target_addr: 
+target_key: 2576980377:3006477106
+random: 4150
+target_id: 4
+priority: 1
+version: 15
+source_id: 4
+source_flag: 1
+target_relative_id: 1.5
+
+2016-12-09 21:49:50,216 Writer-3 MainProcess DEBUG: I am in state BusyAddPS
+2016-12-09 21:49:50,216 Writer-3 MainProcess DEBUG: These are my:
+- last seen version 15
+- last seen priority 1
+- last seen random 4150
+2016-12-09 21:49:50,216 Writer-3 MainProcess DEBUG: forwarding ADD message
+target_addr: 
+target_key: 2576980377:3006477106
+random: 4150
+target_id: 4
+priority: 1
+version: 15
+source_id: 4
+source_flag: 1
+target_relative_id: 1.5
+
+2016-12-09 21:50:02,776 Writer-3 MainProcess DEBUG: forwarding this DEAD message
+target_addr: 172.31.20.4
+target_key: 2576980377:3006477106
+random: 5665
+target_id: 4
+priority: 5
+version: 16
+source_id: 3.5
+source_flag: 1
+target_relative_id: 1.5
+
+This is my list
+Node 1.5, Node : myself 1.5, master 3.5, slave 2
+Keys : master 2147483648:2576980376, myself 2576980377:858993458, slave 858993459:1073741823
+Node 3.5, Node : myself 3.5, master 3, slave 1.5
+Keys : master 1717986918:2147483647, myself 2147483648:2576980376, slave 2576980377:858993458
+Node 3, Node : myself 3, master 2.5, slave 3.5
+Keys : master 1288490189:1717986917, myself 1717986918:2147483647, slave 2147483648:2576980376
+Node 2, Node : myself 2, master 1.5, slave 2.25
+Keys : master 2576980377:858993458, myself 858993459:1073741823, slave 1073741824:1288490188
+Node 2.5, Node : myself 2.5, master 2.25, slave 3
+Keys : master 1073741824:1288490188, myself 1288490189:1717986917, slave 1717986918:2147483647
+Node 2.25, Node : myself 2.25, master 2, slave 2.5
+Keys : master 858993459:1073741823, myself 1073741824:1288490188, slave 1288490189:1717986917
+
+These are my relatives
+Node myself, id 3, keys 1717986918:2147483647
+Node master, id 2.5, keys 1288490189:1717986917
+Node master_of_master, id 2.25, keys 1073741824:1288490188
+Node slave, id 3.5, keys 2147483648:2576980376
+Node slave_of_slave, id 1.5, keys 2576980377:858993458
+
+ lsv 15, lsp 1, lsr 4150
+2016-12-09 21:50:02,783 Writer-3 MainProcess DEBUG: this message from 3.5 can be forwarded due to higher priority than 1
+target_addr: 172.31.20.4
+target_key: 2576980377:3006477106
+random: 1087
+target_id: 4
+priority: 4
+version: 16
+source_id: 3.5
+source_flag: 1
+target_relative_id: 3
+
+2016-12-09 21:50:02,783 Writer-3 MainProcess DEBUG: I am in state BusyDeadPS
+2016-12-09 21:50:02,783 Writer-3 MainProcess DEBUG: this node has just gained privilege to restore : 3.5
+2016-12-09 21:50:02,783 Writer-3 MainProcess DEBUG: These are my:
+- last seen version 16
+- last seen priority 4
+- last seen random 1087
+2016-12-09 21:50:02,783 Writer-3 MainProcess DEBUG: forwarding RESTORE message
+target_addr: 172.31.20.4
+target_key: 2576980377:3006477106
+random: 1087
+target_id: 4
+priority: 4
+version: 16
+source_id: 3.5
+source_flag: 1
+target_relative_id: 3
+
+2016-12-09 21:50:17,846 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-09 21:50:17,846 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-09 21:50:17,846 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-09 21:50:17,847 Writer-3 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-09 21:50:17,848 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-09 21:50:35,703 Writer-3 MainProcess DEBUG: I am in state Free
+2016-12-09 21:50:35,703 Writer-3 MainProcess DEBUG: forwarding this RESTORED message
+target_addr: 172.31.20.4
+target_key: 2576980377:3006477106
+random: 5579
+target_id: 4
+priority: 3
+version: 17
+source_id: 3.5
+source_flag: 1
+target_relative_id: 3.5
+
+This is my new list
+Node 1.5, Node : myself 1.5, master 3.5, slave 2
+Keys : master 2147483648:2576980376, myself 2576980377:858993458, slave 858993459:1073741823
+Node 3.5, Node : myself 3.5, master 3, slave 1.5
+Keys : master 1717986918:2147483647, myself 2147483648:2576980376, slave 2576980377:858993458
+Node 3, Node : myself 3, master 2.5, slave 3.5
+Keys : master 1288490189:1717986917, myself 1717986918:2147483647, slave 2147483648:2576980376
+Node 2, Node : myself 2, master 1.5, slave 2.25
+Keys : master 2576980377:858993458, myself 858993459:1073741823, slave 1073741824:1288490188
+Node 2.5, Node : myself 2.5, master 2.25, slave 3
+Keys : master 1073741824:1288490188, myself 1288490189:1717986917, slave 1717986918:2147483647
+Node 2.25, Node : myself 2.25, master 2, slave 2.5
+Keys : master 858993459:1073741823, myself 1073741824:1288490188, slave 1288490189:1717986917
+
+These are my relatives
+Node myself, id 3, keys 1717986918:2147483647
+Node master, id 2.5, keys 1288490189:1717986917
+Node master_of_master, id 2.25, keys 1073741824:1288490188
+Node slave, id 3.5, keys 2147483648:2576980376
+Node slave_of_slave, id 1.5, keys 2576980377:858993458
+
+These are my lsv 16, lsp 0, lsr 0
+2016-12-09 21:50:42,065 Writer-3 MainProcess DEBUG: this message from 2 can be forwarded due to higher priority than 0
+target_addr: 
+target_key: 858993459:1073741823
+random: 3670
+target_id: 2
+priority: 1
+version: 17
+source_id: 2
+source_flag: 1
+target_relative_id: 2.25
+
+2016-12-09 21:50:42,065 Writer-3 MainProcess DEBUG: I am in state BusyAddPL
+2016-12-09 21:50:42,065 Writer-3 MainProcess DEBUG: These are my:
+- last seen version 17
+- last seen priority 1
+- last seen random 3670
+2016-12-09 21:50:42,066 Writer-3 MainProcess DEBUG: forwarding ADD message
+target_addr: 
+target_key: 858993459:1073741823
+random: 3670
+target_id: 2
+priority: 1
+version: 17
+source_id: 2
+source_flag: 1
+target_relative_id: 2.25
+
+2016-12-09 21:50:46,703 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-09 21:50:46,703 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-09 21:50:46,703 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-09 21:50:46,704 Writer-3 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-09 21:50:46,705 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-09 21:50:54,936 Writer-3 MainProcess DEBUG: forwarding this DEAD message
+target_addr: 172.31.20.2
+target_key: 858993459:1073741823
+random: 4439
+target_id: 2
+priority: 5
+version: 18
+source_id: 1.5
+source_flag: 1
+target_relative_id: 2.25
+
+This is my list
+Node 1.5, Node : myself 1.5, master 3.5, slave 2.25
+Keys : master 2147483648:2576980376, myself 2576980377:858993458, slave 858993459:1288490188
+Node 3.5, Node : myself 3.5, master 3, slave 1.5
+Keys : master 1717986918:2147483647, myself 2147483648:2576980376, slave 2576980377:858993458
+Node 3, Node : myself 3, master 2.5, slave 3.5
+Keys : master 1288490189:1717986917, myself 1717986918:2147483647, slave 2147483648:2576980376
+Node 2.5, Node : myself 2.5, master 2.25, slave 3
+Keys : master 858993459:1288490188, myself 1288490189:1717986917, slave 1717986918:2147483647
+Node 2.25, Node : myself 2.25, master 1.5, slave 2.5
+Keys : master 2576980377:858993458, myself 858993459:1288490188, slave 1288490189:1717986917
+
+These are my relatives
+Node myself, id 3, keys 1717986918:2147483647
+Node master, id 2.5, keys 1288490189:1717986917
+Node master_of_master, id 2.25, keys 858993459:1288490188
+Node slave, id 3.5, keys 2147483648:2576980376
+Node slave_of_slave, id 1.5, keys 2576980377:858993458
+
+ lsv 17, lsp 1, lsr 3670
+2016-12-09 21:50:54,940 Writer-3 MainProcess DEBUG: this message from 1.5 can be forwarded due to higher priority than 1
+target_addr: 172.31.20.2
+target_key: 858993459:1073741823
+random: 2961
+target_id: 2
+priority: 4
+version: 18
+source_id: 1.5
+source_flag: 1
+target_relative_id: 3.5
+
+2016-12-09 21:50:54,940 Writer-3 MainProcess DEBUG: I am in state BusyDeadPL
+2016-12-09 21:50:54,940 Writer-3 MainProcess DEBUG: this node has just gained privilege to restore : 1.5
+2016-12-09 21:50:54,940 Writer-3 MainProcess DEBUG: These are my:
+- last seen version 18
+- last seen priority 4
+- last seen random 2961
+2016-12-09 21:50:54,940 Writer-3 MainProcess DEBUG: forwarding RESTORE message
+target_addr: 172.31.20.2
+target_key: 858993459:1073741823
+random: 2961
+target_id: 2
+priority: 4
+version: 18
+source_id: 1.5
+source_flag: 1
+target_relative_id: 3.5
+
+2016-12-09 21:51:03,697 Writer-3 MainProcess DEBUG: I am in state Free
+2016-12-09 21:51:03,697 Writer-3 MainProcess DEBUG: forwarding this RESTORED message
+target_addr: 172.31.20.2
+target_key: 858993459:1073741823
+random: 8311
+target_id: 2
+priority: 3
+version: 19
+source_id: 1.5
+source_flag: 1
+target_relative_id: 1.5
+
+This is my new list
+Node 1.5, Node : myself 1.5, master 3.5, slave 2.25
+Keys : master 2147483648:2576980376, myself 2576980377:858993458, slave 858993459:1288490188
+Node 3.5, Node : myself 3.5, master 3, slave 1.5
+Keys : master 1717986918:2147483647, myself 2147483648:2576980376, slave 2576980377:858993458
+Node 3, Node : myself 3, master 2.5, slave 3.5
+Keys : master 1288490189:1717986917, myself 1717986918:2147483647, slave 2147483648:2576980376
+Node 2.5, Node : myself 2.5, master 2.25, slave 3
+Keys : master 858993459:1288490188, myself 1288490189:1717986917, slave 1717986918:2147483647
+Node 2.25, Node : myself 2.25, master 1.5, slave 2.5
+Keys : master 2576980377:858993458, myself 858993459:1288490188, slave 1288490189:1717986917
+
+These are my relatives
+Node myself, id 3, keys 1717986918:2147483647
+Node master, id 2.5, keys 1288490189:1717986917
+Node master_of_master, id 2.25, keys 858993459:1288490188
+Node slave, id 3.5, keys 2147483648:2576980376
+Node slave_of_slave, id 1.5, keys 2576980377:858993458
+
+These are my lsv 18, lsp 0, lsr 0
+2016-12-09 21:51:14,474 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-09 21:51:14,475 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-09 21:51:14,475 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-09 21:51:14,475 Writer-3 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-09 21:51:14,476 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
+2016-12-09 21:51:30,915 Writer-3 MainProcess DEBUG: this message from 1.5 can be forwarded due to higher priority than 0
+target_addr: 
+target_key: 1717986918:858993458
+random: 1786
+target_id: 2.0
+priority: 1
+version: 19
+source_id: 1.5
+source_flag: 1
+target_relative_id: 2.25
+
+2016-12-09 21:51:30,915 Writer-3 MainProcess DEBUG: I am in state BusyAddPS
+2016-12-09 21:51:30,915 Writer-3 MainProcess DEBUG: These are my:
+- last seen version 19
+- last seen priority 1
+- last seen random 1786
+2016-12-09 21:51:30,915 Writer-3 MainProcess DEBUG: forwarding ADD message
+target_addr: 
+target_key: 1717986918:858993458
+random: 1786
+target_id: 2.0
+priority: 1
+version: 19
+source_id: 1.5
+source_flag: 1
+target_relative_id: 2.25
+
+2016-12-09 21:51:47,615 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Working time for setters: 0.0, getters (mean): 0.0
+2016-12-09 21:51:47,615 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: Requests for scale Down!
+2016-12-09 21:51:47,615 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: sending message to tcp://127.0.0.1:5557
+2016-12-09 21:51:47,615 Writer-3 MainProcess DEBUG: sending message to tcp://*:5557
+2016-12-09 21:51:47,616 MemoryPerformanceMetricator python-CCMemoryMaster DEBUG: waiting for a request
