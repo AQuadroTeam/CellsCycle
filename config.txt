@@ -13,7 +13,7 @@ ClientEntrypointPort 5555
 ScalePeriod 30
 GetScaleUpLevel 0.05
 GetScaleDownLevel 0.000001
-SetScaleUpLevel 0.15
+SetScaleUpLevel 0.25
 SetScaleDownLevel 0.0000001
 AwsImageId ami-9fc501f0
 AwsSecurityGroup SSHToAll
