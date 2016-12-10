@@ -330,10 +330,10 @@ def _transfer(settings,logger, dest, dataList, begin, end):
                     key = int(data[0])
                     value = data[1].getValue(key)
                     logger.debug("not transferred: key "+str(key)+",value " + str(value))
-        except Exception:
-            pass
-        finally:
-            socketTM.send(dumps(Command(TRANSFERCOMPLETE)))
+    except Exception:
+        pass
+    finally:
+        socketTM.send(dumps(Command(TRANSFERCOMPLETE)))
     logger.debug("Transfer memory command completed: Transferred memory to "+ str(dest))
     socketTM.close()
 
