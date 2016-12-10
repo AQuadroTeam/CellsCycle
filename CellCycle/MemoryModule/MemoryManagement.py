@@ -316,21 +316,24 @@ def _transfer(settings,logger, dest, dataList, begin, end):
             return True
         else:
             return False
-
-    for data in dataList:
-        key = int(data[0])
-        if(inRange(key, range1) or inRange(key, range2)):
-            value = data[1].getValue(key)
-            if(settings.isVerbose()):
-                logger.debug("transferred: key "+str(key)+",value " + str(value))
-
-            socketTM.send(dumps(Command(SETCOMMAND,key,value)))
-        else:
-            if(settings.isVerbose()):
-                key = int(data[0])
+    try:
+        for data in dataList:
+            key = int(data[0])
+            if(inRange(key, range1) or inRange(key, range2)):
                 value = data[1].getValue(key)
-                logger.debug("not transferred: key "+str(key)+",value " + str(value))
-    socketTM.send(dumps(Command(TRANSFERCOMPLETE)))
+                if(settings.isVerbose()):
+                    logger.debug("transferred: key "+str(key)+",value " + str(value))
+
+                socketTM.send(dumps(Command(SETCOMMAND,key,value)))
+            else:
+                if(settings.isVerbose()):
+                    key = int(data[0])
+                    value = data[1].getValue(key)
+                    logger.debug("not transferred: key "+str(key)+",value " + str(value))
+        except:
+            pass
+        finally:
+            socketTM.send(dumps(Command(TRANSFERCOMPLETE)))
     logger.debug("Transfer memory command completed: Transferred memory to "+ str(dest))
     socketTM.close()
 
