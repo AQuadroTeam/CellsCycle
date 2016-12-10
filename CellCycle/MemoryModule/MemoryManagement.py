@@ -166,7 +166,7 @@ def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
     logger.debug("Listening in new task for set on " + url)
     context = zmq.Context.instance()
     socket = context.socket(zmq.PULL)
-    socket.set_hwm(500)
+    socket.set_hwm(50)
     socket.bind(url)
 
     internal_channel_added = InternalChannel(addr="127.0.0.1", port=settings.getMemoryObjectPort(), logger=logger)
