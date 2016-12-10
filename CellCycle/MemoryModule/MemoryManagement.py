@@ -330,7 +330,7 @@ def _transfer(settings,logger, dest, dataList, begin, end):
                     key = int(data[0])
                     value = data[1].getValue(key)
                     logger.debug("not transferred: key "+str(key)+",value " + str(value))
-        except:
+        except Exception:
             pass
         finally:
             socketTM.send(dumps(Command(TRANSFERCOMPLETE)))
