@@ -94,7 +94,7 @@ def _memoryMetricatorThread(logger, cache, settings, master, timing):
         while True:
 
             sleep(abs(gauss(period, period/10)))
-            locked = timing["setters"][0].transferring
+            locked = timing["setters"][0].isTransferring()
             setMean = 1.0 - timing["setters"][0].calcMean()
             getMean = 0.0
             for metr in timing["getters"]:
@@ -207,7 +207,7 @@ def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
                 os.kill(os.getpid(), signal.SIGTERM)
                 return
             elif command.type == TRANSFERMEMORY:
-                timing["setters"][0].transferring()
+                timing["setters"][0].setTransferring()
                 for address in command.address:
                     logger.debug("Transferring memory to " + str(address) + "....")
                     dest = address
@@ -525,8 +525,11 @@ class TimingMetricator(object):
     def startWaiting(self):
         self.startWaitingTime = time()
 
-    def transferring(self):
+    def setTransferring(self):
         self.transferring = True
+
+    def isTransferring(self):
+        return self.transferring
 
     def calcMean(self):
         period = time() - self.startPeriod
