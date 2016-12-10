@@ -94,6 +94,7 @@ def _memoryMetricatorThread(logger, cache, settings, master, timing):
         while True:
 
             sleep(abs(gauss(period, period/10)))
+            locked = timing["setters"][0].transferring
             setMean = 1.0 - timing["setters"][0].calcMean()
             getMean = 0.0
             for metr in timing["getters"]:
@@ -103,7 +104,7 @@ def _memoryMetricatorThread(logger, cache, settings, master, timing):
             logger.debug("Working time for setters: " + str(setMean) + ", getters (mean): " + str(getMean) )
 
             # scale up needed
-            if getMean >= getScaleUpLevel or setMean >= setScaleUpLevel:
+            if getMean >= getScaleUpLevel or setMean >= setScaleUpLevel and not locked:
 
                 logger.debug("Requests for scale Up!")
                 # call scale up service
@@ -111,7 +112,7 @@ def _memoryMetricatorThread(logger, cache, settings, master, timing):
                 # self.list_communication_thread.notify_scale_up()
 
             # scale down needed
-            elif getMean <= getScaleDownLevel and setMean <= setScaleDownLevel:
+            elif getMean <= getScaleDownLevel and setMean <= setScaleDownLevel and not locked:
 
                 logger.debug("Requests for scale Down!")
                 # call scale down service
@@ -187,8 +188,7 @@ def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
                 timing["setters"][0].startWaiting()
             recv = socket.recv()
 
-            if master:
-                timing["setters"][0].startWorking()
+
             command = loads(recv)
             if(settings.isVerbose()):
                 logger.debug("received set command: " + str(command))
@@ -196,14 +196,18 @@ def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
             #logger.debug("received set command: " + str(command))
             if command.type == SETCOMMAND:
                 if(master):
+                    timing["setters"][0].startWorking()
                     queue.put(Command(command.type, command.key, command.value))
                 cache.set(command.key, command.value)
+                if(master):
+                    timing["setters"][0].stopWorking()
             elif command.type == SHUTDOWNCOMMAND:
                 logger.debug("shutdown command")
                 import os, signal
                 os.kill(os.getpid(), signal.SIGTERM)
                 return
             elif command.type == TRANSFERMEMORY:
+                timing["setters"][0].transferring()
                 for address in command.address:
                     logger.debug("Transferring memory to " + str(address) + "....")
                     dest = address
@@ -292,8 +296,7 @@ def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
                     logger.debug("Waiting state off")
                     transferToDoAfter = False
 
-            if master:
-                timing["setters"][0].stopWorking()
+
         except Exception as e:
             logger.error(e)
 
@@ -508,6 +511,7 @@ class TimingMetricator(object):
         self.meanWaitingRatio = 0
         self.totalWorkingTime = 0
         self.startPeriod = time()
+        self.transferring = False
 
     def __str__(self):
         return str(self.getMean())
@@ -521,6 +525,9 @@ class TimingMetricator(object):
     def startWaiting(self):
         self.startWaitingTime = time()
 
+    def transferring(self):
+        self.transferring = True
+
     def calcMean(self):
         period = time() - self.startPeriod
         working = self.totalWorkingTime
@@ -528,6 +535,7 @@ class TimingMetricator(object):
         self.totalWorkingTime = 0
         self.startPeriod = time()
         self.meanWaitingRatio = waitingMean
+        self.transferring = False
         return waitingMean
 
     def stopWorking(self):
