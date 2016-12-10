@@ -1,0 +1,31 @@
+servers : 172.31.20.1:5555,172.31.20.2:5555,172.31.20.3:5555,172.31.20.4:5555,172.31.20.5:5555
+threads count: 2
+concurrency: 16
+run time: 300s
+windows size: 10k
+set proportion: set_prop=0.50
+get proportion: get_prop=0.50
+
+
+
+
+
+
+
+
+
+
+Get Statistics
+Type     Time(s)  Ops          TPS(ops/s)   Net(M/s)   Get_miss   Min(us)  Max(us)    Avg(us)    Std_dev    Geo_dist
+Period   60       76412        1273         2.6        12040      670      1051284    11418      41269.89   7989.33
+Global   60       76412        1273         2.6        12040      670      1051284    11418      41269.89   7989.33
+
+Set Statistics
+Type     Time(s)  Ops          TPS(ops/s)   Net(M/s)   Get_miss   Min(us)  Max(us)    Avg(us)    Std_dev    Geo_dist
+Period   60       76427        1273         2.6        0          399      19357      1140       733.14     988.90
+Global   60       76427        1273         2.6        0          399      19357      1140       733.14     988.90
+
+Total Statistics
+Type     Time(s)  Ops          TPS(ops/s)   Net(M/s)   Get_miss   Min(us)  Max(us)    Avg(us)    Std_dev    Geo_dist
+Period   60       152839       2547         5.3        12040      399      1051284    6278       29634.39   2810.52
+Global   60       152839       2547         5.3        12040      399      1051284    6278       29634.39   2810.52
