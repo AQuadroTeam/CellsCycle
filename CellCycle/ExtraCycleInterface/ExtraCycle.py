@@ -21,7 +21,7 @@ def startExtraCycleListeners(settings, logger, list_manager=None):
     sock = socket(AF_INET, SOCK_STREAM)
     sock.bind(('', int(port)))
 
-    queue = Queue(maxsize=10)
+    queue = Queue(maxsize=50)
 
     for i in range(threadNumber):
         th = Thread(name='ServiceEntrypointThread',target=_serviceThread, args=(settings, logger, url_Frontend, queue, list_manager))
