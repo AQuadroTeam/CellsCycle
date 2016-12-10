@@ -305,6 +305,7 @@ def _transfer(settings,logger, dest, dataList, begin, end):
     logger.debug("Transfer memory command received: Transferring memory to "+ str(dest)+", b,e: "+str(begin)+","+str(end))
     context = zmq.Context.instance()
     socketTM = context.socket(zmq.PUSH)
+    socketTM.set_hwm(1)
     socketTM.connect(dest)
     if(int(begin) <= int(end)):
         range1 = (int(begin), int(end))
