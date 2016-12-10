@@ -207,7 +207,8 @@ def _setThread(logger, settings, cache, master, url,queue,  hostState, timing):
                 os.kill(os.getpid(), signal.SIGTERM)
                 return
             elif command.type == TRANSFERMEMORY:
-                timing["setters"][0].setTransferring()
+                if(master):
+                    timing["setters"][0].setTransferring()
                 for address in command.address:
                     logger.debug("Transferring memory to " + str(address) + "....")
                     dest = address
