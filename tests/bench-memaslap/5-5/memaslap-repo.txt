@@ -1,0 +1,179 @@
+ubuntu@ip-172-31-21-1:~$  memaslap-test -T 5 -F ".memaslap.cnf" -S 60s -t 300s -c 10 --win_size=1k
+servers : 172.31.20.1:5555,172.31.20.2:5555,172.31.20.3:5555,172.31.20.4:5555,172.31.20.5:5555
+threads count: 5
+concurrency: 10
+run time: 300s
+windows size: 1k
+set proportion: set_prop=0.50
+get proportion: get_prop=0.50
+
+Get Statistics
+Type     Time(s)  Ops          TPS(ops/s)   Net(M/s)   Get_miss   Min(us)  Max(us)    Avg(us)    Std_dev    Geo_dist
+Period   60       55614        926          1.0        65         704      51649      9688       7828.11    6796.71
+Global   60       55614        926          1.0        65         704      51649      9688       7828.11    6796.71
+
+Set Statistics
+Type     Time(s)  Ops          TPS(ops/s)   Net(M/s)   Get_miss   Min(us)  Max(us)    Avg(us)    Std_dev    Geo_dist
+Period   60       55623        927          1.0        0          322      25925      1097       1110.84    803.81
+Global   60       55623        927          1.0        0          322      25925      1097       1110.84    803.81
+
+Total Statistics
+Type     Time(s)  Ops          TPS(ops/s)   Net(M/s)   Get_miss   Min(us)  Max(us)    Avg(us)    Std_dev    Geo_dist
+Period   60       111237       1853         2.1        65         322      51649      5392       7050.32    2337.16
+Global   60       111237       1853         2.1        65         322      51649      5392       7050.32    2337.16
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Get Statistics
+Type     Time(s)  Ops          TPS(ops/s)   Net(M/s)   Get_miss   Min(us)  Max(us)    Avg(us)    Std_dev    Geo_dist
+Period   60       49281        821          1.0        1451       584      77095      10963      8536.03    7739.37
+Global   120      104895       874          0.9        1516       584      77095      10287      8193.07    7224.36
+
+Set Statistics
+Type     Time(s)  Ops          TPS(ops/s)   Net(M/s)   Get_miss   Min(us)  Max(us)    Avg(us)    Std_dev    Geo_dist
+Period   60       49281        821          1.0        0          318      22786      1210       1246.48    857.70
+Global   120      104904       874          0.9        0          318      25925      1150       1177.94    828.69
+
+Total Statistics
+Type     Time(s)  Ops          TPS(ops/s)   Net(M/s)   Get_miss   Min(us)  Max(us)    Avg(us)    Std_dev    Geo_dist
+Period   60       98562        1642         2.0        1451       318      77095      6086       7809.93    2576.44
+Global   120      209799       1748         1.8        1516       318      77095      5718       7424.97    2446.67
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Get Statistics
+Type     Time(s)  Ops          TPS(ops/s)   Net(M/s)   Get_miss   Min(us)  Max(us)    Avg(us)    Std_dev    Geo_dist
+Period   60       54497        908          1.0        3396       614      69753      9904       8307.26    6910.74
+Global   180      159392       885          1.0        4912       584      77095      10156      8234.33    7115.56
+
+Set Statistics
+Type     Time(s)  Ops          TPS(ops/s)   Net(M/s)   Get_miss   Min(us)  Max(us)    Avg(us)    Std_dev    Geo_dist
+Period   60       54496        908          1.0        0          309      20175      1103       1241.69    786.25
+Global   180      159400       885          1.0        0          309      25925      1134       1200.25    813.93
+
+Total Statistics
+Type     Time(s)  Ops          TPS(ops/s)   Net(M/s)   Get_miss   Min(us)  Max(us)    Avg(us)    Std_dev    Geo_dist
+Period   60       108993       1816         2.0        3396       309      69753      5503       7392.34    2331.02
+Global   180      318792       1771         2.0        4912       309      77095      5645       7414.13    2406.50
+
+
+
+
+
+
+
+ubuntu@ip-172-31-20-99:~$  memaslap-test -T 5 -F ".memaslap.cnf" -S 60s -t 300s -c 10 --win_size=1k
+servers : 172.31.20.1:5555,172.31.20.2:5555,172.31.20.3:5555,172.31.20.4:5555,172.31.20.5:5555
+threads count: 5
+concurrency: 10
+run time: 300s
+windows size: 1k
+set proportion: set_prop=0.50
+get proportion: get_prop=0.50
+
+Get Statistics
+Type     Time(s)  Ops          TPS(ops/s)   Net(M/s)   Get_miss   Min(us)  Max(us)    Avg(us)    Std_dev    Geo_dist
+Period   60       46979        782          0.9        481        708      73789      11433      8495.28    8204.46
+Global   60       46979        782          0.9        481        708      73789      11433      8495.28    8204.46
+
+Set Statistics
+Type     Time(s)  Ops          TPS(ops/s)   Net(M/s)   Get_miss   Min(us)  Max(us)    Avg(us)    Std_dev    Geo_dist
+Period   60       46991        783          0.9        0          371      26985      1335       1253.76    986.68
+Global   60       46991        783          0.9        0          371      26985      1335       1253.76    986.68
+
+Total Statistics
+Type     Time(s)  Ops          TPS(ops/s)   Net(M/s)   Get_miss   Min(us)  Max(us)    Avg(us)    Std_dev    Geo_dist
+Period   60       93970        1566         1.8        481        371      73789      6383       7897.04    2844.81
+Global   60       93970        1566         1.8        481        371      73789      6383       7897.04    2844.81
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Get Statistics
+Type     Time(s)  Ops          TPS(ops/s)   Net(M/s)   Get_miss   Min(us)  Max(us)    Avg(us)    Std_dev    Geo_dist
+Period   60       50720        845          0.9        982        691      70250      10619      8322.53    7539.09
+Global   120      97699        814          0.9        1463       691      73789      11011      8415.07    7852.02
+
+Set Statistics
+Type     Time(s)  Ops          TPS(ops/s)   Net(M/s)   Get_miss   Min(us)  Max(us)    Avg(us)    Std_dev    Geo_dist
+Period   60       50719        845          0.9        0          372      17927      1208       1205.17    891.39
+Global   120      97710        814          0.9        0          371      26985      1269       1230.49    936.01
+
+Total Statistics
+Type     Time(s)  Ops          TPS(ops/s)   Net(M/s)   Get_miss   Min(us)  Max(us)    Avg(us)    Std_dev    Geo_dist
+Period   60       101439       1690         1.8        982        372      70250      5913       7583.33    2592.38
+Global   120      195409       1628         1.9        1463       371      73789      6139       7739.33    2710.84
