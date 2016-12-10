@@ -90,6 +90,7 @@ def _memoryMetricatorThread(logger, cache, settings, master, timing):
         internal_channel = InternalChannel(addr='127.0.0.1', port=settings.getIntPort(), logger=logger)
         internal_channel.generate_internal_channel_client_side()
         from random import gauss
+        sleep(60)
         while True:
 
             sleep(abs(gauss(period, period/10)))
