@@ -111,7 +111,7 @@ def _memoryMetricatorThread(logger, cache, settings, master, timing):
                 # self.list_communication_thread.notify_scale_up()
 
             # scale down needed
-        elif getMean <= getScaleDownLevel and setMean <= setScaleDownLevel:
+            elif getMean <= getScaleDownLevel and setMean <= setScaleDownLevel:
 
                 logger.debug("Requests for scale Down!")
                 # call scale down service
