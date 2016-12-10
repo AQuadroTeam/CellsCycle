@@ -1,11 +1,11 @@
 # Cell Cycle Specification
 *A proposal for Elastic Distributed Shared Memory in the Cloud Application*
-*: -->Full specification at [CellCycleSpecification.pdf](https://github.com/AQuadroTeam/CellsCycle/blob/master/doc/CellsCycleSpecification_05_09_2016.pdf)*
+*: -->Full specification at [CellCyclePaper.pdf](https://github.com/AQuadroTeam/CellsCycle/blob/master/Paper/CellCyclePaper.pdf)*
 
 ![picture alt](https://github.com/AQuadroTeam/CellsCycle/blob/master/doc/icon.png)
 
 
-
+# Complete and updated Paper at [CellCyclePaper.pdf](https://github.com/AQuadroTeam/CellsCycle/blob/master/Paper/CellCyclePaper.pdf)*
 
 # Target
 Cells Cycle is a P2P architecture for a distributed shared memory in the cloud, elastic.
